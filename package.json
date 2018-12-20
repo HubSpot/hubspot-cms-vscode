@@ -1,12 +1,17 @@
 {
     "name": "hubl",
     "displayName": "HubL Language Extension",
-    "description": "Snippets for HubL",
+    "description": "HubL Visual Studio Code Language Extension",
     "version": "0.0.1",
     "publisher": "WilliamSpiro",
     "engines": {
         "vscode": "^1.30.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/williamspiro/HubL-Language-Extension"
+    },
+    "homepage": "https://github.com/williamspiro/HubL-Language-Extension/blob/master/README.md",
     "categories": [
         "Snippets"
     ],
