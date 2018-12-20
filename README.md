@@ -17,7 +17,10 @@ All HubL supported tags, filters and functions have auto-complete snippts. Filte
 ![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/details.png)
 __HubL Tags__ produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
 ```
-{% header "my_header" header_tag="header_tag", value="value" %}
+{% header "my_header" 
+   header_tag="header_tag",
+   value="value" 
+%}
 ```
 __HubL Filters__ produce entire HubL filter statements with available parameters. Ex `~se` > Enter produces:
 ```
