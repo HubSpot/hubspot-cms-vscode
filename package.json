@@ -1,0 +1,38 @@
+{
+    "name": "hubl",
+    "displayName": "HubL",
+    "description": "Snippets for HubL",
+    "version": "0.0.1",
+    "publisher": "William Spiro",
+    "engines": {
+        "vscode": "^1.30.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./snippets/hubl_filters.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/hubl_functions.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/hubl_tags.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/hubl_extras.json"
+            }
+        ],
+        "languages": [{
+            "id": "html",
+            "extensions": [ ".html" ],
+            "configuration": "./langconfig/language-configuration.json"
+        }]
+    }
+}

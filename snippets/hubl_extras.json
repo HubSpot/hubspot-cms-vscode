@@ -1,0 +1,41 @@
+{
+    "overridable=true":{  
+        "prefix":"otrue",
+        "body": [
+            "overrideable=True"
+        ],
+        "description":"Generates overrideable=True for HubL tags"
+    },
+    "overridable=false":{  
+        "prefix":"ofalse",
+        "body": [
+            "overrideable=False"
+        ],
+        "description":"Generates overrideable=False for HubL tags"
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "{% for ${iterable} in ${dict} %}",
+            "   {{ ${iterable} }}",
+            "{% endfor %}"
+        ],
+        "description": "Returns a sequence of data table rows based on the query."
+     },
+     "if": {
+        "prefix": "if",
+        "body": [
+            "{% if ${test} %}",
+            "   ${do_something}",
+            "{% endif %}"
+        ],
+        "description": "Returns a sequence of data table rows based on the query."
+     },
+     "elif": {
+        "prefix": "elif",
+        "body": [
+            "{% elif ${test} %}"
+        ],
+        "description": "Else if statement to be used within if statement"
+     }
+}
