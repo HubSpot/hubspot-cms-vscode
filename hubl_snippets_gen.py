@@ -76,15 +76,3 @@ for hubl_function in hubl_functions:
     functions_snippets[function_name] = function_json
 with open('./snippets/hubl_functions.json', 'w') as outfile:
     json.dump(functions_snippets, outfile)
-
-
-# {
-#     "hubdb_table_rows": {
-#         "prefix": "hubdb_table_rows",
-#         "body": [
-#             "hubdb_table_rows(${tableId}, ${filterQuery})"
-#         ],
-#         "description": "Returns a sequence of data table rows based on the query."
-#      },
-     
-# }

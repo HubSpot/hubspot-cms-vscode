@@ -1,10 +1,12 @@
 # HubL Visual Studio Code Language Extension
-A HubL language extension for the Visual Studio Code IDE, allowing for :rocket: fast local HubSpot CMS Platform development. For comprehensive HubL documentation, see the [HubL docs](https://designers.hubspot.com/docs/hubl/intro-to-hubl).
+A HubL language extension for the Visual Studio Code IDE, allowing for :rocket: fast local HubSpot CMS Platform development. For comprehensive HubL documentation, see the [HubL docs](https://designers.hubspot.com/docs/hubl/intro-to-hubl).  
+
 ![language extention demo](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/vs_extension_2.gif)
 
 ## Features
 ### __HubL Snippets__  
-All HubL supported tags, filters and functions have auto-complete snippts. Filters are accessed with `|` and fucntions/tags are acccessed with `%`. Entering `%` or `|` will produce all HubL snippets and further typing will narrow the results. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.   
+All HubL supported tags, filters and functions have auto-complete snippts. Filters are accessed with `|` and fucntions/tags are acccessed with `%`. Entering `%` or `|` will produce all HubL snippets and further typing will narrow the results. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.     
+
 ![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/details.png)
 __HubL Tags__ produce entire HubL tag statements with available parameters. Ex `%he` > Enter produces:
 ```
