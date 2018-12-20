@@ -5,18 +5,18 @@ A HubL language extension for the [Visual Studio Code IDE](https://code.visualst
 
 ## Features
 ### __HubL Snippets__  
-All HubL supported tags, filters and functions have auto-complete snippts. Filters are accessed with `|` and fucntions/tags are acccessed with `%`. Entering `%` or `|` will produce all HubL snippets and further typing will narrow the results. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.     
+All HubL supported tags, filters and functions have auto-complete snippts. Filters are accessed with `|` and fucntions/tags are acccessed with `~`. Entering `~` or `|` will produce all HubL snippets and further typing will narrow the results. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.     
 
 ![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/details.png)
-__HubL Tags__ produce entire HubL tag statements with available parameters. Ex `%he` > Enter produces:
+__HubL Tags__ produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
 ```
 {% header "my_header" header_tag="header_tag", value="value" %}
 ```
-__HubL Filters__ produce entire HubL filter statements with available parameters. Ex `%se` > Enter produces:
+__HubL Filters__ produce entire HubL filter statements with available parameters. Ex `~se` > Enter produces:
 ```
 |selectattr(attr, exp_test)
 ```
-__HubL Functions__ produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `%hub` > Enter produces:
+__HubL Functions__ produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
 ```
 hubdb_table_rows(table_id,query)
 ```
