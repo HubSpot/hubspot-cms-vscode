@@ -1,9 +1,9 @@
 {
     "name": "hubl",
-    "displayName": "HubL",
+    "displayName": "HubL Language Extension",
     "description": "Snippets for HubL",
     "version": "0.0.1",
-    "publisher": "William Spiro",
+    "publisher": "WilliamSpiro",
     "engines": {
         "vscode": "^1.30.0"
     },
