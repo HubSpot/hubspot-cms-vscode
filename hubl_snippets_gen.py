@@ -36,7 +36,7 @@ for hubl_tag in hubl_tags:
     if hubl_tags[hubl_tag]['name'] != 'for' and hubl_tags[hubl_tag]['name'] != 'if':
         tag_json = {}
         tag_name = hubl_tags[hubl_tag]['name']
-        tag_json['prefix'] = f'%{tag_name}'
+        tag_json['prefix'] = f'~{tag_name}'
         params_list_desc = ''
         params_list_body = ''
         tag_desc = hubl_tags[hubl_tag]['desc']
@@ -59,7 +59,7 @@ functions_snippets = {}
 for hubl_function in hubl_functions:
     function_json = {}
     function_name = hubl_functions[hubl_function]['name']
-    function_json['prefix'] = f'%{function_name}'
+    function_json['prefix'] = f'~{function_name}'
     params_list_desc = ''
     params_list_body = ''
     function_desc = hubl_functions[hubl_function]['desc']
