@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubL Language Extension",
     "description": "HubL Visual Studio Code Language Extension",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "WilliamSpiro",
     "engines": {
         "vscode": "^1.30.0"
@@ -34,10 +34,14 @@
                 "path": "./snippets/hubl_extras.json"
             }
         ],
-        "languages": [{
-            "id": "html",
-            "extensions": [ ".html" ],
-            "configuration": "./langconfig/language-configuration.json"
-        }]
+        "languages": [
+            {
+                "id": "html",
+                "extensions": [
+                    ".html"
+                ],
+                "configuration": "./langconfig/language-configuration.json"
+            }
+        ]
     }
 }
