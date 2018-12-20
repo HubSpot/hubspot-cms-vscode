@@ -30,6 +30,8 @@ hubdb_table_rows(table_id,query)
 
 _NOTE_: HubL tags, functions and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update the `snippets/hubl_filters.json`, `snippets/hubl_tags.json` or `snippets/hubl_.json` manually. Run `hubl_snippets_gen.py` to re-generate these JSON files when HubL changes occur. `snippets/hubl_extras.json` is for any extra/helpful snippets used in HubL - this file is maintained manually.
 
+_NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
+
 ### __HubL Langage Configuration__  
 `langconfig/language-configuration.json` contains some nice to haves when it comes to writing HubL. This supports auto completes of all HubL statement types and supports HubL statement swrapping (highlight text and  type HubL statement to wrap). Supports `{%%}`,`{##}`,`{{}}`
 
