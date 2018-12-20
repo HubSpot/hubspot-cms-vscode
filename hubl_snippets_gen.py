@@ -47,12 +47,12 @@ for hubl_tag in hubl_tags:
         for i, param in enumerate(tag_params):
             params_list_desc += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
             if param["type"] == 'String':
-                params_list_body += f' {param["name"]}="${{{param["name"]}}}",'
+                params_list_body += f'\n\t{param["name"]}="${{{param["name"]}}}",'
             else:
-                params_list_body += f' {param["name"]}=${{{param["name"]}}},'
+                params_list_body += f'\n\t{param["name"]}=${{{param["name"]}}},'
         params_list_body = params_list_body[:-1]
         tag_json['description'] = f'{filter_desc}\nParameters:\n{params_list_desc}'
-        tag_json['body'] = [f'{{% {tag_name} "my_{tag_name}"' + params_list_body + ' %}']
+        tag_json['body'] = [f'{{% {tag_name} "my_{tag_name}"' + params_list_body + '\n%}']
         tags_snippets[tag_name] = tag_json
 writePrettySnippetJson('hubl_tags', tags_snippets)
 
