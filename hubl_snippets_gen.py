@@ -3,6 +3,10 @@ import requests
 
 hubl = requests.get('https://api.hubspot.com/cos-rendering/v1/hubldoc').json()
 
+def writePrettySnippetJson(filePath, snippetJson):
+    with open(f'./snippets/{filePath}.json', 'w') as outfile:
+        json.dump(snippetJson, outfile, indent=4, sort_keys=True) 
+
 hubl_filters = hubl['filters']
 filters_snippets = {}
 for hubl_filter in hubl_filters:
@@ -27,8 +31,7 @@ for hubl_filter in hubl_filters:
     filter_json['description'] = f'{filter_desc}\nParameters:\n{params_list_desc}'
     filter_json['body'] = [f'|{filter_name}' + params_list_body]
     filters_snippets[filter_name] = filter_json
-with open('./snippets/hubl_filters.json', 'w') as outfile:
-    json.dump(filters_snippets, outfile)
+writePrettySnippetJson('hubl_filters', filters_snippets)
 
 hubl_tags = hubl['tags']
 tags_snippets = {}
@@ -51,8 +54,7 @@ for hubl_tag in hubl_tags:
         tag_json['description'] = f'{filter_desc}\nParameters:\n{params_list_desc}'
         tag_json['body'] = [f'{{% {tag_name} "my_{tag_name}"' + params_list_body + ' %}']
         tags_snippets[tag_name] = tag_json
-with open('./snippets/hubl_tags.json', 'w') as outfile:
-    json.dump(tags_snippets, outfile)
+writePrettySnippetJson('hubl_tags', tags_snippets)
 
 hubl_functions = hubl['functions']
 functions_snippets = {}
@@ -74,5 +76,4 @@ for hubl_function in hubl_functions:
     function_json['description'] = f'{function_desc}\nParameters:\n{params_list_desc}'
     function_json['body'] = [f'{function_name}(' + params_list_body + ')']
     functions_snippets[function_name] = function_json
-with open('./snippets/hubl_functions.json', 'w') as outfile:
-    json.dump(functions_snippets, outfile)
+writePrettySnippetJson('hubl_functions', functions_snippets)
