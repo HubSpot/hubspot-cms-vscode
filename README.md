@@ -28,3 +28,9 @@ _NOTE_: HubL tags, functions and filters are all pulled from the `cos-rendering/
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Contributing
+Anyone should feel free to fork/PR this! Open source for the win :poop::poop::poop::poop:
+Please make sure and explain your changes thoroughly, update version and changelog where needed.   
+
+To run locally, `git clone` repo and press `f5` to launch a new VSCode window with the extension installed. `CMD` + `R` to reload the window after having made any changes.  
