@@ -1,5 +1,5 @@
 # HubL Visual Studio Code Language Extension
-Get it :point_right: https://marketplace.visualstudio.com/items?itemName=WilliamSpiro.hubl  
+(will put this up in VSCode Store in early Jan)
 
 [HubL](https://designers.hubspot.com/docs/hubl/intro-to-hubl) is the underlying syntax used in the [HubSpot content management system](https://www.hubspot.com/products/marketing/content-management-system). HubL can be used to dynamically render content, as well as generate easy to edit modules within the content editors marketers work in so they do not ever need to touch the underlying HTML of a template. This allows for many pages to use a single template, making managing content and websites significantly easier and quicker.
 
