@@ -12,7 +12,7 @@ _For nice HubL syntax highlighting, install the [Jinja scopes extension](https:/
 
 ## Features
 ### __HubL Snippets__  
-All HubL supported tags, filters and functions have auto-complete snippts. Filters are accessed with `|` and fucntions/tags are acccessed with `~`. Entering `~` or `|` will produce all HubL snippets and further typing will narrow the results. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.     
+All HubL supported tags, filters, expression tests and functions have auto-complete snippts. Expression tests are access by typing the test name along, filters are accessed with `|` and fucntions/tags are acccessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through.     
 
 ![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/details.png)
 __HubL Tags__ produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
@@ -29,6 +29,10 @@ __HubL Filters__ produce entire HubL filter statements with available parameters
 __HubL Functions__ produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
 ```
 hubdb_table_rows(table_id,query)
+```
+__HubL Functions__ produce expression test names. Ex `di` > Enter produces:
+```
+divisibleby
 ```
 
 _NOTE_: HubL tags, functions and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update the `snippets/hubl_filters.json`, `snippets/hubl_tags.json` or `snippets/hubl_.json` manually. Run `hubl_snippets_gen.py` to re-generate these JSON files when HubL changes occur. `snippets/hubl_extras.json` is for any extra/helpful snippets used in HubL - this file is maintained manually.
