@@ -30,7 +30,7 @@ __HubL Functions__ produce entire HubL function statements with available parame
 ```
 hubdb_table_rows(table_id,query)
 ```
-__HubL Functions__ produce expression test names. Ex `di` > Enter produces:
+__HubL Expression Tests__ produce expression test names. Ex `di` > Enter produces:
 ```
 divisibleby
 ```
