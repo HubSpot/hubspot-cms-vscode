@@ -1,0 +1,149 @@
+{
+    "containing": {
+        "body": [
+            "containing"
+        ],
+        "description": "",
+        "prefix": "containing"
+    },
+    "containingall": {
+        "body": [
+            "containingall"
+        ],
+        "description": "",
+        "prefix": "containingall"
+    },
+    "defined": {
+        "body": [
+            "defined"
+        ],
+        "description": "Return true if the variable is defined",
+        "prefix": "defined"
+    },
+    "divisibleby": {
+        "body": [
+            "divisibleby"
+        ],
+        "description": "Check if a variable is divisible by a number\nParameters:\n- num(number) The number to check whether a number is divisble by\n",
+        "prefix": "divisibleby"
+    },
+    "equalto": {
+        "body": [
+            "equalto"
+        ],
+        "description": "Check if an object has the same value as another object\nParameters:\n- other(object) Another object to check equality against\n",
+        "prefix": "equalto"
+    },
+    "even": {
+        "body": [
+            "even"
+        ],
+        "description": "Return true if the value is even",
+        "prefix": "even"
+    },
+    "iterable": {
+        "body": [
+            "iterable"
+        ],
+        "description": "Return true if the object is iterable (sequence, dict, etc)",
+        "prefix": "iterable"
+    },
+    "lower": {
+        "body": [
+            "lower"
+        ],
+        "description": "Return true if the given string is all lowercased",
+        "prefix": "lower"
+    },
+    "mapping": {
+        "body": [
+            "mapping"
+        ],
+        "description": "Return true if the given object is a dict",
+        "prefix": "mapping"
+    },
+    "none": {
+        "body": [
+            "none"
+        ],
+        "description": "Return true if the given object is null / none",
+        "prefix": "none"
+    },
+    "number": {
+        "body": [
+            "number"
+        ],
+        "description": "Return true if the object is a number",
+        "prefix": "number"
+    },
+    "odd": {
+        "body": [
+            "odd"
+        ],
+        "description": "Return true if the object is an odd number",
+        "prefix": "odd"
+    },
+    "sameas": {
+        "body": [
+            "sameas"
+        ],
+        "description": "Return true if variable is pointing at same object as other variable\nParameters:\n- other(object) A second object to check the variables value against\n",
+        "prefix": "sameas"
+    },
+    "sequence": {
+        "body": [
+            "sequence"
+        ],
+        "description": "Return true if the variable is a sequence. Sequences are variables that are iterable.",
+        "prefix": "sequence"
+    },
+    "string": {
+        "body": [
+            "string"
+        ],
+        "description": "Return true if object is a string",
+        "prefix": "string"
+    },
+    "string_containing": {
+        "body": [
+            "string_containing"
+        ],
+        "description": "Return true if object is a string which contains a specified other string",
+        "prefix": "string_containing"
+    },
+    "string_startingwith": {
+        "body": [
+            "string_startingwith"
+        ],
+        "description": "Return true if object is a string which starts with a specified other string",
+        "prefix": "string_startingwith"
+    },
+    "truthy": {
+        "body": [
+            "truthy"
+        ],
+        "description": "Return true if object is 'truthy'",
+        "prefix": "truthy"
+    },
+    "undefined": {
+        "body": [
+            "undefined"
+        ],
+        "description": "Return true if object is undefined",
+        "prefix": "undefined"
+    },
+    "upper": {
+        "body": [
+            "upper"
+        ],
+        "description": "Return true if string is all uppercased",
+        "prefix": "upper"
+    },
+    "within": {
+        "body": [
+            "within"
+        ],
+        "description": "",
+        "prefix": "within"
+    }
+}

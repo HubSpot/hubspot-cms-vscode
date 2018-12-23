@@ -2,78 +2,56 @@ import json
 import requests
 
 hubl = requests.get('https://api.hubspot.com/cos-rendering/v1/hubldoc').json()
+skips = {'for', 'if', 'block', 'widget_block'}
+nl = "\n"
 
 def writePrettySnippetJson(filePath, snippetJson):
     with open(f'./snippets/{filePath}.json', 'w') as outfile:
         json.dump(snippetJson, outfile, indent=4, sort_keys=True) 
 
-hubl_filters = hubl['filters']
-filters_snippets = {}
-for hubl_filter in hubl_filters:
-    filter_json = {}
-    filter_name = hubl_filters[hubl_filter]['name']
-    filter_json['prefix'] = f'|{filter_name}'
-    params_list_desc = ''
-    params_list_body = ''
-    filter_desc = hubl_filters[hubl_filter]['desc']
-    filter_params = hubl_filters[hubl_filter]['params']
-    for i, param in enumerate(filter_params):
-        params_list_desc += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
-        if i > 0:
-            if i == 1 and param == filter_params[-1]:
-                params_list_body += f'(${{{param["name"]}}})'
-            elif i == 1 and param != filter_params[-1]:
-                params_list_body += f'(${{{param["name"]}}},'
-            elif i > 1 and param != filter_params[-1]:
-                params_list_body += f' ${{{param["name"]}}},'
-            elif i > 1 and param == filter_params[-1]:
-                params_list_body += f' ${{{param["name"]}}})'
-    filter_json['description'] = f'{filter_desc}\nParameters:\n{params_list_desc}'
-    filter_json['body'] = [f'|{filter_name}' + params_list_body]
-    filters_snippets[filter_name] = filter_json
-writePrettySnippetJson('hubl_filters', filters_snippets)
+def paramify(paramType, param, hublType):
+    if paramType == 'String':
+        builtParam = f'"${{{param}}}"'
+    else:
+        builtParam = f'${{{param}}}'
+    if hublType == 'tags':
+        builtParam = f'\n\t{param}={builtParam}'
+    return builtParam
 
-hubl_tags = hubl['tags']
-tags_snippets = {}
-for hubl_tag in hubl_tags:
-    if hubl_tags[hubl_tag]['name'] != 'for' and hubl_tags[hubl_tag]['name'] != 'if':
-        tag_json = {}
-        tag_name = hubl_tags[hubl_tag]['name']
-        tag_json['prefix'] = f'~{tag_name}'
-        params_list_desc = ''
-        params_list_body = ''
-        tag_desc = hubl_tags[hubl_tag]['desc']
-        tag_params = hubl_tags[hubl_tag]['params']
-        for i, param in enumerate(tag_params):
-            params_list_desc += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
-            if param["type"] == 'String':
-                params_list_body += f'\n\t{param["name"]}="${{{param["name"]}}}",'
-            else:
-                params_list_body += f'\n\t{param["name"]}=${{{param["name"]}}},'
-        params_list_body = params_list_body[:-1]
-        tag_json['description'] = f'{filter_desc}\nParameters:\n{params_list_desc}'
-        tag_json['body'] = [f'{{% {tag_name} "my_{tag_name}"' + params_list_body + '\n%}']
-        tags_snippets[tag_name] = tag_json
-writePrettySnippetJson('hubl_tags', tags_snippets)
+def buildBody(bodyParams, hublType, name):
+    if hublType == 'functions':
+        body = f'{name}(' + bodyParams + ')'
+    elif hublType == 'filters':
+        body = f'|{name}{f"({bodyParams})" if bodyParams else ""}'
+    elif hublType == 'tags':
+        body = f'{{% {name} "my_{name}"\n\t' + bodyParams + '\n%}'
+    elif hublType == 'expTests':
+        body = name
+    return body
 
-hubl_functions = hubl['functions']
-functions_snippets = {}
-for hubl_function in hubl_functions:
-    function_json = {}
-    function_name = hubl_functions[hubl_function]['name']
-    function_json['prefix'] = f'~{function_name}'
-    params_list_desc = ''
-    params_list_body = ''
-    function_desc = hubl_functions[hubl_function]['desc']
-    function_params = hubl_functions[hubl_function]['params']
-    for i, param in enumerate(function_params):
-        params_list_desc += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
-        if param["type"] == 'String':
-            params_list_body += f'"${{{param["name"]}}}",'
-        else:
-            params_list_body += f'${{{param["name"]}}},'
-    params_list_body = params_list_body[:-1]
-    function_json['description'] = f'{function_desc}\nParameters:\n{params_list_desc}'
-    function_json['body'] = [f'{function_name}(' + params_list_body + ')']
-    functions_snippets[function_name] = function_json
-writePrettySnippetJson('hubl_functions', functions_snippets)
+def buildHubLSnippets(hublType, prefixChar):
+    snippets = {}
+    hublObjects = hubl[hublType]
+    for hublObject in hublObjects:
+        desc_params = ''
+        body_params = ''
+        snippet = {}
+        name = hublObjects[hublObject]['name']
+        snippet['prefix'] = f'{prefixChar}{name}'
+        desc = hublObjects[hublObject]['desc']
+        params = hublObjects[hublObject]['params']
+        for i, param in enumerate(params):
+            desc_params += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
+            if i == 0 and hublType == 'filters':
+                continue
+            body_params += paramify(param["type"], param["name"], hublType) + ', '
+        body_params = body_params.strip()[:-1]
+        snippet['body'] = [buildBody(body_params, hublType, name)]
+        snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{desc_params}" if desc_params else ""}'
+        snippets[name] = snippet
+    writePrettySnippetJson(f'hubl_{hublType}', snippets)
+
+buildHubLSnippets('filters', '|')
+buildHubLSnippets('functions', '%')
+buildHubLSnippets('tags', '%')
+buildHubLSnippets('expTests', '')
