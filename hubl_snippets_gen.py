@@ -33,25 +33,26 @@ def buildHubLSnippets(hublType, prefixChar):
     snippets = {}
     hublObjects = hubl[hublType]
     for hublObject in hublObjects:
-        desc_params = ''
-        body_params = ''
-        snippet = {}
         name = hublObjects[hublObject]['name']
-        snippet['prefix'] = f'{prefixChar}{name}'
-        desc = hublObjects[hublObject]['desc']
-        params = hublObjects[hublObject]['params']
-        for i, param in enumerate(params):
-            desc_params += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
-            if i == 0 and hublType == 'filters':
-                continue
-            body_params += paramify(param["type"], param["name"], hublType) + ', '
-        body_params = body_params.strip()[:-1]
-        snippet['body'] = [buildBody(body_params, hublType, name)]
-        snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{desc_params}" if desc_params else ""}'
-        snippets[name] = snippet
+        if name not in skips:
+            desc_params = ''
+            body_params = ''
+            snippet = {}
+            snippet['prefix'] = f'{prefixChar}{name}'
+            desc = hublObjects[hublObject]['desc']
+            params = hublObjects[hublObject]['params']
+            for i, param in enumerate(params):
+                desc_params += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
+                if i == 0 and hublType == 'filters':
+                    continue
+                body_params += paramify(param["type"], param["name"], hublType) + ', '
+            body_params = body_params.strip()[:-1]
+            snippet['body'] = [buildBody(body_params, hublType, name)]
+            snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{desc_params}" if desc_params else ""}'
+            snippets[name] = snippet
     writePrettySnippetJson(f'hubl_{hublType}', snippets)
 
 buildHubLSnippets('filters', '|')
-buildHubLSnippets('functions', '%')
-buildHubLSnippets('tags', '%')
+buildHubLSnippets('functions', '~')
+buildHubLSnippets('tags', '~')
 buildHubLSnippets('expTests', '')
