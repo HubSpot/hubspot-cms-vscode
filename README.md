@@ -70,7 +70,6 @@ __Other Helpful HubL Things__
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="author" content="{{ meta_author }}">
         <meta name="description" content="{{ page_meta.meta_description }}">
-        <meta name="generator" content="HubSpot">
         <title>{{ page_meta.html_title }}</title>
         {% if site_settings.favicon_src %}<link rel="shortcut icon" href="{{ site_settings.favicon_src }}" />{% endif %}
         {{ standard_header_includes }}
