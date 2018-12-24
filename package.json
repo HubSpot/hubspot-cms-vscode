@@ -31,6 +31,10 @@
             },
             {
                 "language": "html",
+                "path": "./snippets/hubl_expTests.json"
+            },
+            {
+                "language": "html",
                 "path": "./snippets/hubl_extras.json"
             }
         ],
