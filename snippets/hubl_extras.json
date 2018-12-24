@@ -37,5 +37,72 @@
             "{% elif ${test} %}"
         ],
         "description": "Else if statement to be used within if statement"
-     }
+     },
+     "standard_footer_includes": {
+        "prefix": "standard_footer_includes",
+        "body": [
+            "{{ standard_footer_includes }}"
+        ],
+        "description": "Renders the HubSpot tracking code, public_common.js, and any other code included in your Footer HTML in Content Settings or the options of a particular page. This tag should be inserted directly before the closing body tag."
+     },
+     "standard_header_includes": {
+        "prefix": "standard_header_includes",
+        "body": [
+            "{{ standard_header_includes }}"
+        ],
+        "description": "Adds jQuery, public_common.css, layout.css, any attached stylesheets, a meta viewport tag, Google analytics tracking code, other page meta information, and code added to the head tag at the domain/template/page level. This variable should be added to the <head> of HTML templates."
+     },
+     "hubl_html_doc": {
+        "prefix": "hubldoc",
+        "body": [
+            "<!doctype html>",
+            "<!--[if lt IE 7]> <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\" lang=\"{{ html_lang }}\" {{ html_lang_dir }}> <![endif]-->",
+            "<!--[if IE 7]>    <html class=\"no-js lt-ie9 lt-ie8\" lang=\"{{ html_lang }}\" {{ html_lang_dir }}>        <![endif]-->",
+            "<!--[if IE 8]>    <html class=\"no-js lt-ie9\" lang=\"{{ html_lang }}\" {{ html_lang_dir }}>               <![endif]-->",
+            "<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"{{ html_lang }}\" {{ html_lang_dir }}> <!--<![endif]-->",
+            "   <head>",
+            "        <meta charset=\"utf-8\">",
+            "        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">",
+            "        <meta name=\"author\" content=\"{{ meta_author }}\">",
+            "        <meta name=\"description\" content=\"{{ page_meta.meta_description }}\">",
+            "        <title>{{ page_meta.html_title }}</title>",
+            "        {% if site_settings.favicon_src %}<link rel=\"shortcut icon\" href=\"{{ site_settings.favicon_src }}\" />{% endif %}",
+            "        {{ standard_header_includes }}",
+            "    </head>",
+            "    <body>",
+            "        ${stuff}",
+            "        {{ standard_footer_includes }}",
+            "    </body>",
+            "</html>"
+        ],
+        "description": "Boilerplate html/HubL docuemnt"
+     },
+     "hubl_blog_doc": {
+        "prefix": "hublblog",
+        "body": [
+            "{% if is_listing_view %}",
+            "    <!-- Markup for blog listing template -->",
+            "    {% for content in contents %}",
+            "        <h2><a href=\"{{content.absolute_url}}\">{{ content.name }}</a></h2>",
+            "        {% if content.post_list_summary_featured_image %}",
+            "            <a href=\"{{content.absolute_url}}\">",
+            "                <img src=\"{{ content.post_list_summary_featured_image }}\" alt=\"{{ content.featured_image_alt_text }}\">",
+            "            </a>",
+            "        {% endif %}",
+            "        {{ content.post_list_content|safe }}",
+            "    {% endfor %}",
+            "{% else %}",
+            "    <!-- Markup for blog post template -->",
+            "    <h1>{{ content.name }}</h1>",
+            "    <a href=\"{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}\">{{ content.blog_post_author.display_name }}</a>",
+            "    {{ content.publish_date_localized }}",
+            "    {{ content.post_body }}",
+            "    {% for topic in content.topic_list %}",
+            "        <a href=\"{{ blog_tag_url(group.id, topic.slug) }}\">{{ topic.name }}</a>{% if not loop.last %},{% endif %}",
+            "    {% endfor %}",
+            "    {% blog_comments \"blog_comments\" overrideable=False, label='Blog Comments' %}",
+            "{% endif %}"
+        ],
+        "description": "Boilerplate blog markup"
+    }
 }
