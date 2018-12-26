@@ -16,7 +16,7 @@ All HubL supported tags, filters, expression tests and functions have auto-compl
 
 _NOTE_: HubL tags, functions, expression tests and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update the `snippets/hubl_filters.json`, `snippets/hubl_tags.json`, `snippets/hubl_expTests.json` or `snippets/hubl_.json` manually. Run `hubl_snippets_gen.py` to re-generate these JSON files when HubL changes occur. `snippets/hubl_extras.json` is for any extra/helpful snippets used in HubL - this file is maintained manually.
 
-![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/details.png)
+![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/params.png)
 __HubL Tags__ produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
 ```
 {% header "${my_header}" 
