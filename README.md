@@ -40,7 +40,8 @@ divisibleby
 __Other Helpful HubL Things__  
 [`standard_footer_includes` & `standard_header_includes`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#required-page-template-variables)
  ```
-{{ standard_footer_includes }}, {{ standard_header_includes }}
+{{ standard_footer_includes }}
+{{ standard_header_includes }}
  ```
 [`for`](https://designers.hubspot.com/docs/hubl/for-loops)
 ```
