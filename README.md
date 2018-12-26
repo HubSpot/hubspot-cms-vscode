@@ -105,6 +105,10 @@ __Other Helpful HubL Things__
     {% blog_comments "blog_comments" overrideable=False, label='Blog Comments' %}
 {% endif %}
 ```
+`request.<variables>`
+```
+{{ request.cookies }}, {{ request.domain }}, {{ request.full_url }}, etc.
+```
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 

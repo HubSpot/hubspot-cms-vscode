@@ -36,6 +36,10 @@
             {
                 "language": "html",
                 "path": "./snippets/man_gen/hubl_extras.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_request_variables.json"
             }
         ],
         "languages": [
