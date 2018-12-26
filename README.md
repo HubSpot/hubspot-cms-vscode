@@ -58,6 +58,13 @@ __Other Helpful HubL Things__
 ```
 {% elif ${test} %}
 ```
+[`blog variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#blog-variables)
+```
+{{ content.post_body }},{{ content.blog_post_author }},{{ group }},{{ next_page_num }}
+```
+_NOTE_: Some of these variables are nested  
+![Nested variables](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/content..gif)
+
 `hubldoc`
 ```
 <!doctype html>
@@ -105,7 +112,7 @@ __Other Helpful HubL Things__
     {% blog_comments "blog_comments" overrideable=False, label='Blog Comments' %}
 {% endif %}
 ```
-`request.<variables>`
+[`request.<variables>`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#http-request-variables)
 ```
 {{ request.cookies }}, {{ request.domain }}, {{ request.full_url }}, etc.
 ```

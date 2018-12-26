@@ -40,6 +40,14 @@
             {
                 "language": "html",
                 "path": "./snippets/man_gen/hubl_request_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_blog_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_general_variables.json"
             }
         ],
         "languages": [
