@@ -60,7 +60,11 @@ __Other Helpful HubL Things__
 ```
 [`blog variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#blog-variables)
 ```
-{{ content.post_body }},{{ content.blog_post_author }},{{ group }},{{ next_page_num }}
+{{ content.post_body }}
+{{ content.blog_post_author }}
+{{ group }}
+{{ next_page_num }}
+etc.
 ```
 _NOTE_: Some of these variables are nested  
 ![Nested variables](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/content..gif)
@@ -114,7 +118,10 @@ _NOTE_: Some of these variables are nested
 ```
 [`request.<variables>`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#http-request-variables)
 ```
-{{ request.cookies }}, {{ request.domain }}, {{ request.full_url }}, etc.
+{{ request.cookies }}
+{{ request.domain }}
+{{ request.full_url }}
+etc.
 ```
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
