@@ -19,23 +19,23 @@
         "snippets": [
             {
                 "language": "html",
-                "path": "./snippets/hubl_filters.json"
+                "path": "./snippets/auto_gen/hubl_filters.json"
             },
             {
                 "language": "html",
-                "path": "./snippets/hubl_functions.json"
+                "path": "./snippets/auto_gen/hubl_functions.json"
             },
             {
                 "language": "html",
-                "path": "./snippets/hubl_tags.json"
+                "path": "./snippets/auto_gen/hubl_tags.json"
             },
             {
                 "language": "html",
-                "path": "./snippets/hubl_expTests.json"
+                "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
                 "language": "html",
-                "path": "./snippets/hubl_extras.json"
+                "path": "./snippets/man_gen/hubl_extras.json"
             }
         ],
         "languages": [

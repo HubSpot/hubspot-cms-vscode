@@ -6,7 +6,7 @@ skips = {'for', 'if', 'block', 'widget_block'}
 nl = "\n"
 
 def writePrettySnippetJson(filePath, snippetJson):
-    with open(f'./snippets/{filePath}.json', 'w') as outfile:
+    with open(f'./snippets/auto_gen/{filePath}.json', 'w') as outfile:
         json.dump(snippetJson, outfile, indent=4, sort_keys=True) 
 
 def paramify(paramType, param, hublType):
