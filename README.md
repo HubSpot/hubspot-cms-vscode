@@ -17,22 +17,22 @@ All HubL supported tags, filters, expression tests and functions have auto-compl
 _NOTE_: HubL tags, functions, expression tests and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update any `snippets/auto-gen/...` json files manually. Run `hubl_snippets_gen.py` to re-generate these JSON files when HubL changes occur. `snippets/man_gen/...` files are for any extra/helpful snippets used in HubL - these files are maintained manually.
 
 ![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/params.png)
-__HubL Tags__ produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
+[__HubL Tags__](https://designers.hubspot.com/docs/hubl/hubl-supported-tags) produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
 ```
 {% header "${my_header}" 
    header_tag="${header_tag}",
    value="${value}" 
 %}
 ```
-__HubL Filters__ produce entire HubL filter statements with available parameters. Ex `~se` > Enter produces:
+[__HubL Filters__](https://designers.hubspot.com/docs/hubl/hubl-supported-filters) produce entire HubL filter statements with available parameters. Ex `~se` > Enter produces:
 ```
 |selectattr("${attr}", ${exp_test})
 ```
-__HubL Functions__ produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
+[__HubL Functions__](https://designers.hubspot.com/en/docs/hubl/hubl-supported-functions) produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
 ```
 hubdb_table_rows(${table_id}, ${query})
 ```
-__HubL Expression Tests__ produce expression test names. Ex `di` > Enter produces:
+[__HubL Expression Tests__](https://designers.hubspot.com/docs/hubl/operators-and-expression-tests#expression-tests) produce expression test names. Ex `di` > Enter produces:
 ```
 divisibleby
 ```
@@ -42,19 +42,19 @@ __Other Helpful HubL Things__
  ```
 {{ standard_footer_includes }}, {{ standard_header_includes }}
  ```
-`for`
+[`for`](https://designers.hubspot.com/docs/hubl/for-loops)
 ```
 {% for ${iterable} in ${dict} %}
    {{ ${iterable} }}
 {% endfor %}
 ```
-`if`
+[`if`](https://designers.hubspot.com/docs/hubl/if-statements)
 ```
 {% if ${test} %}
     ${do_something}
 {% endif %}
 ```
-`elif`
+[`elif`](https://designers.hubspot.com/docs/hubl/if-statements#using-elif-and-else)
 ```
 {% elif ${test} %}
 ```
