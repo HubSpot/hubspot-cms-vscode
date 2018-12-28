@@ -129,7 +129,7 @@ etc.
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 
 ### __HubL Langage Configuration__  
-`langconfig/language-configuration.json` contains some nice to haves when it comes to writing HubL. This supports auto completes of all HubL statement types and supports HubL statement swrapping (highlight text and  type HubL statement to wrap). Supports `{%%}`,`{##}`,`{{}}`
+`langconfig/language-configuration.json` contains some nice to haves when it comes to writing HubL. This supports auto completes of all HubL statement types and supports HubL statement swrapping (Supports `{%%}`,`{##}`,`{{}}`). Additionally, makes commenting (CMD + /) create HubL comments. Install the [Jinja scopes extension](https://marketplace.visualstudio.com/items?itemName=wholroyd.jinja) for pretty HubL syntax highlighting in .html files. 
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
