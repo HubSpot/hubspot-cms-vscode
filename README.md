@@ -55,9 +55,10 @@ __Other Helpful HubL Things__
     ${do_something}
 {% endif %}
 ```
-[`elif`](https://designers.hubspot.com/docs/hubl/if-statements#using-elif-and-else)
+[`elif` & `else`](https://designers.hubspot.com/docs/hubl/if-statements#using-elif-and-else)
 ```
 {% elif ${test} %}
+{% else %}
 ```
 [`blog variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#blog-variables)
 ```

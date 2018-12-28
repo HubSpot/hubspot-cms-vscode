@@ -38,6 +38,13 @@
         ],
         "description": "Else if statement to be used within if statement"
      },
+     "else": {
+        "prefix": "else",
+        "body": [
+            "{% else %}"
+        ],
+        "description": "Else statement to be used within if statement"
+     },
      "standard_footer_includes": {
         "prefix": "standard_footer_includes",
         "body": [
