@@ -35,20 +35,20 @@ def buildHubLSnippets(hublType, prefixChar):
     for hublObject in hublObjects:
         name = hublObjects[hublObject]['name']
         if name not in skips:
-            desc_params = ''
-            body_params = ''
+            descParams = ''
+            bodyParams = ''
             snippet = {}
             snippet['prefix'] = f'{prefixChar}{name}'
             desc = hublObjects[hublObject]['desc']
             params = hublObjects[hublObject]['params']
             for i, param in enumerate(params):
-                desc_params += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
+                descParams += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
                 if i == 0 and hublType == 'filters':
                     continue
-                body_params += paramify(param["type"], param["name"], hublType) + ', '
-            body_params = body_params.strip()[:-1]
-            snippet['body'] = [buildBody(body_params, hublType, name)]
-            snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{desc_params}" if desc_params else ""}'
+                bodyParams += paramify(param["type"], param["name"], hublType) + ', '
+            bodyParams = bodyParams.strip()[:-1]
+            snippet['body'] = [buildBody(bodyParams, hublType, name)]
+            snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{descParams}" if descParams else ""}'
             snippets[name] = snippet
     writePrettySnippetJson(f'hubl_{hublType}', snippets)
 
