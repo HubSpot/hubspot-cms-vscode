@@ -1,4 +1,18 @@
 {
+    "standard_footer_includes": {
+        "prefix": "standard_footer_includes",
+        "body": [
+            "{{ standard_footer_includes }}"
+        ],
+        "description": "Renders the HubSpot tracking code, public_common.js, and any other code included in your Footer HTML in Content Settings or the options of a particular page. This tag should be inserted directly before the closing body tag."
+     },
+     "standard_header_includes": {
+        "prefix": "standard_header_includes",
+        "body": [
+            "{{ standard_header_includes }}"
+        ],
+        "description": "Adds jQuery, public_common.css, layout.css, any attached stylesheets, a meta viewport tag, Google analytics tracking code, other page meta information, and code added to the head tag at the domain/template/page level. This variable should be added to the <head> of HTML templates."
+     },
     "content.absolute_url ": {
         "prefix":"content.absolute_url ",
         "body": [
