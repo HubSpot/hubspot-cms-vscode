@@ -120,9 +120,9 @@
     },
     "crm_object": {
         "body": [
-            "crm_object(${object type}, ${object id}, ${properties}, ${formatting})"
+            "crm_object(${object_type}, ${object_id}, ${properties}, ${formatting})"
         ],
-        "description": "Gets an object from the HubSpot CRM by id. For security, only product objects can be retrieved on any public page. Any other object type must be hosted on a page which is either password protected or requires a CMS Membership login. Objects are returned as a dict of properties and values.\nParameters:\n- object type(string) Required. contact, product, company, deal, ticket or quote\n- object id(number) Required. id of requested object\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Pass 'false' for raw strings.\n",
+        "description": "Gets an object from the HubSpot CRM by id. For security, only product objects can be retrieved on any public page. Any other object type must be hosted on a page which is either password protected or requires a CMS Membership login. Objects are returned as a dict of properties and values.\nParameters:\n- object_type(string) Required. contact, product, company, deal, ticket or quote\n- object_id(number) Required. id of requested object\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Pass 'false' for raw strings.\n",
         "prefix": "~crm_object"
     },
     "cta": {

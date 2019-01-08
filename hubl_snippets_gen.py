@@ -42,10 +42,10 @@ def buildHubLSnippets(hublType, prefixChar):
             desc = hublObjects[hublObject]['desc']
             params = hublObjects[hublObject]['params']
             for i, param in enumerate(params):
-                descParams += f'- {param["name"]}({param["type"]}) {param["desc"]}\n'
+                descParams += f'- {param["name"].replace(" ","_")}({param["type"]}) {param["desc"]}\n'
                 if i == 0 and hublType == 'filters':
                     continue
-                bodyParams += paramify(param["type"], param["name"], hublType) + ', '
+                bodyParams += paramify(param["type"], param["name"].replace(" ","_"), hublType) + ', '
             bodyParams = bodyParams.strip()[:-1]
             snippet['body'] = [buildBody(bodyParams, hublType, name)]
             snippet['description'] = f'{desc}{f"{nl}Parameters:{nl}{descParams}" if descParams else ""}'
