@@ -166,6 +166,48 @@
             "{{ subscription_confirmation_url }}"
         ],
         "description": "Prints the URL of the subscription preferences confirmation page. This URL is dynamically generated on send."
+     },
+     "subscription_name ": {
+        "prefix": "subscription_name ",
+        "body": [
+            "{{ subscription_name }}"
+        ],
+        "description": "Prints the name of the Email Type specified for that email."
+     },
+     "unsubscribe_anchor ": {
+        "prefix": "unsubscribe_anchor ",
+        "body": [
+            "{{ unsubscribe_anchor }}"
+        ],
+        "description": "Generates an anchor tag with the work 'unsubscribe' linked to your unsubscribe page."
+     },
+     "unsubscribe_link_all ": {
+        "prefix": "unsubscribe_link_all ",
+        "body": [
+            "{{ unsubscribe_link_all }}"
+        ],
+        "description": "Renders a link to unsubscribe from all email communications, as opposed to a link to manage subscription preferences."
+     },
+     "unsubscribe_section ": {
+        "prefix": "unsubscribe_section ",
+        "body": [
+            "{{ unsubscribe_section }}"
+        ],
+        "description": "Renders an unsubscribe section that includes an unsubscribe link, as well as help text."
+     },
+     "view_as_page_section ": {
+        "prefix": "view_as_page_section ",
+        "body": [
+            "{{ view_as_page_section }}"
+        ],
+        "description": "Generates a link with help text that leads to a webpage version of an email."
+     },
+     "view_as_page_url ": {
+        "prefix": "view_as_page_url ",
+        "body": [
+            "{{ view_as_page_url }}"
+        ],
+        "description": "Generates a link that leads to a webpage version of an email."
      }
     
 }
