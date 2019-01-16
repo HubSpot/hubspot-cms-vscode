@@ -124,6 +124,48 @@
             "{{ secondary_accent_color  }}"
         ],
         "description": "Email-template only alias for `site_settings.secondary_accent_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "secondary_font ": {
+        "prefix": "secondary_font ",
+        "body": [
+            "{{ secondary_font }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_font ` Secondary font setting from Content Settings > Colors and Fonts."
+     },
+     "secondary_font_color ": {
+        "prefix": "secondary_font_color ",
+        "body": [
+            "{{ secondary_font_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_font_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "secondary_font_size_num ": {
+        "prefix": "secondary_font_size_num ",
+        "body": [
+            "{{ secondary_font_size_num }}"
+        ],
+        "description": "Prints the font size number from Content Settings > Colors and Fonts. Excludes 'px'."
+     },
+     "site_settings.company_street_address_2 ": {
+        "prefix": "site_settings.company_street_address_2 ",
+        "body": [
+            "{{ site_settings.company_street_address_2 }}"
+        ],
+        "description": "Prints the address line 2 from Content Settings > Email > Footer Information."
+     },
+     "site_settings.office_location_name ": {
+        "prefix": "site_settings.office_location_name ",
+        "body": [
+            "{{ site_settings.office_location_name }}"
+        ],
+        "description": "Prints the office location name from Content Settings > Email > Footer Information."
+     },
+     "subscription_confirmation_url ": {
+        "prefix": "subscription_confirmation_url ",
+        "body": [
+            "{{ subscription_confirmation_url }}"
+        ],
+        "description": "Prints the URL of the subscription preferences confirmation page. This URL is dynamically generated on send."
      }
     
 }
