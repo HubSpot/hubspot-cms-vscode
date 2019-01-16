@@ -24,7 +24,7 @@ _NOTE_: HubL tags, functions, expression tests and filters are all pulled from t
    value="${value}" 
 %}
 ```
-[__HubL Filters__](https://designers.hubspot.com/docs/hubl/hubl-supported-filters) produce entire HubL filter statements with available parameters. Ex `~se` > Enter produces:
+[__HubL Filters__](https://designers.hubspot.com/docs/hubl/hubl-supported-filters) produce entire HubL filter statements with available parameters. Ex `|se` > Enter produces:
 ```
 |selectattr("${attr}", ${exp_test})
 ```
