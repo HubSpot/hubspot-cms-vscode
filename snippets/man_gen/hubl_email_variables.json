@@ -20,19 +20,54 @@
         ],
         "description":"The variable is used in HubSpot's default email templates to determine whether or not a border should be added. The setting is controlled in Content Settings > Colors and Fonts. It prints values: BORDER_AUTOMATIC, BORDER_MANUAL, BORDER_NONE."
     },
-    "content.archived ": {
-        "prefix":"content.archived ",
+    "site_settings.body_color ": {
+        "prefix":"site_settings.body_color ",
         "body": [
-            "{{ content.archived }}"
+            "{{ site_settings.body_color }}"
         ],
-        "description":"This variable evaluates to True, if the page or email was marked as archived by the user."
+        "description":"Body color setting from Content Settings > Colors and Fonts. Prints a HEX value."
     },
-    "content.author_email ": {
-        "prefix":"content.author_email ",
+    "site_settings.color_picker_favorite_1 ": {
+        "prefix":"site_settings.color_picker_favorite_1 ",
         "body": [
-            "{{ content.author_email }}"
+            "{{ site_settings.color_picker_favorite_1 }}"
         ],
-        "description":"The email address of the content creator."
+        "description":"Favorite color 1 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 1 with 2-6 to modify the tag for other favorite color settings.."
+    },
+    "site_settings.color_picker_favorite_2 ": {
+        "prefix":"site_settings.color_picker_favorite_2 ",
+        "body": [
+            "{{ site_settings.color_picker_favorite_2 }}"
+        ],
+        "description":"Favorite color 2 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 2 with 2-6 to modify the tag for other favorite color settings.."
+    },
+    "site_settings.color_picker_favorite_3 ": {
+        "prefix":"site_settings.color_picker_favorite_3 ",
+        "body": [
+            "{{ site_settings.color_picker_favorite_3 }}"
+        ],
+        "description":"Favorite color 3 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 3 with 2-6 to modify the tag for other favorite color settings.."
+    },
+    "site_settings.color_picker_favorite_4 ": {
+        "prefix":"site_settings.color_picker_favorite_4 ",
+        "body": [
+            "{{ site_settings.color_picker_favorite_4 }}"
+        ],
+        "description":"Favorite color 4 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 4 with 2-6 to modify the tag for other favorite color settings.."
+    },
+    "site_settings.color_picker_favorite_5 ": {
+        "prefix":"site_settings.color_picker_favorite_5 ",
+        "body": [
+            "{{ site_settings.color_picker_favorite_5 }}"
+        ],
+        "description":"Favorite color 5 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 5 with 2-6 to modify the tag for other favorite color settings.."
+    },
+    "site_settings.color_picker_favorite_6 ": {
+        "prefix":"site_settings.color_picker_favorite_6 ",
+        "body": [
+            "{{ site_settings.color_picker_favorite_6 }}"
+        ],
+        "description":"Favorite color 6 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 6 with 2-6 to modify the tag for other favorite color settings.."
     },
     "content.author_name ": {
         "prefix":"content.author_name ",
