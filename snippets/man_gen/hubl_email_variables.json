@@ -103,6 +103,27 @@
             "{{ primary_font }}"
         ],
         "description": "Email-template only alias for `site_settings.primary_font`. Primary font setting from Content Settings > Colors and Fonts."
-     }
+     },
+     "primary_font_size ": {
+        "prefix": "primary_font_size",
+        "body": [
+            "{{ primary_font_size }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_font_size`. Primary font size setting from Content Settings > Colors and Fonts. Includes 'px'."
+     },
+     "primary_font_size_num ": {
+        "prefix": "primary_font_size_num",
+        "body": [
+            "{{ primary_font_size_num }}"
+        ],
+        "description": "Prints the font size number from Content Settings > Colors and Fonts. Excludes 'px'."
+     },
+     "secondary_accent_color  ": {
+        "prefix": "secondary_accent_color ",
+        "body": [
+            "{{ secondary_accent_color  }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_accent_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
     
 }
