@@ -1,0 +1,107 @@
+{
+    "background_color ": {
+        "prefix": "background_color",
+        "body": [
+            "{{ background_color }}"
+        ],
+        "description": "Email-template only alias for the background color defined in content settings."
+     },
+     "standard_header_includes": {
+        "prefix": "standard_header_includes",
+        "body": [
+            "{{ standard_header_includes }}"
+        ],
+        "description": "Adds jQuery, public_common.css, layout.css, any attached stylesheets, a meta viewport tag, Google analytics tracking code, other page meta information, and code added to the head tag at the domain/template/page level. This variable should be added to the <head> of HTML templates."
+     },
+    "content.absolute_url ": {
+        "prefix":"content.absolute_url ",
+        "body": [
+            "{{ content.absolute_url }}"
+        ],
+        "description":"Prints the full URL of a page, post, or web page version of an email."
+    },
+    "content.archived ": {
+        "prefix":"content.archived ",
+        "body": [
+            "{{ content.archived }}"
+        ],
+        "description":"This variable evaluates to True, if the page or email was marked as archived by the user."
+    },
+    "content.author_email ": {
+        "prefix":"content.author_email ",
+        "body": [
+            "{{ content.author_email }}"
+        ],
+        "description":"The email address of the content creator."
+    },
+    "content.author_name ": {
+        "prefix":"content.author_name ",
+        "body": [
+            "{{ content.author_name }}"
+        ],
+        "description":"The first and last name of the content creator."
+    },
+    "content.author_username": {
+        "prefix":"content.author_username ",
+        "body": [
+            "{{ content.author_username }}"
+        ],
+        "description":"The HubSpot username of the content creator."
+    },
+    "content.name": {
+        "prefix":"content.name ",
+        "body": [
+            "{{ content.name  }}"
+        ],
+        "description":"The name of a post, email, or page. For pages and emails this will print the internal content name, while for posts this will print the post title. For blog posts, this is the post title that displays. For other types of content, this is generally an internal name. This variable includes a wrapper so that it is editable via the UI, when included in blog posts. If you want to print the content name without a wrapper, use page_meta.name."
+    },
+    "content.campaign": {
+        "prefix":"content.campaign ",
+        "body": [
+            "{{ content.campaign }}"
+        ],
+        "description":"The GUID for the marketing campaign that this page or email is associated with. This unique ID can be found in the URL of a particular campaign in the Campaign's tool."
+    },
+    "content.campaign_name": {
+        "prefix":"content.campaign_name ",
+        "body": [
+            "{{ content.campaign_name }}"
+        ],
+        "description":"The GUID for the marketing campaign that this page or email is associated with. This unique ID can be found in the URL of a particular campaign in the Campaign's tool."
+    },
+    "content.created": {
+        "prefix":"content.created ",
+        "body": [
+            "{{ content.created }}"
+        ],
+        "description":"A datetime object for when the content was originally created, in UTC time. This variable can be formatted with the datetime filter."
+    },
+    "content.meta_description": {
+        "prefix":"content.meta_description ",
+        "body": [
+            "{{ content.meta_description }}"
+        ],
+        "description":"Prints the meta description of a page."
+    },
+    "content.publish_date": {
+        "prefix":"content.publish_date ",
+        "body": [
+            "{{ content.publish_date }}"
+        ],
+        "description":"A datetime object representing when the content was published, in UTC time. This variable can be formatted with the datetime filter."
+    },
+    "content.template_path": {
+        "prefix":"content.template_path ",
+        "body": [
+            "{{ content.template_path }}"
+        ],
+        "description":"The Design Manager file path to your template (ie custom/page/web_page_basic/my_template.html)."
+    },
+    "content.updated": {
+        "prefix":"content.updated ",
+        "body": [
+            "{{ content.updated }}"
+        ],
+        "description":"A datetime object for when the user last updated the content, in UTC time. This variable can be formatted with the datetime filter."
+    }
+}
