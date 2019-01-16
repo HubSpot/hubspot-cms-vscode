@@ -4,14 +4,14 @@
         "body": [
             "{{ background_color }}"
         ],
-        "description": "Email-template only alias for the background color defined in content settings."
+        "description": "Email-template only alias for the background color defined in Content Settings > Colors and Fonts"
      },
-     "standard_header_includes": {
-        "prefix": "standard_header_includes",
+     "body_border_color": {
+        "prefix": "body_border_color",
         "body": [
-            "{{ standard_header_includes }}"
+            "{{ body_border_color }}"
         ],
-        "description": "Adds jQuery, public_common.css, layout.css, any attached stylesheets, a meta viewport tag, Google analytics tracking code, other page meta information, and code added to the head tag at the domain/template/page level. This variable should be added to the <head> of HTML templates."
+        "description": "Email-template only alias for the border color defined in Content Settings > Colors and Fonts"
      },
     "content.absolute_url ": {
         "prefix":"content.absolute_url ",
