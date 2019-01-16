@@ -13,12 +13,12 @@
         ],
         "description": "Email-template only alias for the border color defined in Content Settings > Colors and Fonts"
      },
-    "content.absolute_url ": {
-        "prefix":"content.absolute_url ",
+    "site_settings.body_border_color_choice ": {
+        "prefix":"site_settings.body_border_color_choice ",
         "body": [
-            "{{ content.absolute_url }}"
+            "{{ site_settings.body_border_color_choice }}"
         ],
-        "description":"Prints the full URL of a page, post, or web page version of an email."
+        "description":"The variable is used in HubSpot's default email templates to determine whether or not a border should be added. The setting is controlled in Content Settings > Colors and Fonts. It prints values: BORDER_AUTOMATIC, BORDER_MANUAL, BORDER_NONE."
     },
     "content.archived ": {
         "prefix":"content.archived ",
