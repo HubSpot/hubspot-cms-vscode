@@ -69,19 +69,19 @@
         ],
         "description":"Favorite color 6 setting from Content Settings > Colors and Fonts. Prints a HEX value. Replace 6 with 2-6 to modify the tag for other favorite color settings.."
     },
-    "content.author_name ": {
-        "prefix":"content.author_name ",
+    "site_settings.primary_accent_color ": {
+        "prefix":" site_settings.primary_accent_color ",
         "body": [
-            "{{ content.author_name }}"
+            "{{ site_settings.primary_accent_color }}"
         ],
-        "description":"The first and last name of the content creator."
+        "description":"Primary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
     },
-    "content.author_username": {
-        "prefix":"content.author_username ",
+    "site_settings.primary_font": {
+        "prefix":"site_settings.primary_font ",
         "body": [
-            "{{ content.author_username }}"
+            "{{ site_settings.primary_font }}"
         ],
-        "description":"The HubSpot username of the content creator."
+        "description":"Primary font setting from Content Settings > Colors and Fonts. "
     },
     "content.name": {
         "prefix":"content.name ",
