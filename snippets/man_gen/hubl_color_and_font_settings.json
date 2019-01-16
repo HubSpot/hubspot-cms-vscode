@@ -109,6 +109,6 @@
         "body": [
             "{{ site_settings.secondary_font_size }}"
         ],
-        "description":"Primary font size setting from Content Settings > Colors and Fonts. Includes "px"."
+        "description":"Primary font size setting from Content Settings > Colors and Fonts. Includes 'px'."
     }
 }
