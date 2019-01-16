@@ -12,6 +12,97 @@
             "{{ body_border_color }}"
         ],
         "description": "Email-template only alias for the border color defined in Content Settings > Colors and Fonts"
+     },
+     "body_border_color_choice ": {
+        "prefix": "body_border_color_choice",
+        "body": [
+            "{{ body_border_color_choice }}"
+        ],
+        "description": "Email-template only alias for `site_settings.body_border_color_choice` The variable is used in HubSpot's default email templates to determine whether or not a border should be added. The setting is controlled in Content Settings > Colors and Fonts. It prints values: BORDER_AUTOMATIC, BORDER_MANUAL, BORDER_NONE"
+     },
+     "body_color ": {
+        "prefix": "body_color",
+        "body": [
+            "{{ body_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.body_color` Body color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "content.create_page ": {
+        "prefix": "content.create_page",
+        "body": [
+            "{{ content.create_page }}"
+        ],
+        "description": "This variable is True, if there is a web page version of the email."
+     },
+     "content.email_body ": {
+        "prefix": "content.email_body",
+        "body": [
+            "{{ content.email_body }}"
+        ],
+        "description": "The main body of the email. This variable renders a rich text module."
+     },
+     "content.emailbody_plaintext ": {
+        "prefix": "content.emailbody_plaintext",
+        "body": [
+            "{{ content.emailbody_plaintext }}"
+        ],
+        "description": "The optional override of the plain text email body."
+     },
+     "content.from_name ": {
+        "prefix": "content.from_name",
+        "body": [
+            "{{ content.from_name }}"
+        ],
+        "description": "The from name of the email sender."
+     },
+     "content.reply_to ": {
+        "prefix": "content.reply_to",
+        "body": [
+            "{{ content.reply_to }}"
+        ],
+        "description": "The reply to address for the email."
+     },
+     "content.subject  ": {
+        "prefix": "content.subject ",
+        "body": [
+            "{{ content.subject  }}"
+        ],
+        "description": "The subject of the email."
+     },
+     "email_body_border_css ": {
+        "prefix": "email_body_border_css",
+        "body": [
+            "{{ email_body_border_css }}"
+        ],
+        "description": "Email-template only alias which generates the css styles for the email border based on content settings email settings."
+     },
+     "email_body_padding ": {
+        "prefix": "email_body_padding",
+        "body": [
+            "{{ email_body_padding }}"
+        ],
+        "description": "The email body padding setting. This setting is located in Content Settings > Email."
+     },
+     "email_body_width ": {
+        "prefix": "email_body_width",
+        "body": [
+            "{{ email_body_width }}"
+        ],
+        "description": "The email body width setting. This setting is located in Content Settings > Email.."
+     },
+     "primary_accent_color ": {
+        "prefix": "primary_accent_color",
+        "body": [
+            "{{ primary_accent_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_accent_color` Primary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "primary_font ": {
+        "prefix": "primary_font ",
+        "body": [
+            "{{ primary_font }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_font`. Primary font setting from Content Settings > Colors and Fonts."
      }
     
 }
