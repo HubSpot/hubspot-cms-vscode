@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the HubL VSC language extension will be documented in this file.
 
+## [0.0.3]
+- Update READEME to reflect `|` filter prefix
+
 ## [0.0.2]
 - HubL tags now output with a line break for each paramter
 - Includes expression tests
