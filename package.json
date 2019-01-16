@@ -48,6 +48,14 @@
             {
                 "language": "html",
                 "path": "./snippets/man_gen/hubl_general_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_email_variables.json"
             }
         ],
         "languages": [
