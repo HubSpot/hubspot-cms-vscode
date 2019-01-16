@@ -118,12 +118,12 @@
         ],
         "description": "Prints the font size number from Content Settings > Colors and Fonts. Excludes 'px'."
      },
-     "secondary_accent_color  ": {
+     "secondary_accent_color ": {
         "prefix": "secondary_accent_color ",
         "body": [
             "{{ secondary_accent_color  }}"
         ],
         "description": "Email-template only alias for `site_settings.secondary_accent_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
-     },
+     }
     
 }
