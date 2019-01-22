@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubL Language Extension",
     "description": "HubL Visual Studio Code Language Extension",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "publisher": "WilliamSpiro",
     "engines": {
         "vscode": "^1.30.0"
@@ -48,6 +48,18 @@
             {
                 "language": "html",
                 "path": "./snippets/man_gen/hubl_general_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_email_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
             }
         ],
         "languages": [

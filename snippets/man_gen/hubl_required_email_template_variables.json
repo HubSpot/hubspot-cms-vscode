@@ -1,0 +1,37 @@
+{
+    "site_settings.company_city ": {
+        "prefix": "site_settings.company_city",
+        "body": [
+            "{{ site_settings.company_city }}"
+        ],
+        "description": "Prints the company city (set in Content Settings > Email > Footer Information)."
+     },
+     "site_settings.company_name": {
+        "prefix": "site_settings.company_name",
+        "body": [
+            "{{ site_settings.company_name }}"
+        ],
+        "description": "Prints the company name (set in Content Settings > Email > Footer Information)."
+     },
+     "site_settings.company_state ": {
+        "prefix": "site_settings.company_state",
+        "body": [
+            "{{ site_settings.company_state }}"
+        ],
+        "description": "Prints the company state (set in Content Settings > Email > Footer Information)."
+     },
+     "site_settings.company_street_address_1 ": {
+        "prefix": "site_settings.company_street_address_1",
+        "body": [
+            "{{ site_settings.company_street_address_1 }}"
+        ],
+        "description": "Prints the company address (set in Content Settings > Email > Footer Information)."
+     },
+     "unsubscribe_link ": {
+        "prefix": "unsubscribe_link",
+        "body": [
+            "{{ unsubscribe_link }}"
+        ],
+        "description": "Prints the URL of the page that allows recipients to manage subscription preferences or unsubscribe from email communications. This variable should be used in the href attribute of an <a>."
+     }
+}

@@ -1,0 +1,213 @@
+{
+    "background_color ": {
+        "prefix": "background_color",
+        "body": [
+            "{{ background_color }}"
+        ],
+        "description": "Email-template only alias for the background color defined in Content Settings > Colors and Fonts"
+     },
+     "body_border_color": {
+        "prefix": "body_border_color",
+        "body": [
+            "{{ body_border_color }}"
+        ],
+        "description": "Email-template only alias for the border color defined in Content Settings > Colors and Fonts"
+     },
+     "body_border_color_choice ": {
+        "prefix": "body_border_color_choice",
+        "body": [
+            "{{ body_border_color_choice }}"
+        ],
+        "description": "Email-template only alias for `site_settings.body_border_color_choice` The variable is used in HubSpot's default email templates to determine whether or not a border should be added. The setting is controlled in Content Settings > Colors and Fonts. It prints values: BORDER_AUTOMATIC, BORDER_MANUAL, BORDER_NONE"
+     },
+     "body_color ": {
+        "prefix": "body_color",
+        "body": [
+            "{{ body_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.body_color` Body color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "content.create_page ": {
+        "prefix": "content.create_page",
+        "body": [
+            "{{ content.create_page }}"
+        ],
+        "description": "This variable is True, if there is a web page version of the email."
+     },
+     "content.email_body ": {
+        "prefix": "content.email_body",
+        "body": [
+            "{{ content.email_body }}"
+        ],
+        "description": "The main body of the email. This variable renders a rich text module."
+     },
+     "content.emailbody_plaintext ": {
+        "prefix": "content.emailbody_plaintext",
+        "body": [
+            "{{ content.emailbody_plaintext }}"
+        ],
+        "description": "The optional override of the plain text email body."
+     },
+     "content.from_name ": {
+        "prefix": "content.from_name",
+        "body": [
+            "{{ content.from_name }}"
+        ],
+        "description": "The from name of the email sender."
+     },
+     "content.reply_to ": {
+        "prefix": "content.reply_to",
+        "body": [
+            "{{ content.reply_to }}"
+        ],
+        "description": "The reply to address for the email."
+     },
+     "content.subject  ": {
+        "prefix": "content.subject ",
+        "body": [
+            "{{ content.subject  }}"
+        ],
+        "description": "The subject of the email."
+     },
+     "email_body_border_css ": {
+        "prefix": "email_body_border_css",
+        "body": [
+            "{{ email_body_border_css }}"
+        ],
+        "description": "Email-template only alias which generates the css styles for the email border based on content settings email settings."
+     },
+     "email_body_padding ": {
+        "prefix": "email_body_padding",
+        "body": [
+            "{{ email_body_padding }}"
+        ],
+        "description": "The email body padding setting. This setting is located in Content Settings > Email."
+     },
+     "email_body_width ": {
+        "prefix": "email_body_width",
+        "body": [
+            "{{ email_body_width }}"
+        ],
+        "description": "The email body width setting. This setting is located in Content Settings > Email.."
+     },
+     "primary_accent_color ": {
+        "prefix": "primary_accent_color",
+        "body": [
+            "{{ primary_accent_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_accent_color` Primary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "primary_font ": {
+        "prefix": "primary_font ",
+        "body": [
+            "{{ primary_font }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_font`. Primary font setting from Content Settings > Colors and Fonts."
+     },
+     "primary_font_size ": {
+        "prefix": "primary_font_size",
+        "body": [
+            "{{ primary_font_size }}"
+        ],
+        "description": "Email-template only alias for `site_settings.primary_font_size`. Primary font size setting from Content Settings > Colors and Fonts. Includes 'px'."
+     },
+     "primary_font_size_num ": {
+        "prefix": "primary_font_size_num",
+        "body": [
+            "{{ primary_font_size_num }}"
+        ],
+        "description": "Prints the font size number from Content Settings > Colors and Fonts. Excludes 'px'."
+     },
+     "secondary_accent_color ": {
+        "prefix": "secondary_accent_color ",
+        "body": [
+            "{{ secondary_accent_color  }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_accent_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "secondary_font ": {
+        "prefix": "secondary_font ",
+        "body": [
+            "{{ secondary_font }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_font ` Secondary font setting from Content Settings > Colors and Fonts."
+     },
+     "secondary_font_color ": {
+        "prefix": "secondary_font_color ",
+        "body": [
+            "{{ secondary_font_color }}"
+        ],
+        "description": "Email-template only alias for `site_settings.secondary_font_color ` Secondary accent color setting from Content Settings > Colors and Fonts. Prints a HEX value."
+     },
+     "secondary_font_size_num ": {
+        "prefix": "secondary_font_size_num ",
+        "body": [
+            "{{ secondary_font_size_num }}"
+        ],
+        "description": "Prints the font size number from Content Settings > Colors and Fonts. Excludes 'px'."
+     },
+     "site_settings.company_street_address_2 ": {
+        "prefix": "site_settings.company_street_address_2 ",
+        "body": [
+            "{{ site_settings.company_street_address_2 }}"
+        ],
+        "description": "Prints the address line 2 from Content Settings > Email > Footer Information."
+     },
+     "site_settings.office_location_name ": {
+        "prefix": "site_settings.office_location_name ",
+        "body": [
+            "{{ site_settings.office_location_name }}"
+        ],
+        "description": "Prints the office location name from Content Settings > Email > Footer Information."
+     },
+     "subscription_confirmation_url ": {
+        "prefix": "subscription_confirmation_url ",
+        "body": [
+            "{{ subscription_confirmation_url }}"
+        ],
+        "description": "Prints the URL of the subscription preferences confirmation page. This URL is dynamically generated on send."
+     },
+     "subscription_name ": {
+        "prefix": "subscription_name ",
+        "body": [
+            "{{ subscription_name }}"
+        ],
+        "description": "Prints the name of the Email Type specified for that email."
+     },
+     "unsubscribe_anchor ": {
+        "prefix": "unsubscribe_anchor ",
+        "body": [
+            "{{ unsubscribe_anchor }}"
+        ],
+        "description": "Generates an anchor tag with the work 'unsubscribe' linked to your unsubscribe page."
+     },
+     "unsubscribe_link_all ": {
+        "prefix": "unsubscribe_link_all ",
+        "body": [
+            "{{ unsubscribe_link_all }}"
+        ],
+        "description": "Renders a link to unsubscribe from all email communications, as opposed to a link to manage subscription preferences."
+     },
+     "unsubscribe_section ": {
+        "prefix": "unsubscribe_section ",
+        "body": [
+            "{{ unsubscribe_section }}"
+        ],
+        "description": "Renders an unsubscribe section that includes an unsubscribe link, as well as help text."
+     },
+     "view_as_page_section ": {
+        "prefix": "view_as_page_section ",
+        "body": [
+            "{{ view_as_page_section }}"
+        ],
+        "description": "Generates a link with help text that leads to a webpage version of an email."
+     },
+     "view_as_page_url ": {
+        "prefix": "view_as_page_url ",
+        "body": [
+            "{{ view_as_page_url }}"
+        ],
+        "description": "Generates a link that leads to a webpage version of an email."
+     }
+    
+}

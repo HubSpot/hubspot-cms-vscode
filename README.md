@@ -125,6 +125,14 @@ _NOTE_: Some of these variables are nested
 {{ request.full_url }}
 etc.
 ```
+[`Email Required Template Variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#required-email-template-variables)
+```
+{{ site_settings.company_city }}
+{{ site_settings.company_name }}
+{{ unsubscribe_link }}
+{{ unsubscribe_link_all }}
+etc.
+```
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 
