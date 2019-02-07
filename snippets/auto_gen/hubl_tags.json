@@ -34,13 +34,6 @@
         "description": "In some cases it can be useful to pass a macro to another macro. For this purpose you can use the special call block.",
         "prefix": "~call"
     },
-    "change_password": {
-        "body": [
-            "{% change_password \"my_change_password\"\n\told_password_label=\"${old_password_label}\", \n\tpassword_label=\"${password_label}\", \n\tpassword_confirm_label=\"${password_confirm_label}\", \n\tsubmit_button_text=\"${submit_button_text}\"\n%}"
-        ],
-        "description": "Render a password change form.\nParameters:\n- old_password_label(String) Label for old password input field\n- password_label(String) Label for new password input field\n- password_confirm_label(String) Label for new password confirm input field\n- submit_button_text(String) Label for form submit button\n",
-        "prefix": "~change_password"
-    },
     "choice": {
         "body": [
             "{% choice \"my_choice\"\n\tchoices=\"${choices}\", \n\tvalue=\"${value}\"\n%}"
@@ -297,7 +290,7 @@
         "body": [
             "{% macro \"my_macro\"\n\tmacro_name=\"${macro_name}\", \n\targument_names=\"${argument_names}\"\n%}"
         ],
-        "description": "HubL macros allow you to print multiple statements with a dynamic value or values\nParameters:\n- macro_name(String) The name given to a macro\n- argument_names(String) Named arguments that are dynamically, when the macro is run\n",
+        "description": "Macros allow you to print multiple statements with a dynamic value or values\nParameters:\n- macro_name(String) The name given to a macro\n- argument_names(String) Named arguments that are dynamically, when the macro is run\n",
         "prefix": "~macro"
     },
     "member_login": {
@@ -314,6 +307,13 @@
         "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n",
         "prefix": "~member_register"
     },
+    "membership_email_link": {
+        "body": [
+            "{% membership_email_link \"my_membership_email_link\"\n\tbutton_text=\"${button_text}\"\n%}"
+        ],
+        "description": "Render a button with a membership link\nParameters:\n- button_text(String) Text shown on link button\n",
+        "prefix": "~membership_email_link"
+    },
     "menu": {
         "body": [
             "{% menu \"my_menu\"\n\tflow=${flow}, \n\troot_type=${root_type}, \n\troot_key=\"${root_key}\", \n\tmax_levels=${max_levels}, \n\tflyouts=${flyouts}, \n\tsite_map_name=\"${site_map_name}\", \n\tid=\"${id}\"\n%}"
@@ -323,9 +323,9 @@
     },
     "module": {
         "body": [
-            "{% module \"my_module\"\n\tmodule_id=\"${module_id}\"\n%}"
+            "{% module \"my_module\"\n\tmodule_id=\"${module_id}\", \n\tpath=\"${path}\"\n%}"
         ],
-        "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n",
+        "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n- path(String) The path of the module to render. Include leading slash for absolute path, otherwise path is relative to template. Reference HubSpot default modules with paths corresponding to their HubL tags such as @hubspot/rich_text, @hubspot/linked_image, etc.\n",
         "prefix": "~module"
     },
     "module_attribute": {
@@ -388,7 +388,7 @@
         "body": [
             "{% raw \"my_raw\"\n\t\n%}"
         ],
-        "description": "Process all inner HubL as plain text",
+        "description": "Process all inner expressions as plain text",
         "prefix": "~raw"
     },
     "raw_html": {

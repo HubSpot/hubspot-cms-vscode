@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the HubL VSC language extension will be documented in this file.
 
+## [0.0.6]
+- Updates to auto_gen HubL Snippets
+
 ## [0.0.4]
 - Added HubL Color and Font Variable support
 - Added HubL Email Variable and Alias support

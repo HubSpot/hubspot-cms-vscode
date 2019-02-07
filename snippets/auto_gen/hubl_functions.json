@@ -120,9 +120,9 @@
     },
     "crm_object": {
         "body": [
-            "crm_object(${object_type}, ${object_id}, ${properties}, ${formatting})"
+            "crm_object(${object_type}, ${query}, ${properties}, ${formatting})"
         ],
-        "description": "Gets an object from the HubSpot CRM by id. For security, only product objects can be retrieved on any public page. Any other object type must be hosted on a page which is either password protected or requires a CMS Membership login. Objects are returned as a dict of properties and values.\nParameters:\n- object_type(string) Required. contact, product, company, deal, ticket or quote\n- object_id(number) Required. id of requested object\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Pass 'false' for raw strings.\n",
+        "description": "Gets a single object from the HubSpot CRM by query. For security, only product objects can be retrieved on any public page. Any other object type must be hosted on a page which is either password protected or requires a CMS Membership login. Objects are returned as a dict of properties and values.\nParameters:\n- object_type(string) Required. contact, product, company, deal, ticket or quote\n- query(string) Required. The id of the object OR a query string, delimited by '&'. All expressions are ANDed together. Supported operators are eq (default), neq, lt, lte, gt, gte, is_null and not_null.\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Omit or pass 'false' for raw strings.\n",
         "prefix": "~crm_object"
     },
     "cta": {
@@ -369,6 +369,13 @@
         ],
         "description": "return datetime of beginning of the day\nParameters:\n- timezone(string) Optional timezone\n",
         "prefix": "~today"
+    },
+    "topic_cluster_by_content_id": {
+        "body": [
+            "topic_cluster_by_content_id(${content_id})"
+        ],
+        "description": "Returns topic cluster associated with a piece of content.\nParameters:\n- content_id(id) The id of the page to look up\n",
+        "prefix": "~topic_cluster_by_content_id"
     },
     "truncate": {
         "body": [
