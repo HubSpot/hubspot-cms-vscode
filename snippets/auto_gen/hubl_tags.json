@@ -1,4 +1,9 @@
 {
+    "block": {
+        "body": "{% extends \"custom/page/web_page_basic/my_template.html\" %}\n{% block my_sidebar %}\n   <!--Content that will render within a block of the same name in the parent template-->\n{% endblock %}",
+        "description": "Blocks are regions in a template which can be overridden by child templates",
+        "prefix": "~block"
+    },
     "blog_comments": {
         "body": [
             "{% blog_comments \"my_blog_comments\"\n\tselect_blog=${select_blog}, \n\tlimit=${limit}\n%}"
@@ -28,9 +33,7 @@
         "prefix": "~boolean"
     },
     "call": {
-        "body": [
-            "{% call \"my_call\"\n\t\n%}"
-        ],
+        "body": " {% macro render_dialog(title, class='dialog') %}\n  <div class=\"{{ class }}\">\n      <h2>{{ title }}</h2>\n      <div class=\"contents\">\n          {{ caller() }}\n      </div>\n  </div>\n {% endmacro %}\n\n {% call render_dialog('Hello World') %}\n     This is a simple dialog rendered by using a macro and\n     a call block.\n {% endcall %}",
         "description": "In some cases it can be useful to pass a macro to another macro. For this purpose you can use the special call block.",
         "prefix": "~call"
     },
@@ -84,10 +87,8 @@
         "prefix": "~do"
     },
     "email_each": {
-        "body": [
-            "{% email_each \"my_email_each\"\n\tlist=\"${list}\", \n\titem=\"${item}\"\n%}"
-        ],
-        "description": "Allows looping over a list value in an email where a for loop would not work. Use \"item.\" to access the current element of the list.\nParameters:\n- list(String) \n- item(String) \n",
+        "body": "{% email_each list=\"custom.cart_items\" %}\n<td>{{item.name}}</td><td>{{item.price}}\n{% endemail_each %}",
+        "description": "Allows looping over a list value in an email where a for loop would not work. Use \"item.\" to access the current element of the list.",
         "prefix": "~email_each"
     },
     "email_flex_area": {
@@ -133,9 +134,7 @@
         "prefix": "~flex_area"
     },
     "flip": {
-        "body": [
-            "{% flip \"my_flip\"\n\t\n%}"
-        ],
+        "body": "{% flip val_true %}\nworld\n{% with %}\nhello\n{% endflip %}",
         "description": "Outputs the first and second block in specified or reverse order depending on the evaluation of the condition",
         "prefix": "~flip"
     },
@@ -287,10 +286,8 @@
         "prefix": "~logo"
     },
     "macro": {
-        "body": [
-            "{% macro \"my_macro\"\n\tmacro_name=\"${macro_name}\", \n\targument_names=\"${argument_names}\"\n%}"
-        ],
-        "description": "Macros allow you to print multiple statements with a dynamic value or values\nParameters:\n- macro_name(String) The name given to a macro\n- argument_names(String) Named arguments that are dynamically, when the macro is run\n",
+        "body": "{% macro name_of_macro(argument_name, argument_name2) %}\n    {{ argument_name }}\n    {{ argument_name2 }}\n{% endmacro %}\n{{ name_of_macro(\"value to pass to argument 1\", \"value to pass to argument 2\") }}",
+        "description": "Macros allow you to print multiple statements with a dynamic value or values",
         "prefix": "~macro"
     },
     "member_login": {
@@ -385,9 +382,7 @@
         "prefix": "~print"
     },
     "raw": {
-        "body": [
-            "{% raw \"my_raw\"\n\t\n%}"
-        ],
+        "body": "{% raw %}\n    The personalization token for a contact's first name is {{ contact.firstname }}\n{% endraw %}",
         "description": "Process all inner expressions as plain text",
         "prefix": "~raw"
     },
@@ -504,10 +499,8 @@
         "prefix": "~textarea"
     },
     "unless": {
-        "body": [
-            "{% unless \"my_unless\"\n\texpr=${expr}\n%}"
-        ],
-        "description": "Unless is a conditional just like 'if' but works on the inverse logic.\nParameters:\n- expr(expression) Condition to evaluate\n",
+        "body": "{% unless x < 0 %} x is greater than zero {% endunless %}",
+        "description": "Unless is a conditional just like 'if' but works on the inverse logic.",
         "prefix": "~unless"
     },
     "video_player": {
@@ -523,6 +516,13 @@
         ],
         "description": "Defines a rich attribute for a widget. Only valid within a widget_block tag",
         "prefix": "~widget_attribute"
+    },
+    "widget_block": {
+        "body": [
+            "{% widget_block \"my_widget_block\"\n\twidgetType=${widgetType}\n%}"
+        ],
+        "description": "A widget block can be used to define widget attribute values with rich content, using widget_attribute tags\nParameters:\n- widgetType(valid HubL module type) \n",
+        "prefix": "~widget_block"
     },
     "widget_container": {
         "body": [
