@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the HubL VSC language extension will be documented in this file.
 
+## [0.1.1]
+- Basic support for HubL tags which have a closing tag
+
 ## [0.1.0]
 - Updates to auto_gen HubL Snippets
 - Get this puppy to 1.0!
