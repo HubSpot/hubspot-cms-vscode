@@ -134,6 +134,25 @@ etc.
 etc.
 ```
 
+__Custom Module Fields__
+In effort to allow for more streamlined local development of custom modules, snippets have been added that can be added to the fields.json file within a custom module.
+The snippet trigger roughly corresponds with the field names in the design manager.  
+For example:  to add a rich text field, you would type 
+```
+field.richtext
+```
+To create a group, use 
+```
+group.group
+```
+To create a repeater, use
+```
+group.repeater
+```
+all associated fields need to be added into the children array within the snippet output
+
+
+
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 
 ### __HubL Langage Configuration__  
