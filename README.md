@@ -12,7 +12,7 @@ _For nice HubL syntax highlighting, install the [Jinja scopes extension](https:/
 
 ## Features
 ### __HubL Snippets__  
-All HubL supported tags, filters, expression tests and functions have auto-complete snippts. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and fucntions/tags are acccessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight avaiable parameters, which can be tabbed through (`${parameter}`).     
+All HubL supported tags, filters, expression tests and functions have auto-complete snippets. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and fucntions/tags are acccessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight available parameters, which can be tabbed through (`${parameter}`).     
 
 _NOTE_: HubL tags, functions, expression tests and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update any `snippets/auto-gen/...` json files manually. Run `hubl_snippets_gen.py` to re-generate these JSON files when HubL changes occur. `snippets/man_gen/...` files are for any extra/helpful snippets used in HubL - these files are maintained manually.
 
@@ -28,7 +28,7 @@ _NOTE_: HubL tags, functions, expression tests and filters are all pulled from t
 ```
 |selectattr("${attr}", ${exp_test})
 ```
-[__HubL Functions__](https://designers.hubspot.com/en/docs/hubl/hubl-supported-functions) produce entire HubL function statements with available parameters, without wrapping curly braces. The intenion of this is so you can  use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
+[__HubL Functions__](https://designers.hubspot.com/en/docs/hubl/hubl-supported-functions) produce entire HubL function statements with available parameters, without wrapping curly braces. The intention of this is so you can use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
 ```
 hubdb_table_rows(${table_id}, ${query})
 ```
@@ -133,6 +133,25 @@ etc.
 {{ unsubscribe_link_all }}
 etc.
 ```
+
+__Custom Module Fields__
+In effort to allow for more streamlined local development of custom modules, snippets have been added that can be added to the fields.json file within a custom module.
+The snippet trigger roughly corresponds with the field names in the design manager.  
+For example:  to add a rich text field, you would type 
+```
+field.richtext
+```
+To create a group, use 
+```
+group.group
+```
+To create a repeater, use
+```
+group.repeater
+```
+all associated fields need to be added into the children array within the snippet output
+
+
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 

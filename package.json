@@ -60,6 +60,10 @@
             {
                 "language": "html",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
+            {
+                "language": "json",
+                "path": "./snippets/man_gen/hubl_custom_module_fields.json"
             }
         ],
         "languages": [
