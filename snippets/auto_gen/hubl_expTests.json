@@ -3,14 +3,14 @@
         "body": [
             "containing"
         ],
-        "description": "",
+        "description": "Returns true if a list contains a value\nParameters:\n- value(object) The value to check is in the list\n",
         "prefix": "containing"
     },
     "containingall": {
         "body": [
             "containingall"
         ],
-        "description": "",
+        "description": "Returns true if a list contains all values in a second list\nParameters:\n- list_two(list) The second list to check if every element is in the first list\n",
         "prefix": "containingall"
     },
     "defined": {
@@ -24,21 +24,21 @@
         "body": [
             "divisibleby"
         ],
-        "description": "Check if a variable is divisible by a number\nParameters:\n- num(number) The number to check whether a number is divisble by\n",
+        "description": "Returns true if a variable is divisible by a number\nParameters:\n- divisor(number) The number to check whether a number is divisible by\n",
         "prefix": "divisibleby"
     },
     "equalto": {
         "body": [
             "equalto"
         ],
-        "description": "Check if an object has the same value as another object\nParameters:\n- other(object) Another object to check equality against\n",
+        "description": "Returns true if an object has the same value as another object\nParameters:\n- other(object) Another object to check equality against\n",
         "prefix": "equalto"
     },
     "even": {
         "body": [
             "even"
         ],
-        "description": "Return true if the value is even",
+        "description": "Returns true if the value is even",
         "prefix": "even"
     },
     "iterable": {
@@ -52,7 +52,7 @@
         "body": [
             "lower"
         ],
-        "description": "Return true if the given string is all lowercased",
+        "description": "Return true if the given string is all lowercase",
         "prefix": "lower"
     },
     "mapping": {
@@ -80,7 +80,7 @@
         "body": [
             "odd"
         ],
-        "description": "Return true if the object is an odd number",
+        "description": "Return true if a number is an odd number",
         "prefix": "odd"
     },
     "sameas": {
@@ -108,14 +108,14 @@
         "body": [
             "string_containing"
         ],
-        "description": "Return true if object is a string which contains a specified other string",
+        "description": "Return true if object is a string which contains a specified other string\nParameters:\n- check(string) A second string to check is contained in the first string\n",
         "prefix": "string_containing"
     },
     "string_startingwith": {
         "body": [
             "string_startingwith"
         ],
-        "description": "Return true if object is a string which starts with a specified other string",
+        "description": "Return true if object is a string which starts with a specified other string\nParameters:\n- check(string) A second string to check is the start of the first string\n",
         "prefix": "string_startingwith"
     },
     "truthy": {
@@ -143,7 +143,7 @@
         "body": [
             "within"
         ],
-        "description": "",
+        "description": "Returns true if a value is within a list\nParameters:\n- list(list) A list to check if the value is in.\n",
         "prefix": "within"
     }
 }
