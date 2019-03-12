@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubL Language Extension",
     "description": "HubL Visual Studio Code Language Extension",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "WilliamSpiro",
     "engines": {
         "vscode": "^1.30.0"

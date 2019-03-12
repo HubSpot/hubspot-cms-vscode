@@ -111,13 +111,6 @@
         "description": "Calculates a new hex color value based on a given input string var and multiplier\nParameters:\n- base_color(hex color string (i.e. #fefefe)) The starting color to be altered\n- brightness_offset(number) A positive or negative number used to lighten or darken the base color\n",
         "prefix": "~color_variant"
     },
-    "content_search": {
-        "body": [
-            "content_search(${content_search_term})"
-        ],
-        "description": "Returns results of searching across all of a portal's content for a specified term\nParameters:\n- content_search_term(string) term to search for\n",
-        "prefix": "~content_search"
-    },
     "crm_object": {
         "body": [
             "crm_object(${object_type}, ${query}, ${properties}, ${formatting})"
@@ -181,13 +174,6 @@
         "description": "Returns URL to specified template by id\nParameters:\n- template_id(number) The ID number of the template of file\n",
         "prefix": "~get_public_template_url_by_id"
     },
-    "get_theme_style_setting": {
-        "body": [
-            "get_theme_style_setting(\"${dot_notated_full_field_name}\", \"${unit}\")"
-        ],
-        "description": "Returns theme overridden settings parameters or settings module parameters by dot notation\nParameters:\n- dot_notated_full_field_name(String) Fully qualified field name using dot notation\n- unit(String) Optional unit parameter\n",
-        "prefix": "~get_theme_style_setting"
-    },
     "head_css": {
         "body": [
             "head_css()"
@@ -227,7 +213,7 @@
         "body": [
             "hubdb_table_rows(${table_id}, ${query})"
         ],
-        "description": "Returns a sequence of data table rows based on the query\nParameters:\n- table_id(number) id of the table to query\n- query(string) A query such in the same format as a URL query string. If not passed, returns all rows.\n",
+        "description": "Returns a list of HubDB rows based on the query\nParameters:\n- table_id(number) id of the table to query\n- query(string) A query such in the same format as a URL query string. If not passed, returns all rows.\n",
         "prefix": "~hubdb_table_rows"
     },
     "i18n_getlanguage": {
@@ -300,13 +286,6 @@
         "description": "<p>Return a list containing an arithmetic progression of integers.</p><p>With one parameter, range will return a list from 0 up to (but not including) the value.  With two parameters, the range will start at the first value and increment by 1 up to (but not including) the second value.  The third parameter specifies the step increment.</p> <p>All values can be negative. Impossible ranges will return an empty list.</p><p>Ranges can generate a maximum of 1000 values.</p>\nParameters:\n- start(number) \n- end(number) \n- step(number) \n",
         "prefix": "~range"
     },
-    "raw_theme_setting": {
-        "body": [
-            "raw_theme_setting(\"${dot_notated_full_field_name}\")"
-        ],
-        "description": "Returns theme overridden settings parameters or default parameters by dot notation\nParameters:\n- dot_notated_full_field_name(String) Fully qualified field name using dot notation\n",
-        "prefix": "~raw_theme_setting"
-    },
     "require_css": {
         "body": [
             "require_css(\"${url}\")"
@@ -346,7 +325,7 @@
         "body": [
             "strtotime(${var}, ${var})"
         ],
-        "description": "converts a string and datetime format into a datetime object\nParameters:\n- var(datetimeString) \n- var(datetimeFormat) \n",
+        "description": "converts a string and datetime format into a datetime object\nParameters:\n- var(datetimeString) datetime as string\n- var(datetimeFormat) format of the datetime string\n",
         "prefix": "~strtotime"
     },
     "super": {
@@ -367,7 +346,7 @@
         "body": [
             "today(${timezone})"
         ],
-        "description": "return datetime of beginning of the day\nParameters:\n- timezone(string) Optional timezone\n",
+        "description": "return datetime of beginning of the day\nParameters:\n- timezone(string) timezone\n",
         "prefix": "~today"
     },
     "topic_cluster_by_content_id": {
