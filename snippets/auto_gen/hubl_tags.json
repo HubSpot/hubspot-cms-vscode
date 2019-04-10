@@ -126,13 +126,6 @@
         "description": "Template inheritance allows you to build a base \u201cskeleton\u201d template that contains all the common elements of your site and defines blocks that child templates can override.\nParameters:\n- path(String) Design Manager file path to parent template\n",
         "prefix": "~extends"
     },
-    "flex_area": {
-        "body": [
-            "{% flex_area \"my_flex_area\"\n\tname=\"${name}\", \n\tno_wrapper=${no_wrapper}, \n\textra_classes=\"${extra_classes}\"\n%}"
-        ],
-        "description": "A flexible area tag is a widget container which renders its contained widgets in a box grid, \nwith bootstrap layout and styling.\n\nThe layout schema is defined in a JSON structure at the content level; these tags are always empty\nin their declaring templates.\nParameters:\n- name(String) \n- no_wrapper(boolean) \n- extra_classes(String) \n",
-        "prefix": "~flex_area"
-    },
     "flip": {
         "body": "{% flip val_true %}\nworld\n{% with %}\nhello\n{% endflip %}",
         "description": "Outputs the first and second block in specified or reverse order depending on the evaluation of the condition",
@@ -256,20 +249,6 @@
         ],
         "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.\n",
         "prefix": "~language_switcher"
-    },
-    "layout_row": {
-        "body": [
-            "{% layout_row \"my_layout_row\"\n\t\n%}"
-        ],
-        "description": "A LayoutRow can contain multiple LayoutSections. It has no params.",
-        "prefix": "~layout_row"
-    },
-    "layout_section": {
-        "body": [
-            "{% layout_section \"my_layout_section\"\n\tname=\"${name}\", \n\tid=${id}, \n\tlabel=${label}, \n\tx=${x}, \n\tw=${w}, \n\tcss_style=${css_style}, \n\tcss_id=${css_id}, \n\tcss_class=${css_class}\n%}"
-        ],
-        "description": "A LayoutSection can contain either have multiple rows as children or multiple LayoutSection. A LayoutSection can either have children or describe a single module.\nParameters:\n- name(String) \n- id(string) A unique identifier in the template for this layout section\n- label(string) A label shown in the editor\n- x(number) Where this section begins in a 12-column grid\n- w(number) The number of columns this section takes up in a 12-column grid\n- css_style(string) A label shown in the editor\n- css_id(string) A label shown in the editor\n- css_class(string) A label shown in the editor\n",
-        "prefix": "~layout_section"
     },
     "linked_image": {
         "body": [
