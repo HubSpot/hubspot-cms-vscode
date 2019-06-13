@@ -23,6 +23,8 @@ _For nice HubL syntax highlighting, install the [Jinja scopes extension](https:/
    </p>
 </div>
 <hr>
+
+
 ## Features
 ### __HubL Snippets__  
 All HubL supported tags, filters, expression tests and functions have auto-complete snippets. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and fucntions/tags are acccessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight available parameters, which can be tabbed through (`${parameter}`).     
