@@ -11,7 +11,7 @@
       "\"locked\": false,",
       "\"hierarchical\": false,",
       "\"max_depth\": 0,",
-      "\"children\": [],",
+      "\"children\": [${3}],",
       "\"type\": \"group\",",
       "\"default\": {} }"              
     ],
@@ -35,7 +35,7 @@
       "},",
       "\"hierarchical\": false,",
       "\"max_depth\": 0,",
-      "\"children\": [],",
+      "\"children\": [${3}],",
       "\"type\": \"group\",",
       "\"default\": {} }"
     ],
@@ -55,7 +55,7 @@
      "\"max_depth\": 0,",
      "\"step\": 1,",
      "\"type\": \"date\",",
-     "\"default\": null }"
+     "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Date field"
   },
@@ -73,7 +73,7 @@
      "\"max_depth\": 0,",
      "\"step\": 30,",
      "\"type\": \"datetime\",",
-     "\"default\": null }"
+     "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Date and Time Field"
   },
@@ -82,8 +82,8 @@
     "body": [
       "{",
      "\"id\" : \"\",",
-     "\"name\" : \"${2:link_field}\",",
-     "\"label\" : \"${3:Link field}\",",
+     "\"name\" : \"${1:link_field}\",",
+     "\"label\" : \"${2:Link field}\",",
      "\"sortable\" : false,",
      "\"required\" : false,",
      "\"locked\" : false,",
@@ -94,9 +94,9 @@
      "\"default\" : {",
      "\"url\" : {",
      "\"content_id\" : null,",
-     "\"type\" : \"${1|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\",",
-     "\"href\" : \"\" },",
-     "\"open_in_new_tab\" : false,",
+     "\"type\" : \"${3|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\",",
+     "\"href\" : ${4:\"\"} },",
+     "\"open_in_new_tab\" : ${5:false,}",
      "\"no_follow\" : false",
      "} }"
     ],
@@ -117,7 +117,7 @@
      "\"max_depth\" : 0,",
      "\"step\" : 1,",
      "\"type\" : \"number\",",
-     "\"default\" : null }"
+     "\"default\" : ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Number Field"
   },
@@ -134,7 +134,7 @@
    "\"hierarchical\": false,",
    "\"max_depth\": 0,",
    "\"type\": \"richtext\",",
-   "\"default\": null }"
+   "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Rich Text Field"
   },
@@ -154,7 +154,7 @@
     "\"allow_new_line\": false,",
     "\"show_emoji_picker\": false,",
     "\"type\": \"text\",",
-    "\"default\": null }"
+    "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Text Field"
   }, 
@@ -171,7 +171,7 @@
    "\"hierarchical\": false,",
    "\"max_depth\": 0,",
    "\"type\": \"simplemenu\",",
-   "\"default\": [] }"
+   "\"default\": ${3:[]} }"
     ],
     "description": "HubSpot Custom Module: Simple Menu"
   },
@@ -180,8 +180,8 @@
     "body": [
     "{",      
    "\"id\" : \"\",",
-   "\"name\": \"${2:url_field}\",",
-   "\"label\": \"${3:URL field}\",",
+   "\"name\": \"${1:url_field}\",",
+   "\"label\": \"${2:URL field}\",",
    "\"sortable\": false,",
    "\"required\": false,",
    "\"locked\": false,",
@@ -198,7 +198,7 @@
    "\"default\": {",
      "\"content_id\": null,",
      "\"href\": \"\",",
-     "\"type\": \"${1|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\"} }"
+     "\"type\": \"${3|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\"} }"
     ],
     "description": "HubSpot Custom Module: Url Field"
   }, 
@@ -215,7 +215,7 @@
    "\"hierarchical\": false,",
    "\"max_depth\": 0,",
    "\"type\": \"boolean\",",
-   "\"default\": false }"
+   "\"default\": ${3:false} }"
     ],
     "description": "HubSpot Custom Module: Boolean Field"
   },
@@ -238,8 +238,8 @@
       "\"${4:Label 1}\"",
       "],",
       "[",
-      "\"value 2\",",
-      "\"Label 2\"",
+        "\"${5:value 2}\",",
+        "\"${6:Label 2}\"",
       "]",
    "],",
    "\"type\": \"choice\",",
@@ -278,8 +278,8 @@
    "\"max_depth\": 0,",
    "\"type\": \"color\",",
    "\"default\": {",
-        "\"color\": \"#ffffff\",",
-        "\"opacity\": 100 } }"
+        "\"color\": \"${3:#ffffff\"},",
+        "\"opacity\": ${4:100} } }"
     ],
     "description": "HubSpot Custom Module: Color Field"
   },
@@ -420,8 +420,8 @@
      "\"resizable\": true,",
      "\"type\": \"image\",",
      "\"default\": {",
-     "  \"src\": \"\",",
-     "  \"alt\": null} }"
+     "  \"src\": ${3:\"\"},",
+     "  \"alt\": ${4:null}} }"
     ],
     "description": "HubSpot Custom Module: Image Field"
   },

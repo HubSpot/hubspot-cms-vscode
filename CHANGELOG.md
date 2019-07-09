@@ -1,5 +1,7 @@
 # Change Log
 All notable changes to the HubL VSC language extension will be documented in this file.
+## [0.1.2]
+- Added support for custom modules field.json
 
 ## [0.1.3]
 - Adds support for local custom module development snippets
