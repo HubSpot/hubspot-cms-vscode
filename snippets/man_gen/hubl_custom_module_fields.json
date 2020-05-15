@@ -223,7 +223,7 @@
       "]",
    "],",
    "\"type\": \"choice\",",
-   "\"placerholder\": \"\",",
+   "\"placeholder\": \"\",",
    "\"default\": null }"
     ],
     "description": "HubSpot Custom Module: Choice Field"
