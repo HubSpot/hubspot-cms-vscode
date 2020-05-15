@@ -86,6 +86,41 @@
         "description": "Evaluates expression without printing out result.",
         "prefix": "~do"
     },
+    "dnd_area": {
+        "body": [
+            "{% dnd_area \"unique_name\", class=\"${class}\"%}\n\n{% end_dnd_area %}"
+        ],
+        "description": "Evaluates expression without printing out result.",
+        "prefix": "~dnd_area"
+    },
+    "dnd_section": {
+        "body": [
+            "{% dnd_section\n\tmax_width=${1:1200},\n\tmargin={\n\t\t'top': ${2:20},\n\t\t'bottom': ${3:200}\n\t},\n\tpadding={\n\t\t'top': ${5:20},\n\t\t'bottom': ${6:200},\n\t\t'left': ${7:20},\n\t\t'right': ${8:20}\n\t},\n\tvertical_alignment='${9:MIDDLE}'\n%}\n\n{% end_dnd_section %}"
+        ],
+        "description": "Creates a drag-and-drop section within a parent drag-and-drop area.",
+        "prefix": "~dnd_section"
+    },
+    "dnd_column": {
+        "body": [
+            "{% dnd_column\n\toffset=${1:0},\n\twidth=${2:12},\n\tbackground_color={\n\t\tr: ${3:255},\n\t\tg: ${4:0},\n\t\tb: ${5:0},\n\t\ta: ${6:1}\n\t},\n\tmargin={\n\t\t'top': ${7:20},\n\t\t'bottom': ${8:200}\n\t},\n%}\n\n{% end_dnd_column %}"
+        ],
+        "description": "Creates a drag-and-drop column for use within a parent drag-and-drop section.",
+        "prefix": "~dnd_column"
+    },
+    "dnd_row": {
+        "body": [
+            "{% dnd_row\n\tbackground_color={\n\t\tr: ${1:123},\n\t\tg: ${2:123},\n\t\tb: ${3:123},\n\t\ta: ${4:1.0}\n\t},\n\tmargin={\n\t\t'top': ${5:20},\n\t\t'bottom': ${6:200}\n\t},\n\tpadding={\n\t\t'top': ${7:20},\n\t\t'bottom': ${8:200},\n\t\t'left': ${9:20},\n\t\t'right': ${10:20}\n\t}\n%}\n\n{% end_dnd_row %}"
+        ],
+        "description": "Creates a drag-and-drop row for use within a parent drag-and-drop column.",
+        "prefix": "~dnd_row"
+    },
+    "dnd_module": {
+        "body": [
+            "{% dnd_module\n\tpath=\"${@hubspot/rich_text}\",\n\toffset=${2:0},\n\twidth=${3:8},\n%}\n\t{% module_attribute \"html\" %}\n\t\t${4:<h1>Hello, world!</h1>}\n\t{% end_module_attribute %}\n{% end_dnd_module %}"
+        ],
+        "description": "",
+        "prefix": "~dnd_module"
+    },
     "email_each": {
         "body": "{% email_each list=\"custom.cart_items\" %}\n<td>{{item.name}}</td><td>{{item.price}}\n{% endemail_each %}",
         "description": "Allows looping over a list value in an email where a for loop would not work. Use \"item.\" to access the current element of the list.",
