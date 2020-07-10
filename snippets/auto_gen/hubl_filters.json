@@ -92,9 +92,9 @@
     },
     "datetimeformat": {
         "body": [
-            "|datetimeformat(\"${format}\", \"${timezone}\")"
+            "|datetimeformat(\"${format}\", \"${timezone}\", ${locale})"
         ],
-        "description": "Formats a date object\nParameters:\n- format(String) The format of the date determined by the directives added to this parameter\n- timezone(String) Time zone of output date\n",
+        "description": "Formats a date object\nParameters:\n- format(String) The format of the date determined by the directives added to this parameter\n- timezone(String) Time zone of output date\n- locale(string) The language code to use when formatting the datetime\n",
         "prefix": "|datetimeformat"
     },
     "default": {
@@ -204,9 +204,9 @@
     },
     "format_currency": {
         "body": [
-            "|format_currency(\"${locale}\")"
+            "|format_currency(\"${locale}\", \"${currency_code}\")"
         ],
-        "description": "Formats a given number as a currency based on portal's default currency and locale passed in as a parameter. \nParameters:\n- locale(String) Locale in which the format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n",
+        "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency\n",
         "prefix": "|format_currency"
     },
     "fromjson": {
@@ -255,8 +255,22 @@
         "body": [
             "|ipaddr(${function})"
         ],
-        "description": "Evaluates to true if the value is a valid IPv4 or IPv6 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix'\n",
+        "description": "Evaluates to true if the value is a valid IPv4 or IPv6 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'\n",
         "prefix": "|ipaddr"
+    },
+    "ipv4": {
+        "body": [
+            "|ipv4(${function})"
+        ],
+        "description": "Evaluates to true if the value is a valid IPv4 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'\n",
+        "prefix": "|ipv4"
+    },
+    "ipv6": {
+        "body": [
+            "|ipv6(${function})"
+        ],
+        "description": "Evaluates to true if the value is a valid IPv6 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'\n",
+        "prefix": "|ipv6"
     },
     "join": {
         "body": [
@@ -428,9 +442,9 @@
     },
     "slice": {
         "body": [
-            "|slice(${slices})"
+            "|slice(${slices}, ${fillWith})"
         ],
-        "description": "Slice an iterator and return a list of lists containing those items.\nParameters:\n- slices(number) Specifies how many items will be sliced\n",
+        "description": "Slice an iterator and return a list of lists containing those items.\nParameters:\n- slices(number) Specifies how many items will be sliced\n- fillWith(object) Specifies which object to use to fill missing values on final iteration\n",
         "prefix": "|slice"
     },
     "sort": {

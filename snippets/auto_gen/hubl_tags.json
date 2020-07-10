@@ -6,9 +6,9 @@
     },
     "blog_comments": {
         "body": [
-            "{% blog_comments \"my_blog_comments\"\n\tselect_blog=${select_blog}, \n\tlimit=${limit}\n%}"
+            "{% blog_comments \"my_blog_comments\"\n\tselect_blog=${select_blog}, \n\tlimit=${limit}, \n\tskip_css=${skip_css}\n%}"
         ],
-        "description": "Renders the blog comments embed tag\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the comments embed\n- limit(number) Sets maximum number of comments\n",
+        "description": "Renders the blog comments embed tag\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the comments embed\n- limit(number) Sets maximum number of comments\n- skip_css(bool) \n",
         "prefix": "~blog_comments"
     },
     "blog_social_sharing": {
@@ -79,6 +79,41 @@
         "description": "The cycle tag can be used within a for loop to cycle through a series of string values and print them with each iteration\nParameters:\n- string_to_print(String) A comma separated list of strings to print with each interation. The list will repeat if there are more iterations than string parameter values.\n",
         "prefix": "~cycle"
     },
+    "dnd_area": {
+        "body": [
+            "{% dnd_area \"my_dnd_area\"\n\tname=${name}, \n\tlabel=${label}, \n\tclass=${class}\n%}"
+        ],
+        "description": "Creates container that supports drag-and-drop in content editors.\nParameters:\n- name(string) Identifier when storing data for a drag-and-drop area in the editors. Must be unique for all drag-and-drop areas in a template.\n- label(string) Label used in the editor for the drag-and-drop area.\n- class(string) Class names to add to the wrapping div.\n",
+        "prefix": "~dnd_area"
+    },
+    "dnd_column": {
+        "body": [
+            "{% dnd_column \"my_dnd_column\"\n\toffset=${offset}, \n\twidth=${width}, \n\tmargin=${margin}, \n\tbackground_image=${background_image}, \n\tbackground_color=${background_color}\n%}"
+        ],
+        "description": "A column inside a drag-and-drop area. Columns can only be children of a section or a row tag.\nParameters:\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- margin(dict) Add top and bottom margin in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.\n",
+        "prefix": "~dnd_column"
+    },
+    "dnd_module": {
+        "body": [
+            "{% dnd_module \"my_dnd_module\"\n\tpath=${path}, \n\toffset=${offset}, \n\twidth=${width}, \n\tflexbox_positioning=${flexbox_positioning}\n%}"
+        ],
+        "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.\n",
+        "prefix": "~dnd_module"
+    },
+    "dnd_row": {
+        "body": [
+            "{% dnd_row \"my_dnd_row\"\n\tmargin=${margin}, \n\tpadding=${padding}, \n\tbackground_image=${background_image}, \n\tbackground_color=${background_color}\n%}"
+        ],
+        "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.\n",
+        "prefix": "~dnd_row"
+    },
+    "dnd_section": {
+        "body": [
+            "{% dnd_section \"my_dnd_section\"\n\tmax_width=${max_width}, \n\tmargin=${margin}, \n\tpadding=${padding}, \n\tbackground_image=${background_image}, \n\tbackground_color=${background_color}\n%}"
+        ],
+        "description": "A top-level row inside a drag-and-drop area. Sections can only be children of a drag-and-drop area tag.\nParameters:\n- max_width(number) Maximum width of the section.\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.\n",
+        "prefix": "~dnd_section"
+    },
     "do": {
         "body": [
             "{% do \"my_do\"\n\t\n%}"
@@ -135,14 +170,14 @@
         "body": [
             "{% follow_me \"my_follow_me\"\n\ttitle=\"${title}\", \n\tmodule_title_tag=\"${module_title_tag}\"\n%}"
         ],
-        "description": "Link your visitors to your various social pages\nParameters:\n- title(String) Prints an h3 heading tag above the follow me module\n- module_title_tag(String) Specifies a heading tag h1-h6 to use for the module title\n",
+        "description": "Deprecated: Use follow me default module instead.\nParameters:\n- title(String) Prints an h3 heading tag above the follow me module\n- module_title_tag(String) Specifies a heading tag h1-h6 to use for the module title\n",
         "prefix": "~follow_me"
     },
     "form": {
         "body": [
-            "{% form \"my_form\"\n\tform_key=\"${form_key}\", \n\tform_to_use=\"${form_to_use}\", \n\ttitle=\"${title}\", \n\tno_title=${no_title}, \n\tform_follow_ups_follow_up_type=${form_follow_ups_follow_up_type}, \n\tsimple_email_for_live_id=${simple_email_for_live_id}, \n\tsimple_email_for_buffer_id=${simple_email_for_buffer_id}, \n\tfollow_up_type_simple=${follow_up_type_simple}, \n\tfollow_up_type_automation=${follow_up_type_automation}, \n\tsimple_email_campaign_id=${simple_email_campaign_id}, \n\tform_follow_ups_workflow_id=${form_follow_ups_workflow_id}, \n\tresponse_redirect_url=\"${response_redirect_url}\", \n\tresponse_redirect_id=${response_redirect_id}, \n\tresponse_response_type=${response_response_type}, \n\tresponse_message=\"${response_message}\", \n\tnotifications_are_overridden=${notifications_are_overridden}, \n\tnotifications_override_guid_buffer=\"${notifications_override_guid_buffer}\", \n\tnotifications_override_guid=\"${notifications_override_guid}\", \n\tnotifications_override_email_addresses=${notifications_override_email_addresses}, \n\tgotowebinar_webinar_key=\"${gotowebinar_webinar_key}\", \n\tsfdc_campaign=\"${sfdc_campaign}\"\n%}"
+            "{% form \"my_form\"\n\t\n%}"
         ],
-        "description": "Insert one of the forms created in the Form Manager\nParameters:\n- form_key(String) A unique id to target this form instance on the page\n- form_to_use(String) The form ID of the form to render by default\n- title(String) Populates an h3 header tag above the form\n- no_title(boolean) If True, the h3 tag above the title is removed.\n- form_follow_ups_follow_up_type(enum no_action|simple|automation) Specifies follow up action\n- simple_email_for_live_id(number) Specifies the ID of the simple follow-up email for the live page\n- simple_email_for_buffer_id(number) Specifies the ID of the simple follow-up email for the auto-save version of a page\n- follow_up_type_simple(boolean) If true, enables a simple follow-up email\n- follow_up_type_automation(boolean) If true, enrolls submissions in a workflow\n- simple_email_campaign_id(number) Specifies the ID of the simple follow-up email\n- form_follow_ups_workflow_id(number) Specifies the ID of the follow-up workflow\n- response_redirect_url(String) If redirecting to an external page, this parameter specifies the URL to redirect to\n- response_redirect_id(number) If redirecting to HubSpot hosted page, this parameter specifies the page ID of that page\n- response_response_type(enum inline|redirect) Determines whether to redirect to another page or to display an inline thank you message on submission\n- response_message(String) Sets an inline thank you message\n- notifications_are_overridden(boolean) If True, the form will send notifications to specified addresses selected in the notifications_override_email_addresses\n- notifications_override_guid_buffer(String) ID of override settings in auto-save version of page\n- notifications_override_guid(String) ID of override settings in live version of page\n- notifications_override_email_addresses(JSON list) These email addresses will override  the email notification settings set in the form\n- gotowebinar_webinar_key(String) Specifies the GoToWebinar webinar to enroll contacts who submit the form into\n- sfdc_campaign(String) Specifies the Salesforce campaign to enroll contacts who submit the form into\n",
+        "description": "",
         "prefix": "~form"
     },
     "from": {
@@ -189,9 +224,9 @@
     },
     "icon": {
         "body": [
-            "{% icon \"my_icon\"\n\tname=\"${name}\", \n\tset=\"${set}\", \n\tstyle=\"${style}\", \n\tformat=\"${format}\", \n\twidth=\"${width}\", \n\theight=\"${height}\"\n%}"
+            "{% icon \"my_icon\"\n\tname=\"${name}\", \n\tset=\"${set}\", \n\tstyle=\"${style}\", \n\tformat=\"${format}\", \n\twidth=\"${width}\", \n\theight=\"${height}\", \n\tpurpose=\"${purpose}\", \n\ttitle=\"${title}\"\n%}"
         ],
-        "description": "Render an icon from the HubSpot icon library\nParameters:\n- name(String) The icon name\n- set(String) The icon set name. Currently defined sets: fontawesome-5 (see https://fontawesome.com/icons\n- style(String) The icon style. Regular, solid, or light\n- format(String) The output format. svg or unicode\n- width(String) The output image width. For svg format only\n- height(String) The output image height. For svg format only\n",
+        "description": "Render an icon from the HubSpot icon library\nParameters:\n- name(String) The icon name\n- set(String) The icon set name. Currently defined sets: fontawesome-5 (see https://fontawesome.com/icons\n- style(String) The icon style. Regular, solid, or light\n- format(String) The output format. svg or unicode\n- width(String) The output image width. For svg format only\n- height(String) The output image height. For svg format only\n- purpose(String) The role of the icon in its context. Either 'semantic' or 'decorative'\n- title(String) A descriptive title for the icon\n",
         "prefix": "~icon"
     },
     "image": {
@@ -259,9 +294,9 @@
     },
     "logo": {
         "body": [
-            "{% logo \"my_logo\"\n\tsuppress_company_name=${suppress_company_name}, \n\toverride_inherited_src=${override_inherited_src}, \n\tsrc=\"${src}\", \n\talt=\"${alt}\", \n\tlink=\"${link}\", \n\twidth=${width}, \n\theight=${height}, \n\talign=\"${align}\", \n\thspace=${hspace}, \n\tstyle=\"${style}\", \n\topen_in_new_tab=${open_in_new_tab}\n%}"
+            "{% logo \"my_logo\"\n\tsuppress_company_name=${suppress_company_name}, \n\toverride_inherited_src=${override_inherited_src}, \n\tsrc=\"${src}\", \n\talt=\"${alt}\", \n\tlink=\"${link}\", \n\twidth=${width}, \n\theight=${height}, \n\talign=\"${align}\", \n\thspace=${hspace}, \n\tstyle=\"${style}\", \n\topen_in_new_tab=${open_in_new_tab}, \n\theading_style=\"${heading_style}\"\n%}"
         ],
-        "description": "Logo image\nParameters:\n- suppress_company_name(boolean) Hides company name if an image logo isn't set\n- override_inherited_src(boolean) If true, use src from logo widget rather than src inherited from settings or template.\n- src(String) Populates the src attribute of the img tag\n- alt(String) Sets the default alt text for the image\n- link(String) Sets the destination URL of the link that wraps the img tag\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n",
+        "description": "Logo image\nParameters:\n- suppress_company_name(boolean) Hides company name if an image logo isn't set\n- override_inherited_src(boolean) If true, use src from logo widget rather than src inherited from settings or template.\n- src(String) Populates the src attribute of the img tag\n- alt(String) Sets the default alt text for the image\n- link(String) Sets the destination URL of the link that wraps the img tag\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- heading_style(String) Sets the link heading style. Can be one of h1, h2, h3, or h4\n",
         "prefix": "~logo"
     },
     "macro": {
@@ -271,24 +306,17 @@
     },
     "member_login": {
         "body": [
-            "{% member_login \"my_member_login\"\n\temail_label=\"${email_label}\", \n\tpassword_label=\"${password_label}\", \n\tremember_me_label=\"${remember_me_label}\", \n\tsubmit_button_text=\"${submit_button_text}\", \n\treset_password_text=\"${reset_password_text}\", \n\treset_password_link=\"${reset_password_link}\"\n%}"
+            "{% member_login \"my_member_login\"\n\temail_label=\"${email_label}\", \n\tpassword_label=\"${password_label}\", \n\tremember_me_label=\"${remember_me_label}\", \n\tsubmit_button_text=\"${submit_button_text}\", \n\treset_password_text=\"${reset_password_text}\", \n\treset_password_link=\"${reset_password_link}\", \n\tshow_password=\"${show_password}\"\n%}"
         ],
-        "description": "Render a login form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- remember_me_label(String) Label for Remember Me checkbox\n- submit_button_text(String) Label for form submit button\n- reset_password_text(String) Label for password reset link\n- reset_password_link(String) Link to password reset request page\n",
+        "description": "Render a login form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- remember_me_label(String) Label for Remember Me checkbox\n- submit_button_text(String) Label for form submit button\n- reset_password_text(String) Label for password reset link\n- reset_password_link(String) Link to password reset request page\n- show_password(String) Label for Show password buttons\n",
         "prefix": "~member_login"
     },
     "member_register": {
         "body": [
-            "{% member_register \"my_member_register\"\n\temail_label=\"${email_label}\", \n\tpassword_label=\"${password_label}\", \n\tpassword_confirm_label=\"${password_confirm_label}\", \n\tsubmit_button_text=\"${submit_button_text}\"\n%}"
+            "{% member_register \"my_member_register\"\n\temail_label=\"${email_label}\", \n\tpassword_label=\"${password_label}\", \n\tpassword_confirm_label=\"${password_confirm_label}\", \n\tsubmit_button_text=\"${submit_button_text}\", \n\tshow_password=\"${show_password}\"\n%}"
         ],
-        "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n",
+        "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n",
         "prefix": "~member_register"
-    },
-    "membership_email_link": {
-        "body": [
-            "{% membership_email_link \"my_membership_email_link\"\n\tbutton_text=\"${button_text}\"\n%}"
-        ],
-        "description": "Render a button with a membership link\nParameters:\n- button_text(String) Text shown on link button\n",
-        "prefix": "~membership_email_link"
     },
     "menu": {
         "body": [
@@ -327,9 +355,9 @@
     },
     "password_reset": {
         "body": [
-            "{% password_reset \"my_password_reset\"\n\tpassword_label=\"${password_label}\", \n\tpassword_confirm_label=\"${password_confirm_label}\", \n\tsubmit_button_text=\"${submit_button_text}\"\n%}"
+            "{% password_reset \"my_password_reset\"\n\tpassword_label=\"${password_label}\", \n\tpassword_confirm_label=\"${password_confirm_label}\", \n\tsubmit_button_text=\"${submit_button_text}\", \n\tshow_password=\"${show_password}\"\n%}"
         ],
-        "description": "Render a password reset form.\nParameters:\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label from password confirm field\n- submit_button_text(String) Label for form submit button\n",
+        "description": "Render a password reset form.\nParameters:\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label from password confirm field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n",
         "prefix": "~password_reset"
     },
     "password_reset_request": {
@@ -430,9 +458,9 @@
     },
     "social_sharing": {
         "body": [
-            "{% social_sharing \"my_social_sharing\"\n\tuse_page_url=${use_page_url}, \n\tlink=\"${link}\", \n\tpinterest=${pinterest}, \n\ttwitter=${twitter}, \n\tgoogle_plus=${google_plus}, \n\tlinked_in=${linked_in}, \n\tfacebook=${facebook}, \n\temail=${email}\n%}"
+            "{% social_sharing \"my_social_sharing\"\n\tuse_page_url=${use_page_url}, \n\tlink=\"${link}\", \n\tpinterest=${pinterest}, \n\ttwitter=${twitter}, \n\tlinked_in=${linked_in}, \n\tfacebook=${facebook}, \n\temail=${email}\n%}"
         ],
-        "description": "Allow visitors to share your page on social networks\nParameters:\n- use_page_url(boolean) If true, the module shares the URL of the page by default\n- link(String) Specifies a different URL to share\n- pinterest(JSON) Parameters for Pinterest link format and icon image source\n- twitter(JSON) Parameters for Twitter link format and icon image source\n- google_plus(JSON) Parameters for Google+ link format and icon image source\n- linked_in(JSON) Parameters for LinkedIn link format and icon image source\n- facebook(JSON) Parameters for Facebook link format and icon image source\n- email(JSON) Parameters for email sharing link format and icon image source \n",
+        "description": "Allow visitors to share your page on social networks\nParameters:\n- use_page_url(boolean) If true, the module shares the URL of the page by default\n- link(String) Specifies a different URL to share\n- pinterest(JSON) Parameters for Pinterest link format and icon image source\n- twitter(JSON) Parameters for Twitter link format and icon image source\n- linked_in(JSON) Parameters for LinkedIn link format and icon image source\n- facebook(JSON) Parameters for Facebook link format and icon image source\n- email(JSON) Parameters for email sharing link format and icon image source \n",
         "prefix": "~social_sharing"
     },
     "space": {
@@ -484,9 +512,9 @@
     },
     "video_player": {
         "body": [
-            "{% video_player \"my_video_player\"\n\tplayer_id=${player_id}, \n\ttype=\"${type}\", \n\twidth=${width}, \n\theight=${height}, \n\thide_playlist=${hide_playlist}, \n\tviral_sharing=${viral_sharing}, \n\tembed_button=${embed_button}, \n\tcolor=\"${color}\", \n\tplaylist_color=\"${playlist_color}\", \n\tplay_button_color=\"${play_button_color}\", \n\tstyle=\"${style}\", \n\tconversion_asset=\"${conversion_asset}\"\n%}"
+            "{% video_player \"my_video_player\"\n\t\n%}"
         ],
-        "description": "A video player\nParameters:\n- player_id(number) Id of the video player\n- type(String) Type of the player embed code. The value can be either iframe or script\n- width(number) Set the width attribute of the video player\n- height(number) Set the height attribute of the video player\n- hide_playlist(boolean) Hide the playlist if set to true\n- viral_sharing(boolean) Display the social networks sharing button on the player if set to true\n- embed_button(boolean) Display embed button on the player if set to true\n- color(String) Player color\n- playlist_color(String) Playlist color\n- play_button_color(String) Player play button color\n- style(String) Additional style for player\n- conversion_asset(String) Event setting for player\n",
+        "description": "",
         "prefix": "~video_player"
     },
     "widget_attribute": {
