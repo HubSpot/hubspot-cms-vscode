@@ -11,7 +11,7 @@
       "\"locked\": false,",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
-      "\"default\": {} }"              
+      "\"default\": {} }"
     ],
     "description": "HubSpot Custom Module: Field Group"
   },
@@ -145,7 +145,7 @@
     "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Text Field"
-  }, 
+  },
   "Simple Menu": {
     "prefix": "field.simplemenu",
     "body": [
@@ -164,7 +164,7 @@
   "Url Field": {
     "prefix": "field.url",
     "body": [
-    "{",      
+    "{",
    "\"id\" : \"\",",
    "\"name\": \"${1:url_field}\",",
    "\"label\": \"${2:URL field}\",",
@@ -185,11 +185,11 @@
      "  \"type\": \"${3|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\"} }"
     ],
     "description": "HubSpot Custom Module: Url Field"
-  }, 
+  },
   "Boolean Field": {
     "prefix": "field.boolean",
     "body": [
-    "{",      
+    "{",
    "\"id\" : \"\",",
    "\"name\": \"${1:boolean_field}\",",
    "\"label\": \"${2:Boolean field}\",",
@@ -243,7 +243,7 @@
    "\"default\": null }"
     ],
     "description": "HubSpot Custom Module: Blog Field"
-  },  
+  },
   "Color Field": {
     "prefix": "field.color",
     "body": [
@@ -297,7 +297,7 @@
     "body": [
       "{",
      "\"id\" : \"\",",
-     "\"picker\": \"file\",",        
+     "\"picker\": \"file\",",
      "\"name\": \"${1:file_field}\",",
      "\"label\": \"${2:File field}\",",
      "\"sortable\": false,",
@@ -382,6 +382,7 @@
      "\"sortable\": false,",
      "\"required\": false,",
      "\"locked\": false,",
+     "\"responsive\": true,",
      "\"resizable\": true,",
      "\"type\": \"image\",",
      "\"default\": {",
