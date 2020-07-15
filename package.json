@@ -7,6 +7,9 @@
     "engines": {
         "vscode": "^1.30.0"
     },
+    "scripts": {
+        "generate": "node ./generate.js"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/williamspiro/HubL-Language-Extension"
@@ -81,6 +84,7 @@
         ]
     },
     "dependencies": {
-        "@types/vscode": "^1.47.0"
+        "@types/vscode": "^1.47.0",
+        "node-fetch": "^2.6.0"
     }
 }
