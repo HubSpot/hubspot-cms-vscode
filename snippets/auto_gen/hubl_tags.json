@@ -169,7 +169,7 @@
   },
   "flip": {
     "body": [
-      "{% flip \"my_flip\" %}\n\n{% endflip %}"
+      "{% flip val_true %}\nworld\n{% with %}\nhello\n{% endflip %}"
     ],
     "description": "Outputs the first and second block in specified or reverse order depending on the evaluation of the condition",
     "prefix": "~flip"
@@ -183,7 +183,7 @@
   },
   "for": {
     "body": [
-      "{% for \"my_for\" \"${items_to_iterate}\"%}\n\n{% endfor %}"
+      "{% for item in items %}\n    {{ item }}\n{% endfor %}"
     ],
     "description": "Outputs the inner content for each item in the given iterable\nParameters:\n- items_to_iterate(String) Specifies the name of a single item in the sequence or dict.",
     "prefix": "~for"
@@ -246,7 +246,7 @@
   },
   "if": {
     "body": [
-      "{% if \"my_if\" %}\n\n{% endif %}"
+      "{% if condition %}\nIf the condition is true print this to template.\n{% endif %}"
     ],
     "description": "Outputs inner content if expression evaluates to true, otherwise evaluates any elif blocks, finally outputting content of any else block present",
     "prefix": "~if"
@@ -470,7 +470,7 @@
   },
   "set": {
     "body": [
-      "{% set \"my_set\" \n\tvar=\"${var}\", \n\texpr=\"${expr}\"%}"
+      "{% set primaryColor = \"#F7761F\" %}\n{{ primaryColor }}\n"
     ],
     "description": "Assigns the value or result of a statement to a variable\nParameters:\n- var(variable identifier) The name of the variable\n- expr(expression) The value stored in the variable (string, number, boolean, or sequence",
     "prefix": "~set"

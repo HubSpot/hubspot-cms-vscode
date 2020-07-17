@@ -8,6 +8,8 @@ const PREFIX = {
   tags: "~",
 };
 
+const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip"];
+
 const fetchHubldocs = async () => {
   const HUBLDOC_ENDPOINT = "https://api.hubspotqa.com/cos-rendering/v1/hubldoc";
   const response = await fetch(HUBLDOC_ENDPOINT);
@@ -15,11 +17,11 @@ const fetchHubldocs = async () => {
   return response.json();
 };
 
-const getSnippetBody = (
+const buildSnippetBody = (
   { name, params, empty: isSelfClosing, snippets },
   type
 ) => {
-  // Special handling for block tags to find end tag
+  // If tag is block level, look for end tag in snippet
   let endTag = null;
   if (type === "tags" && !isSelfClosing && snippets.length > 0) {
     const endTags = snippets[0].code.match(/end[a-zA-Z_]+/gi);
@@ -57,7 +59,8 @@ const getSnippetBody = (
       }
   }
 };
-const getSnippetDescription = (docEntry) => {
+
+const buildSnippetDescription = (docEntry) => {
   const { desc, params } = docEntry;
   let description = desc;
 
@@ -74,10 +77,18 @@ const getSnippetDescription = (docEntry) => {
   return description;
 };
 
+const getDefaultSnippet = (docEntry) => {
+  return docEntry.snippets.shift().code;
+};
+
 const createSnippet = (docEntry, type) => {
   let snippetEntry = {
-    body: [getSnippetBody(docEntry, type)],
-    description: getSnippetDescription(docEntry, type),
+    body: [
+      SKIP_SNIPPET_GENERATION.includes(docEntry.name)
+        ? getDefaultSnippet(docEntry)
+        : buildSnippetBody(docEntry, type),
+    ],
+    description: buildSnippetDescription(docEntry, type),
     prefix: PREFIX[type] + docEntry.name,
   };
 
@@ -92,7 +103,13 @@ const createFile = async (data, type, prefix) => {
     snippets[entry["name"]] = createSnippet(entry, type);
   }
 
-  fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, { spaces: 2 });
+  try {
+    fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
+      spaces: 2,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const createSnippetFiles = async () => {
