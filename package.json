@@ -8,7 +8,7 @@
         "vscode": "^1.30.0"
     },
     "scripts": {
-        "generate": "node ./generate.js"
+        "generate": "node ./scripts/generate.js"
     },
     "repository": {
         "type": "git",

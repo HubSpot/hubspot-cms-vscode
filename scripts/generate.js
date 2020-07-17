@@ -92,7 +92,7 @@ const createFile = async (data, type, prefix) => {
     snippets[entry["name"]] = createSnippet(entry, type);
   }
 
-  fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, { spaces: 2 });
+  fs.outputJSONSync(`../snippets/auto_gen/hubl_${type}.json`, snippets, { spaces: 2 });
 };
 
 const createSnippetFiles = async () => {
