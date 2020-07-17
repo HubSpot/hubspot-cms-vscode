@@ -9,7 +9,7 @@ const PREFIX = {
 };
 
 const fetchHubldocs = async () => {
-  const HUBLDOC_ENDPOINT = "https://api.hubspot.com/cos-rendering/v1/hubldoc";
+  const HUBLDOC_ENDPOINT = "https://api.hubspotqa.com/cos-rendering/v1/hubldoc";
   const response = await fetch(HUBLDOC_ENDPOINT);
 
   return response.json();
@@ -92,7 +92,7 @@ const createFile = async (data, type, prefix) => {
     snippets[entry["name"]] = createSnippet(entry, type);
   }
 
-  fs.outputJSONSync(`../snippets/auto_gen/hubl_${type}.json`, snippets, { spaces: 2 });
+  fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, { spaces: 2 });
 };
 
 const createSnippetFiles = async () => {
