@@ -15,6 +15,10 @@
     "categories": [
         "Snippets"
     ],
+    "main": "./main.js",
+    "activationEvents": [
+        "onLanguage:html"
+    ],
     "contributes": {
         "snippets": [
             {
@@ -75,5 +79,8 @@
                 "configuration": "./langconfig/language-configuration.json"
             }
         ]
+    },
+    "dependencies": {
+        "@types/vscode": "^1.47.0"
     }
 }
