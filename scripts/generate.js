@@ -11,7 +11,7 @@ const PREFIX = {
 const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip"];
 
 const fetchHubldocs = async () => {
-  const HUBLDOC_ENDPOINT = "https://api.hubspotqa.com/cos-rendering/v1/hubldoc";
+  const HUBLDOC_ENDPOINT = "https://api.hubspot.com/cos-rendering/v1/hubldoc";
   const response = await fetch(HUBLDOC_ENDPOINT);
 
   return response.json();
