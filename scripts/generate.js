@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const fs = require("fs-extra");
+const path = require('path');
 
 const PREFIX = {
   expTests: "",
@@ -104,10 +105,14 @@ const createFile = async (data, type, prefix) => {
   }
 
   try {
-    const output = fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
+    const filepath = path.resolve(__dirname,`./snippets/auto_gen/hubl_${type}.json`);
+    const snippetCount = Object.keys(snippets).length;
+
+    fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
       spaces: 2,
     });
-    console.log(`Wrote ${output} with  snippets`)
+
+    console.log(`Wrote ${filepath} with ${snippetCount} snippets`);
   } catch (e) {
     console.log(e);
   }
