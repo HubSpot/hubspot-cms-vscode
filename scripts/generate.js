@@ -77,7 +77,7 @@ const buildSnippetDescription = (docEntry) => {
   return description;
 };
 
-const getDefaultSnippet = (docEntry) => {
+const getFirstDefaultSnippet = (docEntry) => {
   return docEntry.snippets.shift().code;
 };
 
@@ -85,7 +85,7 @@ const createSnippet = (docEntry, type) => {
   let snippetEntry = {
     body: [
       SKIP_SNIPPET_GENERATION.includes(docEntry.name)
-        ? getDefaultSnippet(docEntry)
+        ? getFirstDefaultSnippet(docEntry)
         : buildSnippetBody(docEntry, type),
     ],
     description: buildSnippetDescription(docEntry, type),
@@ -104,9 +104,10 @@ const createFile = async (data, type, prefix) => {
   }
 
   try {
-    fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
+    const output = fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
       spaces: 2,
     });
+    console.log(`Wrote ${output} with  snippets`)
   } catch (e) {
     console.log(e);
   }
