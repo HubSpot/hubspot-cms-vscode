@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const fs = require("fs-extra");
-const path = require('path');
+const path = require("path");
 
 const PREFIX = {
   expTests: "",
@@ -9,6 +9,7 @@ const PREFIX = {
   tags: "~",
 };
 
+// Skip snippet generation if format is incompatible
 const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip"];
 
 const fetchHubldocs = async () => {
@@ -38,9 +39,11 @@ const buildSnippetBody = (
       if (param.type == "String") {
         return '"${' + paramIndex + ":" + param.name + '}"';
       } else if (type == "tags") {
-        return "\n\t" + param.name + '="${' + paramIndex + ":" +  param.name + '}"';
+        return (
+          "\n\t" + param.name + '="${' + paramIndex + ":" + param.name + '}"'
+        );
       } else {
-        return "${" + paramIndex + ":" +  param.name + "}";
+        return "${" + paramIndex + ":" + param.name + "}";
       }
     });
 
@@ -98,7 +101,7 @@ const createSnippet = (docEntry, type) => {
   return snippetEntry;
 };
 
-const createFile = async (data, type, prefix) => {
+const createFile = async (data, type) => {
   const docEntries = Object.values(data);
 
   let snippets = {};
@@ -107,7 +110,10 @@ const createFile = async (data, type, prefix) => {
   }
 
   try {
-    const filepath = path.resolve(__dirname,`./snippets/auto_gen/hubl_${type}.json`);
+    const filepath = path.resolve(
+      __dirname,
+      `./snippets/auto_gen/hubl_${type}.json`
+    );
     const snippetCount = Object.keys(snippets).length;
 
     fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
@@ -124,7 +130,7 @@ const createSnippetFiles = async () => {
   const data = await fetchHubldocs();
   const snippetTypes = Object.keys(data);
 
-  for (let type of snippetTypes) {
+  for (type of snippetTypes) {
     createFile(data[type], type);
   }
 };
