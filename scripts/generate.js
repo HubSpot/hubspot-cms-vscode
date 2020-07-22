@@ -32,13 +32,15 @@ const buildSnippetBody = (
   }
 
   const prettyParams = () => {
-    const formattedParams = params.map((param) => {
+    const formattedParams = params.map((param, index) => {
+      const paramIndex = index + 1;
+
       if (param.type == "String") {
-        return '"${' + param.name + '}"';
+        return '"${' + paramIndex + ":" + param.name + '}"';
       } else if (type == "tags") {
-        return "\n\t" + param.name + '="${' + param.name + '}"';
+        return "\n\t" + param.name + '="${' + paramIndex + ":" +  param.name + '}"';
       } else {
-        return "${" + param.name + "}";
+        return "${" + paramIndex + ":" +  param.name + "}";
       }
     });
 
@@ -100,7 +102,7 @@ const createFile = async (data, type, prefix) => {
   const docEntries = Object.values(data);
 
   let snippets = {};
-  for (let entry of docEntries) {
+  for (entry of docEntries) {
     snippets[entry["name"]] = createSnippet(entry, type);
   }
 

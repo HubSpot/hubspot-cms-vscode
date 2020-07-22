@@ -8,28 +8,28 @@
   },
   "add": {
     "body": [
-      "|add(${addend})"
+      "|add(${1:addend})"
     ],
     "description": "adds a number to the existing value\nParameters:\n- addend(number) The number added to the base number",
     "prefix": "|add"
   },
   "attr": {
     "body": [
-      "|attr(\"${name}\")"
+      "|attr(\"${1:name}\")"
     ],
     "description": "Renders the attribute of a dictionary\nParameters:\n- name(String) The dictionary attribute name to access",
     "prefix": "|attr"
   },
   "batch": {
     "body": [
-      "|batch(${linecount}, \"${fill_with}\")"
+      "|batch(${1:linecount}, \"${2:fill_with}\")"
     ],
     "description": "A filter that groups up items within a sequence\nParameters:\n- linecount(number) Number of items to include in the batch\n- fill_with(String) Value used to fill up missing items",
     "prefix": "|batch"
   },
   "between_times": {
     "body": [
-      "|between_times(\"${end}\", \"${unit}\")"
+      "|between_times(\"${1:end}\", \"${2:unit}\")"
     ],
     "description": "Calculates the time between two datetime objects\nParameters:\n- end(String) Datetime object or timestamp at the end of the period\n- unit(String) Which temporal unit to use",
     "prefix": "|between_times"
@@ -50,7 +50,7 @@
   },
   "center": {
     "body": [
-      "|center(${width})"
+      "|center(${1:width})"
     ],
     "description": "Uses whitespace to center the value in a field of a given width.\nParameters:\n- width(number) Width of field to center value in",
     "prefix": "|center"
@@ -71,7 +71,7 @@
   },
   "cut": {
     "body": [
-      "|cut(\"${to_remove}\")"
+      "|cut(\"${1:to_remove}\")"
     ],
     "description": "Removes a string from the value from another string\nParameters:\n- to_remove(String) String to remove from the original string",
     "prefix": "|cut"
@@ -92,42 +92,42 @@
   },
   "datetimeformat": {
     "body": [
-      "|datetimeformat(\"${format}\", \"${timezone}\", ${locale})"
+      "|datetimeformat(\"${1:format}\", \"${2:timezone}\", ${3:locale})"
     ],
     "description": "Formats a date object\nParameters:\n- format(String) The format of the date determined by the directives added to this parameter\n- timezone(String) Time zone of output date\n- locale(string) The language code to use when formatting the datetime",
     "prefix": "|datetimeformat"
   },
   "default": {
     "body": [
-      "|default(\"${default_value}\", ${boolean})"
+      "|default(\"${1:default_value}\", ${2:boolean})"
     ],
     "description": "If the value is undefined it will return the passed default value, otherwise the value of the variable\nParameters:\n- default_value(String) Value to print when variable is not defined\n- boolean(boolean) Set to True to use with variables which evaluate to false",
     "prefix": "|default"
   },
   "dictsort": {
     "body": [
-      "|dictsort(${case_sensitive}, ${by})"
+      "|dictsort(${1:case_sensitive}, ${2:by})"
     ],
     "description": "Sort a dict and yield (key, value) pairs.\nParameters:\n- case_sensitive(boolean) Determines whether or not the sorting is case sensitive\n- by(enum key|value) Sort by dict key or value",
     "prefix": "|dictsort"
   },
   "difference": {
     "body": [
-      "|difference(${list})"
+      "|difference(${1:list})"
     ],
     "description": "Returns a list containing elements present in the first list but not the second list\nParameters:\n- list(sequence) The second list",
     "prefix": "|difference"
   },
   "divide": {
     "body": [
-      "|divide(${divisor})"
+      "|divide(${1:divisor})"
     ],
     "description": "Divides the current value by a divisor\nParameters:\n- divisor(number) The divisor to divide the value",
     "prefix": "|divide"
   },
   "divisible": {
     "body": [
-      "|divisible(${divisor})"
+      "|divisible(${1:divisor})"
     ],
     "description": "Evaluates to true if the value is divisible by the given number\nParameters:\n- divisor(number) The divisor to check if the value is divisible by",
     "prefix": "|divisible"
@@ -169,7 +169,7 @@
   },
   "filesizeformat": {
     "body": [
-      "|filesizeformat(${binary})"
+      "|filesizeformat(${1:binary})"
     ],
     "description": "Format the value like a ‘human-readable’ file size (i.e. 13 kB, 4.1 MB, 102 Bytes, etc).\nParameters:\n- binary(boolean) Use binary prefixes (Mebi, Gibi)",
     "prefix": "|filesizeformat"
@@ -183,7 +183,7 @@
   },
   "float": {
     "body": [
-      "|float(${default})"
+      "|float(${1:default})"
     ],
     "description": "Convert the value into a floating point number.\nParameters:\n- default(float) Value to return if conversion fails",
     "prefix": "|float"
@@ -197,14 +197,14 @@
   },
   "format": {
     "body": [
-      "|format(${args})"
+      "|format(${1:args})"
     ],
     "description": "Apply Python string formatting to an object.\nParameters:\n- args(String...) Values to insert into string",
     "prefix": "|format"
   },
   "format_currency": {
     "body": [
-      "|format_currency(\"${locale}\", \"${currency code}\")"
+      "|format_currency(\"${1:locale}\", \"${2:currency code}\")"
     ],
     "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency",
     "prefix": "|format_currency"
@@ -218,63 +218,63 @@
   },
   "geo_distance": {
     "body": [
-      "|geo_distance(${point1}, ${point2_lat}, ${point2_long}, ${units})"
+      "|geo_distance(${1:point1}, ${2:point2_lat}, ${3:point2_long}, ${4:units})"
     ],
     "description": "Calculates the ellipsoidal 2D distance between two points on Earth\nParameters:\n- point1(location) location from a HubDB column\n- point2_lat(number) latitude of point2\n- point2_long(number) longitude of point2\n- units(string) Units for the return value. Options are FT for feet, MI for miles, M for meters or KM for kilometers",
     "prefix": "|geo_distance"
   },
   "groupby": {
     "body": [
-      "|groupby(\"${attribute}\")"
+      "|groupby(\"${1:attribute}\")"
     ],
     "description": "Group a sequence of objects by a common attribute.\nParameters:\n- attribute(String) The common attribute to group by",
     "prefix": "|groupby"
   },
   "indent": {
     "body": [
-      "|indent(${width}, ${indentfirst})"
+      "|indent(${1:width}, ${2:indentfirst})"
     ],
     "description": "Uses whitespace to indent a string.\nParameters:\n- width(number) Amount of whitespace to indent\n- indentfirst(boolean) If True, first line will be indented",
     "prefix": "|indent"
   },
   "int": {
     "body": [
-      "|int(${default})"
+      "|int(${1:default})"
     ],
     "description": "Convert the value into an integer.\nParameters:\n- default(number) Value to return if the conversion fails",
     "prefix": "|int"
   },
   "intersect": {
     "body": [
-      "|intersect(${list})"
+      "|intersect(${1:list})"
     ],
     "description": "Returns a list containing elements present in both lists\nParameters:\n- list(sequence) The second list",
     "prefix": "|intersect"
   },
   "ipaddr": {
     "body": [
-      "|ipaddr(${function})"
+      "|ipaddr(${1:function})"
     ],
     "description": "Evaluates to true if the value is a valid IPv4 or IPv6 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'",
     "prefix": "|ipaddr"
   },
   "ipv4": {
     "body": [
-      "|ipv4(${function})"
+      "|ipv4(${1:function})"
     ],
     "description": "Evaluates to true if the value is a valid IPv4 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'",
     "prefix": "|ipv4"
   },
   "ipv6": {
     "body": [
-      "|ipv6(${function})"
+      "|ipv6(${1:function})"
     ],
     "description": "Evaluates to true if the value is a valid IPv6 address\nParameters:\n- function(string) Name of function. Supported functions: 'prefix', 'netmask', 'network', 'address', 'broadcast'",
     "prefix": "|ipv6"
   },
   "join": {
     "body": [
-      "|join(\"${d}\", \"${attr}\")"
+      "|join(\"${1:d}\", \"${2:attr}\")"
     ],
     "description": "Return a string which is the concatenation of the strings in the sequence.\nParameters:\n- d(String) The separator string used to join the items\n- attr(String) Optional dict object attribute to use in joining",
     "prefix": "|join"
@@ -302,7 +302,7 @@
   },
   "log": {
     "body": [
-      "|log(${base})"
+      "|log(${1:base})"
     ],
     "description": "Return the natural log of the input.\nParameters:\n- base(number) The base to use for the log calculation",
     "prefix": "|log"
@@ -316,7 +316,7 @@
   },
   "map": {
     "body": [
-      "|map(\"${attribute}\")"
+      "|map(\"${1:attribute}\")"
     ],
     "description": "Applies a filter on a sequence of objects or looks up an attribute.\nParameters:\n- attribute(String) Filter to apply to an object or dict attribute to lookup",
     "prefix": "|map"
@@ -330,21 +330,21 @@
   },
   "minus_time": {
     "body": [
-      "|minus_time(\"${diff}\", \"${unit}\")"
+      "|minus_time(\"${1:diff}\", \"${2:unit}\")"
     ],
     "description": "Subtracts a specified amount of time to a datetime object\nParameters:\n- diff(String) The amount to subtract from the datetime\n- unit(String) Which temporal unit to use",
     "prefix": "|minus_time"
   },
   "multiply": {
     "body": [
-      "|multiply(${multiplier})"
+      "|multiply(${1:multiplier})"
     ],
     "description": "Multiplies the current object with the given multiplier\nParameters:\n- multiplier(number) The multiplier",
     "prefix": "|multiply"
   },
   "plus_time": {
     "body": [
-      "|plus_time(\"${diff}\", \"${unit}\")"
+      "|plus_time(\"${1:diff}\", \"${2:unit}\")"
     ],
     "description": "Adds a specified amount of time to a datetime object\nParameters:\n- diff(String) The amount to add to the datetime\n- unit(String) Which temporal unit to use",
     "prefix": "|plus_time"
@@ -365,28 +365,28 @@
   },
   "regex_replace": {
     "body": [
-      "|regex_replace(\"${regex}\", \"${new}\")"
+      "|regex_replace(\"${1:regex}\", \"${2:new}\")"
     ],
     "description": "Return a copy of the value with all occurrences of a matched regular expression (Java RE2 syntax) replaced with a new one. The first argument is the regular expression to be matched, the second is the replacement string\nParameters:\n- regex(String) The regular expression that you want to match and replace\n- new(String) The new string that you replace the matched substring",
     "prefix": "|regex_replace"
   },
   "reject": {
     "body": [
-      "|reject(${exp_test})"
+      "|reject(${1:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to the object and rejecting the ones with the test succeeding.\nParameters:\n- exp_test(name of expression test) Specify which expression test to run for making the selection",
     "prefix": "|reject"
   },
   "rejectattr": {
     "body": [
-      "|rejectattr(\"${attribute}\", ${exp_test})"
+      "|rejectattr(\"${1:attribute}\", ${2:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to an attribute of an object or the attribute and rejecting the ones with the test succeeding.\nParameters:\n- attribute(String) Attribute to test for and reject items that contain it\n- exp_test(name of expression test) Specify which expression test to run for making the rejection",
     "prefix": "|rejectattr"
   },
   "replace": {
     "body": [
-      "|replace(\"${old}\", \"${new}\", ${count})"
+      "|replace(\"${1:old}\", \"${2:new}\", ${3:count})"
     ],
     "description": "Return a copy of the value with all occurrences of a substring replaced with a new one. The first argument is the substring that should be replaced, the second is the replacement string. If the optional third argument count is given, only the first count occurrences are replaced\nParameters:\n- old(String) The old substring that you want to match and replace\n- new(String) The new string that you replace the matched substring\n- count(number) Replace only the first N occurrences",
     "prefix": "|replace"
@@ -400,14 +400,14 @@
   },
   "root": {
     "body": [
-      "|root(${root})"
+      "|root(${1:root})"
     ],
     "description": "Return the square root of the input.\nParameters:\n- root(number) The nth root to use for the calculation",
     "prefix": "|root"
   },
   "round": {
     "body": [
-      "|round(${precision}, ${method})"
+      "|round(${1:precision}, ${2:method})"
     ],
     "description": "Round the number to a given precision.\nParameters:\n- precision(number) Specifies the precision of rounding\n- method(enum common|ceil|floor) Method of rounding: 'common' rounds either up or down, 'ceil' always rounds up, and 'floor' always rounds down.",
     "prefix": "|round"
@@ -421,14 +421,14 @@
   },
   "select": {
     "body": [
-      "|select(${exp_test})"
+      "|select(${1:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to the object and only selecting the ones with the test succeeding.\nParameters:\n- exp_test(name of expression test) Specify which expression test to run for making the selection",
     "prefix": "|select"
   },
   "selectattr": {
     "body": [
-      "|selectattr(\"${attr}\", ${exp_test})"
+      "|selectattr(\"${1:attr}\", ${2:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to an attribute of an object and only selecting the ones with the test succeeding.\nParameters:\n- attr(String) Attribute to test for and select items that contain it\n- exp_test(name of expression test) Specify which expression test to run for making the selection",
     "prefix": "|selectattr"
@@ -442,21 +442,21 @@
   },
   "slice": {
     "body": [
-      "|slice(${slices}, ${fillWith})"
+      "|slice(${1:slices}, ${2:fillWith})"
     ],
     "description": "Slice an iterator and return a list of lists containing those items.\nParameters:\n- slices(number) Specifies how many items will be sliced\n- fillWith(object) Specifies which object to use to fill missing values on final iteration",
     "prefix": "|slice"
   },
   "sort": {
     "body": [
-      "|sort(${reverse}, ${case_sensitive}, \"${attribute}\")"
+      "|sort(${1:reverse}, ${2:case_sensitive}, \"${3:attribute}\")"
     ],
     "description": "Sort an iterable.\nParameters:\n- reverse(boolean) Boolean to reverse the sort order\n- case_sensitive(boolean) Determines whether or not the sorting is case sensitive\n- attribute(String) Specifies an attribute to sort by",
     "prefix": "|sort"
   },
   "split": {
     "body": [
-      "|split(\"${separator}\", ${limit})"
+      "|split(\"${1:separator}\", ${2:limit})"
     ],
     "description": "Splits the input string into a list on the given separator\nParameters:\n- separator(String) Specifies the separator to split the variable by\n- limit(number) Limits resulting list by putting remainder of string into last list item",
     "prefix": "|split"
@@ -477,21 +477,21 @@
   },
   "strtotime": {
     "body": [
-      "|strtotime(\"${datetimeFormat}\")"
+      "|strtotime(\"${1:datetimeFormat}\")"
     ],
     "description": "Converts a datetime string and datetime format to a datetime object\nParameters:\n- datetimeFormat(String) Format of the datetime string",
     "prefix": "|strtotime"
   },
   "sum": {
     "body": [
-      "|sum(${start}, \"${attribute}\")"
+      "|sum(${1:start}, \"${2:attribute}\")"
     ],
     "description": "Returns the sum of a sequence of numbers plus the value of parameter ‘start’ (which defaults to 0). When the sequence is empty it returns start.\nParameters:\n- start(number) Sets a value to return, if there is nothing in the variable to sum\n- attribute(String) Specify an optional attribute of dict to sum",
     "prefix": "|sum"
   },
   "symmetric_difference": {
     "body": [
-      "|symmetric_difference(${list})"
+      "|symmetric_difference(${1:list})"
     ],
     "description": "Returns a list containing elements present in only one list.\nParameters:\n- list(sequence) The second list",
     "prefix": "|symmetric_difference"
@@ -519,28 +519,28 @@
   },
   "truncate": {
     "body": [
-      "|truncate(${length}, ${killwords}, \"${end}\")"
+      "|truncate(${1:length}, ${2:killwords}, \"${3:end}\")"
     ],
     "description": "Return a truncated copy of the string. The length is specified with the first parameter which defaults to 255. If the second parameter is true the filter will cut the text at length. Otherwise it will discard the last word. If the text was in fact truncated it will append an ellipsis sign (\"...\"). If you want a different ellipsis sign than \"...\" you can specify it using the third parameter.\nParameters:\n- length(number) Specifies the length at which to truncate the text (includes HTML characters)\n- killwords(boolean) If true, the string will cut text at length\n- end(String) The characters that will be added to indicate where the text was truncated",
     "prefix": "|truncate"
   },
   "truncatehtml": {
     "body": [
-      "|truncatehtml(${length}, \"${end}\", ${breakword})"
+      "|truncatehtml(${1:length}, \"${2:end}\", ${3:breakword})"
     ],
     "description": "Truncates a given string, respecting html markup (i.e. will properly close all nested tags)\nParameters:\n- length(number) Length at which to truncate text (HTML characters not included)\n- end(String) The characters that will be added to indicate where the text was truncated\n- breakword(boolean) If set to true, text will be truncated in the middle of words",
     "prefix": "|truncatehtml"
   },
   "union": {
     "body": [
-      "|union(${list})"
+      "|union(${1:list})"
     ],
     "description": "Returns a list containing elements present in either list\nParameters:\n- list(sequence) The second list",
     "prefix": "|union"
   },
   "unique": {
     "body": [
-      "|unique(${attr})"
+      "|unique(${1:attr})"
     ],
     "description": "Extract a unique set from a sequence of objects\nParameters:\n- attr(Optional attribute on object to use as unique identifier) ",
     "prefix": "|unique"
@@ -568,7 +568,7 @@
   },
   "urlize": {
     "body": [
-      "|urlize(${trim_url_limit}, ${nofollow}, \"${target}\")"
+      "|urlize(${1:trim_url_limit}, ${2:nofollow}, \"${3:target}\")"
     ],
     "description": "Converts URLs in plain text into clickable links.\nParameters:\n- trim_url_limit(number) Sets a character limit\n- nofollow(boolean) Adds nofollow to generated link tag\n- target(String) Adds target attr to generated link tag",
     "prefix": "|urlize"
@@ -582,14 +582,14 @@
   },
   "wordwrap": {
     "body": [
-      "|wordwrap(${width}, ${break_long_words})"
+      "|wordwrap(${1:width}, ${2:break_long_words})"
     ],
     "description": "Return a copy of the string passed to the filter wrapped after 79 characters.\nParameters:\n- width(number) Sets the width of spaces at which to wrap the text\n- break_long_words(boolean) If true, long words will be broken when wrapped",
     "prefix": "|wordwrap"
   },
   "xmlattr": {
     "body": [
-      "|xmlattr(${autospace})"
+      "|xmlattr(${1:autospace})"
     ],
     "description": "Create an HTML/XML attribute string based on the items in a dict.\nParameters:\n- autospace(boolean) Automatically prepend a space in front of the item",
     "prefix": "|xmlattr"
