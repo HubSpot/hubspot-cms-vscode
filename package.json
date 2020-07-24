@@ -71,12 +71,49 @@
             }
         ],
         "languages": [
+                   {
+                "id": "hubl",
+                "extensions": [
+                    ".hubl.html"
+                ],
+                "configuration": "./langconfig/language-configuration.json"
+            },
             {
                 "id": "html",
                 "extensions": [
                     ".html"
                 ],
                 "configuration": "./langconfig/language-configuration.json"
+            },
+            {
+                "id": "css",
+                "extensions": [
+                    ".css"
+                ],
+                "configuration": "./langconfig/language-configuration.json"
+            }
+        ],
+        "grammars": [
+                    {
+                "language": "hubl",
+                "scopeName": "source.hubl",
+                "path": "./syntaxes/hubl.json"
+              },
+              {
+                "language": "html",
+                "scopeName": "text.html.hubl",
+                "path": "./syntaxes/hubl-html.json"
+              },
+              {
+                "language": "hubl",
+                "scopeName": "source.hubl",
+                "path": "./syntaxes/hubl.json",
+                "injectTo": [
+                  "source.css",
+                  "source.js",
+                  "source.html"
+                ]
+
             }
         ]
     },
