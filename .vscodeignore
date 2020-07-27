@@ -2,5 +2,6 @@
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
-hubl_snippets_gen.py
+generate.js
 LICENSE
+scripts/**
