@@ -479,8 +479,8 @@
     "prefix":"field.font",
     "body": [
       "{",
-      "\"name\": \"font\",",
-      "\"label\": \"Font\",",
+      "\"name\": \"${1:font_field}\",",
+      "\"label\": \"${1:Font field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"load_external_fonts\": true,",
