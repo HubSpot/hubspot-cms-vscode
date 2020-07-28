@@ -10,7 +10,7 @@ const PREFIX = {
 };
 
 // Skip snippet generation if format is incompatible
-const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip"];
+const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip", "import", "include", "from", "do"];
 
 const fetchHubldocs = async () => {
   const HUBLDOC_ENDPOINT = "https://api.hubspot.com/cos-rendering/v1/hubldoc";
@@ -36,12 +36,13 @@ const buildSnippetBody = (
     const formattedParams = params.map((param, index) => {
       const paramIndex = index + 1;
 
-      if (param.type == "String") {
-        return '"${' + paramIndex + ":" + param.name + '}"';
-      } else if (type == "tags") {
+      if (type == "tags") {
         return (
           "\n\t" + param.name + '="${' + paramIndex + ":" + param.name + '}"'
         );
+      }
+      else if (param.type == "String") {
+        return '"${' + paramIndex + ":" + param.name + '}"';
       } else {
         return "${" + paramIndex + ":" + param.name + "}";
       }
