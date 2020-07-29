@@ -1,6 +1,8 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.eslintrc.js
+.prettierrc.js
 vsc-extension-quickstart.md
 generate.js
 LICENSE
