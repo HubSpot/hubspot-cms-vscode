@@ -74,7 +74,7 @@ const buildSnippetDescription = (docEntry) => {
   if (params.length > 0) {
     description += "\nParameters:";
 
-    for (param of params) {
+    for (let param of params) {
       description += `\n- ${param.name.replace(" ", "_")}(${param.type}) ${
         param.desc
       }`;
@@ -106,7 +106,7 @@ const createFile = async (data, type) => {
   const docEntries = Object.values(data);
 
   let snippets = {};
-  for (entry of docEntries) {
+  for (let entry of docEntries) {
     snippets[entry["name"]] = createSnippet(entry, type);
   }
 
@@ -131,7 +131,7 @@ const createSnippetFiles = async () => {
   const data = await fetchHubldocs();
   const snippetTypes = Object.keys(data);
 
-  for (type of snippetTypes) {
+  for (let type of snippetTypes) {
     createFile(data[type], type);
   }
 };
