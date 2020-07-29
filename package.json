@@ -9,7 +9,8 @@
     },
     "scripts": {
         "generate": "node ./scripts/generate.js",
-        "lint": "eslint . --ext .js"
+        "lint": "eslint . && prettier --list-different './**/*.{js,json}'",
+        "prettier:write": "prettier --write ./**/*.{js,json}"
     },
     "repository": {
         "type": "git",
