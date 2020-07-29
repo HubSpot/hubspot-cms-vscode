@@ -5,10 +5,10 @@ const vscode = require('vscode');
  */
 function activate() {
   vscode.languages.setLanguageConfiguration('html', {
-		indentationRules: {
-			decreaseIndentPattern: /.*{%(.*?end).*%}*./,
-			increaseIndentPattern: /.*{%(?!.*end).*%}.*/
-    }
+    indentationRules: {
+      decreaseIndentPattern: /.*{%(.*?end).*%}*./,
+      increaseIndentPattern: /.*{%(?!.*end).*%}.*/,
+    },
   });
 }
 
@@ -16,6 +16,6 @@ function deactivate() {}
 
 // eslint-disable-next-line no-undef
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate,
+};
