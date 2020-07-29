@@ -130,7 +130,7 @@
           "name": "keyword.control.hubl"
         },
         {
-					"match": "\\b(true|false|none)\\b",
+          "match": "\\b(true|false|none)\\b",
           "name": "constant.language.hubl"
         },
         {
@@ -142,7 +142,7 @@
           "name": "variable.other.hubl"
         },
         {
-          "match": "(\\+|\\-|\\*\\*|\\*|\/\/|\/|%)",
+          "match": "(\\+|\\-|\\*\\*|\\*|//|/|%)",
           "name": "keyword.operator.arithmetic.hubl"
         },
         {
@@ -262,13 +262,13 @@
           ]
         },
         {
-          "begin": "@\/",
+          "begin": "@/",
           "beginCaptures": [
             {
               "name": "punctuation.definition.regexp.begin.hubl"
             }
           ],
-          "end": "\/",
+          "end": "/",
           "endCaptures": [
             {
               "name": "punctuation.definition.regexp.end.hubl"

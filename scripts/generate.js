@@ -1,19 +1,28 @@
-const fetch = require("node-fetch");
-const fs = require("fs-extra");
-const path = require("path");
+const fetch = require('node-fetch');
+const fs = require('fs-extra');
+const path = require('path');
 
 const PREFIX = {
-  expTests: "",
-  filters: "|",
-  functions: "~",
-  tags: "~",
+  expTests: '',
+  filters: '|',
+  functions: '~',
+  tags: '~',
 };
 
 // Skip snippet generation if format is incompatible
-const SKIP_SNIPPET_GENERATION = ["set", "for", "if", "flip", "import", "include", "from", "do"];
+const SKIP_SNIPPET_GENERATION = [
+  'set',
+  'for',
+  'if',
+  'flip',
+  'import',
+  'include',
+  'from',
+  'do',
+];
 
 const fetchHubldocs = async () => {
-  const HUBLDOC_ENDPOINT = "https://api.hubspot.com/cos-rendering/v1/hubldoc";
+  const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
   const response = await fetch(HUBLDOC_ENDPOINT);
 
   return response.json();
@@ -25,7 +34,7 @@ const buildSnippetBody = (
 ) => {
   // If tag is block level, look for end tag in snippet
   let endTag = null;
-  if (type === "tags" && !isSelfClosing && snippets.length > 0) {
+  if (type === 'tags' && !isSelfClosing && snippets.length > 0) {
     const endTags = snippets[0].code.match(/end[a-zA-Z_]+/gi);
     if (endTags) {
       endTag = endTags.pop();
@@ -36,29 +45,28 @@ const buildSnippetBody = (
     const formattedParams = params.map((param, index) => {
       const paramIndex = index + 1;
 
-      if (type == "tags") {
+      if (type == 'tags') {
         return (
-          "\n\t" + param.name + '="${' + paramIndex + ":" + param.name + '}"'
+          '\n\t' + param.name + '="${' + paramIndex + ':' + param.name + '}"'
         );
-      }
-      else if (param.type == "String") {
-        return '"${' + paramIndex + ":" + param.name + '}"';
+      } else if (param.type == 'String') {
+        return '"${' + paramIndex + ':' + param.name + '}"';
       } else {
-        return "${" + paramIndex + ":" + param.name + "}";
+        return '${' + paramIndex + ':' + param.name + '}';
       }
     });
 
-    return formattedParams.join(", ");
+    return formattedParams.join(', ');
   };
 
   switch (type) {
-    case "expTests":
+    case 'expTests':
       return name;
-    case "filters":
+    case 'filters':
       return params.length > 0 ? `|${name}(${prettyParams()})` : `|${name}`;
-    case "functions":
+    case 'functions':
       return `${name}(${prettyParams()})`;
-    case "tags":
+    case 'tags':
       if (endTag) {
         return `{% ${name} "my_${name}" ${prettyParams()}%}\n\n{% ${endTag} %}`;
       } else {
@@ -72,10 +80,10 @@ const buildSnippetDescription = (docEntry) => {
   let description = desc;
 
   if (params.length > 0) {
-    description += "\nParameters:";
+    description += '\nParameters:';
 
-    for (param of params) {
-      description += `\n- ${param.name.replace(" ", "_")}(${param.type}) ${
+    for (let param of params) {
+      description += `\n- ${param.name.replace(' ', '_')}(${param.type}) ${
         param.desc
       }`;
     }
@@ -106,8 +114,8 @@ const createFile = async (data, type) => {
   const docEntries = Object.values(data);
 
   let snippets = {};
-  for (entry of docEntries) {
-    snippets[entry["name"]] = createSnippet(entry, type);
+  for (let entry of docEntries) {
+    snippets[entry['name']] = createSnippet(entry, type);
   }
 
   try {
@@ -131,7 +139,7 @@ const createSnippetFiles = async () => {
   const data = await fetchHubldocs();
   const snippetTypes = Object.keys(data);
 
-  for (type of snippetTypes) {
+  for (let type of snippetTypes) {
     createFile(data[type], type);
   }
 };

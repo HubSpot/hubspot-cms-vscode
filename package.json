@@ -8,7 +8,9 @@
         "vscode": "^1.30.0"
     },
     "scripts": {
-        "generate": "node ./scripts/generate.js"
+        "generate": "node ./scripts/generate.js",
+        "lint": "eslint . && prettier --list-different '**/*.{js,json}'",
+        "prettier:write": "prettier --write '**/*.{js,json}'"
     },
     "repository": {
         "type": "git",
@@ -74,7 +76,7 @@
             }
         ],
         "languages": [
-                   {
+            {
                 "id": "hubl",
                 "extensions": [
                     ".hubl.html"
@@ -97,26 +99,25 @@
             }
         ],
         "grammars": [
-                    {
+            {
                 "language": "hubl",
                 "scopeName": "source.hubl",
                 "path": "./syntaxes/hubl.json"
-              },
-              {
+            },
+            {
                 "language": "html",
                 "scopeName": "text.html.hubl",
                 "path": "./syntaxes/hubl-html.json"
-              },
-              {
+            },
+            {
                 "language": "hubl",
                 "scopeName": "source.hubl",
                 "path": "./syntaxes/hubl.json",
                 "injectTo": [
-                  "source.css",
-                  "source.js",
-                  "source.html"
+                    "source.css",
+                    "source.js",
+                    "source.html"
                 ]
-
             }
         ]
     },
@@ -124,5 +125,9 @@
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.5.0",
+        "prettier": "^2.0.5"
     }
 }

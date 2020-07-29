@@ -1,129 +1,104 @@
 {
-    "blog_author": {
-        "prefix":"blog_author",
-        "body": [
-            "{{ ${1|blog_author,blog_author.avatar,blog_author.bio,blog_author.display_name,blog_author.email,blog_author.facebook,blog_author.google_plus,blog_author.has_social_profiles,blog_author.linkedin,blog_author.twitter,blog_author.website|} }}"
-        ],
-        "description":"Data about blog authors. To be used for blog author listing pages ({% if blog_author %})."
-    },
-    "content.blog_post_author": {
-        "prefix":"content.blog_post_author",
-        "body": [
-            "{{ ${1|content.blog_post_author,content.blog_post_author.avatar,content.blog_post_author.bio,content.blog_post_author.display_name,content.blog_post_author.email,content.blog_post_author.facebook,content.blog_post_author.google_plus,content.blog_post_author.has_social_profiles,content.blog_post_author.linkedin,content.blog_post_author.slug,content.blog_post_author.twitter,content.blog_post_author.website|} }}"
-        ],
-        "description":"Data about a blog posts author. To be used on blog post/listing templates."
-    },
-    "content.blog": {
-        "prefix":"content.blog",
-        "body": [
-            "{{ content.blog }}"
-        ],
-        "description":"An alias for group."
-    },
-    "content.comment_list": {
-        "prefix":"content.comment_list",
-        "body": [
-            "{{ content.comment_list }}"
-        ],
-        "description":"A list of the comments for the current blog post."
-    },
-    "content.featured_image": {
-        "prefix":"content.featured_image",
-        "body": [
-            "{{ content.featured_image }}"
-        ],
-        "description":"The source url of the featured image, selected when the blog was published."
-    },
-    "content.featured_image_alt_text": {
-        "prefix":"content.featured_image_alt_text",
-        "body": [
-            "{{ content.featured_image_alt_text }}"
-        ],
-        "description":"The alt text of the featured image."
-    },
-    "content.next_post": {
-        "prefix":"content.next_post",
-        "body": [
-            "{{ ${1|content.next_post_name,content.next_post_featured_image,content.next_post_slug|} }}"
-        ],
-        "description":"Information about the next post, if one exists."
-    },
-    "content.previous_post": {
-        "prefix":"content.previous_post",
-        "body": [
-            "{{ ${1|content.previous_post_name,content.previous_post_featured_image,content.previous_post_slug|} }}"
-        ],
-        "description":"Information about the previous post, if one exists."
-    },
-    "content.post_body": {
-        "prefix":"content.post_body",
-        "body": [
-            "{{ content.post_body }}"
-        ],
-        "description":"The body of the blog post."
-    },
-    "content.post_list_content": {
-        "prefix":"content.post_list_content",
-        "body": [
-            "{{ content.post_list_content }}"
-        ],
-        "description":"The body blog post content, modified for the listing page. The final output is affected by summary settings in Content Settings > Blog. If featured images are enabled in settings, this varible will remove any images above the read more separator automatically."
-    },
-    "content.post_summary": {
-        "prefix":"content.post_summary",
-        "body": [
-            "{{ content.post_summary }}"
-        ],
-        "description":"The blog post summary. This content is determined by the read more separator in the blog editor."
-    },
-    "content.post_list_summary_featured_image ": {
-        "prefix":"content.post_list_summary_featured_image",
-        "body": [
-            "{{ content.post_list_summary_featured_image }}"
-        ],
-        "description":"The featured image for listing layouts. This variable is affected by the settings in Content Settings > Blog."
-    },
-    "content.publish_date_localized": {
-        "prefix":"content.publish_date_localized ",
-        "body": [
-            "{{ content.publish_date_localized }}"
-        ],
-        "description":"A string representing the date/time when the blog post was published, formatted according to the blog's language and date formatting settings."
-    },
-    "current_page_num": {
-        "prefix":"current_page_num",
-        "body": [
-            "{{ current_page_num }}"
-        ],
-        "description":"The integer index of the current page of blog posts in the view."
-    },
-    "last_page_num": {
-        "prefix":"last_page_num",
-        "body": [
-            "{{ last_page_num }}"
-        ],
-        "description":"The integer index of the last page of blog posts in the view."
-    },
-    "next_page_num": {
-        "prefix":"next_page_num",
-        "body": [
-            "{{ next_page_num }}"
-        ],
-        "description":"The integer index of the next page of blog posts in the view."
-    },
-    "contents": {
-        "prefix":"contents",
-        "body": [
-            "{{ ${1|contents,contents.total_count,contents.total_page_count,contents_topics|} }}"
-        ],
-        "description":"Contents is a sequence of your blog posts that is iterated through using a for loop."
-    },
-    "group": {
-        "prefix":"group",
-        "body": [
-            "{{ ${1|group,group.absolute_url,group.description,group.allow_comments,group.header,group.html_title,group.id,group.public_title,group.slug|} }}"
-        ],
-        "description":"The dictionary containing variables that pertain to an entire blog."
-    }
-
+  "blog_author": {
+    "prefix": "blog_author",
+    "body": [
+      "{{ ${1|blog_author,blog_author.avatar,blog_author.bio,blog_author.display_name,blog_author.email,blog_author.facebook,blog_author.google_plus,blog_author.has_social_profiles,blog_author.linkedin,blog_author.twitter,blog_author.website|} }}"
+    ],
+    "description": "Data about blog authors. To be used for blog author listing pages ({% if blog_author %})."
+  },
+  "content.blog_post_author": {
+    "prefix": "content.blog_post_author",
+    "body": [
+      "{{ ${1|content.blog_post_author,content.blog_post_author.avatar,content.blog_post_author.bio,content.blog_post_author.display_name,content.blog_post_author.email,content.blog_post_author.facebook,content.blog_post_author.google_plus,content.blog_post_author.has_social_profiles,content.blog_post_author.linkedin,content.blog_post_author.slug,content.blog_post_author.twitter,content.blog_post_author.website|} }}"
+    ],
+    "description": "Data about a blog posts author. To be used on blog post/listing templates."
+  },
+  "content.blog": {
+    "prefix": "content.blog",
+    "body": ["{{ content.blog }}"],
+    "description": "An alias for group."
+  },
+  "content.comment_list": {
+    "prefix": "content.comment_list",
+    "body": ["{{ content.comment_list }}"],
+    "description": "A list of the comments for the current blog post."
+  },
+  "content.featured_image": {
+    "prefix": "content.featured_image",
+    "body": ["{{ content.featured_image }}"],
+    "description": "The source url of the featured image, selected when the blog was published."
+  },
+  "content.featured_image_alt_text": {
+    "prefix": "content.featured_image_alt_text",
+    "body": ["{{ content.featured_image_alt_text }}"],
+    "description": "The alt text of the featured image."
+  },
+  "content.next_post": {
+    "prefix": "content.next_post",
+    "body": [
+      "{{ ${1|content.next_post_name,content.next_post_featured_image,content.next_post_slug|} }}"
+    ],
+    "description": "Information about the next post, if one exists."
+  },
+  "content.previous_post": {
+    "prefix": "content.previous_post",
+    "body": [
+      "{{ ${1|content.previous_post_name,content.previous_post_featured_image,content.previous_post_slug|} }}"
+    ],
+    "description": "Information about the previous post, if one exists."
+  },
+  "content.post_body": {
+    "prefix": "content.post_body",
+    "body": ["{{ content.post_body }}"],
+    "description": "The body of the blog post."
+  },
+  "content.post_list_content": {
+    "prefix": "content.post_list_content",
+    "body": ["{{ content.post_list_content }}"],
+    "description": "The body blog post content, modified for the listing page. The final output is affected by summary settings in Content Settings > Blog. If featured images are enabled in settings, this varible will remove any images above the read more separator automatically."
+  },
+  "content.post_summary": {
+    "prefix": "content.post_summary",
+    "body": ["{{ content.post_summary }}"],
+    "description": "The blog post summary. This content is determined by the read more separator in the blog editor."
+  },
+  "content.post_list_summary_featured_image ": {
+    "prefix": "content.post_list_summary_featured_image",
+    "body": ["{{ content.post_list_summary_featured_image }}"],
+    "description": "The featured image for listing layouts. This variable is affected by the settings in Content Settings > Blog."
+  },
+  "content.publish_date_localized": {
+    "prefix": "content.publish_date_localized ",
+    "body": ["{{ content.publish_date_localized }}"],
+    "description": "A string representing the date/time when the blog post was published, formatted according to the blog's language and date formatting settings."
+  },
+  "current_page_num": {
+    "prefix": "current_page_num",
+    "body": ["{{ current_page_num }}"],
+    "description": "The integer index of the current page of blog posts in the view."
+  },
+  "last_page_num": {
+    "prefix": "last_page_num",
+    "body": ["{{ last_page_num }}"],
+    "description": "The integer index of the last page of blog posts in the view."
+  },
+  "next_page_num": {
+    "prefix": "next_page_num",
+    "body": ["{{ next_page_num }}"],
+    "description": "The integer index of the next page of blog posts in the view."
+  },
+  "contents": {
+    "prefix": "contents",
+    "body": [
+      "{{ ${1|contents,contents.total_count,contents.total_page_count,contents_topics|} }}"
+    ],
+    "description": "Contents is a sequence of your blog posts that is iterated through using a for loop."
+  },
+  "group": {
+    "prefix": "group",
+    "body": [
+      "{{ ${1|group,group.absolute_url,group.description,group.allow_comments,group.header,group.html_title,group.id,group.public_title,group.slug|} }}"
+    ],
+    "description": "The dictionary containing variables that pertain to an entire blog."
+  }
 }

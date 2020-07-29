@@ -1,93 +1,67 @@
 {
-    "request.cookies":{  
-        "prefix":"request.cookies",
-        "body": [
-            "{{ request.cookies }}"
-        ],
-        "description":"A dictionary of cookie names mapped to cookie values."
-    },
-    "request.domain":{  
-        "prefix":"request.domain",
-        "body": [
-            "{{ request.domain }}"
-        ],
-        "description":"The domain used to access this page."
-    },
-    "request.full_url":{  
-        "prefix":"request.full_url",
-        "body": [
-            "{{ request.full_url }}"
-        ],
-        "description":"The URL used to access this page, with the query string."
-    },
-    "request.path":{  
-        "prefix":"request.path",
-        "body": [
-            "{{ request.path }}"
-        ],
-        "description":"The path component of the URL."
-    },
-    "request.path_and_query":{  
-        "prefix":"request.path_and_query",
-        "body": [
-            "{{ request.path_and_query }}"
-        ],
-        "description":"The path and query component of the URL."
-    },
-    "request.query":{  
-        "prefix":"request.query",
-        "body": [
-            "{{ request.query }}"
-        ],
-        "description":"The query string component of the URL."
-    },
-    "request.query_dict":{  
-        "prefix":"request.query_dict",
-        "body": [
-            "{{ request.query_dict }}"
-        ],
-        "description":"The query string coverted into a name->value dictionary."
-    },
-    "request.referrer":{  
-        "prefix":"request.referrer",
-        "body": [
-            "{{ request.referrer }}"
-        ],
-        "description":"The HTTP referrer, the url of the page that linked to the current page."
-    },
-    "request.remote_ip":{  
-        "prefix":"request.remote_ip",
-        "body": [
-            "{{ request.remote_ip }}"
-        ],
-        "description":"The IP address of the visitor."
-    },
-    "request.scheme":{  
-        "prefix":"request.scheme",
-        "body": [
-            "{{ request.scheme }}"
-        ],
-        "description":"The protocol of the request (either http or https)."
-    },
-    "request.search_engine":{  
-        "prefix":"request.search_engine",
-        "body": [
-            "{{ request.search_engine }}"
-        ],
-        "description":"The search engine used to find this page, if applicable. Ex: google, aol, live, yahoo, images.google, etc."
-    },
-    "request.search_keyword":{  
-        "prefix":"request.search_keyword",
-        "body": [
-            "{{ request.search_keyword }}"
-        ],
-        "description":"The keyword phrase used to find this page, if applicable."
-    },
-    "request.headers":{  
-        "prefix":"request.headers",
-        "body": [
-            "{{ request.headers }}"
-        ],
-        "description":"A dictionary of available request headers."
-    }
+  "request.cookies": {
+    "prefix": "request.cookies",
+    "body": ["{{ request.cookies }}"],
+    "description": "A dictionary of cookie names mapped to cookie values."
+  },
+  "request.domain": {
+    "prefix": "request.domain",
+    "body": ["{{ request.domain }}"],
+    "description": "The domain used to access this page."
+  },
+  "request.full_url": {
+    "prefix": "request.full_url",
+    "body": ["{{ request.full_url }}"],
+    "description": "The URL used to access this page, with the query string."
+  },
+  "request.path": {
+    "prefix": "request.path",
+    "body": ["{{ request.path }}"],
+    "description": "The path component of the URL."
+  },
+  "request.path_and_query": {
+    "prefix": "request.path_and_query",
+    "body": ["{{ request.path_and_query }}"],
+    "description": "The path and query component of the URL."
+  },
+  "request.query": {
+    "prefix": "request.query",
+    "body": ["{{ request.query }}"],
+    "description": "The query string component of the URL."
+  },
+  "request.query_dict": {
+    "prefix": "request.query_dict",
+    "body": ["{{ request.query_dict }}"],
+    "description": "The query string coverted into a name->value dictionary."
+  },
+  "request.referrer": {
+    "prefix": "request.referrer",
+    "body": ["{{ request.referrer }}"],
+    "description": "The HTTP referrer, the url of the page that linked to the current page."
+  },
+  "request.remote_ip": {
+    "prefix": "request.remote_ip",
+    "body": ["{{ request.remote_ip }}"],
+    "description": "The IP address of the visitor."
+  },
+  "request.scheme": {
+    "prefix": "request.scheme",
+    "body": ["{{ request.scheme }}"],
+    "description": "The protocol of the request (either http or https)."
+  },
+  "request.search_engine": {
+    "prefix": "request.search_engine",
+    "body": ["{{ request.search_engine }}"],
+    "description": "The search engine used to find this page, if applicable. Ex: google, aol, live, yahoo, images.google, etc."
+  },
+  "request.search_keyword": {
+    "prefix": "request.search_keyword",
+    "body": ["{{ request.search_keyword }}"],
+    "description": "The keyword phrase used to find this page, if applicable."
+  },
+  "request.headers": {
+    "prefix": "request.headers",
+    "body": ["{{ request.headers }}"],
+    "description": "A dictionary of available request headers."
+  }
 }
