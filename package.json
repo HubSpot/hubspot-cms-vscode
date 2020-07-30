@@ -2,8 +2,8 @@
     "name": "hubl",
     "displayName": "HubL Language Extension",
     "description": "HubL Visual Studio Code Language Extension",
-    "version": "0.1.4",
-    "publisher": "WilliamSpiro",
+    "version": "0.2.0",
+    "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.30.0"
     },
@@ -14,9 +14,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/williamspiro/HubL-Language-Extension"
+        "url": "https://github.com/HubSpot/HubL-Language-Extension"
     },
-    "homepage": "https://github.com/williamspiro/HubL-Language-Extension/blob/master/README.md",
+    "homepage": "https://github.com/HubSpot/HubL-Language-Extension/blob/master/README.md",
     "categories": [
         "Snippets"
     ],
