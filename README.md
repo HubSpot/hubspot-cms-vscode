@@ -1,5 +1,5 @@
 # HubL Visual Studio Code Language Extension
-Get it :point_right: https://marketplace.visualstudio.com/items?itemName=WilliamSpiro.hubl
+Get it :point_right: https://marketplace.visualstudio.com/items?itemName=HubSpot.hubl
 
 Check out how to get started with local development on the HubSpot CMS :point_right: https://designers.hubspot.com/docs/tools/local-development
 
