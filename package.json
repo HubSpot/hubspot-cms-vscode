@@ -84,14 +84,14 @@
                 "configuration": "./langconfig/language-configuration.json"
             },
             {
-                "id": "html",
+                "id": "html+hubl",
                 "extensions": [
                     ".html"
                 ],
                 "configuration": "./langconfig/language-configuration.json"
             },
             {
-                "id": "css",
+                "id": "css+hubl",
                 "extensions": [
                     ".css"
                 ],
@@ -119,7 +119,24 @@
                     "source.html"
                 ]
             }
-        ]
+        ],
+        "configuration": {
+            "title": "HubL",
+            "properties": {
+              "hubl.overrideSyntaxHighlight": {
+                "type": "boolean",
+                "default": false,
+                "description": "Overrides syntax highlighting."
+              },
+              "hubl.syntaxHighlightColors": {
+                "type": "object",
+                "default": {
+                    "delimeters": ""
+                },
+                "description": "Color overrides for syntax highlighting"
+              }
+            }
+          }
     },
     "dependencies": {
         "@types/vscode": "^1.47.0",
