@@ -161,9 +161,6 @@ This plugin adds support for auto completion of all HubL statement types and sup
 ### Syntax Highlighting
 HubL syntax hightlighting is supported for HTML, CSS, and JS files. Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Contributing
 Anyone should feel free to fork/PR this. Open source for the win!
 Please make sure and explain your changes thoroughly, update version and changelog where needed.
