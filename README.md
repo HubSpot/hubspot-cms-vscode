@@ -1,18 +1,25 @@
 # HubL Visual Studio Code Language Extension
-Get it :point_right: https://marketplace.visualstudio.com/items?itemName=WilliamSpiro.hubl
+This is the HubSpot extension for [Visual Studio Code](https://code.visualstudio.com/), allowing for :rocket: fast HubSpot CMS Hub development.
 
-Check out how to get started with local development on the HubSpot CMS :point_right: https://designers.hubspot.com/docs/tools/local-development
+This extension currently supports:
+- Syntax highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl)
+- Autocomlete for common HubL tags, filters, and functions
+- Bracket wrapping, indentation, and other helpful editor features
 
-[HubL](https://designers.hubspot.com/docs/hubl/intro-to-hubl) is the underlying syntax used in the [HubSpot content management system](https://www.hubspot.com/products/marketing/content-management-system). HubL can be used to dynamically render content, as well as generate easy to edit modules within the content editors marketers work in so they do not ever need to touch the underlying HTML of a template. This allows for many pages to use a single template, making managing content and websites significantly easier and quicker.
-
-This is a HubL language extension for the [Visual Studio Code IDE](https://code.visualstudio.com/), allowing for :rocket: fast local HubSpot CMS Platform development in `.html` files. For comprehensive HubL documentation, see the [HubL docs](https://designers.hubspot.com/docs/hubl/intro-to-hubl).
-
-Most HubL snippets are auto-generated from `@JinjavaDoc` annotations to ensure the snippets are always up to date, and easy to maintain :potable_water:
-
-![language extention demo](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/nifty_gif.gif)
-_For nice HubL syntax highlighting, install the [Jinja scopes extension](https://marketplace.visualstudio.com/items?itemName=wholroyd.jinja) which lays on top of `.html` files._
+If you're new to CMS Hub, check out how to [get started with local development.](https://designers.hubspot.com/docs/tools/local-development)
 
 ## Features
+
+### Syntax Highlighting
+HubL syntax hightlighting is supported for `.HTML`, `.CSS`, and `.JS` files. To enable syntax highlighting, make sure that your file type is set to one of these types.
+
+_Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration._
+
+### Editor Features
+- Statement wrapping (Supports `{%%}`,`{##}`,`{{}}`)
+- Block comment toggling: Press `CMD + /` to create HubL comments
+- Block level indentation: Text inside of `{% block %}` will be indented automatically
+
 ### __HubL Snippets__
 All HubL supported tags, filters, expression tests and functions have auto-complete snippets. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and functions/tags are accessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight available parameters, which can be tabbed through (`${parameter}`).
 
@@ -151,27 +158,4 @@ group.repeater
 ```
 all associated fields need to be added into the children array within the snippet output
 
-
-
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
-
-### Editor Features
-This plugin adds support for auto completion of all HubL statement types and supports HubL statement swrapping (Supports `{%%}`,`{##}`,`{{}}`). Additionally, makes commenting (CMD + /) create HubL comments.
-
-### Syntax Highlighting
-HubL syntax hightlighting is supported for HTML, CSS, and JS files. Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Contributing
-Anyone should feel free to fork/PR this. Open source for the win!
-Please make sure and explain your changes thoroughly, update version and changelog where needed.
-
-_NOTE_: HubL tags, functions, expression tests and filters are all pulled from the `cos-rendering/v1/hubldoc` api, so do not update any `snippets/auto-gen/...` json files manually. Run `npm run generate` to re-generate these JSON files when HubL changes occur. `snippets/man_gen/...` files are for any extra/helpful snippets used in HubL - these files are maintained manually.
-
-To run locally:
-- `git clone` repo
-- Open this project in Visual Studio Code
-- Press `f5` to launch a new VSCode window with the extension installed
-- Press `CMD` + `R` to reload the window after having made any changes
