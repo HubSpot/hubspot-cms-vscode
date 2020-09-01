@@ -3,24 +3,22 @@
     "prefix": "group.group",
     "body": [
       "{",
-      "\"id\": \"\",",
       "\"name\": \"${1:field_group}\",",
       "\"label\": \"${2:field_group}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
-      "\"default\": {} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Field Group"
+    "description": "HubSpot Field Group"
   },
   "Repeater": {
     "prefix": "group.repeater",
     "body": [
       "{",
-      "\"id\": \"\",",
       "\"name\": \"${1:field_group}\",",
       "\"label\": \"${2:field_group}\",",
       "\"required\": false,",
@@ -33,58 +31,55 @@
       "},",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
-      "\"default\": {} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Repeater Group"
+    "description": "HubSpot Repeater Group"
   },
   "Date Field": {
     "prefix": "field.date",
     "body": [
       "{",
-      "\"id\": \" \",",
       "\"name\": \"${1:date_field}\",",
       "\"label\": \"${2:Date field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"step\": 1,",
       "\"type\": \"date\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Date field"
+    "description": "HubSpot Date field"
   },
   "Date Time Field": {
     "prefix": "field.datetime",
     "body": [
       "{",
-      "\"id\": \"\",",
       "\"name\": \"${1:datetime_field}\",",
       "\"label\": \"${2:Date and time field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"step\": 30,",
       "\"type\": \"datetime\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Date and Time Field"
+    "description": "HubSpot Date and Time Field"
   },
   "Link Field": {
     "prefix": "field.link",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\" : \"${1:link_field}\",",
       "\"label\" : \"${2:Link field}\",",
       "\"required\" : false,",
       "\"locked\" : false,",
       "\"supported_types\" : [ \"EXTERNAL\", \"CONTENT\", \"FILE\", \"EMAIL_ADDRESS\", \"BLOG\" ],",
       "\"type\" : \"link\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"default\" : {",
       "  \"url\" : {",
@@ -96,13 +91,12 @@
       "  \"no_follow\" : false",
       "} }"
     ],
-    "description": "HubSpot Custom Module: Link Field"
+    "description": "HubSpot Link Field"
   },
   "Number Field": {
     "prefix": "field.number",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\" : \"${1:number_field}\",",
       "\"label\" : \"${2:Number field}\",",
       "\"required\" : false,",
@@ -112,33 +106,31 @@
       "\"type\" : \"number\",",
       "\"min\" : ${4:null},",
       "\"max\" : ${5:null},",
-      "\"default\" : ${6:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\" : ${6:null} }"
     ],
-    "description": "HubSpot Custom Module: Number Field"
+    "description": "HubSpot Number Field"
   },
   "Rich Text Field": {
     "prefix": "field.richtext",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:richtext_field}\",",
       "\"label\": \"${2:Rich text field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"richtext\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Rich Text Field"
+    "description": "HubSpot Rich Text Field"
   },
   "Text Field": {
     "prefix": "field.text",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:text_field}\",",
       "\"label\": \"${2:Text field}\",",
       "\"required\": false,",
@@ -148,38 +140,36 @@
       "\"show_emoji_picker\": false,",
       "\"type\": \"text\",",
       "\"placeholder\": \"\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Text Field"
+    "description": "HubSpot Text Field"
   },
   "Simple Menu": {
     "prefix": "field.simplemenu",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:simplemenu_field}\",",
       "\"label\": \"${2:Simple menu field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"simplemenu\",",
-      "\"default\": ${3:[]} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:[]} }"
     ],
-    "description": "HubSpot Custom Module: Simple Menu"
+    "description": "HubSpot Simple Menu"
   },
   "Url Field": {
     "prefix": "field.url",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:url_field}\",",
       "\"label\": \"${2:URL field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"supported_types\": [",
       "  \"EXTERNAL\",",
@@ -194,35 +184,33 @@
       "  \"href\": \"\",",
       "  \"type\": \"${3|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\"} }"
     ],
-    "description": "HubSpot Custom Module: Url Field"
+    "description": "HubSpot Url Field"
   },
   "Boolean Field": {
     "prefix": "field.boolean",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:boolean_field}\",",
       "\"label\": \"${2:Boolean field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"boolean\",",
-      "\"default\": ${3:false} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:false} }"
     ],
-    "description": "HubSpot Custom Module: Boolean Field"
+    "description": "HubSpot Boolean Field"
   },
   "Choice Field": {
     "prefix": "field.choice",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:choice_field}\",",
       "\"label\": \"${2:Choice field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"display\": \"select\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"choices\": [",
       "[",
@@ -238,171 +226,161 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Choice Field"
+    "description": "HubSpot Choice Field"
   },
   "Blog Field": {
     "prefix": "field.blog",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:blog_field}\",",
       "\"label\": \"${2:Blog field}\",",
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"blog\",",
       "\"placeholder\": \"\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Blog Field"
+    "description": "HubSpot Blog Field"
   },
   "Color Field": {
     "prefix": "field.color",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:color_field}\",",
       "\"label\": \"${2:Color field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"color\",",
       "\"default\": {",
       "  \"color\": \"${3:#ffffff\"},",
       "  \"opacity\": ${4:100} } }"
     ],
-    "description": "HubSpot Custom Module: Color Field"
+    "description": "HubSpot Color Field"
   },
   "CTA Field": {
     "prefix": "field.cta",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:cta_field}\",",
       "\"label\": \"${2:CTA field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"cta\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: CTA Field"
+    "description": "HubSpot CTA Field"
   },
   "Email Field": {
     "prefix": "field.email",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:email_field}\",",
       "\"label\": \"${2:Email Address Field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"email\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Email Field"
+    "description": "HubSpot Email Field"
   },
   "File Field": {
     "prefix": "field.file",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"picker\": \"file\",",
       "\"name\": \"${1:file_field}\",",
       "\"label\": \"${2:File field}\",",
       "\"required\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"locked\": false,",
       "\"type\": \"file\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: File"
+    "description": "HubSpot File"
   },
   "Followup Email Field": {
     "prefix": "field.followup",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:followupemail_field}\",",
       "\"label\": \"${2:Followup email field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"followupemail\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Followup Email"
+    "description": "HubSpot Followup Email"
   },
   "Form Field": {
     "prefix": "field.form",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:form_field}\",",
       "\"label\": \"${2:Form field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"form\",",
       "\"default\": {",
       "  \"response_type\": \"inline\",",
       "  \"message\": \"Thanks for submitting the form.\" } }"
     ],
-    "description": "HubSpot Custom Module: Form Field"
+    "description": "HubSpot Form Field"
   },
   "HubDB Table Field": {
     "prefix": "field.hubdb",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:hubdbtable_field}\",",
       "\"label\": \"${2:HubDB table field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"hubdbtable\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: HubDB Table"
+    "description": "HubSpot HubDB Table"
   },
   "Icon Field": {
     "prefix": "field.icon",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:icon_field}\",",
       "\"label\": \"${2:Icon field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"icon\",",
       "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Icon Field"
+    "description": "HubSpot Icon Field"
   },
   "Image Field": {
     "prefix": "field.image",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:image_field}\",",
       "\"label\": \"${2:Image field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"responsive\": true,",
       "\"resizable\": true,",
@@ -411,18 +389,17 @@
       "  \"src\": ${3:\"\"},",
       "  \"alt\": ${4:null}} }"
     ],
-    "description": "HubSpot Custom Module: Image Field"
+    "description": "HubSpot Image Field"
   },
   "Logo Field": {
     "prefix": "field.logo",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:logo_field}\",",
       "\"label\": \"${2:Logo field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"resizable\": true,",
       "\"type\": \"logo\",",
@@ -431,76 +408,56 @@
       "  \"src\": null,",
       "  \"alt\": null } }"
     ],
-    "description": "HubSpot Custom Module: Logo Field"
+    "description": "HubSpot Logo Field"
   },
   "Menu Field": {
     "prefix": "field.menu",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:menu_field}\",",
       "\"label\": \"${2:Menu field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"menu\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Menu Field"
+    "description": "HubSpot Menu Field"
   },
   "Page Field": {
     "prefix": "field.page",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:page_field}\",",
       "\"label\": \"${2:Page field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"page\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Page Field"
+    "description": "HubSpot Page Field"
   },
   "Tag Field": {
     "prefix": "field.tag",
     "body": [
       "{",
-      "\"id\" : \"\",",
       "\"name\": \"${1:tag_field}\",",
       "\"label\": \"${2:Tag field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"tag_value\": \"SLUG\",",
       "\"type\": \"tag\",",
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Tag Field"
-  },
-  "Workflow Field": {
-    "prefix": "field.workflow",
-    "body": [
-      "{",
-      "\"id\" : \"\",",
-      "\"name\": \"${1:workflow_field}\",",
-      "\"label\": \"${2:Workflow field}\",",
-      "\"required\": false,",
-      "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\",",
-      "\"type\": \"workflow\",",
-      "\"placeholder\": \"\",",
-      "\"default\": null }"
-    ],
-    "description": "HubSpot Custom Module: Workflow Field"
+    "description": "HubSpot Tag Field"
   },
   "Font Field": {
     "prefix": "field.font",
@@ -510,7 +467,7 @@
       "\"label\": \"${1:Font field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"load_external_fonts\": true,",
       "\"type\": \"font\",",
@@ -524,6 +481,6 @@
       "}",
       "}"
     ],
-    "description": "HubSpot Custom Module: Font Field"
+    "description": "HubSpot Font Field"
   }
 }
