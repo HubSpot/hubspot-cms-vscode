@@ -4,7 +4,7 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate() {
-  vscode.languages.setLanguageConfiguration('html', {
+  vscode.languages.setLanguageConfiguration('hubl', {
     indentationRules: {
       decreaseIndentPattern: /.*{%(.*?end).*%}*./,
       increaseIndentPattern: /.*{%(?!.*end).*%}.*/,
