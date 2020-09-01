@@ -10,9 +10,9 @@
       "\"locked\": false,",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
-      "\"default\": {} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": {} }"
     ],
     "description": "HubSpot Custom Module: Field Group"
   },
@@ -33,9 +33,9 @@
       "},",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
-      "\"default\": {} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": {} }"
     ],
     "description": "HubSpot Custom Module: Repeater Group"
   },
@@ -50,9 +50,9 @@
       "\"locked\": false,",
       "\"step\": 1,",
       "\"type\": \"date\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Date field"
   },
@@ -67,9 +67,9 @@
       "\"locked\": false,",
       "\"step\": 30,",
       "\"type\": \"datetime\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Date and Time Field"
   },
@@ -84,7 +84,7 @@
       "\"locked\" : false,",
       "\"supported_types\" : [ \"EXTERNAL\", \"CONTENT\", \"FILE\", \"EMAIL_ADDRESS\", \"BLOG\" ],",
       "\"type\" : \"link\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"default\" : {",
       "  \"url\" : {",
@@ -112,9 +112,9 @@
       "\"type\" : \"number\",",
       "\"min\" : ${4:null},",
       "\"max\" : ${5:null},",
-      "\"default\" : ${6:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\" : ${6:null} }"
     ],
     "description": "HubSpot Custom Module: Number Field"
   },
@@ -128,9 +128,9 @@
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"richtext\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Rich Text Field"
   },
@@ -148,9 +148,9 @@
       "\"show_emoji_picker\": false,",
       "\"type\": \"text\",",
       "\"placeholder\": \"\",",
-      "\"default\": ${3:null} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:null} }"
     ],
     "description": "HubSpot Custom Module: Text Field"
   },
@@ -164,9 +164,9 @@
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"simplemenu\",",
-      "\"default\": ${3:[]} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:[]} }"
     ],
     "description": "HubSpot Custom Module: Simple Menu"
   },
@@ -179,7 +179,7 @@
       "\"label\": \"${2:URL field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"supported_types\": [",
       "  \"EXTERNAL\",",
@@ -206,9 +206,9 @@
       "\"required\": false,",
       "\"locked\": false,",
       "\"type\": \"boolean\",",
-      "\"default\": ${3:false} }",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
-      "\"help_text\": \"\""
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"default\": ${3:false} }"
     ],
     "description": "HubSpot Custom Module: Boolean Field"
   },
@@ -222,7 +222,7 @@
       "\"required\": false,",
       "\"locked\": false,",
       "\"display\": \"select\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"choices\": [",
       "[",
@@ -251,7 +251,7 @@
       "\"locked\": false,",
       "\"type\": \"blog\",",
       "\"placeholder\": \"\",",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"default\": null }"
     ],
@@ -266,7 +266,7 @@
       "\"label\": \"${2:Color field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"color\",",
       "\"default\": {",
@@ -284,7 +284,7 @@
       "\"label\": \"${2:CTA field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"cta\",",
       "\"default\": null }"
@@ -300,7 +300,7 @@
       "\"label\": \"${2:Email Address Field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"email\",",
       "\"placeholder\": \"\",",
@@ -317,7 +317,7 @@
       "\"name\": \"${1:file_field}\",",
       "\"label\": \"${2:File field}\",",
       "\"required\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"locked\": false,",
       "\"type\": \"file\",",
@@ -334,7 +334,7 @@
       "\"label\": \"${2:Followup email field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"followupemail\",",
       "\"placeholder\": \"\",",
@@ -351,7 +351,7 @@
       "\"label\": \"${2:Form field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"form\",",
       "\"default\": {",
@@ -369,7 +369,7 @@
       "\"label\": \"${2:HubDB table field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"hubdbtable\",",
       "\"placeholder\": \"\",",
@@ -386,7 +386,7 @@
       "\"label\": \"${2:Icon field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"icon\",",
       "\"default\": {} }"
@@ -402,7 +402,7 @@
       "\"label\": \"${2:Image field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"responsive\": true,",
       "\"resizable\": true,",
@@ -422,7 +422,7 @@
       "\"label\": \"${2:Logo field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"resizable\": true,",
       "\"type\": \"logo\",",
@@ -442,7 +442,7 @@
       "\"label\": \"${2:Menu field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"menu\",",
       "\"placeholder\": \"\",",
@@ -459,7 +459,7 @@
       "\"label\": \"${2:Page field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"page\",",
       "\"placeholder\": \"\",",
@@ -476,7 +476,7 @@
       "\"label\": \"${2:Tag field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"tag_value\": \"SLUG\",",
       "\"type\": \"tag\",",
@@ -494,7 +494,7 @@
       "\"label\": \"${2:Workflow field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"type\": \"workflow\",",
       "\"placeholder\": \"\",",
@@ -510,7 +510,7 @@
       "\"label\": \"${1:Font field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"inline_help_text\": \"Shows Teaser image when toggled on\",",
+      "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"load_external_fonts\": true,",
       "\"type\": \"font\",",
