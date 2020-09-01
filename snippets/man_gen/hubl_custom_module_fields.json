@@ -485,23 +485,6 @@
     ],
     "description": "HubSpot Custom Module: Tag Field"
   },
-  "Workflow Field": {
-    "prefix": "field.workflow",
-    "body": [
-      "{",
-      "\"id\" : \"\",",
-      "\"name\": \"${1:workflow_field}\",",
-      "\"label\": \"${2:Workflow field}\",",
-      "\"required\": false,",
-      "\"locked\": false,",
-      "\"inline_help_text\": \"\",",
-      "\"help_text\": \"\",",
-      "\"type\": \"workflow\",",
-      "\"placeholder\": \"\",",
-      "\"default\": null }"
-    ],
-    "description": "HubSpot Custom Module: Workflow Field"
-  },
   "Font Field": {
     "prefix": "field.font",
     "body": [
