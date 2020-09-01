@@ -13,7 +13,7 @@
       "\"help_text\": \"\"",
       "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Field Group"
+    "description": "HubSpot Field Group"
   },
   "Repeater": {
     "prefix": "group.repeater",
@@ -35,7 +35,7 @@
       "\"help_text\": \"\"",
       "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Repeater Group"
+    "description": "HubSpot Repeater Group"
   },
   "Date Field": {
     "prefix": "field.date",
@@ -51,7 +51,7 @@
       "\"help_text\": \"\",",
       "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Date field"
+    "description": "HubSpot Date field"
   },
   "Date Time Field": {
     "prefix": "field.datetime",
@@ -67,7 +67,7 @@
       "\"help_text\": \"\"",
       "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Date and Time Field"
+    "description": "HubSpot Date and Time Field"
   },
   "Link Field": {
     "prefix": "field.link",
@@ -91,7 +91,7 @@
       "  \"no_follow\" : false",
       "} }"
     ],
-    "description": "HubSpot Custom Module: Link Field"
+    "description": "HubSpot Link Field"
   },
   "Number Field": {
     "prefix": "field.number",
@@ -110,7 +110,7 @@
       "\"help_text\": \"\",",
       "\"default\" : ${6:null} }"
     ],
-    "description": "HubSpot Custom Module: Number Field"
+    "description": "HubSpot Number Field"
   },
   "Rich Text Field": {
     "prefix": "field.richtext",
@@ -125,7 +125,7 @@
       "\"help_text\": \"\",",
       "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Rich Text Field"
+    "description": "HubSpot Rich Text Field"
   },
   "Text Field": {
     "prefix": "field.text",
@@ -144,7 +144,7 @@
       "\"help_text\": \"\",",
       "\"default\": ${3:null} }"
     ],
-    "description": "HubSpot Custom Module: Text Field"
+    "description": "HubSpot Text Field"
   },
   "Simple Menu": {
     "prefix": "field.simplemenu",
@@ -159,7 +159,7 @@
       "\"help_text\": \"\",",
       "\"default\": ${3:[]} }"
     ],
-    "description": "HubSpot Custom Module: Simple Menu"
+    "description": "HubSpot Simple Menu"
   },
   "Url Field": {
     "prefix": "field.url",
@@ -184,7 +184,7 @@
       "  \"href\": \"\",",
       "  \"type\": \"${3|EXTERNAL,CONTENT,FILE,EMAIL_ADDRESS,BLOG|}\"} }"
     ],
-    "description": "HubSpot Custom Module: Url Field"
+    "description": "HubSpot Url Field"
   },
   "Boolean Field": {
     "prefix": "field.boolean",
@@ -199,7 +199,7 @@
       "\"help_text\": \"\",",
       "\"default\": ${3:false} }"
     ],
-    "description": "HubSpot Custom Module: Boolean Field"
+    "description": "HubSpot Boolean Field"
   },
   "Choice Field": {
     "prefix": "field.choice",
@@ -226,7 +226,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Choice Field"
+    "description": "HubSpot Choice Field"
   },
   "Blog Field": {
     "prefix": "field.blog",
@@ -242,7 +242,7 @@
       "\"help_text\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Blog Field"
+    "description": "HubSpot Blog Field"
   },
   "Color Field": {
     "prefix": "field.color",
@@ -259,7 +259,7 @@
       "  \"color\": \"${3:#ffffff\"},",
       "  \"opacity\": ${4:100} } }"
     ],
-    "description": "HubSpot Custom Module: Color Field"
+    "description": "HubSpot Color Field"
   },
   "CTA Field": {
     "prefix": "field.cta",
@@ -274,7 +274,7 @@
       "\"type\": \"cta\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: CTA Field"
+    "description": "HubSpot CTA Field"
   },
   "Email Field": {
     "prefix": "field.email",
@@ -290,7 +290,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Email Field"
+    "description": "HubSpot Email Field"
   },
   "File Field": {
     "prefix": "field.file",
@@ -306,7 +306,7 @@
       "\"type\": \"file\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: File"
+    "description": "HubSpot File"
   },
   "Followup Email Field": {
     "prefix": "field.followup",
@@ -322,7 +322,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Followup Email"
+    "description": "HubSpot Followup Email"
   },
   "Form Field": {
     "prefix": "field.form",
@@ -339,7 +339,7 @@
       "  \"response_type\": \"inline\",",
       "  \"message\": \"Thanks for submitting the form.\" } }"
     ],
-    "description": "HubSpot Custom Module: Form Field"
+    "description": "HubSpot Form Field"
   },
   "HubDB Table Field": {
     "prefix": "field.hubdb",
@@ -355,7 +355,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: HubDB Table"
+    "description": "HubSpot HubDB Table"
   },
   "Icon Field": {
     "prefix": "field.icon",
@@ -370,7 +370,7 @@
       "\"type\": \"icon\",",
       "\"default\": {} }"
     ],
-    "description": "HubSpot Custom Module: Icon Field"
+    "description": "HubSpot Icon Field"
   },
   "Image Field": {
     "prefix": "field.image",
@@ -389,7 +389,7 @@
       "  \"src\": ${3:\"\"},",
       "  \"alt\": ${4:null}} }"
     ],
-    "description": "HubSpot Custom Module: Image Field"
+    "description": "HubSpot Image Field"
   },
   "Logo Field": {
     "prefix": "field.logo",
@@ -408,7 +408,7 @@
       "  \"src\": null,",
       "  \"alt\": null } }"
     ],
-    "description": "HubSpot Custom Module: Logo Field"
+    "description": "HubSpot Logo Field"
   },
   "Menu Field": {
     "prefix": "field.menu",
@@ -424,7 +424,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Menu Field"
+    "description": "HubSpot Menu Field"
   },
   "Page Field": {
     "prefix": "field.page",
@@ -440,7 +440,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Page Field"
+    "description": "HubSpot Page Field"
   },
   "Tag Field": {
     "prefix": "field.tag",
@@ -457,7 +457,7 @@
       "\"placeholder\": \"\",",
       "\"default\": null }"
     ],
-    "description": "HubSpot Custom Module: Tag Field"
+    "description": "HubSpot Tag Field"
   },
   "Font Field": {
     "prefix": "field.font",
@@ -481,6 +481,6 @@
       "}",
       "}"
     ],
-    "description": "HubSpot Custom Module: Font Field"
+    "description": "HubSpot Font Field"
   }
 }
