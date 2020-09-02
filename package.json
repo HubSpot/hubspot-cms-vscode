@@ -72,6 +72,50 @@
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
             },
             {
+                "language": "html",
+                "path": "./snippets/auto_gen/hubl_filters.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/auto_gen/hubl_functions.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/auto_gen/hubl_tags.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/auto_gen/hubl_expTests.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_extras.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_request_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_blog_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_general_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_email_variables.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
+            {
                 "language": "json",
                 "path": "./snippets/man_gen/hubl_custom_module_fields.json"
             }
