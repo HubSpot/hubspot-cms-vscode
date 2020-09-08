@@ -9,3 +9,11 @@ _NOTE_: HubL tags, functions, expression tests and filters are all pulled from t
 - Open this project in Visual Studio Code
 - Press `f5` to launch a new VSCode window with the extension installed
 - Press `CMD` + `R` to reload the window after having made any changes
+
+### Debugging
+Debugging grammar scopes can be done line-by-line using the [VSCode scope inspector](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide#scope-inspector).
+
+### VSCode Extension Links
+Configuration
+ - [Contribution points](https://code.visualstudio.com/api/references/contribution-points)
+ - [Activation events](https://code.visualstudio.com/api/references/activation-events)
