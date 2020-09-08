@@ -127,7 +127,7 @@
                 "extensions": [
                     ".hubl.html"
                 ],
-                "configuration": "./langconfig/language-configuration.json"
+                "configuration": "./langconfig/hubl-language-configuration.json"
             }
         ],
         "grammars": [
