@@ -23,10 +23,54 @@
     "icon": "images/hubspot-logo.png",
     "main": "./main.js",
     "activationEvents": [
-        "onLanguage:html"
+        "onLanguage:hubl"
     ],
     "contributes": {
         "snippets": [
+            {
+                "language": "hubl",
+                "path": "./snippets/auto_gen/hubl_filters.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/auto_gen/hubl_functions.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/auto_gen/hubl_tags.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/auto_gen/hubl_expTests.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_extras.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_request_variables.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_blog_variables.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_general_variables.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_email_variables.json"
+            },
+            {
+                "language": "hubl",
+                "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
             {
                 "language": "html",
                 "path": "./snippets/auto_gen/hubl_filters.json"
@@ -79,24 +123,11 @@
         "languages": [
             {
                 "id": "hubl",
+                "aliases": ["HubL"],
                 "extensions": [
                     ".hubl.html"
                 ],
-                "configuration": "./langconfig/language-configuration.json"
-            },
-            {
-                "id": "html",
-                "extensions": [
-                    ".html"
-                ],
-                "configuration": "./langconfig/language-configuration.json"
-            },
-            {
-                "id": "css",
-                "extensions": [
-                    ".css"
-                ],
-                "configuration": "./langconfig/language-configuration.json"
+                "configuration": "./langconfig/hubl-language-configuration.json"
             }
         ],
         "grammars": [
@@ -108,12 +139,7 @@
             {
                 "language": "html",
                 "scopeName": "text.html.hubl",
-                "path": "./syntaxes/hubl-html.json"
-            },
-            {
-                "language": "hubl",
-                "scopeName": "source.hubl",
-                "path": "./syntaxes/hubl.json",
+                "path": "./syntaxes/hubl-html.json",
                 "injectTo": [
                     "source.css",
                     "source.js",

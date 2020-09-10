@@ -159,3 +159,6 @@ group.repeater
 all associated fields need to be added into the children array within the snippet output
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
+
+ ### Contributing
+ For more information about contributing, see the [contributing docs](./CONTRIBUTING.md).

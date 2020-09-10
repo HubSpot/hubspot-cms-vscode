@@ -12,20 +12,20 @@
   "for": {
     "prefix": "for",
     "body": [
-      "{% for ${iterable} in ${dict} %}",
-      "   {{ ${iterable} }}",
+      "{% for ${1:iterable} in ${2:dict} %}",
+      "   {{ ${3:iterable} }}",
       "{% endfor %}"
     ],
     "description": "Returns a sequence of data table rows based on the query."
   },
   "if": {
     "prefix": "if",
-    "body": ["{% if ${test} %}", "   ${do_something}", "{% endif %}"],
+    "body": ["{% if ${1:test} %}", "   ${2:do_something}", "{% endif %}"],
     "description": "Returns a sequence of data table rows based on the query."
   },
   "elif": {
     "prefix": "elif",
-    "body": ["{% elif ${test} %}"],
+    "body": ["{% elif ${1:test} %}"],
     "description": "Else if statement to be used within if statement"
   },
   "else": {
@@ -51,7 +51,7 @@
       "        {{ standard_header_includes }}",
       "    </head>",
       "    <body>",
-      "        ${stuff}",
+      "        ${1:stuff}",
       "        {{ standard_footer_includes }}",
       "    </body>",
       "</html>"
