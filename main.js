@@ -1,13 +1,13 @@
 const vscode = require('vscode');
 
 const autoDetectHubl = (context) => {
-  const useHubl = context.workspaceState.get('USE_HUBL');
+  const getHublPreference = context.workspaceState.get('USE_HUBL');
   const htmlFileAssociation = vscode.workspace
     .getConfiguration('files')
     .get('associations')['*.html'];
 
   // context.workspaceState.update('USE_HUBL', null)
-  if (useHubl === false || htmlFileAssociation === 'hubl') {
+  if (getHublPreference === false || htmlFileAssociation === 'hubl') {
     return;
   }
 
@@ -34,11 +34,11 @@ const autoDetectHubl = (context) => {
   };
 
   const updateWorkspaceFileAssociation = () => {
-    const htmlToHublMapping = {
-      '*.html': 'hubl',
-    };
     const editorConfig = vscode.workspace.getConfiguration('files');
-    editorConfig.update('associations', htmlToHublMapping);
+    const workspaceFileAssociations = editorConfig.get('associations');
+
+    workspaceFileAssociations['*.html'] = 'hubl';
+    editorConfig.update('associations', workspaceFileAssociations);
   };
 
   const handleTextDocumentOpen = vscode.workspace.onDidOpenTextDocument(() => {
