@@ -23,7 +23,7 @@
     "icon": "images/hubspot-logo.png",
     "main": "./main.js",
     "activationEvents": [
-        "onLanguage:html"
+        "*"
     ],
     "contributes": {
         "snippets": [
