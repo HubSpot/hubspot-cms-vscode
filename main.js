@@ -1,20 +1,15 @@
 const vscode = require('vscode');
 
-/**
- * @param {vscode.ExtensionContext} context
- */
-function activate(context) {
-  vscode.languages.setLanguageConfiguration('hubl', {
-    indentationRules: {
-      decreaseIndentPattern: /.*{%(.*?end).*%}*./,
-      increaseIndentPattern: /.*{%(?!.*end).*%}.*/,
-    },
-  });
+const autoDetectHubl = (context) => {
+  const useHubl = context.workspaceState.get('USE_HUBL');
+  const htmlFileAssociation = vscode.workspace
+    .getConfiguration('files')
+    .get('associations')['*.html'];
 
-	// context.workspaceState.update('USE_HUBL', null)
-	if (context.workspaceState.get('USE_HUBL') == false) {
-		return;
-	}
+  // context.workspaceState.update('USE_HUBL', null)
+  if (useHubl === false || htmlFileAssociation === 'hubl') {
+    return;
+  }
 
   const showHublDetectedMessage = () => {
     const hublDetectedMessage =
@@ -32,9 +27,9 @@ function activate(context) {
         if (selection === hublDetectedYesButton) {
           updateWorkspaceFileAssociation();
         } else if (selection === hublDetectedNoButton) {
-					context.workspaceState.update('USE_HUBL', false);
-					handleTextDocumentOpen.dispose();
+          context.workspaceState.update('USE_HUBL', false);
         }
+        handleTextDocumentOpen.dispose();
       });
   };
 
@@ -46,22 +41,34 @@ function activate(context) {
     editorConfig.update('associations', htmlToHublMapping);
   };
 
-	const handleTextDocumentOpen = vscode.workspace.onDidOpenTextDocument(() => {
-		const textDocument = vscode.window.activeTextEditor.document;
+  const handleTextDocumentOpen = vscode.workspace.onDidOpenTextDocument(() => {
+    const textDocument = vscode.window.activeTextEditor.document;
 
-		let n = 1;
-		while (n < 50 && n <= textDocument.lineCount) {
-			const lineWithHubl = textDocument
-				.lineAt(n)
-				.text.match(/{{.*}}|{%.*%}/g);
+    let n = 1;
+    while (n < 50 && n <= textDocument.lineCount) {
+      const lineWithHubl = textDocument.lineAt(n).text.match(/{{.*}}|{%.*%}/g);
 
-			if (lineWithHubl) {
-				showHublDetectedMessage();
-				break;
-			}
-			n++;
-		}
-	})
+      if (lineWithHubl) {
+        showHublDetectedMessage();
+        break;
+      }
+      n++;
+    }
+  });
+};
+
+/**
+ * @param {vscode.ExtensionContext} context
+ */
+function activate(context) {
+  vscode.languages.setLanguageConfiguration('hubl', {
+    indentationRules: {
+      decreaseIndentPattern: /.*{%(.*?end).*%}*./,
+      increaseIndentPattern: /.*{%(?!.*end).*%}.*/,
+    },
+  });
+
+  autoDetectHubl(context);
 }
 
 function deactivate() {}

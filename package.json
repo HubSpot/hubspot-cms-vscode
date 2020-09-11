@@ -23,7 +23,9 @@
     "icon": "images/hubspot-logo.png",
     "main": "./main.js",
     "activationEvents": [
-        "onLanguage:hubl"
+        "onLanguage:hubl",
+        "onLanguage:html",
+        "onLanguage:plaintext"
     ],
     "contributes": {
         "snippets": [
