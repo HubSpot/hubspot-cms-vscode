@@ -7,6 +7,9 @@
   "foldingStopMarker": "({%\\s*(endblock|endfilter|endfor|endif|endmacro|endraw)\\s*%})",
   "patterns": [
     {
+      "include": "text.html.basic"
+    },
+    {
       "begin": "({%)\\s*(raw)\\s*(%})",
       "captures": {
         "1": {

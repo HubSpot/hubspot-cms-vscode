@@ -4,6 +4,13 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+  vscode.languages.setLanguageConfiguration('hubl', {
+    indentationRules: {
+      decreaseIndentPattern: /.*{%(.*?end).*%}*./,
+      increaseIndentPattern: /.*{%(?!.*end).*%}.*/,
+    },
+  });
+
 	// context.workspaceState.update('USE_HUBL', null)
 	if (context.workspaceState.get('USE_HUBL') == false) {
 		return;
