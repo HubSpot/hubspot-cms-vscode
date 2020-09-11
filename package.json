@@ -25,6 +25,7 @@
     "activationEvents": [
         "onLanguage:hubl",
         "onLanguage:html",
+        "onLanguage:css",
         "onLanguage:plaintext"
     ],
     "contributes": {

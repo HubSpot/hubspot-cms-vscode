@@ -1,6 +1,11 @@
 const vscode = require('vscode');
+const { extname } = require('path');
 
 const autoDetectHubl = (context) => {
+  const languages = {
+    ".html": "hubl-html",
+    ".css": "hubl-css"
+  }
   const getHublPreference = context.workspaceState.get('USE_HUBL');
   const htmlFileAssociation = vscode.workspace
     .getConfiguration('files')
@@ -11,21 +16,22 @@ const autoDetectHubl = (context) => {
     return;
   }
 
-  const showHublDetectedMessage = () => {
-    const hublDetectedMessage =
-      'It looks like this file contains HubL code. Would you like to use HubL for all .html files in this project?';
-    const hublDetectedYesButton = 'Use HubL for .html files';
+  const showHublDetectedMessage = (extension) => {
+    const hublDetectedMessage = (extension) => {
+     return `It looks like this file contains HubL code. Would you like to use HubL for all ${extension} files in this project?`;
+    }
+    const hublDetectedYesButton = `Use HubL for ${extension} files`;
     const hublDetectedNoButton = 'No';
 
     vscode.window
       .showInformationMessage(
-        hublDetectedMessage,
+        hublDetectedMessage(extension),
         hublDetectedYesButton,
         hublDetectedNoButton
       )
       .then((selection) => {
         if (selection === hublDetectedYesButton) {
-          updateWorkspaceFileAssociation();
+          updateWorkspaceFileAssociation(extension);
         } else if (selection === hublDetectedNoButton) {
           context.workspaceState.update('USE_HUBL', false);
         }
@@ -33,23 +39,23 @@ const autoDetectHubl = (context) => {
       });
   };
 
-  const updateWorkspaceFileAssociation = () => {
+  const updateWorkspaceFileAssociation = (extension) => {
     const editorConfig = vscode.workspace.getConfiguration('files');
     const workspaceFileAssociations = editorConfig.get('associations');
 
-    workspaceFileAssociations['*.html'] = 'hubl';
+    workspaceFileAssociations[`*${extension}`] = languages[extension];
     editorConfig.update('associations', workspaceFileAssociations);
   };
 
   const handleTextDocumentOpen = vscode.workspace.onDidOpenTextDocument(() => {
     const textDocument = vscode.window.activeTextEditor.document;
-
+    const fileExtension = extname(textDocument.fileName);
     let n = 1;
     while (n < 50 && n <= textDocument.lineCount) {
       const lineWithHubl = textDocument.lineAt(n).text.match(/{{.*}}|{%.*%}/g);
 
       if (lineWithHubl) {
-        showHublDetectedMessage();
+        showHublDetectedMessage(fileExtension);
         break;
       }
       n++;
