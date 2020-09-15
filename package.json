@@ -142,11 +142,7 @@
             {
                 "language": "hubl",
                 "scopeName": "source.hubl",
-                "path": "./syntaxes/hubl.json",
-                "injectTo": [
-                    "source.css",
-                    "source.html"
-                ]
+                "path": "./syntaxes/hubl.json"
             },
             {
                 "language": "html-hubl",
