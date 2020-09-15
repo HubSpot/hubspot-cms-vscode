@@ -1,5 +1,5 @@
 {
-  "name": "hubl-html",
+  "name": "html-hubl",
   "scopeName": "text.html.hubl",
   "comment": "hubl HTML Templates",
   "firstLineMatch": "^{% extends [\"'][^\"']+[\"'] %}",
