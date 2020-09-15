@@ -1,0 +1,13 @@
+{
+  "name": "csss-hubl",
+  "scopeName": "text.css.hubl",
+  "comment": "HubL CSS Templates",
+  "patterns": [
+    {
+      "include": "source.css"
+    },
+    {
+      "include": "source.hubl"
+    }
+  ]
+}
