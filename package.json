@@ -23,7 +23,8 @@
     "icon": "images/hubspot-logo.png",
     "main": "./main.js",
     "activationEvents": [
-        "onLanguage:hubl"
+        "onLanguage:html-hubl",
+        "onLanguage:css-hubl"
     ],
     "contributes": {
         "snippets": [
@@ -124,9 +125,16 @@
             {
                 "id": "hubl",
                 "aliases": ["HubL"],
-                "extensions": [
-                    ".hubl.html"
-                ],
+                "configuration": "./langconfig/hubl-language-configuration.json"
+            },
+            {
+                "id": "html-hubl",
+                "aliases": ["HTML + HubL"],
+                "configuration": "./langconfig/hubl-language-configuration.json"
+            },
+            {
+                "id": "css-hubl",
+                "aliases": ["CSS + HubL"],
                 "configuration": "./langconfig/hubl-language-configuration.json"
             }
         ],
@@ -134,24 +142,28 @@
             {
                 "language": "hubl",
                 "scopeName": "source.hubl",
-                "path": "./syntaxes/hubl.json"
-            },
-            {
-                "language": "html",
-                "scopeName": "text.html.hubl",
-                "path": "./syntaxes/hubl-html.json",
+                "path": "./syntaxes/hubl.json",
                 "injectTo": [
                     "source.css",
-                    "source.js",
                     "source.html"
                 ]
+            },
+            {
+                "language": "html-hubl",
+                "scopeName": "text.html.hubl",
+                "path": "./syntaxes/html-hubl.json"
+            },
+            {
+                "language": "css-hubl",
+                "scopeName": "text.css.hubl",
+                "path": "./syntaxes/css-hubl.json"
             }
         ]
     },
     "dependencies": {
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
-        "node-fetch": "^2.6.1"
+        "node-fetch": "^2.6.0"
     },
     "devDependencies": {
         "eslint": "^7.5.0",
