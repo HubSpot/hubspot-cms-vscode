@@ -4,9 +4,6 @@
   "comment": "HubL CSS Templates",
   "patterns": [
     {
-      "include": "source.hubl"
-    },
-    {
       "include": "source.css"
     }
   ]
