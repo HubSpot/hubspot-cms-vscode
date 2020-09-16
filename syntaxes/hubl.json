@@ -2,7 +2,7 @@
   "name": "hubl",
   "scopeName": "source.hubl",
   "comment": "hubl Templates",
-  "injectionSelector": "L:text.css.hubl",
+  "injectionSelector": "L:text.css.hubl, L:text.html.hubl",
   "foldingStartMarker": "({%\\s*(block|filter|for|if|macro|raw))",
   "foldingStopMarker": "({%\\s*(endblock|endfilter|endfor|endif|endmacro|endraw)\\s*%})",
   "patterns": [
