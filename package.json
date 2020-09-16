@@ -21,11 +21,6 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./main.js",
-    "activationEvents": [
-        "onLanguage:html-hubl",
-        "onLanguage:css-hubl"
-    ],
     "contributes": {
         "snippets": [
             {
