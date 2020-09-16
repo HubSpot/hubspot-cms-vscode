@@ -146,6 +146,12 @@
                     "source.html"
                 ]
             }
+        ],
+        "jsonValidation": [
+            {
+              "fileMatch": "meta.json",
+              "url": "./schema/module-meta.json"
+            }
         ]
     },
     "dependencies": {
