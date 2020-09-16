@@ -26,6 +26,12 @@
         "onLanguage:hubl"
     ],
     "contributes": {
+        "jsonValidation": [
+            {
+              "fileMatch": "meta.json",
+              "url": "./schema/module-meta.json"
+            }
+          ],
         "snippets": [
             {
                 "language": "hubl",

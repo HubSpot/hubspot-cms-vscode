@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "label": "Social follow",
+          "css_assets": [],
+          "external_js": [],
+          "global": false,
+          "host_template_types": [
+              "PAGE",
+              "BLOG_POST",
+              "BLOG_LISTING"
+          ],
+          "icon": "https://cdn2.hubspot.net/hubfs/6326501/boilerplate/Module%20Icons/share-square-solid.svg",
+          "js_assets": [],
+          "other_assets": [],
+          "smart_type": "NOT_SMART",
+          "tags": [],
+          "is_available_for_new_content": true
+      }
+  ],
+  "required": [
+      "label",
+      "css_assets",
+      "external_js",
+      "global",
+      "host_template_types",
+      "icon",
+      "js_assets",
+      "other_assets",
+      "smart_type",
+      "tags",
+      "is_available_for_new_content"
+  ],
+  "properties": {
+      "label": {
+          "$id": "#/properties/label",
+          "type": "string",
+          "title": "The label schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "Social follow"
+          ]
+      },
+      "css_assets": {
+          "$id": "#/properties/css_assets",
+          "type": "array",
+          "title": "The css_assets schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              []
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/css_assets/items"
+          }
+      },
+      "external_js": {
+          "$id": "#/properties/external_js",
+          "type": "array",
+          "title": "The external_js schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              []
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/external_js/items"
+          }
+      },
+      "global": {
+          "$id": "#/properties/global",
+          "type": "boolean",
+          "title": "The global schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              false
+          ]
+      },
+      "host_template_types": {
+          "$id": "#/properties/host_template_types",
+          "type": "array",
+          "title": "The host_template_types schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              [
+                  "PAGE",
+                  "BLOG_POST"
+              ]
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/host_template_types/items",
+              "anyOf": [
+                  {
+                      "$id": "#/properties/host_template_types/items/anyOf/0",
+                      "type": "string",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                          "PAGE",
+                          "BLOG_POST"
+                      ]
+                  }
+              ]
+          }
+      },
+      "icon": {
+          "$id": "#/properties/icon",
+          "type": "string",
+          "title": "The icon schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "https://cdn2.hubspot.net/hubfs/6326501/boilerplate/Module%20Icons/share-square-solid.svg"
+          ]
+      },
+      "js_assets": {
+          "$id": "#/properties/js_assets",
+          "type": "array",
+          "title": "The js_assets schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              []
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/js_assets/items"
+          }
+      },
+      "other_assets": {
+          "$id": "#/properties/other_assets",
+          "type": "array",
+          "title": "The other_assets schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              []
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/other_assets/items"
+          }
+      },
+      "smart_type": {
+          "$id": "#/properties/smart_type",
+          "type": "string",
+          "title": "The smart_type schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "NOT_SMART"
+          ]
+      },
+      "tags": {
+          "$id": "#/properties/tags",
+          "type": "array",
+          "title": "The tags schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              []
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/tags/items"
+          }
+      },
+      "is_available_for_new_content": {
+          "$id": "#/properties/is_available_for_new_content",
+          "type": "boolean",
+          "title": "The is_available_for_new_content schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              true
+          ]
+      }
+  },
+  "additionalProperties": true
+}
