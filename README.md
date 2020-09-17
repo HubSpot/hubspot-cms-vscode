@@ -24,7 +24,7 @@ _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) 
 All HubL supported tags, filters, expression tests and functions have auto-complete snippets. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and functions/tags are accessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight available parameters, which can be tabbed through (`${parameter}`). Additionally there is support for other commonly needed syntax, such as module fields.
 
 ## Getting Started
-This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you're told VSCode to use these langauges. For one-off files, you can simple change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
+This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
 - In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
 - Search for and select the command `Preferences: Open Settings (UI)`
 - Choose either the "User" or "Workspace" tab
