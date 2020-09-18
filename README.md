@@ -53,7 +53,7 @@ content.absolute_url
 }
 ```
 
-Other helpful snippet include:
+Other helpful snippets include:
 | Snippet Prefix | Description | Example |
 |-|-|-|
 | otrue | Generates overrideable=True for HubL tags | overrideable=True |
