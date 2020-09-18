@@ -23,23 +23,23 @@ _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) 
 ### HubL Snippets
 All HubL supported tags, filters, expression tests and functions have auto-complete snippets. A prefix is required to access some auto completions:
 
-- Expression tests are accessed by typing the test name alone. Ex: `di` > Enter produces:
+- [Expression tests](https://developers.hubspot.com/docs/cms/hubl/operators-and-expression-tests#expression-tests) are accessed by typing the test name alone. Ex: `di` > Enter produces:
 ```
 divisibleby
 ```
-- Filters are accessed with `|`. Ex: `|se` > Enter produces:
+- [Filters](https://developers.hubspot.com/docs/cms/hubl/filters) are accessed with `|`. Ex: `|se` > Enter produces:
 ```
 |selectattr("${attr}", ${exp_test})
 ```
-- Functions and tags are accessed with `~`. Ex: `~hub` > Enter produces:
+- [Functions](https://developers.hubspot.com/docs/cms/hubl/functions) and [tags](https://developers.hubspot.com/docs/cms/hubl/tags) are accessed with `~`. Ex: `~hub` > Enter produces:
 ```
 hubdb_table_rows(${table_id}, ${query})
 ```
-- HubL supported variables are accessed by typing the variable name alone. Ex: `content.ab` > Enter produces:
+- [HubL supported variables](https://developers.hubspot.com/docs/cms/hubl/variables) are accessed by typing the variable name alone. Ex: `content.ab` > Enter produces:
 ```
 content.absolute_url
 ```
-- Module fields can be access by typing the field type (in JSON files only). Ex: `ri` > Enter produces:
+- [Module fields](https://developers.hubspot.com/docs/cms/building-blocks/module-theme-fields-overview) can be access by typing the field type (in JSON files only). Ex: `ri` > Enter produces:
 ```
 {
 "name": "richtext_field",
