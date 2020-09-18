@@ -58,9 +58,9 @@ Other helpful snippet include:
 |-|-|-|
 | otrue | Generates overrideable=True for HubL tags | overrideable=True |
 | ofalse | Generates overrideable=False for HubL tags | overrideable=False |
-| for | Returns a basic if statement | {% for {iterable} in {dict} %} {{ iterable }} {% endfor %}" |
-| if | Returns a basic if statement | {% if {test} %} do_something}{% endif %} |
-| elif | Else if statement to be used within if statement | {% elif {test} %} |
+| for | Returns a basic if statement | {% for {item} in {dict} %} {{ item }} {% endfor %}" |
+| if | Returns a basic if statement | {% if {condition} %} do_something {% endif %} |
+| elif | Else if statement to be used within if statement | {% elif {condition} %} |
 | else | Else statement to be used within if statement | {% else %} |
 | hubldoc | Boilerplate html/HubL document |  |
 | hublblog | Boilerplate blog markup |  |
