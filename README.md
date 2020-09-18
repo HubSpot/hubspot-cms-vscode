@@ -39,8 +39,21 @@ hubdb_table_rows(${table_id}, ${query})
 ```
 content.absolute_url
 ```
+- Module fields can be access by typing the field type (in JSON files only). Ex: `ri` > Enter produces:
+```
+{
+"name": "richtext_field",
+"label": "Rich text field",
+"required": false,
+"locked": false,
+"type": "richtext",
+"inline_help_text": "",
+"help_text": "",
+"default": null
+}
+```
 
-There are also other helpful snippets:
+Other helpful snippet include:
 | Snippet Prefix | Description | Example |
 |-|-|-|
 | otrue | Generates overrideable=True for HubL tags | overrideable=True |
