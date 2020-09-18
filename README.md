@@ -11,7 +11,7 @@ If you're new to CMS Hub, check out how to [get started with local development.]
 ## Features
 
 ### Syntax Highlighting
-HubL syntax hightlighting is supported for `.HTML` and `.CSS` files. To enable syntax highlighting, make sure that your file type is set to `HTML + HUBL` or `CSS + HUBL`, respectively.
+HubL syntax highlighting is supported for `.html` and `.css` files support HubL syntax highlighting. Enable syntax highlighting by setting your file type to HTML + HubL or CSS + HubL.
 
 _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration._
 
