@@ -40,6 +40,19 @@ hubdb_table_rows(${table_id}, ${query})
 content.absolute_url
 ```
 
+There are also other helpful snippets:
+| Snippet Prefix | Description | Example |
+|-|-|-|
+| otrue | Generates overrideable=True for HubL tags | overrideable=True |
+| ofalse | Generates overrideable=False for HubL tags | overrideable=False |
+| for | Returns a basic if statement | {% for {iterable} in {dict} %} {{ iterable }} {% endfor %}" |
+| if | Returns a basic if statement | {% if {test} %} do_something}{% endif %} |
+| elif | Else if statement to be used within if statement | {% elif {test} %} |
+| else | Else statement to be used within if statement | {% else %} |
+| hubldoc | Boilerplate html/HubL document |  |
+| hublblog | Boilerplate blog markup |  |
+
+
 ## Getting Started
 This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
 - In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
