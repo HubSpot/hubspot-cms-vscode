@@ -1,4 +1,4 @@
-# HubL Visual Studio Code Language Extension
+# HubSpot Visual Studio Code Extension
 For :rocket: fast HubSpot CMS Hub development.
 
 This extension currently supports:
