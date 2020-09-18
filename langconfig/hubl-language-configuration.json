@@ -20,5 +20,5 @@
   "indentationRules": {
     "decreaseIndentPattern": ".*{%(.*?end).*%}*.",
     "increaseIndentPattern": ".*{%(?!.*end).*%}.*"
-  },
+  }
 }
