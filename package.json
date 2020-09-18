@@ -21,98 +21,94 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./main.js",
-    "activationEvents": [
-        "onLanguage:hubl"
-    ],
     "contributes": {
         "snippets": [
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/auto_gen/hubl_filters.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/auto_gen/hubl_functions.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/auto_gen/hubl_tags.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_request_variables.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_blog_variables.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_general_variables.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_email_variables.json"
             },
             {
-                "language": "hubl",
+                "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/auto_gen/hubl_filters.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/auto_gen/hubl_functions.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/auto_gen/hubl_tags.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_request_variables.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_blog_variables.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_general_variables.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_color_and_font_settings.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_email_variables.json"
             },
             {
-                "language": "html",
+                "language": "css-hubl",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
             },
             {
@@ -124,9 +120,16 @@
             {
                 "id": "hubl",
                 "aliases": ["HubL"],
-                "extensions": [
-                    ".hubl.html"
-                ],
+                "configuration": "./langconfig/hubl-language-configuration.json"
+            },
+            {
+                "id": "html-hubl",
+                "aliases": ["HTML + HubL"],
+                "configuration": "./langconfig/hubl-language-configuration.json"
+            },
+            {
+                "id": "css-hubl",
+                "aliases": ["CSS + HubL"],
                 "configuration": "./langconfig/hubl-language-configuration.json"
             }
         ],
@@ -134,24 +137,28 @@
             {
                 "language": "hubl",
                 "scopeName": "source.hubl",
-                "path": "./syntaxes/hubl.json"
+                "path": "./syntaxes/hubl.json",
+                "injectTo": [
+                    "text.html.hubl",
+                    "text.css.hubl"
+                ]
             },
             {
-                "language": "html",
+                "language": "html-hubl",
                 "scopeName": "text.html.hubl",
-                "path": "./syntaxes/hubl-html.json",
-                "injectTo": [
-                    "source.css",
-                    "source.js",
-                    "source.html"
-                ]
+                "path": "./syntaxes/html-hubl.json"
+            },
+            {
+                "language": "css-hubl",
+                "scopeName": "text.css.hubl",
+                "path": "./syntaxes/css-hubl.json"
             }
         ]
     },
     "dependencies": {
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
-        "node-fetch": "^2.6.1"
+        "node-fetch": "^2.6.0"
     },
     "devDependencies": {
         "eslint": "^7.5.0",

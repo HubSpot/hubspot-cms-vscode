@@ -1,14 +1,11 @@
 {
-  "name": "hubl-html",
+  "name": "html-hubl",
   "scopeName": "text.html.hubl",
   "comment": "hubl HTML Templates",
   "firstLineMatch": "^{% extends [\"'][^\"']+[\"'] %}",
   "foldingStartMarker": "(<(?i:(head|table|tr|div|style|script|ul|ol|form|dl))\\b.*?>|{%\\s*(block|filter|for|if|macro|raw))",
   "foldingStopMarker": "(</(?i:(head|table|tr|div|style|script|ul|ol|form|dl))\\b.*?>|{%\\s*(endblock|endfilter|endfor|endif|endmacro|endraw)\\s*%})",
   "patterns": [
-    {
-      "include": "source.hubl"
-    },
     {
       "include": "text.html.basic"
     }
