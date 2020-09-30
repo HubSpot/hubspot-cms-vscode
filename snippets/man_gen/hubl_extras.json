@@ -16,12 +16,12 @@
       "   {{ ${3:iterable} }}",
       "{% endfor %}"
     ],
-    "description": "Returns a sequence of data table rows based on the query."
+    "description": ""
   },
   "if": {
     "prefix": "if",
     "body": ["{% if ${1:test} %}", "   ${2:do_something}", "{% endif %}"],
-    "description": "Returns a sequence of data table rows based on the query."
+    "description": "Returns a basic if statement"
   },
   "elif": {
     "prefix": "elif",
@@ -56,7 +56,7 @@
       "    </body>",
       "</html>"
     ],
-    "description": "Boilerplate html/HubL docuemnt"
+    "description": "Boilerplate html/HubL document"
   },
   "hubl_blog_doc": {
     "prefix": "hublblog",

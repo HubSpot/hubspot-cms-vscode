@@ -1,5 +1,9 @@
 # Change Log
 All notable changes to the HubL VSC language extension will be documented in this file.
+## [0.2.1]
+- Support for CSS and HTML files through the CSS + HUBL and HTML + HUBL languages
+- Fixed incorrectly configured snippets
+
 ## [0.2.0]
 - Generation script converted to node.js
 - Updated closing tag support

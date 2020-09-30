@@ -1,5 +1,5 @@
-# HubL Visual Studio Code Language Extension
-This is the HubSpot extension for [Visual Studio Code](https://code.visualstudio.com/), allowing for :rocket: fast HubSpot CMS Hub development.
+# HubSpot Visual Studio Code Extension
+For :rocket: fast HubSpot CMS Hub development.
 
 This extension currently supports:
 - Syntax highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl)
@@ -11,7 +11,7 @@ If you're new to CMS Hub, check out how to [get started with local development.]
 ## Features
 
 ### Syntax Highlighting
-HubL syntax hightlighting is supported for `.HTML`, `.CSS`, and `.JS` files. To enable syntax highlighting, make sure that your file type is set to one of these types.
+HubL syntax highlighting is supported for `.html` and `.css` files support HubL syntax highlighting. Enable syntax highlighting by setting your file type to HTML + HubL or CSS + HubL.
 
 _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration._
 
@@ -20,143 +20,63 @@ _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) 
 - Block comment toggling: Press `CMD + /` to create HubL comments
 - Block level indentation: Text inside of `{% block %}` will be indented automatically
 
-### __HubL Snippets__
-All HubL supported tags, filters, expression tests and functions have auto-complete snippets. Expression tests are accessed by typing the test name alone, filters are accessed with `|` and functions/tags are accessed with `~`. All snippets include descriptions and parameter details. You up/down arrow to navigate the IntelliSense and hit enter to execute a snippet. Snippet completed HubL statements will auto-highlight available parameters, which can be tabbed through (`${parameter}`).
+### HubL Snippets
+All HubL supported tags, filters, expression tests and functions have auto-complete snippets. A prefix is required to access some auto completions:
 
-![Parameters](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/params.png)
-[__HubL Tags__](https://designers.hubspot.com/docs/hubl/hubl-supported-tags) produce entire HubL tag statements with available parameters. Ex `~he` > Enter produces:
-```
-{% header "${my_header}"
-   header_tag="${header_tag}",
-   value="${value}"
-%}
-```
-[__HubL Filters__](https://designers.hubspot.com/docs/hubl/hubl-supported-filters) produce entire HubL filter statements with available parameters. Ex `|se` > Enter produces:
-```
-|selectattr("${attr}", ${exp_test})
-```
-[__HubL Functions__](https://designers.hubspot.com/en/docs/hubl/hubl-supported-functions) produce entire HubL function statements with available parameters, without wrapping curly braces. The intention of this is so you can use HubL functions within other HubL statements easily (like setting variables, for loops, etc.) Ex `~hub` > Enter produces:
-```
-hubdb_table_rows(${table_id}, ${query})
-```
-[__HubL Expression Tests__](https://designers.hubspot.com/docs/hubl/operators-and-expression-tests#expression-tests) produce expression test names. Ex `di` > Enter produces:
+- [Expression tests](https://developers.hubspot.com/docs/cms/hubl/operators-and-expression-tests#expression-tests) are accessed by typing the test name alone. Ex: `di` > Enter produces:
 ```
 divisibleby
 ```
-
-__Other Helpful HubL Things__
-[`standard_footer_includes` & `standard_header_includes`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#required-page-template-variables)
- ```
-{{ standard_footer_includes }}
-{{ standard_header_includes }}
- ```
-[`for`](https://designers.hubspot.com/docs/hubl/for-loops)
+- [Filters](https://developers.hubspot.com/docs/cms/hubl/filters) are accessed with `|`. Ex: `|se` > Enter produces:
 ```
-{% for ${iterable} in ${dict} %}
-   {{ ${iterable} }}
-{% endfor %}
+|selectattr("${attr}", ${exp_test})
 ```
-[`if`](https://designers.hubspot.com/docs/hubl/if-statements)
+- [Functions](https://developers.hubspot.com/docs/cms/hubl/functions) and [tags](https://developers.hubspot.com/docs/cms/hubl/tags) are accessed with `~`. Ex: `~hub` > Enter produces:
 ```
-{% if ${test} %}
-    ${do_something}
-{% endif %}
+hubdb_table_rows(${table_id}, ${query})
 ```
-[`elif` & `else`](https://designers.hubspot.com/docs/hubl/if-statements#using-elif-and-else)
+- [HubL supported variables](https://developers.hubspot.com/docs/cms/hubl/variables) are accessed by typing the variable name alone. Ex: `content.ab` > Enter produces:
 ```
-{% elif ${test} %}
-{% else %}
+content.absolute_url
 ```
-[`blog variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#blog-variables)
+- [Module fields](https://developers.hubspot.com/docs/cms/building-blocks/module-theme-fields-overview) can be access by typing the field type (in JSON files only). Ex: `ri` > Enter produces:
 ```
-{{ content.post_body }}
-{{ content.blog_post_author }}
-{{ group }}
-{{ next_page_num }}
-etc.
-```
-_NOTE_: Some of these variables are nested
-![Nested variables](https://cdn2.hubspot.net/hubfs/2359872/IMPORTANT/DONOTDELETE/hubl-language-extension/content..gif)
-
-`hubldoc`
-```
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ html_lang }}" {{ html_lang_dir }}> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="{{ html_lang }}" {{ html_lang_dir }}>        <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="{{ html_lang }}" {{ html_lang_dir }}>               <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ html_lang }}" {{ html_lang_dir }}> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="author" content="{{ meta_author }}">
-        <meta name="description" content="{{ page_meta.meta_description }}">
-        <title>{{ page_meta.html_title }}</title>
-        {% if site_settings.favicon_src %}<link rel="shortcut icon" href="{{ site_settings.favicon_src }}" />{% endif %}
-        {{ standard_header_includes }}
-    </head>
-    <body>
-        ${stuff}
-        {{ standard_footer_includes }}
-    </body>
-</html>
-```
-`hublblog`
-```
-{% if is_listing_view %}
-    <!-- Markup for blog listing template -->
-    {% for content in contents %}
-        <h2><a href="{{content.absolute_url}}">{{ content.name }}</a></h2>
-        {% if content.post_list_summary_featured_image %}
-            <a href="{{content.absolute_url}}">
-                <img src="{{ content.post_list_summary_featured_image }}" alt="{{ content.featured_image_alt_text }}">
-            </a>
-        {% endif %}
-        {{ content.post_list_content|safe }}
-    {% endfor %}
-{% else %}
-    <!-- Markup for blog post template -->
-    <h1>{{ content.name }}</h1>
-    <a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>
-    {{ content.publish_date_localized }}
-    {{ content.post_body }}
-    {% for topic in content.topic_list %}
-        <a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if not loop.last %},{% endif %}
-    {% endfor %}
-    {% blog_comments "blog_comments" overrideable=False, label='Blog Comments' %}
-{% endif %}
-```
-[`request.<variables>`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#http-request-variables)
-```
-{{ request.cookies }}
-{{ request.domain }}
-{{ request.full_url }}
-etc.
-```
-[`Email Required Template Variables`](https://designers.hubspot.com/docs/hubl/hubl-supported-variables#required-email-template-variables)
-```
-{{ site_settings.company_city }}
-{{ site_settings.company_name }}
-{{ unsubscribe_link }}
-{{ unsubscribe_link_all }}
-etc.
+{
+"name": "richtext_field",
+"label": "Rich text field",
+"required": false,
+"locked": false,
+"type": "richtext",
+"inline_help_text": "",
+"help_text": "",
+"default": null
+}
 ```
 
-__Custom Module Fields__
-In effort to allow for more streamlined local development of custom modules, snippets have been added that can be added to the fields.json file within a custom module.
-The snippet trigger roughly corresponds with the field names in the design manager.
-For example:  to add a rich text field, you would type
-```
-field.richtext
-```
-To create a group, use
-```
-group.group
-```
-To create a repeater, use
-```
-group.repeater
-```
-all associated fields need to be added into the children array within the snippet output
+Other helpful snippets include:
+| Snippet Prefix | Description | Example |
+|-|-|-|
+| otrue | Generates overrideable=True for HubL tags | overrideable=True |
+| ofalse | Generates overrideable=False for HubL tags | overrideable=False |
+| for | Returns a basic if statement | {% for {item} in {dict} %} {{ item }} {% endfor %}" |
+| if | Returns a basic if statement | {% if {condition} %} do_something {% endif %} |
+| elif | Else if statement to be used within if statement | {% elif {condition} %} |
+| else | Else statement to be used within if statement | {% else %} |
+| hubldoc | Boilerplate html/HubL document |  |
+| hublblog | Boilerplate blog markup |  |
+
+
+## Getting Started
+This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
+- In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
+- Search for and select the command `Preferences: Open Settings (UI)`
+- Choose either the "User" or "Workspace" tab
+- In "Search settings" look up `files.associations`
+- Select "Add Item" and add these file associations:
+    `*.html`:`html-hubl`
+    `*.html`:`css-hubl`
+
+For more information about how VSCode settings work, [check out the docs](https://code.visualstudio.com/docs/getstarted/settings).
 
 _NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 
