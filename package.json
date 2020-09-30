@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot VS Code Extension",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.30.0"
@@ -119,17 +119,23 @@
         "languages": [
             {
                 "id": "hubl",
-                "aliases": ["HubL"],
+                "aliases": [
+                    "HubL"
+                ],
                 "configuration": "./langconfig/hubl-language-configuration.json"
             },
             {
                 "id": "html-hubl",
-                "aliases": ["HTML + HubL"],
+                "aliases": [
+                    "HTML + HubL"
+                ],
                 "configuration": "./langconfig/hubl-language-configuration.json"
             },
             {
                 "id": "css-hubl",
-                "aliases": ["CSS + HubL"],
+                "aliases": [
+                    "CSS + HubL"
+                ],
                 "configuration": "./langconfig/hubl-language-configuration.json"
             }
         ],
