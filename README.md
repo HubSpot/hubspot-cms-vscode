@@ -8,10 +8,22 @@ This extension currently supports:
 
 If you're new to CMS Hub, check out how to [get started with local development.](https://designers.hubspot.com/docs/tools/local-development)
 
+## Getting Started
+This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
+- In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
+- Search for and select the command `Preferences: Open Settings (UI)`
+- Choose either the "User" or "Workspace" tab
+- In "Search settings" look up `files.associations`
+- Select "Add Item" and add these file associations:
+    `*.html`:`html-hubl`
+    `*.html`:`css-hubl`
+
+For more information about how VSCode settings work, [check out the docs](https://code.visualstudio.com/docs/getstarted/settings).
+
 ## Features
 
 ### Syntax Highlighting
-HubL syntax highlighting is supported for `.html` and `.css` files support HubL syntax highlighting. Enable syntax highlighting by setting your file type to HTML + HubL or CSS + HubL.
+HubL syntax highlighting is supported for `.html` and `.css` files support HubL syntax highlighting.
 
 _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) extension for inspiration._
 
@@ -66,19 +78,8 @@ Other helpful snippets include:
 | hublblog | Boilerplate blog markup |  |
 
 
-## Getting Started
-This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences:
-- In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
-- Search for and select the command `Preferences: Open Settings (UI)`
-- Choose either the "User" or "Workspace" tab
-- In "Search settings" look up `files.associations`
-- Select "Add Item" and add these file associations:
-    `*.html`:`html-hubl`
-    `*.html`:`css-hubl`
-
-For more information about how VSCode settings work, [check out the docs](https://code.visualstudio.com/docs/getstarted/settings).
-
-_NOTE_: If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
+### Common issues
+- If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 
  ### Contributing
  For more information about contributing, see the [contributing docs](./CONTRIBUTING.md).
