@@ -21,6 +21,12 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
+    "main": "./index.js",
+    "activationEvents": [
+        "onLanguage:html-hubl",
+        "onLanguage:css-hubl",
+        "onLanguage:hubl"
+    ],
     "contributes": {
         "snippets": [
             {
@@ -162,6 +168,7 @@
         ]
     },
     "dependencies": {
+        "@hubspot/cms-lib": "^2.1.1-beta.7",
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.0"
