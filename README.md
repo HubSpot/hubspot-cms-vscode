@@ -14,9 +14,7 @@ This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In
 - Search for and select the command `Preferences: Open Settings (UI)`
 - Choose either the "User" or "Workspace" tab
 - In "Search settings" look up `files.associations`
-- Select "Add Item" and add these file associations:
-    `*.html`:`html-hubl`
-    `*.html`:`css-hubl`
+- Select "Add Item" and add these file associations: `*.html: html-hubl` and `*.css: css-hubl`
 
 For more information about how VSCode settings work, [check out the docs](https://code.visualstudio.com/docs/getstarted/settings).
 
@@ -29,7 +27,7 @@ _Thanks to the [Better Jinja](https://github.com/samuelcolvin/jinjahtml-vscode) 
 
 ### Editor Features
 - Statement wrapping (Supports `{%%}`,`{##}`,`{{}}`)
-- Block comment toggling: Press `CMD + /` to create HubL comments
+- Block comment toggling: Press `CMD` + `/` to create HubL comments
 - Block level indentation: Text inside of `{% block %}` will be indented automatically
 
 ### HubL Snippets
