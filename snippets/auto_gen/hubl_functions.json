@@ -134,9 +134,9 @@
   },
   "crm_associations": {
     "body": [
-      "crm_associations(${1:id}, ${2:association type id}, ${3:query}, ${4:properties}, ${5:formatting})"
+      "crm_associations(${1:id}, ${2:association category}, ${3:association type id}, ${4:query}, ${5:properties}, ${6:formatting})"
     ],
-    "description": "Gets a list of objects associated to the id passed in from the HubSpot CRM\nParameters:\n- id(id) id of object to find associations from\n- association_type id(number) id of the association type to use\n- query(string) Optional. Query string delimited by '&'. All expressions are ANDed together. Supported operators are eq (default), neq, lt, lte, gt, gte, is_null and not_null\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned. The id property is always returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Omit or pass 'false' for raw strings.",
+    "description": "Gets a list of objects associated to the id passed in from the HubSpot CRM\nParameters:\n- id(id) id of object to find associations from\n- association_category(enumeration) The category of the association definition. Only HUBSPOT_DEFINED is supported at this time.\n- association_type id(number) id of the association type to use\n- query(string) Optional. Query string delimited by '&'. All expressions are ANDed together. Supported operators are eq (default), neq, lt, lte, gt, gte, is_null and not_null\n- properties(string) Optional. A comma-separated list of properties to return. By default, a small set of common properties are returned. The id property is always returned.\n- formatting(boolean) Optional. Format values such as dates and currency according to this portal's settings. Omit or pass 'false' for raw strings.",
     "prefix": "~crm_associations"
   },
   "crm_object": {
@@ -153,16 +153,30 @@
     "description": "Gets a list of object from the HubSpot CRM by query. For security, only product objects can be retrieved on any public page. Any other object type must be hosted on a page which is either password protected or requires a CMS Membership login. Objects are returned as a list of dicts of properties and values.To page through results, use limit and offset parameters on the query like limit=10&offset=20\nParameters:\n- object_type(string) Case-insensitive. contact, product, company, deal, ticket or quote\n- query(string) Optional. A query string, delimited by '&'. All expressions are ANDed together. Supported operators are eq (default), neq, lt, lte, gt, gte, is_null and not_null. If the query is not provided, the function will run the default query `offset=0&limit=10` to fetch the objects.\n- properties(string) A comma-separated list of properties to return. By default, a small set of common properties are returned. The id property is always returned.\n- formatting(boolean) Format values such as dates and currency according to this portal's settings. Omit or pass 'false' for raw strings.",
     "prefix": "~crm_objects"
   },
+  "crm_property_definition": {
+    "body": [
+      "crm_property_definition(${1:object type}, ${2:property name})"
+    ],
+    "description": "Gets the property definition for a given object type and property name. Supported object types are HubSpot built-in objects, portal specific objects, and integrator objects.For security, only portal specific objects and product can be retrieved on any public page. Any other built-in object types (except product) or integrator object types must be hosted on a page which is either password protected or requires a CMS Membership login. \nParameters:\n- object_type(string) The object type name e.g. 'contact', 'product', 'house_listing', 'publication', 'store_location'. For integrator object types the fully qualified name (FQN) should be used that is the type name prefixed by the app id, e.g. a34343_shipment. The only other case that the FQN should be used is when a portal specific custom object type has the same name as a HubSpot built-in object type, e.g. if a portal specific 'product' object type is needed then the FQN should be used instead of the simple type name like: p129292_contact (the number after the prefix 'p' is the portal id). Since the FQN of portal specific type carries the portal id, It is advised to avoid using the FQN for portal specific types to make the code portable across portals. Object type names are case sensitive except for built-in object types provided by HubSpot, e.g. 'CONTACT' and 'contact' refer to the same object type but 'House_Listing' is different than 'house_listing'\n- property_name(string) The case-insensitive property name to retrieve the definition for. ",
+    "prefix": "~crm_property_definition"
+  },
+  "crm_property_definitions": {
+    "body": [
+      "crm_property_definitions(${1:object type}, ${2:property name})"
+    ],
+    "description": "Gets the property definitions for a given object type and set of property names. Supported object types are HubSpot built-in objects, portal specific objects, and integrator objects.For security, only portal specific objects and product can be retrieved on any public page. Any other built-in object types (except product) or integrator object types must be hosted on a page which is either password protected or requires a CMS Membership login. \nParameters:\n- object_type(string) The object type name e.g. 'contact', 'product', 'house_listing', 'publication', 'store_location'. For integrator object types the fully qualified name (FQN) should be used that is the type name prefixed by the app id, e.g. a34343_shipment. The only other case that the FQN should be used is when a portal specific custom object type has the same name as a HubSpot built-in object type, e.g. if a portal specific 'product' object type is needed then the FQN should be used instead of the simple type name like: p129292_contact (the number after the prefix 'p' is the portal id). Since the FQN of portal specific type carries the portal id, It is advised to avoid using the FQN for portal specific types to make the code portable across portals. Object type names are case sensitive except for built-in object types provided by HubSpot, e.g. 'CONTACT' and 'contact' refer to the same object type but 'House_Listing' is different than 'house_listing'\n- property_name(string) Optional. The case-insensitive property names to retrieve the definition for. If empty, the definitions for all the properties will be retrieved.",
+    "prefix": "~crm_property_definitions"
+  },
   "cta": {
     "body": [
-      "cta(\"${1:guid}\", ${2:align_opt})"
+      "cta('${1:guid}', ${2:align_opt})"
     ],
     "description": "Renders a call to action embed tag\nParameters:\n- guid(String) The ID of the CTA to render\n- align_opt(enum justifyleft|justifycenter|justifyright|justifyfull) Adjusts alignment of CTA",
     "prefix": "~cta"
   },
   "datetimeformat": {
     "body": [
-      "datetimeformat(${1:var}, \"${2:format}\", \"${3:timezone}\")"
+      "datetimeformat(${1:var}, '${2:format}', '${3:timezone}')"
     ],
     "description": "formats a date to a string\nParameters:\n- var(date) \n- format(String) \n- timezone(String) Time zone of output date",
     "prefix": "~datetimeformat"
@@ -204,7 +218,7 @@
   },
   "get_asset_url": {
     "body": [
-      "get_asset_url(\"${1:path}\")"
+      "get_asset_url('${1:path}')"
     ],
     "description": "Returns URL to specified asset by given path\nParameters:\n- path(String) The Design Manager file path to the template or file",
     "prefix": "~get_asset_url"
@@ -253,7 +267,7 @@
   },
   "hubdb_table_column": {
     "body": [
-      "hubdb_table_column(${1:table_id}, \"${2:column}\")"
+      "hubdb_table_column(${1:table_id}, '${2:column}')"
     ],
     "description": "Returns column information for specific column in a table\nParameters:\n- table_id(string) id or name of the table\n- column(String) id or name of the column",
     "prefix": "~hubdb_table_column"
@@ -281,21 +295,21 @@
   },
   "i18n_getmessage": {
     "body": [
-      "i18n_getmessage(\"${1:message_name}\", ${2:substitutions})"
+      "i18n_getmessage('${1:message_name}', ${2:substitutions})"
     ],
     "description": "Gets the translated message for the language of the rendered page. Currently works only within modules.\nParameters:\n- message_name(String) The name of the message to look up\n- substitutions(sequence of strings) numbered substitution values used in placeholder 'content' attributes",
     "prefix": "~i18n_getmessage"
   },
   "include_css": {
     "body": [
-      "include_css(\"${1:path}\")"
+      "include_css('${1:path}')"
     ],
     "description": "Generates stylesheet link tag for specified template path\nParameters:\n- path(String) The Design Manager file path to the template or file",
     "prefix": "~include_css"
   },
   "include_javascript": {
     "body": [
-      "include_javascript(\"${1:path}\")"
+      "include_javascript('${1:path}')"
     ],
     "description": "Generates script include tag for specified template path\nParameters:\n- path(String) ",
     "prefix": "~include_javascript"
@@ -316,14 +330,14 @@
   },
   "module_asset_url": {
     "body": [
-      "module_asset_url(\"${1:name}\")"
+      "module_asset_url('${1:name}')"
     ],
     "description": "Gets the URL for an asset attached to a module\nParameters:\n- name(String) The name of the asset",
     "prefix": "~module_asset_url"
   },
   "oembed": {
     "body": [
-      "oembed(\"${1:request}\")"
+      "oembed('${1:request}')"
     ],
     "description": "Returns OEmbed data dictionary for given request. Only works in emails.\nParameters:\n- request(String) Request object, {url: string, max_width: long, max_height: long}",
     "prefix": "~oembed"
@@ -358,14 +372,14 @@
   },
   "require_css": {
     "body": [
-      "require_css(\"${1:url}\")"
+      "require_css('${1:url}')"
     ],
     "description": "Loads a css file to be output in the head\nParameters:\n- url(String) ",
     "prefix": "~require_css"
   },
   "require_js": {
     "body": [
-      "require_js(\"${1:url}\", \"${2:position}\")"
+      "require_js('${1:url}', '${2:position}')"
     ],
     "description": "Enqueues a js file to be output in the head or footer\nParameters:\n- url(String) \n- position(String) ",
     "prefix": "~require_js"
@@ -379,7 +393,7 @@
   },
   "script_embed": {
     "body": [
-      "script_embed(\"${1:type}\", \"${2:src}\", \"${3:title}\", \"${4:options}\", \"${5:description}\")"
+      "script_embed('${1:type}', '${2:src}', '${3:title}', '${4:options}', '${5:description}')"
     ],
     "description": "Defines an embeddable object which renders differently in the editor vs a live page\nParameters:\n- type(String) Type of embeddable object (wistia|embedly)\n- src(String) Object source\n- title(String) Object title\n- options(String) Options for particular type of embed\n- description(String) Description of embed for SEO purposes",
     "prefix": "~script_embed"
@@ -428,7 +442,7 @@
   },
   "truncate": {
     "body": [
-      "truncate(\"${1:s}\", ${2:length}, \"${3:end}\")"
+      "truncate('${1:s}', ${2:length}, '${3:end}')"
     ],
     "description": "truncates a given string to a specified length\nParameters:\n- s(String) \n- length(number) \n- end(String) ",
     "prefix": "~truncate"
@@ -446,5 +460,19 @@
     ],
     "description": "gets the unix timestamp milliseconds value of a datetime\nParameters:\n- var(date) ",
     "prefix": "~unixtimestamp"
+  },
+  "video_metadata_by_player_id": {
+    "body": [
+      "video_metadata_by_player_id(${1:request})"
+    ],
+    "description": "Returns the metadata of a video by player id. Only works for videos files that allow embedding, sharing, and tracking.\nParameters:\n- request(id) Request object, {id: long, domain: string}. Id is required. Domain is optional and will override the default domain of the video share url.",
+    "prefix": "~video_metadata_by_player_id"
+  },
+  "video_thumbnail": {
+    "body": [
+      "video_thumbnail('${1:request}')"
+    ],
+    "description": "Rewrites the URL of an image in File Manager to a URL that will overlay a play button on request.\nParameters:\n- request(String) Request object, {url: string, width: integer, height: integer, color: string scale: double} Url has to be the url of a HubSpot-hosted image. One of height or width is required. Color (optional) is a hex color string. Scale (optional) is a number between 0.1 an 1, default scale is 0.5.",
+    "prefix": "~video_thumbnail"
   }
 }

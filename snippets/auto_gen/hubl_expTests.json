@@ -1,4 +1,53 @@
 {
+  "!=": {
+    "body": [
+      "!="
+    ],
+    "description": "",
+    "prefix": "!="
+  },
+  "<": {
+    "body": [
+      "<"
+    ],
+    "description": "",
+    "prefix": "<"
+  },
+  "<=": {
+    "body": [
+      "<="
+    ],
+    "description": "",
+    "prefix": "<="
+  },
+  "==": {
+    "body": [
+      "=="
+    ],
+    "description": "",
+    "prefix": "=="
+  },
+  ">": {
+    "body": [
+      ">"
+    ],
+    "description": "",
+    "prefix": ">"
+  },
+  ">=": {
+    "body": [
+      ">="
+    ],
+    "description": "",
+    "prefix": ">="
+  },
+  "boolean": {
+    "body": [
+      "boolean"
+    ],
+    "description": "Return true if object is a boolean (in a strict sense, not in its ability to evaluate to a truthy expression)",
+    "prefix": "boolean"
+  },
   "containing": {
     "body": [
       "containing"
@@ -27,6 +76,13 @@
     "description": "Returns true if a variable is divisible by a number\nParameters:\n- divisor(number) The number to check whether a number is divisible by",
     "prefix": "divisibleby"
   },
+  "eq": {
+    "body": [
+      "eq"
+    ],
+    "description": "",
+    "prefix": "eq"
+  },
   "equalto": {
     "body": [
       "equalto"
@@ -41,12 +97,75 @@
     "description": "Returns true if the value is even",
     "prefix": "even"
   },
+  "false": {
+    "body": [
+      "false"
+    ],
+    "description": "Return true if object is a boolean and false",
+    "prefix": "false"
+  },
+  "float": {
+    "body": [
+      "float"
+    ],
+    "description": "Return true if object is a float",
+    "prefix": "float"
+  },
+  "ge": {
+    "body": [
+      "ge"
+    ],
+    "description": "Returns true if the first object's value is greater than or equal to the second object's value\nParameters:\n- other(object) Another object to compare against",
+    "prefix": "ge"
+  },
+  "greaterthan": {
+    "body": [
+      "greaterthan"
+    ],
+    "description": "",
+    "prefix": "greaterthan"
+  },
+  "gt": {
+    "body": [
+      "gt"
+    ],
+    "description": "Returns true if the first object's value is strictly greater than the second\nParameters:\n- other(object) Another object to compare against",
+    "prefix": "gt"
+  },
+  "in": {
+    "body": [
+      "in"
+    ],
+    "description": "Returns true if value is contained in the iterable\nParameters:\n- list(object) The iterable to check for the value",
+    "prefix": "in"
+  },
+  "integer": {
+    "body": [
+      "integer"
+    ],
+    "description": "Return true if object is an integer or long",
+    "prefix": "integer"
+  },
   "iterable": {
     "body": [
       "iterable"
     ],
     "description": "Return true if the object is iterable (sequence, dict, etc)",
     "prefix": "iterable"
+  },
+  "le": {
+    "body": [
+      "le"
+    ],
+    "description": "Returns true if the first object's value is less than or equal to the second object's value\nParameters:\n- other(object) Another object to compare against",
+    "prefix": "le"
+  },
+  "lessthan": {
+    "body": [
+      "lessthan"
+    ],
+    "description": "",
+    "prefix": "lessthan"
   },
   "lower": {
     "body": [
@@ -55,12 +174,26 @@
     "description": "Return true if the given string is all lowercase",
     "prefix": "lower"
   },
+  "lt": {
+    "body": [
+      "lt"
+    ],
+    "description": "Returns true if the first object's value is strictly less than the second\nParameters:\n- other(object) Another object to compare against",
+    "prefix": "lt"
+  },
   "mapping": {
     "body": [
       "mapping"
     ],
     "description": "Return true if the given object is a dict",
     "prefix": "mapping"
+  },
+  "ne": {
+    "body": [
+      "ne"
+    ],
+    "description": "Returns true if an object has the different value from another object\nParameters:\n- other(object) Another object to check inequality against",
+    "prefix": "ne"
   },
   "none": {
     "body": [
@@ -118,6 +251,13 @@
     "description": "Return true if object is a string which starts with a specified other string\nParameters:\n- check(string) A second string to check is the start of the first string",
     "prefix": "string_startingwith"
   },
+  "true": {
+    "body": [
+      "true"
+    ],
+    "description": "Return true if object is a boolean and true",
+    "prefix": "true"
+  },
   "truthy": {
     "body": [
       "truthy"
@@ -143,7 +283,7 @@
     "body": [
       "within"
     ],
-    "description": "Returns true if a value is within a list\nParameters:\n- list(list) A list to check if the value is in.",
+    "description": "",
     "prefix": "within"
   }
 }
