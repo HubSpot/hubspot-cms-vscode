@@ -47,10 +47,10 @@ const buildSnippetBody = (
 
       if (type == 'tags') {
         return (
-          '\n\t' + param.name + '=\'${' + paramIndex + ':' + param.name + '}\''
+          '\n\t' + param.name + "='${" + paramIndex + ':' + param.name + "}'"
         );
       } else if (param.type == 'String') {
-        return '\'${' + paramIndex + ':' + param.name + '}\'';
+        return "'${" + paramIndex + ':' + param.name + "}'";
       } else {
         return '${' + paramIndex + ':' + param.name + '}';
       }
