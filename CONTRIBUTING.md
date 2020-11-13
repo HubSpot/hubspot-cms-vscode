@@ -18,7 +18,7 @@ _Note: In order to publish you'll need to be added as a user in the HubSpot Azur
 
 - Install the [vsce](https://github.com/microsoft/vscode-vsce) command line tool
 - Create a [personal access token](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token)
-- Run `vsce login hubspot`
+- Run `vsce login HubSpot` (case sensitive)
 - Ensure that you've checked out the lastest work on the `master` branch
 - Run `vsce publish minor`, which will increment the version number in `package.json` and publish the extension to the VS Code Marketplace
 
