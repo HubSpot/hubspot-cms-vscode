@@ -10,7 +10,7 @@
       "\"children\": [${3}],",
       "\"type\": \"group\",",
       "\"inline_help_text\": \"\",",
-      "\"help_text\": \"\"",
+      "\"help_text\": \"\",",
       "\"default\": {} }"
     ],
     "description": "HubSpot Field Group"
