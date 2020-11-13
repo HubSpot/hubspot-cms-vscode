@@ -15,21 +15,21 @@
   },
   "attr": {
     "body": [
-      "|attr(\"${1:name}\")"
+      "|attr('${1:name}')"
     ],
     "description": "Renders the attribute of a dictionary\nParameters:\n- name(String) The dictionary attribute name to access",
     "prefix": "|attr"
   },
   "batch": {
     "body": [
-      "|batch(${1:linecount}, \"${2:fill_with}\")"
+      "|batch(${1:linecount}, '${2:fill_with}')"
     ],
     "description": "A filter that groups up items within a sequence\nParameters:\n- linecount(number) Number of items to include in the batch\n- fill_with(String) Value used to fill up missing items",
     "prefix": "|batch"
   },
   "between_times": {
     "body": [
-      "|between_times(\"${1:end}\", \"${2:unit}\")"
+      "|between_times('${1:end}', '${2:unit}')"
     ],
     "description": "Calculates the time between two datetime objects\nParameters:\n- end(String) Datetime object or timestamp at the end of the period\n- unit(String) Which temporal unit to use",
     "prefix": "|between_times"
@@ -71,7 +71,7 @@
   },
   "cut": {
     "body": [
-      "|cut(\"${1:to_remove}\")"
+      "|cut('${1:to_remove}')"
     ],
     "description": "Removes a string from the value from another string\nParameters:\n- to_remove(String) String to remove from the original string",
     "prefix": "|cut"
@@ -92,16 +92,16 @@
   },
   "datetimeformat": {
     "body": [
-      "|datetimeformat(\"${1:format}\", \"${2:timezone}\", ${3:locale})"
+      "|datetimeformat('${1:format}', '${2:timezone}', ${3:locale})"
     ],
     "description": "Formats a date object\nParameters:\n- format(String) The format of the date determined by the directives added to this parameter\n- timezone(String) Time zone of output date\n- locale(string) The language code to use when formatting the datetime",
     "prefix": "|datetimeformat"
   },
   "default": {
     "body": [
-      "|default(\"${1:default_value}\", ${2:boolean})"
+      "|default(${1:default_value}, ${2:truthy})"
     ],
-    "description": "If the value is undefined it will return the passed default value, otherwise the value of the variable\nParameters:\n- default_value(String) Value to print when variable is not defined\n- boolean(boolean) Set to True to use with variables which evaluate to false",
+    "description": "If the value is undefined it will return the passed default value, otherwise the value of the variable\nParameters:\n- default_value(object) Value to print when variable is not defined\n- truthy(boolean) Set to True to use with variables which evaluate to false",
     "prefix": "|default"
   },
   "dictsort": {
@@ -204,9 +204,9 @@
   },
   "format_currency": {
     "body": [
-      "|format_currency(\"${1:locale}\", \"${2:currency code}\")"
+      "|format_currency('${1:locale}', '${2:currency code}', '${3:use default decimal digits}')"
     ],
-    "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency",
+    "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency\n- use_default decimal digits(String) A boolean input that determines if formatter needs to use default decimal digits of the currency code. The default is false.",
     "prefix": "|format_currency"
   },
   "fromjson": {
@@ -215,6 +215,13 @@
     ],
     "description": "Converts JSON string to Object",
     "prefix": "|fromjson"
+  },
+  "fromyaml": {
+    "body": [
+      "|fromyaml"
+    ],
+    "description": "Converts a YAML string to an object",
+    "prefix": "|fromyaml"
   },
   "geo_distance": {
     "body": [
@@ -225,7 +232,7 @@
   },
   "groupby": {
     "body": [
-      "|groupby(\"${1:attribute}\")"
+      "|groupby('${1:attribute}')"
     ],
     "description": "Group a sequence of objects by a common attribute.\nParameters:\n- attribute(String) The common attribute to group by",
     "prefix": "|groupby"
@@ -274,7 +281,7 @@
   },
   "join": {
     "body": [
-      "|join(\"${1:d}\", \"${2:attr}\")"
+      "|join('${1:d}', '${2:attr}')"
     ],
     "description": "Return a string which is the concatenation of the strings in the sequence.\nParameters:\n- d(String) The separator string used to join the items\n- attr(String) Optional dict object attribute to use in joining",
     "prefix": "|join"
@@ -316,7 +323,7 @@
   },
   "map": {
     "body": [
-      "|map(\"${1:attribute}\")"
+      "|map('${1:attribute}')"
     ],
     "description": "Applies a filter on a sequence of objects or looks up an attribute.\nParameters:\n- attribute(String) Filter to apply to an object or dict attribute to lookup",
     "prefix": "|map"
@@ -330,7 +337,7 @@
   },
   "minus_time": {
     "body": [
-      "|minus_time(\"${1:diff}\", \"${2:unit}\")"
+      "|minus_time('${1:diff}', '${2:unit}')"
     ],
     "description": "Subtracts a specified amount of time to a datetime object\nParameters:\n- diff(String) The amount to subtract from the datetime\n- unit(String) Which temporal unit to use",
     "prefix": "|minus_time"
@@ -344,7 +351,7 @@
   },
   "plus_time": {
     "body": [
-      "|plus_time(\"${1:diff}\", \"${2:unit}\")"
+      "|plus_time('${1:diff}', '${2:unit}')"
     ],
     "description": "Adds a specified amount of time to a datetime object\nParameters:\n- diff(String) The amount to add to the datetime\n- unit(String) Which temporal unit to use",
     "prefix": "|plus_time"
@@ -365,7 +372,7 @@
   },
   "regex_replace": {
     "body": [
-      "|regex_replace(\"${1:regex}\", \"${2:new}\")"
+      "|regex_replace('${1:regex}', '${2:new}')"
     ],
     "description": "Return a copy of the value with all occurrences of a matched regular expression (Java RE2 syntax) replaced with a new one. The first argument is the regular expression to be matched, the second is the replacement string\nParameters:\n- regex(String) The regular expression that you want to match and replace\n- new(String) The new string that you replace the matched substring",
     "prefix": "|regex_replace"
@@ -379,14 +386,14 @@
   },
   "rejectattr": {
     "body": [
-      "|rejectattr(\"${1:attribute}\", ${2:exp_test})"
+      "|rejectattr('${1:attribute}', ${2:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to an attribute of an object or the attribute and rejecting the ones with the test succeeding.\nParameters:\n- attribute(String) Attribute to test for and reject items that contain it\n- exp_test(name of expression test) Specify which expression test to run for making the rejection",
     "prefix": "|rejectattr"
   },
   "replace": {
     "body": [
-      "|replace(\"${1:old}\", \"${2:new}\", ${3:count})"
+      "|replace('${1:old}', '${2:new}', ${3:count})"
     ],
     "description": "Return a copy of the value with all occurrences of a substring replaced with a new one. The first argument is the substring that should be replaced, the second is the replacement string. If the optional third argument count is given, only the first count occurrences are replaced\nParameters:\n- old(String) The old substring that you want to match and replace\n- new(String) The new string that you replace the matched substring\n- count(number) Replace only the first N occurrences",
     "prefix": "|replace"
@@ -428,7 +435,7 @@
   },
   "selectattr": {
     "body": [
-      "|selectattr(\"${1:attr}\", ${2:exp_test})"
+      "|selectattr('${1:attr}', ${2:exp_test})"
     ],
     "description": "Filters a sequence of objects by applying a test to an attribute of an object and only selecting the ones with the test succeeding.\nParameters:\n- attr(String) Attribute to test for and select items that contain it\n- exp_test(name of expression test) Specify which expression test to run for making the selection",
     "prefix": "|selectattr"
@@ -449,14 +456,14 @@
   },
   "sort": {
     "body": [
-      "|sort(${1:reverse}, ${2:case_sensitive}, \"${3:attribute}\")"
+      "|sort(${1:reverse}, ${2:case_sensitive}, '${3:attribute}')"
     ],
     "description": "Sort an iterable.\nParameters:\n- reverse(boolean) Boolean to reverse the sort order\n- case_sensitive(boolean) Determines whether or not the sorting is case sensitive\n- attribute(String) Specifies an attribute to sort by",
     "prefix": "|sort"
   },
   "split": {
     "body": [
-      "|split(\"${1:separator}\", ${2:limit})"
+      "|split('${1:separator}', ${2:limit})"
     ],
     "description": "Splits the input string into a list on the given separator\nParameters:\n- separator(String) Specifies the separator to split the variable by\n- limit(number) Limits resulting list by putting remainder of string into last list item",
     "prefix": "|split"
@@ -477,14 +484,14 @@
   },
   "strtotime": {
     "body": [
-      "|strtotime(\"${1:datetimeFormat}\")"
+      "|strtotime('${1:datetimeFormat}')"
     ],
     "description": "Converts a datetime string and datetime format to a datetime object\nParameters:\n- datetimeFormat(String) Format of the datetime string",
     "prefix": "|strtotime"
   },
   "sum": {
     "body": [
-      "|sum(${1:start}, \"${2:attribute}\")"
+      "|sum(${1:start}, '${2:attribute}')"
     ],
     "description": "Returns the sum of a sequence of numbers plus the value of parameter ‘start’ (which defaults to 0). When the sequence is empty it returns start.\nParameters:\n- start(number) Sets a value to return, if there is nothing in the variable to sum\n- attribute(String) Specify an optional attribute of dict to sum",
     "prefix": "|sum"
@@ -510,6 +517,13 @@
     "description": "Writes object as a JSON string",
     "prefix": "|tojson"
   },
+  "toyaml": {
+    "body": [
+      "|toyaml"
+    ],
+    "description": "Writes object as a YAML string",
+    "prefix": "|toyaml"
+  },
   "trim": {
     "body": [
       "|trim"
@@ -519,14 +533,14 @@
   },
   "truncate": {
     "body": [
-      "|truncate(${1:length}, ${2:killwords}, \"${3:end}\")"
+      "|truncate(${1:length}, ${2:killwords}, '${3:end}')"
     ],
     "description": "Return a truncated copy of the string. The length is specified with the first parameter which defaults to 255. If the second parameter is true the filter will cut the text at length. Otherwise it will discard the last word. If the text was in fact truncated it will append an ellipsis sign (\"...\"). If you want a different ellipsis sign than \"...\" you can specify it using the third parameter.\nParameters:\n- length(number) Specifies the length at which to truncate the text (includes HTML characters)\n- killwords(boolean) If true, the string will cut text at length\n- end(String) The characters that will be added to indicate where the text was truncated",
     "prefix": "|truncate"
   },
   "truncatehtml": {
     "body": [
-      "|truncatehtml(${1:length}, \"${2:end}\", ${3:breakword})"
+      "|truncatehtml(${1:length}, '${2:end}', ${3:breakword})"
     ],
     "description": "Truncates a given string, respecting html markup (i.e. will properly close all nested tags)\nParameters:\n- length(number) Length at which to truncate text (HTML characters not included)\n- end(String) The characters that will be added to indicate where the text was truncated\n- breakword(boolean) If set to true, text will be truncated in the middle of words",
     "prefix": "|truncatehtml"
@@ -568,7 +582,7 @@
   },
   "urlize": {
     "body": [
-      "|urlize(${1:trim_url_limit}, ${2:nofollow}, \"${3:target}\")"
+      "|urlize(${1:trim_url_limit}, ${2:nofollow}, '${3:target}')"
     ],
     "description": "Converts URLs in plain text into clickable links.\nParameters:\n- trim_url_limit(number) Sets a character limit\n- nofollow(boolean) Adds nofollow to generated link tag\n- target(String) Adds target attr to generated link tag",
     "prefix": "|urlize"
