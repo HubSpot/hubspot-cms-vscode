@@ -1,0 +1,24 @@
+{
+  "brackets": [
+    ["{%", "%}"],
+    ["{{", "}}"],
+    ["{#", "#}"]
+  ],
+  "autoClosingPairs": [
+    ["{#", "#}"],
+    ["{{", "}}"],
+    ["{%", "%}"]
+  ],
+  "surroundingPairs": [
+    ["{", "}"],
+    ["%", "%"],
+    ["#", "#"]
+  ],
+  "comments": {
+    "blockComment": ["/*", "*/"]
+  },
+  "indentationRules": {
+    "decreaseIndentPattern": ".*{%(.*?end).*%}*.",
+    "increaseIndentPattern": ".*{%(?!.*end).*%}.*"
+  }
+}

@@ -135,14 +135,14 @@
                 "aliases": [
                     "HTML + HubL"
                 ],
-                "configuration": "./langconfig/hubl-language-configuration.json"
+                "configuration": "./langconfig/hubl-html-language-configuration.json"
             },
             {
                 "id": "css-hubl",
                 "aliases": [
                     "CSS + HubL"
                 ],
-                "configuration": "./langconfig/hubl-language-configuration.json"
+                "configuration": "./langconfig/hubl-css-language-configuration.json"
             }
         ],
         "grammars": [
