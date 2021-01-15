@@ -3,13 +3,13 @@ For :rocket: fast HubSpot CMS Hub development.
 
 This extension currently supports:
 - Syntax highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl)
-- Autocomlete for common HubL tags, filters, and functions
+- Autocomplete for common HubL tags, filters, and functions
 - Bracket wrapping, indentation, and other helpful editor features
 
 If you're new to CMS Hub, check out how to [get started with local development.](https://designers.hubspot.com/docs/tools/local-development)
 
 ## Getting Started
-This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these langauges. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences so HubL syntax highlighting will automatically be applied to all of your projects:
+This extension introduces new file languages: `HTML + HUBL` and `HTML + CSS`. In order to use these new features, you'll want to make sure you've told VSCode to use these languages. For one-off files, you can simply change the language in the lower right hand corner of your screen. However, we recommend adjusting your file associations under your User or Workspace preferences so HubL syntax highlighting will automatically be applied to all of your projects:
 - In VSCode, press `CMD` + `SHIFT` + `P` to open the command prompt
 - Search for and select the command `Preferences: Open Settings (UI)`
 - Choose either the "User" or "Workspace" tab
