@@ -165,7 +165,17 @@
                 "scopeName": "text.css.hubl",
                 "path": "./syntaxes/css-hubl.json"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "HubL",
+            "properties": {
+              "hubl.lint.enabled": {
+                "type": "boolean",
+                "default": true,
+                "markdownDescription": "Enable code linting in HubL files\n\n*Note: this feature requires a valid `hubspot.config.yml` file*"
+              }
+            }
+        }
     },
     "dependencies": {
         "@hubspot/cms-lib": "^2.1.1-beta.7",
