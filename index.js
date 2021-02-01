@@ -30,6 +30,7 @@ async function activate(context) {
   loadConfig(path);
 
   // TODO: !isTrackingAllowed() should not kill entire extension
+  // TODO: Show user alert if config is not valid
   if (!validateConfig() || !isTrackingAllowed()) {
     return;
   }
