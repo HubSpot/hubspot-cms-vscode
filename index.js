@@ -38,7 +38,6 @@ async function activate(context) {
   context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 
 		if (e.affectsConfiguration('hubl.lint.enabled')) {
-      console.log('config change')
       if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
         lintHubl();
       } else  {
