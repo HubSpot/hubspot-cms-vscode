@@ -5,7 +5,7 @@ const {
   validateConfig,
   isTrackingAllowed,
 } = require('@hubspot/cms-lib');
-const {lintHubl} = require('./lib/lint');
+const {lintHubl, disable} = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cms-lib/api/fileMapper');
 
 async function activate(context) {
@@ -35,8 +35,21 @@ async function activate(context) {
 
   await trackUsage('vscode-extension', 'ACTIVATION');
 
-  lintHubl(context);
+  context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
+
+		if (e.affectsConfiguration('hubl.lint.enabled')) {
+      console.log('config change')
+      if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
+        lintHubl();
+      } else  {
+        disable();
+      }
+    }
+	}));
+
 }
+
+
 
 module.exports = {
   activate,
