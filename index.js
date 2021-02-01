@@ -29,14 +29,18 @@ async function activate(context) {
 
   loadConfig(path);
 
+  // TODO: !isTrackingAllowed() should not kill entire extension
   if (!validateConfig() || !isTrackingAllowed()) {
     return;
   }
 
   await trackUsage('vscode-extension', 'ACTIVATION');
 
-  context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
+  if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
+    enableLinting();
+  }
 
+  context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('hubl.lint.enabled')) {
       if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
         enableLinting();
