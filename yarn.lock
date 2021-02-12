@@ -23,7 +23,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@hubspot/cli-lib@^3":
+"@hubspot/cli-lib@^3.0.0":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@hubspot/cli-lib/-/cli-lib-3.0.1.tgz#3da009ba0786950836fd95609fcca5ccfab0c2d9"
   integrity sha512-E6FQ4lXht+Y9ui7laQqbznBl5rm9B81FFiG1Lz6sQw4plmme5JO+Rz33vQRohUeQ4nUfv8Vi6j8O5wS+3UNmYA==
