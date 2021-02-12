@@ -3,10 +3,11 @@ const {
   findConfig,
   loadConfig,
   validateConfig,
+  getAccountId,
   isTrackingAllowed,
-} = require('@hubspot/cms-lib');
+} = require('@hubspot/cli-lib');
 const {enableLinting, disableLinting} = require('./lib/lint');
-const { trackUsage } = require('@hubspot/cms-lib/api/fileMapper');
+const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
 async function activate(context) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -35,7 +36,7 @@ async function activate(context) {
     return;
   }
 
-  await trackUsage('vscode-extension', 'ACTIVATION');
+  await trackUsage('vscode-extension-interaction', 'ACTIVATION', {}, getAccountId());
 
   if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
     enableLinting();
@@ -52,8 +53,6 @@ async function activate(context) {
 	}));
 
 }
-
-
 
 module.exports = {
   activate,

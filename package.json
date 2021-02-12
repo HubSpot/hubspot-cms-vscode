@@ -178,7 +178,7 @@
         }
     },
     "dependencies": {
-        "@hubspot/cms-lib": "^2.1.1-beta.7",
+        "@hubspot/cli-lib": "^3.0.0",
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.0"
