@@ -6,7 +6,7 @@ const {
   getAccountId,
   isTrackingAllowed,
 } = require('@hubspot/cli-lib');
-const {enableLinting, disableLinting} = require('./lib/lint');
+const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
 async function activate(context) {
@@ -35,23 +35,31 @@ async function activate(context) {
   if (!validateConfig() || !isTrackingAllowed()) {
     return;
   }
-
-  await trackUsage('vscode-extension-interaction', 'ACTIVATION', {}, getAccountId());
-
+  try {
+    await trackUsage(
+      'vscode-extension-interaction',
+      'ACTIVATION',
+      {},
+      getAccountId()
+    );
+  } catch (e) {
+    console.log(e);
+  }
   if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
     enableLinting();
   }
 
-  context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-		if (e.affectsConfiguration('hubl.lint.enabled')) {
-      if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
-        enableLinting();
-      } else  {
-        disableLinting();
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('hubl.lint.enabled')) {
+        if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
+          enableLinting();
+        } else {
+          disableLinting();
+        }
       }
-    }
-	}));
-
+    })
+  );
 }
 
 module.exports = {
