@@ -30,21 +30,23 @@ async function activate(context) {
 
   loadConfig(path);
 
-  // TODO: !isTrackingAllowed() should not kill entire extension
-  // TODO: Show user alert if config is not valid
-  if (!validateConfig() || !isTrackingAllowed()) {
+  if (!validateConfig()) {
     return;
   }
-  try {
-    await trackUsage(
-      'vscode-extension-interaction',
-      'ACTIVATION',
-      {},
-      getAccountId()
-    );
-  } catch (e) {
-    console.log(e);
+
+  if (isTrackingAllowed()) {
+    try {
+      await trackUsage(
+        'vscode-extension-interaction',
+        'ACTIVATION',
+        {},
+        getAccountId()
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
+
   if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
     enableLinting();
   }
