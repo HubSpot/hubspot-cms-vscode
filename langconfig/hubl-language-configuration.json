@@ -17,7 +17,7 @@
   "comments": {
     "blockComment": ["{#", "#}"]
   },
-  "wordPattern":"{%(.*).*%}",
+  "wordPattern": "{%(.*).*%}",
   "indentationRules": {
     "decreaseIndentPattern": ".*{%(.*?end).*%}*.",
     "increaseIndentPattern": ".*{%(?!.*end).*%}.*"
