@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "name": "date_field",
+          "label": "Date field",
+          "required": false,
+          "locked": false,
+          "step": 1,
+          "type": "date",
+          "inline_help_text": "",
+          "help_text": "",
+          "default": null
+      }
+  ],
+  "required": [
+      "name",
+      "label",
+      "required",
+      "locked",
+      "step",
+      "type",
+      "inline_help_text",
+      "help_text",
+      "default"
+  ],
+  "properties": {
+      "name": {
+          "$id": "#/properties/name",
+          "type": "string",
+          "title": "The name schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "date_field"
+          ]
+      },
+      "label": {
+          "$id": "#/properties/label",
+          "type": "string",
+          "title": "The label schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "Date field"
+          ]
+      },
+      "required": {
+          "$id": "#/properties/required",
+          "type": "boolean",
+          "title": "The required schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              false
+          ]
+      },
+      "locked": {
+          "$id": "#/properties/locked",
+          "type": "boolean",
+          "title": "The locked schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              false
+          ]
+      },
+      "step": {
+          "$id": "#/properties/step",
+          "type": "integer",
+          "title": "The step schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+              1
+          ]
+      },
+      "type": {
+          "$id": "#/properties/type",
+          "type": "string",
+          "title": "The type schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "date"
+          ]
+      },
+      "inline_help_text": {
+          "$id": "#/properties/inline_help_text",
+          "type": "string",
+          "title": "The inline_help_text schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              ""
+          ]
+      },
+      "help_text": {
+          "$id": "#/properties/help_text",
+          "type": "string",
+          "title": "The help_text schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              ""
+          ]
+      },
+      "default": {
+          "$id": "#/properties/default",
+          "type": "null",
+          "title": "The default schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": null,
+          "examples": [
+              null
+          ]
+      }
+  },
+  "additionalProperties": true
+}

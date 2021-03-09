@@ -13,10 +13,15 @@
     {
       "type": "object",
       "required": ["type"],
-      "properties": { "type": { "enum": ["boolean", "choice"] } },
+      "properties": { "type": { "enum": ["boolean", "choice", "color", "cta", "datetime", "email", "date"] } },
       "allOf": [
          {"if":{"properties":{"type":{"const":"boolean"}}}, "then":{"$ref": "./boolean.json"}},
-         {"if":{"properties":{"type":{"const":"choice"}}}, "then":{"$ref": "./choice.json"}}
+         {"if":{"properties":{"type":{"const":"choice"}}}, "then":{"$ref": "./choice.json"}},
+         {"if":{"properties":{"type":{"const":"color"}}}, "then":{"$ref": "./color.json"}},
+         {"if":{"properties":{"type":{"const":"cta"}}}, "then":{"$ref": "./date.json"}},
+         {"if":{"properties":{"type":{"const":"datetime"}}}, "then":{"$ref": "./datetime.json"}},
+         {"if":{"properties":{"type":{"const":"email"}}}, "then":{"$ref": "./email.json"}},
+         {"if":{"properties":{"type":{"const":"date"}}}, "then":{"$ref": "./date.json"}}
       ]
     }
 
