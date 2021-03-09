@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "name": "choice_field",
+          "label": "Choice field",
+          "required": false,
+          "locked": false,
+          "display": "select",
+          "inline_help_text": "",
+          "help_text": "",
+          "choices": [
+              [
+                  "value 1",
+                  "Label 1"
+              ],
+              [
+                  "value 2",
+                  "Label 2"
+              ]
+          ],
+          "type": "choice",
+          "placeholder": "",
+          "default": null
+      }
+  ],
+  "required": [
+      "name",
+      "label",
+      "required",
+      "locked",
+      "display",
+      "inline_help_text",
+      "help_text",
+      "choices",
+      "type",
+      "placeholder",
+      "default"
+  ],
+  "properties": {
+      "name": {
+          "$id": "#/properties/name",
+          "type": "string",
+          "title": "The name schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "choice_field"
+          ]
+      },
+      "label": {
+          "$id": "#/properties/label",
+          "type": "string",
+          "title": "The label schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "Choice field"
+          ]
+      },
+      "required": {
+          "$id": "#/properties/required",
+          "type": "boolean",
+          "title": "The required schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              false
+          ]
+      },
+      "locked": {
+          "$id": "#/properties/locked",
+          "type": "boolean",
+          "title": "The locked schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+              false
+          ]
+      },
+      "display": {
+          "$id": "#/properties/display",
+          "type": "string",
+          "title": "The display schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "select"
+          ]
+      },
+      "inline_help_text": {
+          "$id": "#/properties/inline_help_text",
+          "type": "string",
+          "title": "The inline_help_text schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              ""
+          ]
+      },
+      "help_text": {
+          "$id": "#/properties/help_text",
+          "type": "string",
+          "title": "The help_text schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              ""
+          ]
+      },
+      "choices": {
+          "$id": "#/properties/choices",
+          "type": "array",
+          "title": "The choices schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              [
+                  [
+                      "value 1",
+                      "Label 1"
+                  ],
+                  [
+                      "value 2",
+                      "Label 2"
+                  ]
+              ]
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/choices/items",
+              "anyOf": [
+                  {
+                      "$id": "#/properties/choices/items/anyOf/0",
+                      "type": "array",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": [],
+                      "examples": [
+                          [
+                              "value 1",
+                              "Label 1"
+                          ]
+                      ],
+                      "additionalItems": true,
+                      "items": {
+                          "$id": "#/properties/choices/items/anyOf/0/items",
+                          "anyOf": [
+                              {
+                                  "$id": "#/properties/choices/items/anyOf/0/items/anyOf/0",
+                                  "type": "string",
+                                  "title": "The first anyOf schema",
+                                  "description": "An explanation about the purpose of this instance.",
+                                  "default": "",
+                                  "examples": [
+                                      "value 1",
+                                      "Label 1"
+                                  ]
+                              }
+                          ]
+                      }
+                  },
+                  {
+                      "$id": "#/properties/choices/items/anyOf/1",
+                      "type": "array",
+                      "title": "The second anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": [],
+                      "examples": [
+                          [
+                              "value 2",
+                              "Label 2"
+                          ]
+                      ],
+                      "additionalItems": true,
+                      "items": {
+                          "$id": "#/properties/choices/items/anyOf/1/items",
+                          "anyOf": [
+                              {
+                                  "$id": "#/properties/choices/items/anyOf/1/items/anyOf/0",
+                                  "type": "string",
+                                  "title": "The first anyOf schema",
+                                  "description": "An explanation about the purpose of this instance.",
+                                  "default": "",
+                                  "examples": [
+                                      "value 2",
+                                      "Label 2"
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              ]
+          }
+      },
+      "type": {
+          "$id": "#/properties/type",
+          "type": "string",
+          "title": "The type schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "choice"
+          ]
+      },
+      "placeholder": {
+          "$id": "#/properties/placeholder",
+          "type": "string",
+          "title": "The placeholder schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              ""
+          ]
+      },
+      "default": {
+          "$id": "#/properties/default",
+          "type": "null",
+          "title": "The default schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": null,
+          "examples": [
+              null
+          ]
+      }
+  },
+  "additionalProperties": true
+}

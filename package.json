@@ -149,9 +149,13 @@
         ],
         "jsonValidation": [
             {
-              "fileMatch": "meta.json",
-              "url": "./schema/module-meta.json"
-            }
+                "fileMatch": "meta.json",
+                "url": "./schema/module-meta.json"
+              },
+              {
+                "fileMatch": "fields.json",
+                "url": "./schema/module-fields.json"
+              }
         ]
     },
     "dependencies": {
