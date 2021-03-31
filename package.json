@@ -169,10 +169,10 @@
         "configuration": {
             "title": "HubL",
             "properties": {
-                "hubl.lint.enabled": {
+                "hubl.beta": {
                     "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Enable code linting in HubL files\n\n*Note: this feature requires a valid `hubspot.config.yml` file*"
+                    "default": false,
+                    "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: this feature requires a valid `hubspot.config.yml` file*"
                 }
             }
         }

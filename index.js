@@ -47,14 +47,14 @@ async function activate(context) {
     }
   }
 
-  if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
+  if (vscode.workspace.getConfiguration('hubl').get('beta')) {
     enableLinting();
   }
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('hubl.lint.enabled')) {
-        if (vscode.workspace.getConfiguration('hubl').get('lint.enabled')) {
+      if (e.affectsConfiguration('hubl.beta')) {
+        if (vscode.workspace.getConfiguration('hubl').get('beta')) {
           enableLinting();
         } else {
           disableLinting();
