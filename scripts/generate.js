@@ -19,6 +19,7 @@ const SKIP_SNIPPET_GENERATION = [
   'include',
   'from',
   'do',
+  'module_attribute',
 ];
 
 const fetchHubldocs = async () => {

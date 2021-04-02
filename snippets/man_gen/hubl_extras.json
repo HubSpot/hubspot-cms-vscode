@@ -33,6 +33,13 @@
     "body": ["{% else %}"],
     "description": "Else statement to be used within if statement"
   },
+  "module_attribute": {
+    "body": [
+      "{% module_attribute 'my_module_attribute' %}\n\n{% end_module_attribute %}"
+    ],
+    "description": "Defines a rich attribute for a module. Only valid within a module_block tag",
+    "prefix": "~module_attribute"
+  },
   "hubl_html_doc": {
     "prefix": "hubldoc",
     "body": [
