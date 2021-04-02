@@ -172,7 +172,7 @@
                 "hubl.beta": {
                     "type": "boolean",
                     "default": false,
-                    "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: this feature requires a valid `hubspot.config.yml` file*"
+                    "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: beta features may require a valid `hubspot.config.yml` file*"
                 }
             }
         }
