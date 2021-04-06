@@ -391,6 +391,13 @@
     "description": "Filters a sequence of objects by applying a test to an attribute of an object or the attribute and rejecting the ones with the test succeeding.\nParameters:\n- attribute(String) Attribute to test for and reject items that contain it\n- exp_test(name of expression test) Specify which expression test to run for making the rejection",
     "prefix": "|rejectattr"
   },
+  "render": {
+    "body": [
+      "|render"
+    ],
+    "description": "Renders a template string early to be used by other filters and functions",
+    "prefix": "|render"
+  },
   "replace": {
     "body": [
       "|replace('${1:old}', '${2:new}', ${3:count})"
@@ -481,6 +488,13 @@
     ],
     "description": "Strip SGML/XML tags and replace adjacent whitespace by one space.",
     "prefix": "|striptags"
+  },
+  "strtodate": {
+    "body": [
+      "|strtodate('${1:dateFormat}')"
+    ],
+    "description": "Converts a date string and date format to a date object\nParameters:\n- dateFormat(String) Format of the date string",
+    "prefix": "|strtodate"
   },
   "strtotime": {
     "body": [

@@ -239,23 +239,23 @@
   },
   "icon": {
     "body": [
-      "{% icon 'my_icon' \n\tname='${1:name}', \n\tset='${2:set}', \n\tstyle='${3:style}', \n\tformat='${4:format}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\tpurpose='${7:purpose}', \n\ttitle='${8:title}'%}"
+      "{% icon 'my_icon' \n\tname='${1:name}', \n\ticon_set='${2:icon_set}', \n\tstyle='${3:style}', \n\tformat='${4:format}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\tpurpose='${7:purpose}', \n\ttitle='${8:title}'%}"
     ],
-    "description": "Render an icon from the HubSpot icon library\nParameters:\n- name(String) The icon name\n- set(String) The icon set name. Currently defined sets: fontawesome-5 (see https://fontawesome.com/icons\n- style(String) The icon style. Regular, solid, or light\n- format(String) The output format. svg or unicode\n- width(String) The output image width. For svg format only\n- height(String) The output image height. For svg format only\n- purpose(String) The role of the icon in its context. Either 'semantic' or 'decorative'\n- title(String) A descriptive title for the icon",
+    "description": "Render an icon from the HubSpot icon library\nParameters:\n- name(String) The icon name\n- icon_set(String) The icon set name. Currently defined sets: fontawesome-5 (see https://fontawesome.com/icons\n- style(String) The icon style. Regular, solid, or light\n- format(String) The output format. svg or unicode\n- width(String) The output image width. For svg format only\n- height(String) The output image height. For svg format only\n- purpose(String) The role of the icon in its context. Either 'semantic' or 'decorative'\n- title(String) A descriptive title for the icon",
     "prefix": "~icon"
   },
   "if": {
     "body": [
       "{% if condition %}\nIf the condition is true print this to template.\n{% endif %}"
     ],
-    "description": "Outputs inner content if expression evaluates to true, otherwise evaluates any elif blocks, finally outputting content of any else block present",
+    "description": "Outputs inner content if expression evaluates to true, otherwise evaluates any elif blocks, finally outputting content of any else block present\nParameters:\n- condition(conditional expression) An expression that evaluates to either true or false",
     "prefix": "~if"
   },
   "image": {
     "body": [
-      "{% image 'my_image' \n\talt='${1:alt}', \n\twidth='${2:width}', \n\theight='${3:height}', \n\talign='${4:align}', \n\thspace='${5:hspace}', \n\tstyle='${6:style}', \n\tsrc='${7:src}'%}"
+      "{% image 'my_image' \n\talt='${1:alt}', \n\twidth='${2:width}', \n\theight='${3:height}', \n\talign='${4:align}', \n\thspace='${5:hspace}', \n\tstyle='${6:style}', \n\tsrc='${7:src}', \n\tloading='${8:loading}'%}"
     ],
-    "description": "Renders an image tag\nParameters:\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag",
+    "description": "Renders an image tag\nParameters:\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
     "prefix": "~image"
   },
   "image_slider": {
@@ -286,6 +286,13 @@
     "description": "includes multiple files in one template or stylesheet\nParameters:\n- path(String) Design Manager path to the file that you would like to include",
     "prefix": "~include"
   },
+  "include_dnd_partial": {
+    "body": [
+      "{% include_dnd_partial 'my_include_dnd_partial' %}"
+    ],
+    "description": "",
+    "prefix": "~include_dnd_partial"
+  },
   "inline_rich_text": {
     "body": [
       "{% inline_rich_text 'my_inline_rich_text' \n\tvalue='${1:value}', \n\tfield='${2:field}'%}"
@@ -309,9 +316,9 @@
   },
   "linked_image": {
     "body": [
-      "{% linked_image 'my_linked_image' \n\topen_in_new_tab='${1:open_in_new_tab}', \n\ttarget='${2:target}', \n\tlink='${3:link}', \n\talt='${4:alt}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\talign='${7:align}', \n\thspace='${8:hspace}', \n\tstyle='${9:style}', \n\tsrc='${10:src}'%}"
+      "{% linked_image 'my_linked_image' \n\topen_in_new_tab='${1:open_in_new_tab}', \n\ttarget='${2:target}', \n\tlink='${3:link}', \n\talt='${4:alt}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\talign='${7:align}', \n\thspace='${8:hspace}', \n\tstyle='${9:style}', \n\tsrc='${10:src}', \n\tloading='${11:loading}'%}"
     ],
-    "description": "Insert a linked image from File Manager.\nParameters:\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- target(String) Sets the target attr of link tag\n- link(String) Sets the destination URL of the link that wraps the img tag\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag",
+    "description": "Insert a linked image from File Manager.\nParameters:\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- target(String) Sets the target attr of link tag\n- link(String) Sets the destination URL of the link that wraps the img tag\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
     "prefix": "~linked_image"
   },
   "logo": {
@@ -337,9 +344,9 @@
   },
   "member_register": {
     "body": [
-      "{% member_register 'my_member_register' \n\temail_label='${1:email_label}', \n\tpassword_label='${2:password_label}', \n\tpassword_confirm_label='${3:password_confirm_label}', \n\tsubmit_button_text='${4:submit_button_text}', \n\tshow_password='${5:show_password}'%}"
+      "{% member_register 'my_member_register' \n\temail_label='${1:email_label}', \n\tpassword_label='${2:password_label}', \n\tpassword_confirm_label='${3:password_confirm_label}', \n\tsubmit_button_text='${4:submit_button_text}', \n\tshow_password='${5:show_password}', \n\tpassword_requirements='${6:password_requirements}'%}"
     ],
-    "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons",
+    "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n- password_requirements(String) Label describing Password Requirements",
     "prefix": "~member_register"
   },
   "menu": {
@@ -355,13 +362,6 @@
     ],
     "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n- path(String) The path of the module to render. Include leading slash for absolute path, otherwise path is relative to template. Reference HubSpot default modules with paths corresponding to their HubL tags such as @hubspot/rich_text, @hubspot/linked_image, etc.",
     "prefix": "~module"
-  },
-  "module_attribute": {
-    "body": [
-      "{% module_attribute 'my_module_attribute' %}\n\n{% end_module_block %}"
-    ],
-    "description": "Defines a rich attribute for a module. Only valid within a module_block tag",
-    "prefix": "~module_attribute"
   },
   "page_footer": {
     "body": [
@@ -379,16 +379,16 @@
   },
   "password_reset": {
     "body": [
-      "{% password_reset 'my_password_reset' \n\tpassword_label='${1:password_label}', \n\tpassword_confirm_label='${2:password_confirm_label}', \n\tsubmit_button_text='${3:submit_button_text}', \n\tshow_password='${4:show_password}'%}"
+      "{% password_reset 'my_password_reset' \n\tpassword_label='${1:password_label}', \n\tpassword_confirm_label='${2:password_confirm_label}', \n\tsubmit_button_text='${3:submit_button_text}', \n\tshow_password='${4:show_password}', \n\tpassword_requirements='${5:password_requirements}'%}"
     ],
-    "description": "Render a password reset form.\nParameters:\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label from password confirm field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons",
+    "description": "Render a password reset form.\nParameters:\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label from password confirm field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n- password_requirements(String) Label describing Password Requirements",
     "prefix": "~password_reset"
   },
   "password_reset_request": {
     "body": [
-      "{% password_reset_request 'my_password_reset_request' \n\temail_label='${1:email_label}', \n\tsubmit_button_text='${2:submit_button_text}'%}"
+      "{% password_reset_request 'my_password_reset_request' \n\temail_label='${1:email_label}', \n\tsubmit_button_text='${2:submit_button_text}', \n\tpassword_reset_message='${3:password_reset_message}'%}"
     ],
-    "description": "Render a password reset request form.\nParameters:\n- email_label(String) Label for email input field\n- submit_button_text(String) Label for form submit button",
+    "description": "Render a password reset request form.\nParameters:\n- email_label(String) Label for email input field\n- submit_button_text(String) Label for form submit button\n- password_reset_message(String) Message displayed after requesting a password reset email",
     "prefix": "~password_reset_request"
   },
   "post_filter": {
