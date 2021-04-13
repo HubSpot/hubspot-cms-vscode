@@ -78,6 +78,10 @@ Other helpful snippets include:
 
 ### Common issues
 - If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
+- To use Emmet within your `html-hubl` files, you can map `html-hub` to `html` in your settings under "Emmet: Include Languages":
+
+  ![image](https://user-images.githubusercontent.com/9009552/114593899-9e320500-9c5a-11eb-98c6-9de022344ebc.png)
+
 
  ### Contributing
  For more information about contributing, see the [contributing docs](./CONTRIBUTING.md).
