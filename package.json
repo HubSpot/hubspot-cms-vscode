@@ -167,9 +167,9 @@
             }
         ],
         "configuration": {
-            "title": "HubL",
+            "title": "HubSpot",
             "properties": {
-                "hubl.beta": {
+                "hubspot.beta": {
                     "type": "boolean",
                     "default": false,
                     "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: beta features may require a valid `hubspot.config.yml` file*"

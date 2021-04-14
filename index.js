@@ -47,14 +47,14 @@ async function activate(context) {
     }
   }
 
-  if (vscode.workspace.getConfiguration('hubl').get('beta')) {
+  if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
     enableLinting();
   }
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('hubl.beta')) {
-        if (vscode.workspace.getConfiguration('hubl').get('beta')) {
+      if (e.affectsConfiguration('hubspot.beta')) {
+        if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
           enableLinting();
         } else {
           disableLinting();
