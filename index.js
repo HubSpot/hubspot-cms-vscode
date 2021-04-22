@@ -52,10 +52,17 @@ async function activate(context) {
   }
 
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration((e) => {
+    vscode.workspace.onDidChangeConfiguration(async (e) => {
       if (e.affectsConfiguration('hubspot.beta')) {
         if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
           enableLinting();
+          // TODO: just testing, need to clean this up
+          await trackUsage(
+            'vscode-extension-interaction',
+            'ACTIVATION',
+            {action: 'linting-enabled'},
+            getAccountId()
+          );
         } else {
           disableLinting();
         }
