@@ -83,41 +83,6 @@
     "description": "The cycle tag can be used within a for loop to cycle through a series of string values and print them with each iteration\nParameters:\n- string_to_print(String) A comma separated list of strings to print with each interation. The list will repeat if there are more iterations than string parameter values.",
     "prefix": "~cycle"
   },
-  "dnd_area": {
-    "body": [
-      "{% dnd_area 'my_dnd_area' \n\tname='${1:name}', \n\tlabel='${2:label}', \n\tclass='${3:class}'%}\n\n{% end_dnd_area %}"
-    ],
-    "description": "Creates container that supports drag-and-drop in content editors.\nParameters:\n- name(string) Identifier when storing data for a drag-and-drop area in the editors. Must be unique for all drag-and-drop areas in a template.\n- label(string) Label used in the editor for the drag-and-drop area.\n- class(string) Class names to add to the wrapping div.",
-    "prefix": "~dnd_area"
-  },
-  "dnd_column": {
-    "body": [
-      "{% dnd_column 'my_dnd_column' \n\toffset='${1:offset}', \n\twidth='${2:width}', \n\tmargin='${3:margin}', \n\tbackground_image='${4:background_image}', \n\tbackground_color='${5:background_color}'%}\n\n{% end_dnd_column %}"
-    ],
-    "description": "A column inside a drag-and-drop area. Columns can only be children of a section or a row tag.\nParameters:\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- margin(dict) Add top and bottom margin in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
-    "prefix": "~dnd_column"
-  },
-  "dnd_module": {
-    "body": [
-      "{% dnd_module 'my_dnd_module' \n\tpath='${1:path}', \n\toffset='${2:offset}', \n\twidth='${3:width}', \n\tflexbox_positioning='${4:flexbox_positioning}'%}\n\n{% end_dnd_module %}"
-    ],
-    "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.",
-    "prefix": "~dnd_module"
-  },
-  "dnd_row": {
-    "body": [
-      "{% dnd_row 'my_dnd_row' \n\tmargin='${1:margin}', \n\tpadding='${2:padding}', \n\tbackground_image='${3:background_image}', \n\tbackground_color='${4:background_color}'%}\n\n{% end_dnd_row %}"
-    ],
-    "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
-    "prefix": "~dnd_row"
-  },
-  "dnd_section": {
-    "body": [
-      "{% dnd_section 'my_dnd_section' \n\tmax_width='${1:max_width}', \n\tmargin='${2:margin}', \n\tpadding='${3:padding}', \n\tbackground_image='${4:background_image}', \n\tbackground_color='${5:background_color}'%}\n\n{% end_dnd_section %}"
-    ],
-    "description": "A top-level row inside a drag-and-drop area. Sections can only be children of a drag-and-drop area tag.\nParameters:\n- max_width(number) Maximum width of the section.\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
-    "prefix": "~dnd_section"
-  },
   "do": {
     "body": [
       "{% do list.append('value 2') %}"
