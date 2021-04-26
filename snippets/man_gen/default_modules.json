@@ -69,9 +69,9 @@
   },
   "dnd_row": {
     "body": [
-      "{% dnd_area '${1:name}' ${2:\tclass='${3:class}'} %}",
+      "{% dnd_row %}",
       "\t$0",
-      "{% end_dnd_area %}"
+      "{% end_dnd_row %}$1"
     ],
     "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
     "prefix": "row"
