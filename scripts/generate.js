@@ -22,6 +22,14 @@ const SKIP_SNIPPET_GENERATION = [
   'module_attribute',
 ];
 
+const OMIT_SNIPPET = [
+  'dnd_area',
+  'dnd_section',
+  'dnd_row',
+  'dnd_column',
+  'dnd_module',
+];
+
 const fetchHubldocs = async () => {
   const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
   const response = await fetch(HUBLDOC_ENDPOINT);
@@ -77,7 +85,7 @@ const buildSnippetBody = (
 };
 
 const buildSnippetDescription = (docEntry) => {
-  const { desc, params } = docEntry;
+  const { desc, params = [] } = docEntry;
   let description = desc;
 
   if (params.length > 0) {
@@ -98,6 +106,10 @@ const getFirstDefaultSnippet = (docEntry) => {
 };
 
 const createSnippet = (docEntry, type) => {
+  if (OMIT_SNIPPET.includes(docEntry.name)) {
+    return;
+  }
+
   let snippetEntry = {
     body: [
       SKIP_SNIPPET_GENERATION.includes(docEntry.name)

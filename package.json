@@ -74,6 +74,10 @@
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
             },
             {
+                "language": "html-hubl",
+                "path": "./snippets/man_gen/default_modules.json"
+            },
+            {
                 "language": "css-hubl",
                 "path": "./snippets/auto_gen/hubl_filters.json"
             },

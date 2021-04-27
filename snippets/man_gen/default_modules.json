@@ -1,0 +1,112 @@
+{
+  "Default HubSpot module": {
+    "body": [
+      "{% module '${1:name}' \n\tpath='${2|@hubspot/blog_comments,@hubspot/blog_subscribe,@hubspot/button,@hubspot/button_email,@hubspot/cta,@hubspot/divider,@hubspot/email_body,@hubspot/email_can_spam,@hubspot/email_divider,@hubspot/email_footer,@hubspot/email_simple_subscription,@hubspot/email_subscriptions,@hubspot/email_subscriptions_confirmation,@hubspot/email_survey,@hubspot/email_view_as_web_page,@hubspot/email_web_version_link,@hubspot/follow_me,@hubspot/follow_me_email,@hubspot/follow_me_lp,@hubspot/form,@hubspot/gallery,@hubspot/header,@hubspot/horizontal_spacer,@hubspot/image_email,@hubspot/language_switcher,@hubspot/linked_image,@hubspot/logo,@hubspot/meetings,@hubspot/menu,@hubspot/page_footer,@hubspot/password_prompt,@hubspot/post_filter,@hubspot/post_listing,@hubspot/raw_html_email,@hubspot/rich_text,@hubspot/rss_listing,@hubspot/search_input,@hubspot/search_results,@hubspot/section_header,@hubspot/simple_menu,@hubspot/social_sharing,@hubspot/text,@hubspot/video,@hubspot/video_email,@hubspot/video_embed_lp|}'%}"
+    ],
+    "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n- path(String) The path of the module to render. Include leading slash for absolute path, otherwise path is relative to template. Reference HubSpot default modules with paths corresponding to their HubL tags such as @hubspot/rich_text, @hubspot/linked_image, etc.",
+    "prefix": "default_module"
+  },
+  "default dnd module": {
+    "body": [
+      "{% dnd_module '${1:name}'",
+      "\tpath='${2|@hubspot/blog_comments,@hubspot/blog_subscribe,@hubspot/button,@hubspot/button_email,@hubspot/cta,@hubspot/divider,@hubspot/email_body,@hubspot/email_can_spam,@hubspot/email_divider,@hubspot/email_footer,@hubspot/email_simple_subscription,@hubspot/email_subscriptions,@hubspot/email_subscriptions_confirmation,@hubspot/email_survey,@hubspot/email_view_as_web_page,@hubspot/email_web_version_link,@hubspot/follow_me,@hubspot/follow_me_email,@hubspot/follow_me_lp,@hubspot/form,@hubspot/gallery,@hubspot/header,@hubspot/horizontal_spacer,@hubspot/image_email,@hubspot/language_switcher,@hubspot/linked_image,@hubspot/logo,@hubspot/meetings,@hubspot/menu,@hubspot/page_footer,@hubspot/password_prompt,@hubspot/post_filter,@hubspot/post_listing,@hubspot/raw_html_email,@hubspot/rich_text,@hubspot/rss_listing,@hubspot/search_input,@hubspot/search_results,@hubspot/section_header,@hubspot/simple_menu,@hubspot/social_sharing,@hubspot/text,@hubspot/video,@hubspot/video_email,@hubspot/video_embed_lp|}',",
+      "\twidth=${3:6}",
+      "\t${4:offset=${5:0},}",
+      "\t${6:horizontal_alignment='${7|left,center,right|}}'",
+      "%}",
+      "$8",
+      "{% end_dnd_module %}"
+    ],
+    "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.",
+    "prefix": "default_dnd_module"
+  },
+  "dnd module": {
+    "body": [
+      "{% dnd_module '${1:name}'",
+      "\tpath='${2:path}'",
+      "\twidth=${3:6}",
+      "\t${4:offset=${5:0},}",
+      "\t${6:horizontal_alignment='${7|left,center,right|}}'",
+      "%}",
+      "{% end_dnd_module %}"
+    ],
+    "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.",
+    "prefix": "dnd_module"
+  },
+  "dnd_area": {
+    "body": [
+      "{% dnd_area '${1:name}' ${2:\tclass='${3:class}'} %}",
+      "\t$0",
+      "{% end_dnd_area %}"
+    ],
+    "description": "Creates container that supports drag-and-drop in content editors.\nParameters:\n- name(string) Identifier when storing data for a drag-and-drop area in the editors. Must be unique for all drag-and-drop areas in a template.\n- label(string) Label used in the editor for the drag-and-drop area.\n- class(string) Class names to add to the wrapping div.",
+    "prefix": "area"
+  },
+  "dnd_column": {
+    "body": [
+      "{% dnd_column",
+      "\twidth=${1:6}",
+      "\t${2:offset=${3:0},}",
+      "${4:\tmargin={",
+      "\t\t'top': ${5:32},",
+      "\t\t'bottom': ${6:32}",
+      "\t\\},}",
+      "${7:\tpadding={",
+      "\t\t'top': ${8:10},",
+      "\t\t'bottom': ${9:10},",
+      "\t\t'left': ${10:10},",
+      "\t\t'right': ${11:10}",
+      "\t\\},}",
+      "${12:\tmax_width=${13:1200},}",
+      "${14:\tvertical_alignment='${15|TOP,MIDDLE,BOTTOM|}'}",
+      "%}",
+      "\t$0",
+      "{% end_dnd_column %}"
+    ],
+    "description": "A column inside a drag-and-drop area. Columns can only be children of a section or a row tag.\nParameters:\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- margin(dict) Add top and bottom margin in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
+    "prefix": "column"
+  },
+  "dnd_section": {
+    "body": [
+      "{% dnd_section ",
+      "${1:\tmargin={",
+      "\t\t'top': ${2:32},",
+      "\t\t'bottom': ${3:32}",
+      "\t\\},}",
+      "${4:\tpadding={",
+      "\t\t'top': ${5:10},",
+      "\t\t'bottom': ${6:10},",
+      "\t\t'left': ${7:10},",
+      "\t\t'right': ${8:10}",
+      "\t\\},}",
+      "${9:\tmax_width=${10:1200},}",
+      "${11:\tvertical_alignment='${12|TOP,MIDDLE,BOTTOM|}'}",
+      "%}",
+      "\t$0",
+      "{% end_dnd_section %}"
+    ],
+    "description": "A top-level row inside a drag-and-drop area. Sections can only be children of a drag-and-drop area tag.\nParameters:\n- max_width(number) Maximum width of the section.\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
+    "prefix": "section"
+  },
+  "dnd_row": {
+    "body": [
+      "{% dnd_row ",
+      "${1:\tmargin={",
+      "\t\t'top': ${2:32},",
+      "\t\t'bottom': ${3:32}",
+      "\t\\},}",
+      "${4:\tpadding={",
+      "\t\t'top': ${5:10},",
+      "\t\t'bottom': ${6:10},",
+      "\t\t'left': ${7:10},",
+      "\t\t'right': ${8:10}",
+      "\t\\},}",
+      "${9:\tvertical_alignment='${10|TOP,MIDDLE,BOTTOM|}'}",
+      "%}",
+      "\t$0",
+      "{% end_dnd_row %}"
+    ],
+    "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
+    "prefix": "row"
+  }
+}
