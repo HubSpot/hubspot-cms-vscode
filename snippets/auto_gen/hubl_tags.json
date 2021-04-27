@@ -328,6 +328,13 @@
     "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n- path(String) The path of the module to render. Include leading slash for absolute path, otherwise path is relative to template. Reference HubSpot default modules with paths corresponding to their HubL tags such as @hubspot/rich_text, @hubspot/linked_image, etc.",
     "prefix": "~module"
   },
+  "module_attribute": {
+    "body": [
+      "{% module_block rich_text \"my_text_block\" overrideable=True, label=\"Right Column\" %}\n   {% module_attribute \"html\" %}\n       <h2>Something Powerful</h2>\n       <p>Some paragraph content...</p>\n   {% end_module_attribute %}\n{% end_module_block %}"
+    ],
+    "description": "Defines a rich attribute for a module. Only valid within a module_block tag",
+    "prefix": "~module_attribute"
+  },
   "page_footer": {
     "body": [
       "{% page_footer 'my_page_footer' %}"
