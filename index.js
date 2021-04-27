@@ -34,18 +34,22 @@ async function activate(context) {
     return;
   }
 
-  if (isTrackingAllowed()) {
-    try {
-      await trackUsage(
-        'vscode-extension-interaction',
-        'ACTIVATION',
-        {},
-        getAccountId()
-      );
-    } catch (e) {
-      console.log(e);
+  const trackAction = async (action) => {
+    if (isTrackingAllowed()) {
+      try {
+        await trackUsage(
+          'vscode-extension-interaction',
+          'ACTIVATION',
+          { action },
+          getAccountId()
+        );
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
+
+  await trackAction('extension-activated');
 
   if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
     enableLinting();
@@ -56,15 +60,10 @@ async function activate(context) {
       if (e.affectsConfiguration('hubspot.beta')) {
         if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
           enableLinting();
-          // TODO: just testing, need to clean this up
-          await trackUsage(
-            'vscode-extension-interaction',
-            'ACTIVATION',
-            {action: 'linting-enabled'},
-            getAccountId()
-          );
+          await trackAction('beta-enabled');
         } else {
           disableLinting();
+          await trackAction('beta-disabled');
         }
       }
     })
