@@ -27,8 +27,8 @@ const OMIT_SNIPPET = [
   'dnd_section',
   'dnd_row',
   'dnd_column',
-  'dnd_module'
-]
+  'dnd_module',
+];
 
 const fetchHubldocs = async () => {
   const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
@@ -92,8 +92,9 @@ const buildSnippetDescription = (docEntry) => {
     description += '\nParameters:';
 
     for (let param of params) {
-      description += `\n- ${param.name.replace(' ', '_')}(${param.type}) ${param.desc
-        }`;
+      description += `\n- ${param.name.replace(' ', '_')}(${param.type}) ${
+        param.desc
+      }`;
     }
   }
 
