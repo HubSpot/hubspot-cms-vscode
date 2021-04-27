@@ -15,7 +15,7 @@
       "\t${6:horizontal_alignment='${7|left,center,right|}}'",
       "%}",
       "$8",
-      "{% end_dnd_module %}$9"
+      "{% end_dnd_module %}"
     ],
     "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.",
     "prefix": "default_dnd_module"
@@ -28,8 +28,7 @@
       "\t${4:offset=${5:0},}",
       "\t${6:horizontal_alignment='${7|left,center,right|}}'",
       "%}",
-      "$8",
-      "{% end_dnd_module %}$9"
+      "{% end_dnd_module %}"
     ],
     "description": "Creates a wrapped module inside a drag-and-drop area.\nParameters:\n- path(string) Path to the module.\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- flexbox_positioning(string) Adjust position of the module inside the row. Possible values are TOP_LEFT, TOP_CENTER, or TOP_RIGHT.",
     "prefix": "dnd_module"
@@ -47,55 +46,67 @@
     "body": [
       "{% dnd_column",
       "\twidth=${1:6}",
-      "\t${3:offset=${2:0},}",
-      "${5:\tmargin={",
-      "\t\t'top': ${6:32},",
-      "\t\t'bottom': ${7:32}",
+      "\t${2:offset=${3:0},}",
+      "${4:\tmargin={",
+      "\t\t'top': ${5:32},",
+      "\t\t'bottom': ${6:32}",
       "\t\\},}",
-      "${8:\tpadding={",
-      "\t\t'top': ${9:10},",
-      "\t\t'bottom': ${10:10},",
-      "\t\t'left': ${11:10},",
-      "\t\t'right': ${12:10}",
+      "${7:\tpadding={",
+      "\t\t'top': ${8:10},",
+      "\t\t'bottom': ${9:10},",
+      "\t\t'left': ${10:10},",
+      "\t\t'right': ${11:10}",
       "\t\\},}",
-      "${13:\tmax_width=${14:1200},}",
-      "${15:\tvertical_alignment='${16|TOP,MIDDLE,BOTTOM|}'}",
+      "${12:\tmax_width=${13:1200},}",
+      "${14:\tvertical_alignment='${15|TOP,MIDDLE,BOTTOM|}'}",
       "%}",
-      "\t$17",
-      "{% end_dnd_column %}$18"
+      "\t$0",
+      "{% end_dnd_column %}"
     ],
     "description": "A column inside a drag-and-drop area. Columns can only be children of a section or a row tag.\nParameters:\n- offset(integer) Number of rows to offset the module in the row (0-11).\n- width(integer) Number of rows wide the module should be.\n- margin(dict) Add top and bottom margin in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
     "prefix": "column"
   },
-  "dnd_row": {
-    "body": [
-      "{% dnd_row %}",
-      "\t$0",
-      "{% end_dnd_row %}$1"
-    ],
-    "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
-    "prefix": "row"
-  },
   "dnd_section": {
     "body": [
       "{% dnd_section ",
-      "${5:\tmargin={",
-      "\t\t'top': ${6:32},",
-      "\t\t'bottom': ${7:32}",
+      "${1:\tmargin={",
+      "\t\t'top': ${2:32},",
+      "\t\t'bottom': ${3:32}",
       "\t\\},}",
-      "${8:\tpadding={",
-      "\t\t'top': ${9:10},",
-      "\t\t'bottom': ${10:10},",
-      "\t\t'left': ${11:10},",
-      "\t\t'right': ${12:10}",
+      "${4:\tpadding={",
+      "\t\t'top': ${5:10},",
+      "\t\t'bottom': ${6:10},",
+      "\t\t'left': ${7:10},",
+      "\t\t'right': ${8:10}",
       "\t\\},}",
-      "${13:\tmax_width=${14:1200},}",
-      "${15:\tvertical_alignment='${16|TOP,MIDDLE,BOTTOM|}'}",
+      "${9:\tmax_width=${10:1200},}",
+      "${11:\tvertical_alignment='${12|TOP,MIDDLE,BOTTOM|}'}",
       "%}",
       "\t$0",
       "{% end_dnd_section %}"
     ],
     "description": "A top-level row inside a drag-and-drop area. Sections can only be children of a drag-and-drop area tag.\nParameters:\n- max_width(number) Maximum width of the section.\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
     "prefix": "section"
+  },
+  "dnd_row": {
+    "body": [
+      "{% dnd_row ",
+      "${1:\tmargin={",
+      "\t\t'top': ${2:32},",
+      "\t\t'bottom': ${3:32}",
+      "\t\\},}",
+      "${4:\tpadding={",
+      "\t\t'top': ${5:10},",
+      "\t\t'bottom': ${6:10},",
+      "\t\t'left': ${7:10},",
+      "\t\t'right': ${8:10}",
+      "\t\\},}",
+      "${9:\tvertical_alignment='${10|TOP,MIDDLE,BOTTOM|}'}",
+      "%}",
+      "\t$0",
+      "{% end_dnd_row %}"
+    ],
+    "description": "A row inside a drag-and-drop area. Rows can only be children of columns.\nParameters:\n- margin(dict) Add top and bottom margin in pixels.\n- padding(dict) Add top, bottom, left, and right padding in pixels.\n- background_image(dict) Add a background image to the row.\n- background_color(dict) Specify a background color for the the row.",
+    "prefix": "row"
   }
 }
