@@ -5,7 +5,7 @@ const {
   validateConfig,
   getAccountId,
   isTrackingAllowed,
-  getAccountConfig
+  getAccountConfig,
 } = require('@hubspot/cli-lib');
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
@@ -57,7 +57,7 @@ async function activate(context) {
       { authType, action },
       accountId
     );
-  }
+  };
 
   await trackAction('extension-activated');
 
