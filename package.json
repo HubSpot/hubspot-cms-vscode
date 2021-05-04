@@ -169,10 +169,20 @@
                 "scopeName": "text.css.hubl",
                 "path": "./syntaxes/css-hubl.json"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "HubSpot",
+            "properties": {
+                "hubspot.beta": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: beta features may require a valid `hubspot.config.yml` file*"
+                }
+            }
+        }
     },
     "dependencies": {
-        "@hubspot/cms-lib": "^2.1.1-beta.7",
+        "@hubspot/cli-lib": "3.0.4",
         "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.0"
