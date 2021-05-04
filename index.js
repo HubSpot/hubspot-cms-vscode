@@ -36,7 +36,7 @@ async function activate(context) {
   }
 
   const trackAction = async (action) => {
-    if (isTrackingAllowed()) {
+    if (!isTrackingAllowed()) {
       return;
     }
 
