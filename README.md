@@ -76,6 +76,11 @@ Other helpful snippets include:
 | hublblog | Boilerplate blog markup |  |
 
 
+
+### Beta features
+To enable beta features, naviate to `HubSpot > Beta` in your VS Code settings
+#### Current Beta features:
+- HubL inline error linting: Automatically checks your HTML + HubL and CSS + HubL files for HubL related errors
 ### Common issues
 - If you are having trouble getting IntelliSense suggestions when in snippet placeholders you may need to add the following to your [User Settings](https://code.visualstudio.com/docs/getstarted/settings) `"editor.suggest.snippetsPreventQuickSuggestions": false`. If parameter suggestions are not showing up, set `"editor.parameterHints": true`.
 - To use Emmet within your `html-hubl` files, you can map `html-hub` to `html` in your settings under "Emmet: Include Languages":

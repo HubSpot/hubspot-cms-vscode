@@ -1,5 +1,12 @@
 # Change Log
-All notable changes to the HubL VSC language extension will be documented in this file.
+All notable changes to the HubSpot VS Code extension will be documented in this file.
+
+## [0.9.0]
+- Updated snippet definitions
+- Improved `dnd_area` snippets
+- Updated language definitions
+- Added a new "Beta" flag in settings
+- Added inline HubL error linting (available with "Beta" features enabled)
 ## [0.2.1]
 - Support for CSS and HTML files through the CSS + HUBL and HTML + HUBL languages
 - Fixed incorrectly configured snippets
