@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
-## [0.9.0]
+## [0.10.0]
 - Updated snippet definitions
 - Improved `dnd_area` snippets
 - Updated language definitions
