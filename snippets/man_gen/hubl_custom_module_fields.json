@@ -33,7 +33,7 @@
       "\"type\": \"group\",",
       "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
-      "\"default\": {} }"
+      "\"default\": [] }"
     ],
     "description": "HubSpot Repeater Group"
   },
