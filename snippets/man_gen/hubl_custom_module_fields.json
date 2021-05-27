@@ -33,7 +33,7 @@
       "\"type\": \"group\",",
       "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
-      "\"default\": {} }"
+      "\"default\": [] }"
     ],
     "description": "HubSpot Repeater Group"
   },
@@ -384,10 +384,14 @@
       "\"help_text\": \"\",",
       "\"responsive\": true,",
       "\"resizable\": true,",
+      "\"show_loading\" : false,",
       "\"type\": \"image\",",
       "\"default\": {",
+      "  \"size_type\" : \"auto\",",
       "  \"src\": ${3:\"\"},",
-      "  \"alt\": ${4:null}} }"
+      "  \"alt\": ${4:null},",
+      "  \"loading\": \"disabled\"}",
+      "}"
     ],
     "description": "HubSpot Image Field"
   },
