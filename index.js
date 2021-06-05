@@ -9,6 +9,7 @@ const {
 } = require('@hubspot/cli-lib');
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+const { notifyBeta } = require('./lib/notify');
 
 async function activate(context) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -63,6 +64,8 @@ async function activate(context) {
 
   if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
     enableLinting();
+  } else {
+    notifyBeta(context);
   }
 
   context.subscriptions.push(
