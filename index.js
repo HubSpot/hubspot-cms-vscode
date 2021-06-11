@@ -9,6 +9,11 @@ const {
 } = require('@hubspot/cli-lib');
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+const { notifyBeta } = require('./lib/notify');
+const {
+  EXTENSION_CONFIG_NAME,
+  EXTENSION_CONFIG_KEYS,
+} = require('./lib/constants');
 
 async function activate(context) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -61,14 +66,28 @@ async function activate(context) {
 
   await trackAction('extension-activated');
 
-  if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
+  if (
+    vscode.workspace
+      .getConfiguration(EXTENSION_CONFIG_NAME)
+      .get(EXTENSION_CONFIG_KEYS.BETA)
+  ) {
     enableLinting();
+  } else {
+    notifyBeta(context);
   }
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(async (e) => {
-      if (e.affectsConfiguration('hubspot.beta')) {
-        if (vscode.workspace.getConfiguration('hubspot').get('beta')) {
+      if (
+        e.affectsConfiguration(
+          `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.BETA}`
+        )
+      ) {
+        if (
+          vscode.workspace
+            .getConfiguration(EXTENSION_CONFIG_NAME)
+            .get(EXTENSION_CONFIG_KEYS.BETA)
+        ) {
           enableLinting();
           await trackAction('beta-enabled');
         } else {
