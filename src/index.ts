@@ -1,4 +1,4 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 const {
   findConfig,
   loadConfig,
@@ -15,7 +15,7 @@ const {
   EXTENSION_CONFIG_KEYS,
 } = require('./lib/constants');
 
-async function activate(context) {
+async function activate(context: vscode.ExtensionContext) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
 
   if (!workspaceFolders || workspaceFolders.length < 1) {
@@ -40,7 +40,7 @@ async function activate(context) {
     return;
   }
 
-  const trackAction = async (action) => {
+  const trackAction = async (action: string) => {
     if (!isTrackingAllowed()) {
       return;
     }
