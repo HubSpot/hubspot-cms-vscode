@@ -13,14 +13,14 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]'
+    devtoolModuleFilenameTemplate: '../[resource-path]',
   },
   devtool: 'source-map',
   externals: {
-    vscode: 'commonjs vscode' // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
+    vscode: 'commonjs vscode', // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
@@ -29,15 +29,15 @@ const config = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader'
-          }
-        ]
+            loader: 'ts-loader',
+          },
+        ],
       },
       {
         test: /\.node$/,
-        loader: "node-loader",
+        loader: 'node-loader',
       },
-    ]
-  }
+    ],
+  },
 };
 module.exports = config;
