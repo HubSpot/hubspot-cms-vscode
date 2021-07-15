@@ -192,7 +192,7 @@
     },
     "devDependencies": {
         "@types/node": "^15.12.4",
-        "@types/vscode": "^1.55.0",
+        "@types/vscode": "1.30.0",
         "eslint": "^7.5.0",
         "node-loader": "^2.0.0",
         "prettier": "^2.0.5",
