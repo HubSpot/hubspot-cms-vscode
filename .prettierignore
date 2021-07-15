@@ -2,3 +2,4 @@ snippets/auto_gen
 package-lock.json
 package.json
 .vscode
+dist

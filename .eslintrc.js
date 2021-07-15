@@ -14,7 +14,7 @@ module.exports = {
     'no-console': 'off',
     'no-return-await': 'error',
   },
-
+  ignorePatterns: ['/dist'],
   overrides: [
     {
       files: ['**/__tests__/**/*.js', '**/__mocks__/**/*.js'],

@@ -9,8 +9,12 @@
     },
     "scripts": {
         "generate": "node ./scripts/generate.js",
-        "lint": "eslint . && prettier --list-different '**/*.{js,json}'",
-        "prettier:write": "prettier --write '**/*.{js,json}'"
+        "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
+        "prettier:write": "prettier --write '**/*.{js,json}'",
+        "vscode:prepublish": "webpack --mode production",
+        "webpack": "webpack --mode development",
+        "webpack-dev": "webpack --mode development --watch",
+        "test-compile": "tsc -p ./"
     },
     "repository": {
         "type": "git",
@@ -21,7 +25,7 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./index.js",
+    "main": "./dist/index.js",
     "activationEvents": [
         "onLanguage:html-hubl",
         "onLanguage:css-hubl",
@@ -183,12 +187,18 @@
     },
     "dependencies": {
         "@hubspot/cli-lib": "3.0.4",
-        "@types/vscode": "^1.47.0",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.0"
     },
     "devDependencies": {
+        "@types/node": "^15.12.4",
+        "@types/vscode": "^1.55.0",
         "eslint": "^7.5.0",
-        "prettier": "^2.0.5"
+        "node-loader": "^2.0.0",
+        "prettier": "^2.0.5",
+        "ts-loader": "^9.2.3",
+        "typescript": "^4.3.4",
+        "webpack": "^5.40.0",
+        "webpack-cli": "^4.7.2"
     }
 }
