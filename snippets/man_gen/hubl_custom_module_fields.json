@@ -491,8 +491,8 @@
     "prefix": "styleTab.group",
     "body": [
       "{",
-      "\"name\": \"${1:style}\",",
-      "\"label\": \"${2:Style}\",",
+      "\"name\": \"${1:styles}\",",
+      "\"label\": \"${2:Styles}\",",
       "\"children\": [${3}],",
       "\"type\": \"group\",",
       "\"tab\": \"STYLE\"",
