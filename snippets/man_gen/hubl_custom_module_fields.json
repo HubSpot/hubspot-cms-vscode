@@ -486,5 +486,111 @@
       "}"
     ],
     "description": "HubSpot Font Field"
+  },
+  "Style Tab Group": {
+    "prefix": "styleTab.group",
+    "body": [
+      "{",
+      "\"name\": \"${1:style}\",",
+      "\"label\": \"${2:Style}\",",
+      "\"children\": [${3}],",
+      "\"type\": \"group\",",
+      "\"tab\": \"STYLE\"",
+      "}"
+    ],
+    "description": "Style Tab Field Group"
+  },
+  "Alignment Field": {
+    "prefix": "field.alignment",
+    "body": [
+      "{",
+      "\"name\": \"${1:alignment_field}\",",
+      "\"label\": \"${2:Alignment field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"type\": \"boolean\",",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"alignment_direction\": \"${3|HORIZONTAL,VERTICAL,BOTH|}\"",
+      "}"
+    ],
+    "description": "HubSpot Alignment Field"
+  },
+  "Gradient Field": {
+    "prefix": "field.gradient",
+    "body": [
+      "{",
+      "\"name\": \"${1:gradient_field}\",",
+      "\"label\": \"${2:Gradient field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"type\": \"gradient\",",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "}"
+    ],
+    "description": "HubSpot Gradient Field"
+  },
+  "Spacing Field": {
+    "prefix": "field.spacing",
+    "body": [
+      "{",
+      "\"name\": \"${1:spacing_field}\",",
+      "\"label\": \"${2:Spacing field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"type\": \"spacing\",",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\"",
+      "}"
+    ],
+    "description": "HubSpot Spacing Field"
+  },
+  "Background Image": {
+    "prefix": "field.backgroundImage",
+    "body": [
+      "{",
+      "\"name\": \"${1:background_image_field}\",",
+      "\"label\": \"${2:Background Image field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"type\": \"backgroundimage\"",
+      "}"
+    ],
+    "description": "HubSpot Background Image Field"
+  },
+  "Border Field": {
+    "prefix": "field.border",
+    "body": [
+      "{",
+      "\"name\": \"${1:border_field}\",",
+      "\"label\": \"${2:Border field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"type\": \"border\",",
+      "\"allow_custom_border_sides\": ${3|true,false|}",
+      "}"
+    ],
+    "description": "HubSpot Border Field"
+  },
+  "Text Alignment Field": {
+    "prefix": "field.textAlignment",
+    "body": [
+      "{",
+      "\"name\": \"${1:text_alignment_field}\",",
+      "\"label\": \"${2:Text Alignment field}\",",
+      "\"required\": false,",
+      "\"locked\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"type\": \"textalignment\",",
+      "\"alignment_direction\": \"${3|HORIZONTAL,VERTICAL,BOTH|}\"",
+      "}"
+    ],
+    "description": "HubSpot Text Alignment Field"
   }
 }
