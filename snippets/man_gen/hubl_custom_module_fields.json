@@ -508,7 +508,7 @@
       "\"label\": \"${2:Alignment field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"type\": \"boolean\",",
+      "\"type\": \"alignment\",",
       "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
       "\"alignment_direction\": \"${3|HORIZONTAL,VERTICAL,BOTH|}\"",
