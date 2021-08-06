@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
+const { isCodedFile, getAnnotationValue } = require('@hubspot/cli-lib/templates');
 const {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -39,9 +40,9 @@ const clearValidation = (document, collection) => {
   collection.set(document.uri, null);
 };
 
-const getRenderingErrors = async (source) => {
+const getRenderingErrors = async (source, context) => {
   try {
-    const { renderingErrors } = await validateHubl(getPortalId(), source);
+    const { renderingErrors } = await validateHubl(getPortalId(), source, context);
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
@@ -53,7 +54,39 @@ const updateValidation = async (document, collection) => {
     return collection.clear();
   }
 
-  const renderingErrors = await getRenderingErrors(document.getText());
+  // Todo: move to cli-lib
+  const ANNOTATIONS_REGEX = /<!--([\s\S]*?)-->/;
+  const getFileAnnotations = (filePath, source) => {
+    try {
+      const match = source.match(ANNOTATIONS_REGEX);
+      const annotation = match && match[1] ? match[1] : '';
+      return annotation;
+    } catch (err) {
+      return '';
+    }
+  };
+
+  const TEMPLATE_TYPE_ID = {
+    'page': 4
+  }
+
+  let context = {};
+  if (isCodedFile(document.fileName)) {
+    const annotations = getFileAnnotations(document.fileName, document.getText())
+    context.is_available_for_new_content = getAnnotationValue(annotations, 'isAvailableForNewContent') != 'false'
+    context.tempalate_type = TEMPLATE_TYPE_ID[getAnnotationValue(annotations, 'templateType')]
+  }
+
+  if (document.fileName.indexOf('.module') > -1) {
+    context = { context: { module: {} } };
+  }
+
+  // let context;
+  // if .html and not modle, get annotations and pass template type to validator
+  // if .html and in module folder, get meta data and fields?
+  // if other file, try to match file ext with tempalte type
+
+  const renderingErrors = await getRenderingErrors(document.getText(), context);
 
   if (!renderingErrors) {
     return clearValidation(document, collection);
