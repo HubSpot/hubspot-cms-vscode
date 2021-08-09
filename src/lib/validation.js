@@ -3,7 +3,13 @@ const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
 
 const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
-const { isCodedFile, getAnnotationValue, getAnnotationsFromSource, ANNOTATION_KEYS, isModuleHTMLFile } = require('@hubspot/cli-lib/templates');
+const {
+  isCodedFile,
+  getAnnotationValue,
+  getAnnotationsFromSource,
+  ANNOTATION_KEYS,
+  isModuleHTMLFile,
+} = require('@hubspot/cli-lib/templates');
 const {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -44,7 +50,11 @@ const clearValidation = (document, collection) => {
 
 const getRenderingErrors = async (source, context) => {
   try {
-    const { renderingErrors } = await validateHubl(getPortalId(), source, context);
+    const { renderingErrors } = await validateHubl(
+      getPortalId(),
+      source,
+      context
+    );
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
@@ -53,24 +63,35 @@ const getRenderingErrors = async (source, context) => {
 
 const getTemplateType = (document) => {
   if (isCodedFile(document.fileName)) {
-    const annotations = getAnnotationsFromSource(document.getText())
+    const annotations = getAnnotationsFromSource(document.getText());
     return {
-      is_available_for_new_content: getAnnotationValue(annotations, ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
-      tempalate_type: TEMPLATE_TYPES[getAnnotationValue(annotations, ANNOTATION_KEYS.templateType)]
-    }
+      is_available_for_new_content:
+        getAnnotationValue(
+          annotations,
+          ANNOTATION_KEYS.isAvailableForNewContent
+        ) != 'false',
+      tempalate_type:
+        TEMPLATE_TYPES[
+        getAnnotationValue(annotations, ANNOTATION_KEYS.templateType)
+        ],
+    };
   }
   if (isModuleHTMLFile(document.fileName)) {
     return { context: { module: {} }, module_path: document.fileName };
   }
-}
+  return {};
+};
 
 const updateValidation = async (document, collection) => {
   if (!document) {
     return collection.clear();
   }
 
-  const templateContext = getTemplateType(document)
-  const renderingErrors = await getRenderingErrors(document.getText(), templateContext);
+  const templateContext = getTemplateType(document);
+  const renderingErrors = await getRenderingErrors(
+    document.getText(),
+    templateContext
+  );
 
   if (!renderingErrors) {
     return clearValidation(document, collection);
