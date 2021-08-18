@@ -69,30 +69,28 @@ async function activate(context: vscode.ExtensionContext) {
   if (
     vscode.workspace
       .getConfiguration(EXTENSION_CONFIG_NAME)
-      .get(EXTENSION_CONFIG_KEYS.BETA)
+      .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
   ) {
     enableLinting();
-  } else {
-    notifyBeta(context);
   }
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(async (e) => {
       if (
         e.affectsConfiguration(
-          `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.BETA}`
+          `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.HUBL_LINTING}`
         )
       ) {
         if (
           vscode.workspace
             .getConfiguration(EXTENSION_CONFIG_NAME)
-            .get(EXTENSION_CONFIG_KEYS.BETA)
+            .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
         ) {
           enableLinting();
-          await trackAction('beta-enabled');
+          await trackAction('linting-enabled');
         } else {
           disableLinting();
-          await trackAction('beta-disabled');
+          await trackAction('linting-disabled');
         }
       }
     })
