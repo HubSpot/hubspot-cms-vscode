@@ -177,6 +177,11 @@
         "configuration": {
             "title": "HubSpot",
             "properties": {
+                "hubspot.beta": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Enable HubSpot VS Code extension beta features\n\n*Note: beta features may require a valid `hubspot.config.yml` file*"
+                },
                 "hubspot.hublLinting": {
                     "type": "boolean",
                     "default": true,
