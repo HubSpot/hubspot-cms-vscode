@@ -5,11 +5,10 @@ const { getPortalId } = require('@hubspot/cli-lib');
 const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
 const {
   isCodedFile,
-  getAnnotationValue,
-  getAnnotationsFromSource,
+  buildAnnotationValueGetter,
   ANNOTATION_KEYS,
-  isModuleHTMLFile,
 } = require('@hubspot/cli-lib/templates');
+const { isModuleHTMLFile } = require('@hubspot/cli-lib/modules');
 const {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -63,17 +62,12 @@ const getRenderingErrors = async (source, context) => {
 
 const getTemplateType = (document) => {
   if (isCodedFile(document.fileName)) {
-    const annotations = getAnnotationsFromSource(document.getText());
+    const getAnnotationValue = buildAnnotationValueGetter(document.getText());
     return {
       is_available_for_new_content:
-        getAnnotationValue(
-          annotations,
-          ANNOTATION_KEYS.isAvailableForNewContent
-        ) != 'false',
+        getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
       tempalate_type:
-        TEMPLATE_TYPES[
-          getAnnotationValue(annotations, ANNOTATION_KEYS.templateType)
-        ],
+        TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
     };
   }
   if (isModuleHTMLFile(document.fileName)) {
