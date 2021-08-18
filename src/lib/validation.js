@@ -72,7 +72,7 @@ const getTemplateType = (document) => {
         ) != 'false',
       tempalate_type:
         TEMPLATE_TYPES[
-        getAnnotationValue(annotations, ANNOTATION_KEYS.templateType)
+          getAnnotationValue(annotations, ANNOTATION_KEYS.templateType)
         ],
     };
   }
