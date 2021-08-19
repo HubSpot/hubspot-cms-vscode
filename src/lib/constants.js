@@ -22,6 +22,7 @@ const EXTENSION_CONFIG_NAME = 'hubspot';
 
 const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',
+  HUBL_LINTING: 'hublLinting',
 };
 
 const GLOBAL_STATE_KEYS = {
