@@ -14,7 +14,6 @@ const {
   VSCODE_SEVERITY,
   HUBL_TAG_DEFINITION_REGEX,
 } = require('./constants');
-const fs = require('fs');
 const path = require('path');
 
 const getRange = (document, error) => {
@@ -39,8 +38,11 @@ const isFileInWorkspace = (error) => {
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
-
-  return fs.existsSync(path.resolve(dirToActiveFile, filePath));
+  console.log(
+    'stat',
+    vscode.workspace.fs.stat(path.resolve(dirToActiveFile, filePath))
+  );
+  return vscode.workspace.fs.stat(path.resolve(dirToActiveFile, filePath));
 };
 
 const clearValidation = (document, collection) => {
