@@ -38,10 +38,7 @@ const isFileInWorkspace = (error) => {
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
-  console.log(
-    'stat',
-    vscode.workspace.fs.stat(path.resolve(dirToActiveFile, filePath))
-  );
+
   return vscode.workspace.fs.stat(path.resolve(dirToActiveFile, filePath));
 };
 
