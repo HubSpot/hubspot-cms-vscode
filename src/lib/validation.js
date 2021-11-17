@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
-const { getPortalId } = require('@hubspot/cli-lib');
+const { getPortalId } = require('@hubspot/cli-lib/lib/config');
 
 const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
 const {

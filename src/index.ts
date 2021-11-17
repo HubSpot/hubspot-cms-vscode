@@ -6,7 +6,7 @@ const {
   getAccountId,
   isTrackingAllowed,
   getAccountConfig,
-} = require('@hubspot/cli-lib');
+} = require('@hubspot/cli-lib/lib/config');
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 const { notifyBeta } = require('./lib/notify');

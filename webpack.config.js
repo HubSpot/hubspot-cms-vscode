@@ -79,6 +79,10 @@ const webExtensionConfig = {
       zlib: require.resolve('browserify-zlib'),
       buffer: require.resolve('buffer'),
       querystring: require.resolve('querystring-es3'),
+      os: false,
+      fs: false,
+      chokidar: false,
+      constants: require.resolve('constants-browserify'),
     },
   },
   module: {
@@ -101,6 +105,7 @@ const webExtensionConfig = {
   ],
   externals: {
     vscode: 'commonjs vscode', // ignored because it doesn't exist
+    request: 'request',
   },
   performance: {
     hints: false,
