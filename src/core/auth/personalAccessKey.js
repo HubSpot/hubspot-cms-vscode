@@ -146,6 +146,7 @@ const updateConfigWithPersonalAccessKey = async (configData, makeDefault) => {
     authType: PERSONAL_ACCESS_KEY_AUTH_METHOD.value,
     tokenInfo: { accessToken, expiresAt },
   });
+
   // writeConfig();
 
   if (makeDefault) {

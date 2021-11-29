@@ -4,16 +4,13 @@ import { getRequestOptions } from '../requestOptions';
 import { ENVIRONMENTS } from '../constants';
 
 const LOCALDEVAUTH_API_AUTH_PATH = 'localdevauth/v1/auth';
-const getRequestUri = (uri, params) => {
-  const qs = new URLSearchParams(params);
-  return 'https://api.hubapi.com/' + uri + '?' + qs.toString();
-};
+
 async function fetchAccessToken(
   personalAccessKey,
   env = ENVIRONMENTS.PROD,
   portalId
 ) {
-  const query = portalId ? { portalId } : {};
+  const params = portalId ? { portalId } : {};
 
   var data = JSON.stringify({
     encodedOAuthRefreshToken:
@@ -22,11 +19,12 @@ async function fetchAccessToken(
 
   var config = {
     method: 'post',
-    url: 'https://api.hubapi.com/localdevauth/v1/auth/refresh?portalId=1932631',
+    url: 'https://api.hubapi.com/localdevauth/v1/auth/refresh',
     headers: {
       'Content-Type': 'application/json',
     },
-    data: data,
+    params,
+    data,
   };
 
   try {

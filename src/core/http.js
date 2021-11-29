@@ -45,7 +45,7 @@ const withAuth = async (accountId, options) => {
     accountId,
     getRequestOptions({ env: 'prod' }, options)
   );
-  console.log('r1', getRequestOptions({ env: 'prod' }, options));
+
   return withPersonalAccessKey(accountId, accountConfig, requestOptions);
 };
 
@@ -69,46 +69,37 @@ const getRequest = async (accountId, options) => {
   const { uri, query, ...rest } = options;
   const requestOptions = addQueryParams(rest, query);
 
-  const conf = {
+  const requestConfig = {
     url: uri,
     method: 'get',
     ...(await withAuth(accountId, requestOptions)),
   };
-  return http(conf);
+  return http(requestConfig);
 };
 
 const postRequest = async (accountId, options) => {
   const { uri, query, ...rest } = options;
   const requestOptions = addQueryParams(rest, query);
 
-  const conf = {
+  const requestConfig = {
     url: uri,
     method: 'post',
     ...(await withAuth(accountId, requestOptions)),
   };
-  console.log('post', conf);
-  return http(conf);
+
+  return http(requestConfig);
 };
 
 const putRequest = async (accountId, options) => {
-  return fetch(
-    getRequestUri(options),
-    await withAuth(accountId, 'PUT', options)
-  );
+  // TODO: implement
 };
 
 const patchRequest = async (accountId, options) => {
-  return fetch(
-    getRequestUri(options),
-    await withAuth(accountId, 'PATCH', options)
-  );
+  // TODO: implement
 };
 
 const deleteRequest = async (accountId, options) => {
-  return fetch(
-    getRequestUri(options),
-    await withAuth(accountId, 'DEL', options)
-  );
+  // TODO: implement
 };
 
 export {

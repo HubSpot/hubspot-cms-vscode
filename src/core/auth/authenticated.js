@@ -2,7 +2,7 @@
 import fetch from 'cross-fetch';
 
 const getRequestUri = (options) => {
-  return 'https://.hubapi.com' + options.uri;
+  return 'https://api.hubapi.com' + options.uri;
 };
 
 async function fetchScopeData(accountId, scopeGroup) {
