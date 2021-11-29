@@ -1,6 +1,8 @@
-const vscode = require('vscode');
+import * as vscode from 'vscode';
 //@ts-ignore
 import * as http from './core/http';
+//@ts-ignore
+import { trackUsage } from './core/api/dfs/v1';
 console.log(http);
 const {
   EXTENSION_CONFIG_NAME,
@@ -71,25 +73,27 @@ async function activate(context: vscode.ExtensionContext) {
   }
 
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(async (e) => {
-      if (
-        e.affectsConfiguration(
-          `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.HUBL_LINTING}`
-        )
-      ) {
+    vscode.workspace.onDidChangeConfiguration(
+      async (e: vscode.ConfigurationChangeEvent) => {
         if (
-          vscode.workspace
-            .getConfiguration(EXTENSION_CONFIG_NAME)
-            .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
+          e.affectsConfiguration(
+            `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.HUBL_LINTING}`
+          )
         ) {
-          // enableLinting();
-          // await trackAction('linting-enabled');
-        } else {
-          // disableLinting();
-          // await trackAction('linting-disabled');
+          if (
+            vscode.workspace
+              .getConfiguration(EXTENSION_CONFIG_NAME)
+              .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
+          ) {
+            // enableLinting();
+            // await trackAction('linting-enabled');
+          } else {
+            // disableLinting();
+            // await trackAction('linting-disabled');
+          }
         }
       }
-    })
+    )
   );
 }
 
