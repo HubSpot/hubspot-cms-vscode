@@ -66,23 +66,6 @@ const webExtensionConfig = {
       // Webpack 5 no longer polyfills Node.js core modules automatically.
       // see https://webpack.js.org/configuration/resolve/#resolvefallback
       // for the list of Node.js core module polyfills.
-      assert: require.resolve('assert'),
-      crypto: require.resolve('crypto-browserify'),
-      path: require.resolve('path-browserify'),
-      util: require.resolve('util'),
-      process: require.resolve('process/browser'),
-      http: require.resolve('stream-http'),
-      https: require.resolve('https-browserify'),
-      stream: require.resolve('stream-browserify'),
-      net: require.resolve('net-browserify'),
-      url: require.resolve('url'),
-      zlib: require.resolve('browserify-zlib'),
-      buffer: require.resolve('buffer'),
-      querystring: require.resolve('querystring-es3'),
-      os: false,
-      fs: false,
-      chokidar: false,
-      constants: require.resolve('constants-browserify'),
     },
   },
   module: {
@@ -99,13 +82,12 @@ const webExtensionConfig = {
     ],
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      process: 'process/browser', // provide a shim for the global `process` variable
-    }),
+    // new webpack.ProvidePlugin({
+    //   process: 'process/browser', // provide a shim for the global `process` variable
+    // }),
   ],
   externals: {
     vscode: 'commonjs vscode', // ignored because it doesn't exist
-    request: 'request',
   },
   performance: {
     hints: false,
@@ -113,4 +95,4 @@ const webExtensionConfig = {
   devtool: 'nosources-source-map', // create a source map that points to the original source file
 };
 
-module.exports = [webExtensionConfig];
+module.exports = [config];
