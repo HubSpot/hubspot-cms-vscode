@@ -1,9 +1,7 @@
 import * as vscode from 'vscode';
 //@ts-ignore
-import * as http from './core/http';
-//@ts-ignore
 import { trackUsage } from './core/api/dfs/v1';
-console.log(http);
+
 const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
@@ -16,6 +14,13 @@ async function activate(context: vscode.ExtensionContext) {
     return;
   }
 
+  const config = await vscode.workspace.findFiles(
+    '**/hubspot.config.yml',
+    '**/node_modules/**'
+  );
+
+  const file = await vscode.workspace.fs.readFile(config[1]);
+  console.log(new TextDecoder('utf-8').decode(file));
   const rootPath = workspaceFolders[0].uri;
 
   if (!rootPath) {
@@ -23,8 +28,6 @@ async function activate(context: vscode.ExtensionContext) {
   }
 
   const accountId = 1932631;
-
-  const FILE_MAPPER_API_PATH = 'content/filemapper/v1';
 
   // const path = findConfig(rootPath);
 
@@ -54,12 +57,12 @@ async function activate(context: vscode.ExtensionContext) {
   //         : 'apikey';
   //   }
 
-  await trackUsage(
-    'vscode-extension-interaction',
-    'INTERACTION',
-    { authType: 'personalAccessKey' },
-    accountId
-  );
+  // await trackUsage(
+  //   'vscode-extension-interaction',
+  //   'INTERACTION',
+  //   { authType: 'personalAccessKey' },
+  //   accountId
+  // );
   // };
 
   // await trackAction('extension-activated');

@@ -40,7 +40,8 @@ const withPortalId = (portalId, requestOptions) => {
 
 const withAuth = async (accountId, options) => {
   const accountConfig = getConfig(accountId);
-  const { env } = accountConfig;
+  const env = 'prod';
+  // const { env } = accountConfig;
   const requestOptions = withPortalId(
     accountId,
     getRequestOptions({ env: 'prod' }, options)

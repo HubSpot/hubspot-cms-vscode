@@ -1,10 +1,11 @@
+let _config;
+
 const setConfig = (config) => {
-  // where to write config?
+  _config = config;
 };
 
 const getConfig = () => {
-  return {};
-  // where to read config?
+  return _config;
 };
 
 export { getConfig, setConfig };

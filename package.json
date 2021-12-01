@@ -193,11 +193,11 @@
     },
     "dependencies": {
         "axios": "^0.24.0",
-        "moment": "^2.29.1",
+        "moment": "^2.29.1"
     },
     "devDependencies": {
         "@types/node": "^15.12.4",
-        "@types/vscode": "1.30.0",
+        "@types/vscode": "^1.60.0",
         "eslint": "^7.5.0",
         "prettier": "^2.0.5",
         "ts-loader": "^9.2.3",

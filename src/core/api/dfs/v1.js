@@ -1,4 +1,7 @@
-import { post } from '../../http';
+import * as http from '../../http';
+import { getRequestOptions } from '../../requestOptions';
+
+const FILE_MAPPER_API_PATH = 'content/filemapper/v1';
 
 /**
  * Track CMS CLI usage
@@ -45,8 +48,9 @@ async function trackUsage(eventName, eventClass, meta = {}, accountId) {
   } catch (err) {
     console.error(err);
   }
-
-  const requestOptions = http.getRequestOptions(
+  // TODO: Add env to config
+  const env = 'prod';
+  const requestOptions = getRequestOptions(
     { env },
     {
       uri: path,
@@ -55,7 +59,7 @@ async function trackUsage(eventName, eventClass, meta = {}, accountId) {
     }
   );
   console.debug('Sending usage event to unauthenticated endpoint');
-  return post(requestOptions);
+  return http.post(requestOptions);
 }
 
 export { trackUsage };
