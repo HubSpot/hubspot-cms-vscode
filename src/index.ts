@@ -1,6 +1,15 @@
 import * as vscode from 'vscode';
 //@ts-ignore
 import { trackUsage } from './core/api/dfs/v1';
+import * as yaml from 'yaml';
+//@ts-ignore
+import { setConfig } from './core/config';
+import {
+  findConfigFile,
+  validateConfig,
+  loadDefaultAccountConfig,
+  //@ts-ignore
+} from './lib/config';
 
 const {
   EXTENSION_CONFIG_NAME,
@@ -14,55 +23,22 @@ async function activate(context: vscode.ExtensionContext) {
     return;
   }
 
-  const config = await vscode.workspace.findFiles(
-    '**/hubspot.config.yml',
-    '**/node_modules/**'
-  );
+  const config = await findConfigFile();
 
-  const file = await vscode.workspace.fs.readFile(config[1]);
-  console.log(new TextDecoder('utf-8').decode(file));
-  const rootPath = workspaceFolders[0].uri;
-
-  if (!rootPath) {
+  if (!validateConfig(config)) {
     return;
   }
 
+  loadDefaultAccountConfig(config);
+
   const accountId = 1932631;
 
-  // const path = findConfig(rootPath);
-
-  // if (!path) {
-  //   return;
-  // }
-
-  // loadConfig(path);
-
-  // if (!validateConfig()) {
-  //   return;
-  // }
-
-  // const trackAction = async (action: string) => {
-  //   if (!isTrackingAllowed()) {
-  //     return;
-  //   }
-
-  //   let authType = 'unknown';
-  //   const accountId = getAccountId();
-
-  //   if (accountId) {
-  //     const accountConfig = getAccountConfig(accountId);
-  //     authType =
-  //       accountConfig && accountConfig.authType
-  //         ? accountConfig.authType
-  //         : 'apikey';
-  //   }
-
-  // await trackUsage(
-  //   'vscode-extension-interaction',
-  //   'INTERACTION',
-  //   { authType: 'personalAccessKey' },
-  //   accountId
-  // );
+  await trackUsage(
+    'vscode-extension-interaction',
+    'INTERACTION',
+    { authType: 'personalAccessKey' },
+    accountId
+  );
   // };
 
   // await trackAction('extension-activated');

@@ -193,7 +193,8 @@
     },
     "dependencies": {
         "axios": "^0.24.0",
-        "moment": "^2.29.1"
+        "moment": "^2.29.1",
+        "yaml": "^1.10.2"
     },
     "devDependencies": {
         "@types/node": "^15.12.4",

@@ -31,7 +31,8 @@ async function fetchAccessToken(
     const authData = await axios(config);
     return authData.data;
   } catch (error) {
-    orange.appendLine(JSON.stringify('error'));
+    console.log(error);
+    return null;
   }
 }
 

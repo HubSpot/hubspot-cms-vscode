@@ -37,7 +37,7 @@ async function getAccessToken(
       throw e;
     }
   }
-  console.log(response);
+
   return {
     portalId: response.hubId,
     accessToken: response.oauthAccessToken,
@@ -57,7 +57,7 @@ async function refreshAccessToken(
     env,
     accountId
   );
-  const config = getConfig(accountId);
+  const config = getConfig();
 
   setConfig({
     ...config,
@@ -67,7 +67,6 @@ async function refreshAccessToken(
       expiresAt: expiresAt.toISOString(),
     },
   });
-  // writeConfig();
 
   return accessToken;
 }
@@ -98,7 +97,7 @@ async function getNewAccessToken(accountId, personalAccessKey, expiresAt, env) {
 }
 
 async function accessTokenForPersonalAccessKey(accountId) {
-  const { auth, personalAccessKey, env } = getConfig(accountId);
+  const { auth, personalAccessKey, env } = getConfig();
   const authTokenInfo = auth && auth.tokenInfo;
   const authDataExists = authTokenInfo && auth.tokenInfo.accessToken;
 
@@ -146,12 +145,6 @@ const updateConfigWithPersonalAccessKey = async (configData, makeDefault) => {
     authType: PERSONAL_ACCESS_KEY_AUTH_METHOD.value,
     tokenInfo: { accessToken, expiresAt },
   });
-
-  // writeConfig();
-
-  if (makeDefault) {
-    updateDefaultAccount(name);
-  }
 
   return updatedConfig;
 };
