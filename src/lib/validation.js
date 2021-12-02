@@ -1,20 +1,23 @@
-const vscode = require('vscode');
-const { validateHubl } = require('@hubspot/cli-lib/api/validate');
-const { getPortalId } = require('@hubspot/cli-lib/lib/config');
+import * as vscode from 'vscode';
+// const { validateHubl } = require('@hubspot/cli-lib/api/validate');
+import { validateHubl } from '../core/api/validate';
+import { getDefaultAccountConfig } from './config';
+// const { getPortalId } = require('@hubspot/cli-lib/lib/config');
 
-const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
-const {
-  isCodedFile,
-  buildAnnotationValueGetter,
-  ANNOTATION_KEYS,
-} = require('@hubspot/cli-lib/templates');
-const { isModuleHTMLFile } = require('@hubspot/cli-lib/modules');
-const {
+// const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
+// const {
+//   isCodedFile,
+//   buildAnnotationValueGetter,
+//   ANNOTATION_KEYS,
+// } = require('@hubspot/cli-lib/templates');
+// const { isModuleHTMLFile } = require('@hubspot/cli-lib/modules');
+import {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
   HUBL_TAG_DEFINITION_REGEX,
-} = require('./constants');
-const path = require('path');
+  TEMPLATE_TYPES,
+} from './constants';
+// const path = require('path');
 
 const getRange = (document, error) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;
@@ -29,17 +32,19 @@ const getRange = (document, error) => {
   }
 };
 
-const isFileInWorkspace = (error) => {
-  const pathToActiveFile = vscode.window.activeTextEditor.document.uri.path;
-  const dirToActiveFile = path.dirname(pathToActiveFile);
-
+const isFileInWorkspace = async (error) => {
   let filePath = error.categoryErrors.fullName || error.categoryErrors.path;
 
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
 
-  return vscode.workspace.fs.stat(path.resolve(dirToActiveFile, filePath));
+  const exists = await vscode.workspace.findFiles(
+    `**/${filePath}`,
+    '/node_modules/'
+  );
+
+  return exists.length > 0;
 };
 
 const clearValidation = (document, collection) => {
@@ -47,31 +52,31 @@ const clearValidation = (document, collection) => {
 };
 
 const getRenderingErrors = async (source, context) => {
+  const { portalId } = await getDefaultAccountConfig();
+
   try {
-    const { renderingErrors } = await validateHubl(
-      getPortalId(),
-      source,
-      context
-    );
-    return renderingErrors;
+    const { data } = await validateHubl(portalId, source, context);
+    console.log(data.renderingErrors);
+    return data.renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
+    console.log(e);
   }
 };
 
 const getTemplateType = (document) => {
-  if (isCodedFile(document.fileName)) {
-    const getAnnotationValue = buildAnnotationValueGetter(document.getText());
-    return {
-      is_available_for_new_content:
-        getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
-      tempalate_type:
-        TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
-    };
-  }
-  if (isModuleHTMLFile(document.fileName)) {
-    return { context: { module: {} }, module_path: document.fileName };
-  }
+  // if (isCodedFile(document.fileName)) {
+  //   const getAnnotationValue = buildAnnotationValueGetter(document.getText());
+  //   return {
+  //     is_available_for_new_content:
+  //       getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
+  //     tempalate_type:
+  //       TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
+  //   };
+  // }
+  // if (isModuleHTMLFile(document.fileName)) {
+  //   return { context: { module: {} }, module_path: document.fileName };
+  // }
   return {};
 };
 
@@ -90,12 +95,12 @@ const updateValidation = async (document, collection) => {
     return clearValidation(document, collection);
   }
 
-  const resolvedRenderingErrors = renderingErrors.filter((error) => {
+  const resolvedRenderingErrors = renderingErrors.filter(async (error) => {
     if (
       error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
       error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
     ) {
-      return isFileInWorkspace(error) ? false : true;
+      return isFileInWorkspace(error);
     }
     return true;
   });
@@ -125,4 +130,4 @@ const triggerValidate = (document, collection) => {
   }, 1000);
 };
 
-module.exports = { triggerValidate };
+export { triggerValidate };

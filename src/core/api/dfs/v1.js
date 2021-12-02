@@ -54,7 +54,7 @@ async function trackUsage(eventName, eventClass, meta = {}, accountId) {
     { env },
     {
       uri: path,
-      body: usageEvent,
+      data: usageEvent,
       resolveWithFullResponse: true,
     }
   );

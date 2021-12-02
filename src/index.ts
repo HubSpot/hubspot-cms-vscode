@@ -15,6 +15,7 @@ const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
 } = require('./lib/constants');
+import { enableLinting } from './lib/lint';
 
 async function activate(context: vscode.ExtensionContext) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -38,7 +39,7 @@ async function activate(context: vscode.ExtensionContext) {
       .getConfiguration(EXTENSION_CONFIG_NAME)
       .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
   ) {
-    // enableLinting();
+    enableLinting();
   }
 
   context.subscriptions.push(

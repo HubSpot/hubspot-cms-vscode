@@ -63,7 +63,7 @@ const addQueryParams = (requestOptions, additionalParams = {}) => {
 
 const http = axios.create({
   baseURL: 'https://api.hubapi.com',
-  timeout: 1000,
+  timeout: 15000,
 });
 
 const getRequest = async (accountId, options) => {
