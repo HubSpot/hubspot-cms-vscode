@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
+import * as yaml from 'yaml';
+import { getConfig, setConfig } from '../core/config';
 
-const findConfigFile = async () => {
+const findAndLoadConfigFile = async () => {
   const config = await vscode.workspace.findFiles(
     '**/hubspot.config.yml',
     '**/node_modules/**'
@@ -14,37 +16,19 @@ const findConfigFile = async () => {
   try {
     const file = await vscode.workspace.fs.readFile(config[0]);
 
-    return yaml.parse(file.toString());
+    setConfig(yaml.parse(file.toString()));
   } catch (error) {
     console.error('Could not read config file');
     return null;
   }
 };
 
-const validateConfig = (config) => {
-  if (!config) {
-    console.error('Config file is empty');
-    return false;
-  }
-
-  if (!config.defaultPortal) {
-    console.error('This extension requires a "defaultPortal"');
-    return false;
-  }
-
-  if (!Array.isArray(config.portals)) {
-    console.error('This extension requires at least one configured account');
-    return false;
-  }
-  return true;
-};
-
-const loadDefaultAccountConfig = (config) => {
-  const defaultAccountConfig = config.portals.find(
-    (portal) => portal.name === config.defaultPortal
+const getDefaultAccountConfig = () => {
+  const _config = getConfig();
+  const defaultAccountConfig = _config.portals.find(
+    (portal) => portal.name === _config.defaultPortal
   );
-
-  setConfig(defaultAccountConfig);
+  return defaultAccountConfig;
 };
 
-export { findConfigFile, validateConfig, loadDefaultAccountConfig };
+export { findAndLoadConfigFile, getDefaultAccountConfig };

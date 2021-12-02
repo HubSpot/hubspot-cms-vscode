@@ -1,13 +1,16 @@
 import * as vscode from 'vscode';
 //@ts-ignore
-import { trackUsage } from './core/api/dfs/v1';
+import { trackAction } from './lib/usageTracking';
 import * as yaml from 'yaml';
 //@ts-ignore
-import { setConfig } from './core/config';
+import { setConfig, getConfig } from './core/config';
 import {
-  findConfigFile,
   validateConfig,
-  loadDefaultAccountConfig,
+  //@ts-ignore
+} from './core/config';
+import {
+  findAndLoadConfigFile,
+  getDefaultAccountConfig,
   //@ts-ignore
 } from './lib/config';
 
@@ -23,25 +26,15 @@ async function activate(context: vscode.ExtensionContext) {
     return;
   }
 
-  const config = await findConfigFile();
+  await findAndLoadConfigFile();
 
-  if (!validateConfig(config)) {
+  if (!validateConfig()) {
     return;
   }
 
-  loadDefaultAccountConfig(config);
+  const { portalId: accountId } = getDefaultAccountConfig();
 
-  const accountId = 1932631;
-
-  await trackUsage(
-    'vscode-extension-interaction',
-    'INTERACTION',
-    { authType: 'personalAccessKey' },
-    accountId
-  );
-  // };
-
-  // await trackAction('extension-activated');
+  await trackAction('extension-activated');
 
   if (
     vscode.workspace
