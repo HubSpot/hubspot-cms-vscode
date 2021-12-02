@@ -1,9 +1,6 @@
 import * as vscode from 'vscode';
 //@ts-ignore
 import { trackAction } from './lib/usageTracking';
-import * as yaml from 'yaml';
-//@ts-ignore
-import { setConfig, getConfig } from './core/config';
 import {
   validateConfig,
   //@ts-ignore
