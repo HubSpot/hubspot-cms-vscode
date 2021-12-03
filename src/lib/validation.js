@@ -1,25 +1,19 @@
-import { error } from 'console';
 import * as vscode from 'vscode';
 import { Utils } from 'vscode-uri';
-// const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 import { validateHubl } from '../core/api/validate';
 import { getDefaultAccountConfig } from './config';
-// const { getPortalId } = require('@hubspot/cli-lib/lib/config');
-
-// const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
-// const {
-//   isCodedFile,
-//   buildAnnotationValueGetter,
-//   ANNOTATION_KEYS,
-// } = require('@hubspot/cli-lib/templates');
-// const { isModuleHTMLFile } = require('@hubspot/cli-lib/modules');
+import {
+  isCodedFile,
+  buildAnnotationValueGetter,
+  ANNOTATION_KEYS,
+} from './templates';
+import { isModuleHTMLFile } from './modules';
 import {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
   HUBL_TAG_DEFINITION_REGEX,
   TEMPLATE_TYPES,
 } from './constants';
-// const path = require('path');
 
 const getRange = (document, error) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;
@@ -35,7 +29,6 @@ const getRange = (document, error) => {
 };
 
 const isFileInWorkspace = async (error, document) => {
-  console.log(error);
   let filePath = error.categoryErrors.fullName || error.categoryErrors.path;
 
   if (error.category === 'MODULE_NOT_FOUND') {
@@ -48,10 +41,8 @@ const isFileInWorkspace = async (error, document) => {
     const x = await vscode.workspace.fs.stat(
       Utils.resolvePath(dirName, filePath)
     );
-    console.log('true');
     return true;
   } catch (e) {
-    console.log('false');
     return false;
   }
 };
@@ -74,18 +65,19 @@ const getRenderingErrors = async (source, context) => {
 };
 
 const getTemplateType = (document) => {
-  // if (isCodedFile(document.fileName)) {
-  //   const getAnnotationValue = buildAnnotationValueGetter(document.getText());
-  //   return {
-  //     is_available_for_new_content:
-  //       getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
-  //     tempalate_type:
-  //       TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
-  //   };
-  // }
-  // if (isModuleHTMLFile(document.fileName)) {
-  //   return { context: { module: {} }, module_path: document.fileName };
-  // }
+  if (isCodedFile(document.fileName)) {
+    const getAnnotationValue = buildAnnotationValueGetter(document.getText());
+
+    return {
+      is_available_for_new_content:
+        getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
+      tempalate_type:
+        TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
+    };
+  }
+  if (isModuleHTMLFile(document.fileName)) {
+    return { context: { module: {} }, module_path: document.fileName };
+  }
   return {};
 };
 
@@ -95,6 +87,7 @@ const updateValidation = async (document, collection) => {
   }
 
   const templateContext = getTemplateType(document);
+
   const renderingErrors = await getRenderingErrors(
     document.getText(),
     templateContext

@@ -68,7 +68,7 @@ const TEMPLATE_TYPES = {
   knowledge_article: 35,
   membership_email: 36,
   section: 37,
-  global_content_partial: 38,
+  global_partial: 38,
   simple_landing_page_template: 39,
   proposal: 40,
   blog_post: 41,
