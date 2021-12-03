@@ -1,4 +1,6 @@
+import { error } from 'console';
 import * as vscode from 'vscode';
+import { Utils } from 'vscode-uri';
 // const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 import { validateHubl } from '../core/api/validate';
 import { getDefaultAccountConfig } from './config';
@@ -32,19 +34,26 @@ const getRange = (document, error) => {
   }
 };
 
-const isFileInWorkspace = async (error) => {
+const isFileInWorkspace = async (error, document) => {
+  console.log(error);
   let filePath = error.categoryErrors.fullName || error.categoryErrors.path;
 
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
 
-  const exists = await vscode.workspace.findFiles(
-    `**/${filePath}`,
-    '/node_modules/'
-  );
+  const dirName = Utils.dirname(document.uri);
 
-  return exists.length > 0;
+  try {
+    const x = await vscode.workspace.fs.stat(
+      Utils.resolvePath(dirName, filePath)
+    );
+    console.log('true');
+    return true;
+  } catch (e) {
+    console.log('false');
+    return false;
+  }
 };
 
 const clearValidation = (document, collection) => {
@@ -56,11 +65,11 @@ const getRenderingErrors = async (source, context) => {
 
   try {
     const { data } = await validateHubl(portalId, source, context);
-    console.log(data.renderingErrors);
+
     return data.renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
-    console.log(e);
+    console.debug(e);
   }
 };
 
@@ -95,24 +104,25 @@ const updateValidation = async (document, collection) => {
     return clearValidation(document, collection);
   }
 
-  const resolvedRenderingErrors = renderingErrors.filter(async (error) => {
+  let templateErrors = [];
+
+  for (const error of renderingErrors) {
     if (
       error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
       error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
     ) {
-      return isFileInWorkspace(error);
-    }
-    return true;
-  });
+      const fileExits = await isFileInWorkspace(error, document);
 
-  const templateErrors = resolvedRenderingErrors.map((error) => {
-    return {
-      code: '',
-      message: error.message,
-      range: getRange(document, error),
-      severity: vscode.DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
-    };
-  });
+      if (!fileExits) {
+        templateErrors.push({
+          code: '',
+          message: error.message,
+          range: getRange(document, error),
+          severity: vscode.DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
+        });
+      }
+    }
+  }
 
   collection.set(document.uri, templateErrors);
 };
