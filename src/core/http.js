@@ -1,4 +1,5 @@
-import axios from 'axios';
+import 'cross-fetch/polyfill';
+import { URLSearchParams } from 'url';
 import { accessTokenForPersonalAccessKey } from './auth/personalAccessKey';
 import { getConfig } from './config';
 import { getRequestOptions } from './requestOptions';
@@ -61,34 +62,45 @@ const addQueryParams = (requestOptions, additionalParams = {}) => {
   };
 };
 
-const http = axios.create({
-  baseURL: 'https://api.hubapi.com',
-  timeout: 15000,
-});
-
 const getRequest = async (accountId, options) => {
   const { uri, query, ...rest } = options;
   const requestOptions = addQueryParams(rest, query);
 
   const requestConfig = {
-    url: uri,
-    method: 'get',
+    timeout: 15000,
+    method: 'GET',
     ...(await withAuth(accountId, requestOptions)),
   };
-  return http(requestConfig);
+
+  return fetch('https://api.hubapi.com/' + uri, requestConfig);
 };
 
 const postRequest = async (accountId, options) => {
-  const { uri, query, ...rest } = options;
+  const { uri, body, query, ...rest } = options;
   const requestOptions = addQueryParams(rest, query);
+  const { params, ...rconfig } = await withAuth(accountId, requestOptions);
 
   const requestConfig = {
-    url: uri,
-    method: 'post',
-    ...(await withAuth(accountId, requestOptions)),
+    timeout: 15000,
+    method: 'POST',
+    body: JSON.stringify(body),
+    ...rconfig,
   };
 
-  return http(requestConfig);
+  const response = await fetch(
+    'https://api.hubapi.com/' +
+      uri +
+      '?' +
+      new URLSearchParams(params).toString(),
+    requestConfig
+  );
+
+  if (response.status >= 400) {
+    throw new Error('Bad response from server');
+  }
+
+  const x = await response.json();
+  return;
 };
 
 const putRequest = async (accountId, options) => {

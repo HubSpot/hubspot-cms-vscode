@@ -55,9 +55,8 @@ const getRenderingErrors = async (source, context) => {
   const { portalId } = await getDefaultAccountConfig();
 
   try {
-    const { data } = await validateHubl(portalId, source, context);
-
-    return data.renderingErrors;
+    const { renderingErrors } = await validateHubl(portalId, source, context);
+    return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
     console.debug(e);
@@ -86,11 +85,9 @@ const updateValidation = async (document, collection) => {
     return collection.clear();
   }
 
-  const templateContext = getTemplateType(document);
-
   const renderingErrors = await getRenderingErrors(
     document.getText(),
-    templateContext
+    getTemplateType(document)
   );
 
   if (!renderingErrors) {
@@ -99,24 +96,25 @@ const updateValidation = async (document, collection) => {
 
   let templateErrors = [];
 
-  for (const error of renderingErrors) {
+  for (let i = 0; i < renderingErrors.length; i++) {
+    const error = renderingErrors[i];
     if (
       error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
       error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
     ) {
       const fileExits = await isFileInWorkspace(error, document);
-
-      if (!fileExits) {
-        templateErrors.push({
-          code: '',
-          message: error.message,
-          range: getRange(document, error),
-          severity: vscode.DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
-        });
+      if (fileExits) {
+        continue;
       }
     }
-  }
 
+    templateErrors.push({
+      code: '',
+      message: error.message,
+      range: getRange(document, error),
+      severity: vscode.DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
+    });
+  }
   collection.set(document.uri, templateErrors);
 };
 

@@ -39,11 +39,11 @@ async function trackUsage(eventName, eventClass, meta = {}, accountId) {
   const path = `${FILE_MAPPER_API_PATH}/${analyticsEndpoint}`;
 
   console.debug('Sending usage event to authenticated endpoint');
+
   try {
     return http.post(accountId, {
       uri: `${path}/authenticated`,
-      data: usageEvent,
-      resolveWithFullResponse: true,
+      body: usageEvent,
     });
   } catch (err) {
     console.error(err);
@@ -54,7 +54,7 @@ async function trackUsage(eventName, eventClass, meta = {}, accountId) {
     { env },
     {
       uri: path,
-      data: usageEvent,
+      body: usageEvent,
       resolveWithFullResponse: true,
     }
   );

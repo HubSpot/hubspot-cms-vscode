@@ -8,6 +8,10 @@ const getConfig = () => {
   return _config;
 };
 
+const getAccountConfig = (accountId) => {
+  return _config.portals.find((portal) => portal.portalId === accountId);
+};
+
 const validateConfig = () => {
   if (!_config) {
     console.error('Config file is empty');
@@ -26,4 +30,4 @@ const validateConfig = () => {
   return true;
 };
 
-export { getConfig, setConfig, validateConfig };
+export { getConfig, getAccountConfig, setConfig, validateConfig };

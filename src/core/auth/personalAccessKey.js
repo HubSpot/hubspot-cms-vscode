@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { getConfig, setConfig } from '../config';
+import { getConfig, getAccountConfig, setConfig } from '../config';
 
 // const { getValidEnv } = require('./lib/environment');
 const {
@@ -22,13 +22,15 @@ async function getAccessToken(
 ) {
   let response;
   try {
-    response = await fetchAccessToken(personalAccessKey, env, accountId);
+    const _response = await fetchAccessToken(personalAccessKey, env, accountId);
+    response = await _response.json();
   } catch (e) {
+    console.log(e);
     if (e.response) {
-      const errorOutput = `Error while retrieving new access token: ${e.response.body.message}.`;
-      if (e.response.statusCode === 401) {
+      const errorOutput = `Error while retrieving new access token: ${e.response.statusText}.`;
+      if (e.response.status === 401) {
         throw new Error(
-          `${errorOutput} \nYour personal access key is invalid. Please run "hs auth personalaccesskey" to reauthenticate. See https://designers.hubspot.com/docs/personal-access-keys for more information.`
+          `Your personal access key is invalid. Please run "hs auth personalaccesskey" to reauthenticate. See https://designers.hubspot.com/docs/personal-access-keys for more information.`
         );
       } else {
         throw new Error(errorOutput);
@@ -97,7 +99,7 @@ async function getNewAccessToken(accountId, personalAccessKey, expiresAt, env) {
 }
 
 async function accessTokenForPersonalAccessKey(accountId) {
-  const { auth, personalAccessKey, env } = getConfig();
+  const { auth, personalAccessKey, env } = getAccountConfig(accountId);
   const authTokenInfo = auth && auth.tokenInfo;
   const authDataExists = authTokenInfo && auth.tokenInfo.accessToken;
 

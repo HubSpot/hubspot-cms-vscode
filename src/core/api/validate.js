@@ -12,7 +12,7 @@ const HUBL_VALIDATE_API_PATH = 'cos-rendering/v1/internal/validate';
 async function validateHubl(accountId, sourceCode, hublValidationOptions) {
   return http.post(accountId, {
     uri: HUBL_VALIDATE_API_PATH,
-    data: {
+    body: {
       template_source: sourceCode,
       ...hublValidationOptions,
     },

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import * as vscode from 'vscode';
+import 'cross-fetch/polyfill';
 import { getRequestOptions } from '../requestOptions';
 import { ENVIRONMENTS } from '../constants';
 
@@ -12,28 +11,18 @@ async function fetchAccessToken(
 ) {
   const params = portalId ? { portalId } : {};
 
-  var data = JSON.stringify({
-    encodedOAuthRefreshToken:
-      'CiQ3MmU5ZTg1Ny0zMzE1LTQwY2QtYTFlYi02ZDAxMDU1YTU2NDUQ1_p1GK-akwEqGQAF5pGCRKPbGB5FPjDLlDcMxdDzVLVD4wBKA25hMQ',
-  });
-
   var config = {
-    method: 'post',
-    url: 'https://api.hubapi.com/localdevauth/v1/auth/refresh',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     params,
-    data,
+    body: JSON.stringify({
+      encodedOAuthRefreshToken: personalAccessKey,
+    }),
   };
 
-  try {
-    const authData = await axios(config);
-    return authData.data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  return fetch('https://api.hubapi.com/localdevauth/v1/auth/refresh', config);
 }
 
 export { fetchAccessToken };
