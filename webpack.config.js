@@ -63,6 +63,7 @@ const webExtensionConfig = {
       // provides alternate implementation for node module and source files
     },
     fallback: {
+      buffer: require.resolve('buffer'),
       // Webpack 5 no longer polyfills Node.js core modules automatically.
       // see https://webpack.js.org/configuration/resolve/#resolvefallback
       // for the list of Node.js core module polyfills.
@@ -82,9 +83,9 @@ const webExtensionConfig = {
     ],
   },
   plugins: [
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser', // provide a shim for the global `process` variable
-    // }),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
   ],
   externals: {
     vscode: 'commonjs vscode', // ignored because it doesn't exist
@@ -95,4 +96,4 @@ const webExtensionConfig = {
   devtool: 'nosources-source-map', // create a source map that points to the original source file
 };
 
-module.exports = [config];
+module.exports = [webExtensionConfig];

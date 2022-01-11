@@ -25,7 +25,6 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./dist/index.js",
     "browser": "./dist/web/extension.js",
     "activationEvents": [
         "onLanguage:html-hubl",
@@ -193,6 +192,7 @@
     },
     "dependencies": {
         "axios": "^0.24.0",
+        "buffer": "^6.0.3",
         "cross-fetch": "^3.1.4",
         "moment": "^2.29.1",
         "vscode-uri": "^3.0.2",

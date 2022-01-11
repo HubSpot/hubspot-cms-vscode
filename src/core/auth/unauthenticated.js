@@ -15,14 +15,19 @@ async function fetchAccessToken(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Cross-Origin-Resource-Policy': '*',
     },
-    params,
     body: JSON.stringify({
       encodedOAuthRefreshToken: personalAccessKey,
     }),
   };
 
-  return fetch('https://api.hubapi.com/localdevauth/v1/auth/refresh', config);
+  return fetch(
+    `https://api.hubapi.com/localdevauth/v1/auth/refresh?${new URLSearchParams(
+      params
+    ).toString()}`,
+    config
+  );
 }
 
 export { fetchAccessToken };

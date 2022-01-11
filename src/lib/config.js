@@ -16,7 +16,7 @@ const findAndLoadConfigFile = async () => {
   try {
     const file = await vscode.workspace.fs.readFile(config[0]);
 
-    setConfig(yaml.parse(file.toString()));
+    setConfig(yaml.parse(Buffer.from(file).toString()));
   } catch (error) {
     console.error('Could not read config file');
     return null;

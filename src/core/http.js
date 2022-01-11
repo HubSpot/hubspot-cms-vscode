@@ -1,5 +1,4 @@
 import 'cross-fetch/polyfill';
-import { URLSearchParams } from 'url';
 import { accessTokenForPersonalAccessKey } from './auth/personalAccessKey';
 import { getConfig } from './config';
 import { getRequestOptions } from './requestOptions';
