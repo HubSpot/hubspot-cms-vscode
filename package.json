@@ -188,6 +188,19 @@
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
                 }
             }
+        },
+        "commands": [
+            {
+                "command": "hubspot.initializeAuth",
+                "title": "Initialize HubSpot Authentication"
+            }
+        ],
+        "menus": {
+            "explorer/context": [{
+                "command": "hubspot.initializeAuth",
+                "when": "hubspot.folderContainsHubSpotConfigYaml",
+                "group": "HubSpot"
+            }]
         }
     },
     "dependencies": {

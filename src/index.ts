@@ -14,8 +14,21 @@ const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
 } = require('./lib/constants');
+const hubspotDebugChannel = vscode.window.createOutputChannel(
+  'hubspot-cms-vscode'
+);
+const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
-async function activate(context: vscode.ExtensionContext) {
+const setCustomClauseVariables = (config: any) => {
+  logOutput(`Setting hubspot.folderContainsHublFiles variable to ${!!config}`);
+  vscode.commands.executeCommand(
+    'setContext',
+    'hubspot.folderContainsHubSpotConfigYaml',
+    !!config
+  );
+};
+
+const loadHubspotConfigFile = () => {
   const workspaceFolders = vscode.workspace.workspaceFolders;
 
   if (!workspaceFolders || workspaceFolders.length < 1) {
@@ -28,6 +41,8 @@ async function activate(context: vscode.ExtensionContext) {
     return;
   }
 
+  logOutput(`Root path: ${rootPath}`);
+
   const path = findConfig(rootPath);
 
   if (!path) {
@@ -38,8 +53,15 @@ async function activate(context: vscode.ExtensionContext) {
 
   if (!validateConfig()) {
     return;
+  } else {
+    return path;
   }
+};
 
+const loadConfigDependentFeatures = async (
+  context: vscode.ExtensionContext,
+  config: any
+) => {
   const trackAction = async (action: string) => {
     if (!isTrackingAllowed()) {
       return;
@@ -95,6 +117,21 @@ async function activate(context: vscode.ExtensionContext) {
       }
     })
   );
+};
+
+async function activate(context: vscode.ExtensionContext) {
+  logOutput('Activating Extension...');
+
+  const configPath = loadHubspotConfigFile();
+
+  setCustomClauseVariables(configPath);
+
+  if (configPath) {
+    logOutput(`HubSpot config loaded from: ${configPath}`);
+    await loadConfigDependentFeatures(context, configPath);
+  } else {
+    logOutput(`No config found.`);
+  }
 }
 
 module.exports = {
