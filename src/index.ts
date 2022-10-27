@@ -11,6 +11,9 @@ const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 const { notifyBeta } = require('./lib/notify');
 const { PortalsProvider } = require('./lib/providers/portalsProvider');
+const {
+  DocumentationProvider,
+} = require('./lib/providers/documentationProvider');
 
 const {
   EXTENSION_CONFIG_NAME,
@@ -120,17 +123,10 @@ const loadConfigDependentFeatures = async (
     })
   );
 
-  // vscode.window.registerTreeDataProvider(
-  //   'portals',
-  //   // new PortalsProvider(configPath)
-  //   new PortalsProvider(vscode.workspace.workspaceFolders[0].uri.fsPath)
-  // );
-
-  logOutput(PortalsProvider);
-
-  vscode.window.createTreeView('portals', {
-    treeDataProvider: new PortalsProvider(configPath),
-  });
+  vscode.window.registerTreeDataProvider(
+    'hubspot:portals',
+    new PortalsProvider(configPath)
+  );
 };
 
 async function activate(context: vscode.ExtensionContext) {
@@ -139,6 +135,10 @@ async function activate(context: vscode.ExtensionContext) {
   const configPath = loadHubspotConfigFile();
 
   setCustomClauseVariables(configPath);
+  vscode.window.registerTreeDataProvider(
+    'hubspot:documentation',
+    new DocumentationProvider()
+  );
 
   if (configPath) {
     logOutput(`HubSpot config loaded from: ${configPath}`);

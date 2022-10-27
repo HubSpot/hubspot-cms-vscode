@@ -30,7 +30,7 @@
         "onLanguage:html-hubl",
         "onLanguage:css-hubl",
         "onLanguage:hubl",
-        "onView:portals"
+        "onView:hubspot:portals"
     ],
     "contributes": {
         "snippets": [
@@ -217,14 +217,18 @@
         "views": {
             "hubspot-explorer": [
                 {
-                    "id": "portals",
+                    "id": "hubspot:portals",
                     "name": "Portals"
+                },
+                {
+                    "id": "hubspot:documentation",
+                    "name": "Documentation"
                 }
             ]
         },
         "viewsWelcome": [
             {
-                "view": "portals",
+                "view": "hubspot:portals",
                 "contents": "In order to use HubSpot VSCode features, you need to authenticate your account. \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\nTo learn more about personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "!hubspot.folderContainsHubSpotConfigYaml"
             }
