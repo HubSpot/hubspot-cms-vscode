@@ -10,6 +10,8 @@ const {
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 const { notifyBeta } = require('./lib/notify');
+const { PortalsProvider } = require('./lib/providers/portalsProvider');
+
 const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
@@ -60,7 +62,7 @@ const loadHubspotConfigFile = () => {
 
 const loadConfigDependentFeatures = async (
   context: vscode.ExtensionContext,
-  config: any
+  configPath: any
 ) => {
   const trackAction = async (action: string) => {
     if (!isTrackingAllowed()) {
@@ -117,6 +119,18 @@ const loadConfigDependentFeatures = async (
       }
     })
   );
+
+  // vscode.window.registerTreeDataProvider(
+  //   'portals',
+  //   // new PortalsProvider(configPath)
+  //   new PortalsProvider(vscode.workspace.workspaceFolders[0].uri.fsPath)
+  // );
+
+  logOutput(PortalsProvider);
+
+  vscode.window.createTreeView('portals', {
+    treeDataProvider: new PortalsProvider(configPath),
+  });
 };
 
 async function activate(context: vscode.ExtensionContext) {

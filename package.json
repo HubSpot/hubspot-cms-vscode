@@ -29,7 +29,8 @@
     "activationEvents": [
         "onLanguage:html-hubl",
         "onLanguage:css-hubl",
-        "onLanguage:hubl"
+        "onLanguage:hubl",
+        "onView:portals"
     ],
     "contributes": {
         "snippets": [
@@ -196,44 +197,48 @@
             }
         ],
         "menus": {
-            "explorer/context": [{
-                "command": "hubspot.initializeAuth",
-                "when": "hubspot.folderContainsHubSpotConfigYaml",
-                "group": "HubSpot"
-            }]
+            "explorer/context": [
+                {
+                    "command": "hubspot.initializeAuth",
+                    "when": "hubspot.folderContainsHubSpotConfigYaml",
+                    "group": "HubSpot"
+                }
+            ]
         },
         "viewsContainers": {
             "activitybar": [
-              {
-                "id": "hubspot-explorer",
-                "title": "HubSpot",
-                "icon": "images/hubspot-logo.svg"
-              }
+                {
+                    "id": "hubspot-explorer",
+                    "title": "HubSpot",
+                    "icon": "images/hubspot-logo.svg"
+                }
             ]
-          },
-          "views": {
+        },
+        "views": {
             "hubspot-explorer": [
-              {
-                "id": "portals",
-                "name": "Portals"
-              }
+                {
+                    "id": "portals",
+                    "name": "Portals"
+                }
             ]
-          },
-          "viewsWelcome": [
+        },
+        "viewsWelcome": [
             {
-              "view": "portals",
-              "contents": "In order to use HubSpot VSCode features, you need to authenticate your account. \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\nTo learn more about personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-              "when": "!hubspot.folderContainsHubSpotConfigYaml"
+                "view": "portals",
+                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account. \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\nTo learn more about personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "!hubspot.folderContainsHubSpotConfigYaml"
             }
-          ]
+        ]
     },
     "dependencies": {
         "@hubspot/cli-lib": "^3.0.7",
         "fs-extra": "^9.0.1",
+        "js-yaml": "^4.1.0",
         "node-fetch": "^3.1.1",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
+        "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/vscode": "1.30.0",
         "eslint": "^7.5.0",
