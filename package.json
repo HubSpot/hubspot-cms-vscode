@@ -10,7 +10,7 @@
     "scripts": {
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
-        "prettier:write": "prettier --write '**/*.{js,json}'",
+        "prettier:write": "prettier --write '**/*.{ts,js,json}'",
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
