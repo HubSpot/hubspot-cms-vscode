@@ -1,9 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-const hubspotDebugChannel =
-  vscode.window.createOutputChannel('hubspot-cms-vscode');
-const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
 export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   public config: any;
@@ -23,7 +20,6 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
 
     if (element) {
       // Should never be called, but just in case
-      logOutput(`ELEMENT: ${JSON.stringify(element)}`);
       return Promise.resolve([]);
     } else {
       if (this.pathExists(this.configPath)) {

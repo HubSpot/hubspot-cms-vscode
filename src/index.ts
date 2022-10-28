@@ -13,13 +13,15 @@ const { PortalsProvider } = require('./lib/providers/portalsProvider');
 const {
   DocumentationProvider,
 } = require('./lib/providers/documentationProvider');
+const { startAuthServer } = require('./lib/auth');
 
 const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
 } = require('./lib/constants');
-const hubspotDebugChannel =
-  vscode.window.createOutputChannel('hubspot-cms-vscode');
+const hubspotDebugChannel = vscode.window.createOutputChannel(
+  'hubspot-cms-vscode'
+);
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
 const setCustomClauseVariables = (config: any) => {
@@ -31,15 +33,7 @@ const setCustomClauseVariables = (config: any) => {
   );
 };
 
-const loadHubspotConfigFile = () => {
-  const workspaceFolders = vscode.workspace.workspaceFolders;
-
-  if (!workspaceFolders || workspaceFolders.length < 1) {
-    return;
-  }
-
-  const rootPath = workspaceFolders[0].uri.fsPath;
-
+const loadHubspotConfigFile = (rootPath: string) => {
   if (!rootPath) {
     return;
   }
@@ -61,34 +55,34 @@ const loadHubspotConfigFile = () => {
   }
 };
 
+const trackAction = async (action: string) => {
+  if (!isTrackingAllowed()) {
+    return;
+  }
+
+  let authType = 'unknown';
+  const accountId = getAccountId();
+
+  if (accountId) {
+    const accountConfig = getAccountConfig(accountId);
+    authType =
+      accountConfig && accountConfig.authType
+        ? accountConfig.authType
+        : 'apikey';
+  }
+
+  await trackUsage(
+    'vscode-extension-interaction',
+    'INTERACTION',
+    { authType, action },
+    accountId
+  );
+};
+
 const loadConfigDependentFeatures = async (
   context: vscode.ExtensionContext,
-  configPath: any
+  configPath: string
 ) => {
-  const trackAction = async (action: string) => {
-    if (!isTrackingAllowed()) {
-      return;
-    }
-
-    let authType = 'unknown';
-    const accountId = getAccountId();
-
-    if (accountId) {
-      const accountConfig = getAccountConfig(accountId);
-      authType =
-        accountConfig && accountConfig.authType
-          ? accountConfig.authType
-          : 'apikey';
-    }
-
-    await trackUsage(
-      'vscode-extension-interaction',
-      'INTERACTION',
-      { authType, action },
-      accountId
-    );
-  };
-
   await trackAction('extension-activated');
 
   if (
@@ -129,9 +123,22 @@ const loadConfigDependentFeatures = async (
 
 async function activate(context: vscode.ExtensionContext) {
   logOutput('Activating Extension...');
+  const workspaceFolders = vscode.workspace.workspaceFolders;
 
-  const configPath = loadHubspotConfigFile();
+  if (!workspaceFolders || workspaceFolders.length < 1) {
+    return;
+  }
 
+  const rootPath = workspaceFolders[0].uri.fsPath;
+  const configPath = loadHubspotConfigFile(rootPath);
+
+  startAuthServer(
+    {
+      configPath,
+      rootPath,
+    },
+    logOutput
+  );
   setCustomClauseVariables(configPath);
   vscode.window.registerTreeDataProvider(
     'hubspot:documentation',
