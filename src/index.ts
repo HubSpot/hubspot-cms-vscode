@@ -9,7 +9,6 @@ const {
 } = require('@hubspot/cli-lib');
 const { enableLinting, disableLinting } = require('./lib/lint');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
-const { notifyBeta } = require('./lib/notify');
 const { PortalsProvider } = require('./lib/providers/portalsProvider');
 const {
   DocumentationProvider,
@@ -19,9 +18,8 @@ const {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
 } = require('./lib/constants');
-const hubspotDebugChannel = vscode.window.createOutputChannel(
-  'hubspot-cms-vscode'
-);
+const hubspotDebugChannel =
+  vscode.window.createOutputChannel('hubspot-cms-vscode');
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
 const setCustomClauseVariables = (config: any) => {

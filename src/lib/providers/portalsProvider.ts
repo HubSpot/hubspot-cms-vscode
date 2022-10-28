@@ -1,9 +1,8 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-const hubspotDebugChannel = vscode.window.createOutputChannel(
-  'hubspot-cms-vscode'
-);
+const hubspotDebugChannel =
+  vscode.window.createOutputChannel('hubspot-cms-vscode');
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
 export class PortalsProvider implements vscode.TreeDataProvider<Portal> {

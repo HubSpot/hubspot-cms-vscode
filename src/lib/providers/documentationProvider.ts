@@ -9,7 +9,8 @@ const DOCUMENTATION_TREE = [
 ];
 
 export class DocumentationProvider
-  implements vscode.TreeDataProvider<DocumentationLink> {
+  implements vscode.TreeDataProvider<DocumentationLink>
+{
   constructor() {}
 
   getTreeItem(element: DocumentationLink): vscode.TreeItem {
