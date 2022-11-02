@@ -8,7 +8,6 @@ const {
 const {
   createEmptyConfigFile,
   // updateDefaultAccount,
-  // findConfig,
   setConfigPath,
 } = require('@hubspot/cli-lib/lib/config');
 
@@ -20,18 +19,12 @@ const startAuthServer = ({ configPath, rootPath }: any, logOutput: any) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  app.get('/', (req: any, res: any) => {
-    logOutput('GET');
-    res.send('Hello World!');
-  });
-
   app.post('/', async (req: any, res: any) => {
-    logOutput(`POST Body: ${JSON.stringify(req.body, null, 2)}`);
-    logOutput(`Req Host: ${req.url} - ${req.url.path}`);
-    // TODO - Figure out which env the request came from to set `env`
+    logOutput(`Auth POST Body: ${JSON.stringify(req.body, null, 2)}`);
 
     try {
       const {
+        env = 'prod',
         name,
         personalAccessKeyResp: { encodedOAuthRefreshToken: personalAccessKey },
       } = req.body;
@@ -45,7 +38,7 @@ const startAuthServer = ({ configPath, rootPath }: any, logOutput: any) => {
       const updatedConfig = await updateConfigWithPersonalAccessKey({
         personalAccessKey,
         name,
-        env: 'QA',
+        env,
       });
 
       logOutput(`Updated config: ${JSON.stringify(updatedConfig, null, 2)}`);

@@ -24,12 +24,14 @@ const hubspotDebugChannel = vscode.window.createOutputChannel(
 );
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
-const setCustomClauseVariables = (config: any) => {
-  logOutput(`Setting hubspot.folderContainsHublFiles variable to ${!!config}`);
+const setCustomClauseVariables = (configPath: any) => {
+  logOutput(
+    `Setting hubspot.folderContainsHublFiles variable to ${!!configPath}`
+  );
   vscode.commands.executeCommand(
     'setContext',
     'hubspot.folderContainsHubSpotConfigYaml',
-    !!config
+    !!configPath
   );
 };
 
@@ -132,6 +134,8 @@ async function activate(context: vscode.ExtensionContext) {
   const rootPath = workspaceFolders[0].uri.fsPath;
   const configPath = loadHubspotConfigFile(rootPath);
 
+  // TODO - Restart server when hubspot.config.yml is changed
+  // Update tree data when hubspot.config.yml is changed
   startAuthServer(
     {
       configPath,
