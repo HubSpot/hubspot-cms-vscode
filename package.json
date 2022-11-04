@@ -200,7 +200,11 @@
             {
                 "command": "hubspot.initializeAuth",
                 "title": "Initialize HubSpot Authentication"
-            }
+            },
+            {
+                "command": "hubspot.config.setDefaultAccount",
+                "title": "Set Default Account"
+              }
         ],
         "menus": {
             "explorer/context": [

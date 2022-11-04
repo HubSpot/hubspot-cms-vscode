@@ -1,7 +1,8 @@
+import { setCustomClauseVariables } from './variables';
+import { updateStatusBarItems } from './statusBar';
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
-const { setCustomClauseVariables } = require('./variables');
 
-const loadHubspotConfigFile = (rootPath: string) => {
+export const loadHubspotConfigFile = (rootPath: string) => {
   if (!rootPath) {
     return;
   }
@@ -20,13 +21,8 @@ const loadHubspotConfigFile = (rootPath: string) => {
   loadConfig(path);
 
   if (!validateConfig()) {
-    console.log(`!validateCofig`);
     return;
   } else {
     return path;
   }
-};
-
-module.exports = {
-  loadHubspotConfigFile,
 };

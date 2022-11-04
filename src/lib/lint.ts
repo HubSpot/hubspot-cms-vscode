@@ -1,11 +1,12 @@
-const vscode = require('vscode');
-const { triggerValidate } = require('./validation');
-const { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } = require('./constants');
+import * as vscode from 'vscode';
+import { triggerValidate } from './validation';
+import { trackAction } from './tracking';
+import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
 
 const collection = vscode.languages.createDiagnosticCollection('hubl');
-let documentChangeListener;
+let documentChangeListener: vscode.Disposable;
 
-const setLintingEnabledState = () => {
+export const setLintingEnabledState = () => {
   if (
     vscode.workspace
       .getConfiguration(EXTENSION_CONFIG_NAME)
@@ -15,7 +16,7 @@ const setLintingEnabledState = () => {
   }
 };
 
-const getUpdateLintingOnConfigChange = () => {
+export const getUpdateLintingOnConfigChange = () => {
   return vscode.workspace.onDidChangeConfiguration(async (e) => {
     if (
       e.affectsConfiguration(
@@ -37,7 +38,7 @@ const getUpdateLintingOnConfigChange = () => {
   });
 };
 
-const enableLinting = () => {
+export const enableLinting = () => {
   if (vscode.window.activeTextEditor) {
     triggerValidate(vscode.window.activeTextEditor.document, collection);
   }
@@ -49,16 +50,9 @@ const enableLinting = () => {
   });
 };
 
-const disableLinting = () => {
+export const disableLinting = () => {
   // Clear out any existing diagnostics
   collection.clear();
   // Remove onDidChangeTextDocument event listener
   documentChangeListener.dispose();
-};
-
-module.exports = {
-  enableLinting,
-  disableLinting,
-  getUpdateLintingOnConfigChange,
-  setLintingEnabledState,
 };

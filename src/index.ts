@@ -1,31 +1,21 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-const { PortalsProvider } = require('./lib/providers/portalsProvider');
-const {
-  DocumentationProvider,
-} = require('./lib/providers/documentationProvider');
-const { startAuthServer } = require('./lib/servers/auth');
-const {
+import { PortalsProvider } from './lib/providers/portalsProvider';
+import { DocumentationProvider } from './lib/providers/documentationProvider';
+import { startAuthServer } from './lib/servers/auth';
+import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
-} = require('./lib/lint');
-const { trackAction } = require('./lib/tracking');
-const { loadHubspotConfigFile } = require('./lib/auth');
+} from './lib/lint';
+import { trackAction } from './lib/tracking';
+import { loadHubspotConfigFile } from './lib/auth';
+import { registerCommands } from './lib/commands';
+import { initializeStatusBar } from './lib/statusBar';
 
 const hubspotDebugChannel = vscode.window.createOutputChannel(
   'hubspot-cms-vscode'
 );
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
-
-const initStatusBarActivePortal = (context: any) => {
-  const hsStatusBar = vscode.window.createStatusBarItem(
-    vscode.StatusBarAlignment.Left,
-    1
-  );
-  hsStatusBar.text = `$(arrow-swap) Test`;
-  hsStatusBar.command = 'hubspot:setDefaultAccount';
-  context.subscriptions.push(hsStatusBar);
-};
 
 const loadConfigDependentFeatures = async (
   context: vscode.ExtensionContext,
@@ -45,11 +35,14 @@ const loadConfigDependentFeatures = async (
     'hubspot:portals',
     new PortalsProvider(configPath)
   );
-  initStatusBarActivePortal(context);
 };
 
-async function activate(context: vscode.ExtensionContext) {
-  logOutput('Activating Extension...');
+export const activate = async (context: vscode.ExtensionContext) => {
+  console.log('Activating Extension...');
+
+  registerCommands(context);
+  initializeStatusBar(context);
+
   const workspaceFolders = vscode.workspace.workspaceFolders;
 
   if (!workspaceFolders || workspaceFolders.length < 1) {
@@ -89,8 +82,4 @@ async function activate(context: vscode.ExtensionContext) {
   } else {
     logOutput(`No config found. Config path: ${configPath}`);
   }
-}
-
-module.exports = {
-  activate,
 };

@@ -17,7 +17,7 @@ const {
 const fs = require('fs');
 const path = require('path');
 
-const getRange = (document, error) => {
+const getRange = (document: any, error: any) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;
 
   if (error.startPosition > 0) {
@@ -30,7 +30,7 @@ const getRange = (document, error) => {
   }
 };
 
-const isFileInWorkspace = (error) => {
+const isFileInWorkspace = (error: any) => {
   const pathToActiveFile = vscode.window.activeTextEditor.document.uri.path;
   const dirToActiveFile = path.dirname(pathToActiveFile);
 
@@ -43,11 +43,11 @@ const isFileInWorkspace = (error) => {
   return fs.existsSync(path.resolve(dirToActiveFile, filePath));
 };
 
-const clearValidation = (document, collection) => {
+const clearValidation = (document: any, collection: any) => {
   collection.set(document.uri, null);
 };
 
-const getRenderingErrors = async (source, context) => {
+const getRenderingErrors = async (source: any, context: any) => {
   try {
     const { renderingErrors } = await validateHubl(
       getPortalId(),
@@ -60,7 +60,7 @@ const getRenderingErrors = async (source, context) => {
   }
 };
 
-const getTemplateType = (document) => {
+const getTemplateType = (document: any) => {
   if (isCodedFile(document.fileName)) {
     const getAnnotationValue = buildAnnotationValueGetter(document.getText());
     return {
@@ -76,7 +76,7 @@ const getTemplateType = (document) => {
   return {};
 };
 
-const updateValidation = async (document, collection) => {
+const updateValidation = async (document: any, collection: any) => {
   if (!document) {
     return collection.clear();
   }
@@ -91,7 +91,7 @@ const updateValidation = async (document, collection) => {
     return clearValidation(document, collection);
   }
 
-  const resolvedRenderingErrors = renderingErrors.filter((error) => {
+  const resolvedRenderingErrors = renderingErrors.filter((error: any) => {
     if (
       error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
       error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
@@ -101,7 +101,7 @@ const updateValidation = async (document, collection) => {
     return true;
   });
 
-  const templateErrors = resolvedRenderingErrors.map((error) => {
+  const templateErrors = resolvedRenderingErrors.map((error: any) => {
     return {
       code: '',
       message: error.message,
@@ -113,8 +113,8 @@ const updateValidation = async (document, collection) => {
   collection.set(document.uri, templateErrors);
 };
 
-let timeout = null;
-const triggerValidate = (document, collection) => {
+let timeout: NodeJS.Timeout;
+export const triggerValidate = (document: any, collection: any) => {
   clearTimeout(timeout);
 
   if (!['html-hubl', 'css-hubl'].includes(document.languageId)) {
@@ -125,5 +125,3 @@ const triggerValidate = (document, collection) => {
     updateValidation(document, collection);
   }, 1000);
 };
-
-module.exports = { triggerValidate };

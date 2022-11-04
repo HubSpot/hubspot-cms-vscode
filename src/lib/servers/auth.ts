@@ -1,12 +1,12 @@
-const vscode = require('vscode');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const {
+import * as vscode from 'vscode';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import {
   EXTENSION_CONFIG_NAME,
   EXTENSION_CONFIG_KEYS,
-} = require('../../lib/constants');
+} from '../../lib/constants';
 
+const cors = require('cors');
 const {
   updateConfigWithPersonalAccessKey,
 } = require('@hubspot/cli-lib/personalAccessKey');
@@ -16,7 +16,7 @@ const {
   setConfigPath,
 } = require('@hubspot/cli-lib/lib/config');
 
-const startAuthServer = (
+export const startAuthServer = (
   { getConfigPath, rootPath, onAuthSuccess }: any,
   logOutput: any
 ) => {
@@ -62,10 +62,13 @@ const startAuthServer = (
           'Yes',
           'No'
         )
-        .then((answer: string) => {
+        .then((answer: string | undefined) => {
           if (answer === 'Yes') {
-            logOutput(`Updating defaultPortal to ${name}.`);
-            updateDefaultAccount(name);
+            console.log(`Updating defaultPortal to ${name}.`);
+            vscode.commands.executeCommand(
+              'hubspot.config.setDefaultAccount',
+              name
+            );
           }
         });
 
@@ -80,5 +83,3 @@ const startAuthServer = (
     logOutput(`Auth server listening on port ${port}`);
   });
 };
-
-module.exports = { startAuthServer };

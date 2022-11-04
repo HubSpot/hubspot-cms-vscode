@@ -1,4 +1,4 @@
-const TEMPLATE_ERRORS_TYPES = {
+export const TEMPLATE_ERRORS_TYPES = {
   DISABLED: 'DISABLED',
   SYNTAX_ERROR: 'SYNTAX_ERROR',
   UNKNOWN: 'UNKNOWN',
@@ -8,7 +8,7 @@ const TEMPLATE_ERRORS_TYPES = {
   OTHER: 'OTHER',
 };
 
-const VSCODE_SEVERITY = {
+export const VSCODE_SEVERITY = {
   DISABLED: 'Information',
   SYNTAX_ERROR: 'Error',
   UNKNOWN: 'Error',
@@ -18,9 +18,9 @@ const VSCODE_SEVERITY = {
   OTHER: 'Information',
 };
 
-const EXTENSION_CONFIG_NAME = 'hubspot';
+export const EXTENSION_CONFIG_NAME = 'hubspot';
 
-const EXTENSION_CONFIG_KEYS = {
+export const EXTENSION_CONFIG_KEYS = {
   NETWORK: {
     AUTH_SERVER_PORT: 'network.authServerPort',
   },
@@ -28,18 +28,13 @@ const EXTENSION_CONFIG_KEYS = {
   HUBL_LINTING: 'hublLinting',
 };
 
-const GLOBAL_STATE_KEYS = {
+export const GLOBAL_STATE_KEYS = {
   HAS_SEEN_LINTING_MESSAGE: 'HS_HAS_SEEN_LINTING_MESSAGE',
 };
 
 // Used when VS Code attempts to find the correct range of characters to select
-const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
+export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
-module.exports = {
-  TEMPLATE_ERRORS_TYPES,
-  VSCODE_SEVERITY,
-  EXTENSION_CONFIG_NAME,
-  EXTENSION_CONFIG_KEYS,
-  GLOBAL_STATE_KEYS,
-  HUBL_TAG_DEFINITION_REGEX,
+export const COMMANDS = {
+  CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
 };

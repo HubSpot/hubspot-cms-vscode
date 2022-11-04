@@ -5,7 +5,7 @@ const {
 } = require('@hubspot/cli-lib');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
-const trackAction = async (action: string) => {
+export const trackAction = async (action: string, options?: object) => {
   if (!isTrackingAllowed()) {
     return;
   }
@@ -21,14 +21,11 @@ const trackAction = async (action: string) => {
         : 'apikey';
   }
 
+  // TODO - Pass options!
   await trackUsage(
     'vscode-extension-interaction',
     'INTERACTION',
     { authType, action },
     accountId
   );
-};
-
-module.exports = {
-  trackAction,
 };
