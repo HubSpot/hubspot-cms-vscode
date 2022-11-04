@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as yaml from 'js-yaml';
 
 export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
@@ -23,6 +24,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
       return Promise.resolve([]);
     } else {
       if (this.pathExists(this.configPath)) {
+        console.log('mappedPortals: ', JSON.stringify(this.getMappedPortals()));
         return Promise.resolve(this.getMappedPortals());
       } else {
         return Promise.resolve([]);
@@ -71,7 +73,10 @@ class Portal extends vscode.TreeItem {
   constructor(
     public readonly name: string,
     public readonly id: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState
+    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+    // TODO: Figure out why this is erroring out
+    // @ts-ignore: Private method access
+    public readonly iconPath: string = new vscode.ThemeIcon('account')
   ) {
     super(name, collapsibleState);
     this.tooltip = `${this.name} - PortalId: ${this.id}`;

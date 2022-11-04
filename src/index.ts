@@ -1,126 +1,51 @@
 import * as vscode from 'vscode';
-const {
-  findConfig,
-  loadConfig,
-  validateConfig,
-  getAccountId,
-  isTrackingAllowed,
-  getAccountConfig,
-} = require('@hubspot/cli-lib');
-const { enableLinting, disableLinting } = require('./lib/lint');
-const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+import * as fs from 'fs';
 const { PortalsProvider } = require('./lib/providers/portalsProvider');
 const {
   DocumentationProvider,
 } = require('./lib/providers/documentationProvider');
-const { startAuthServer } = require('./lib/auth');
-
+const { startAuthServer } = require('./lib/servers/auth');
 const {
-  EXTENSION_CONFIG_NAME,
-  EXTENSION_CONFIG_KEYS,
-} = require('./lib/constants');
+  getUpdateLintingOnConfigChange,
+  setLintingEnabledState,
+} = require('./lib/lint');
+const { trackAction } = require('./lib/tracking');
+const { loadHubspotConfigFile } = require('./lib/auth');
+
 const hubspotDebugChannel = vscode.window.createOutputChannel(
   'hubspot-cms-vscode'
 );
 const logOutput = hubspotDebugChannel.appendLine.bind(hubspotDebugChannel);
 
-const setCustomClauseVariables = (configPath: any) => {
-  logOutput(
-    `Setting hubspot.folderContainsHublFiles variable to ${!!configPath}`
+const initStatusBarActivePortal = (context: any) => {
+  const hsStatusBar = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Left,
+    1
   );
-  vscode.commands.executeCommand(
-    'setContext',
-    'hubspot.folderContainsHubSpotConfigYaml',
-    !!configPath
-  );
-};
-
-const loadHubspotConfigFile = (rootPath: string) => {
-  if (!rootPath) {
-    return;
-  }
-
-  logOutput(`Root path: ${rootPath}`);
-
-  const path = findConfig(rootPath);
-
-  if (!path) {
-    return;
-  }
-
-  loadConfig(path);
-
-  if (!validateConfig()) {
-    return;
-  } else {
-    return path;
-  }
-};
-
-const trackAction = async (action: string) => {
-  if (!isTrackingAllowed()) {
-    return;
-  }
-
-  let authType = 'unknown';
-  const accountId = getAccountId();
-
-  if (accountId) {
-    const accountConfig = getAccountConfig(accountId);
-    authType =
-      accountConfig && accountConfig.authType
-        ? accountConfig.authType
-        : 'apikey';
-  }
-
-  await trackUsage(
-    'vscode-extension-interaction',
-    'INTERACTION',
-    { authType, action },
-    accountId
-  );
+  hsStatusBar.text = `$(arrow-swap) Test`;
+  hsStatusBar.command = 'hubspot:setDefaultAccount';
+  context.subscriptions.push(hsStatusBar);
 };
 
 const loadConfigDependentFeatures = async (
   context: vscode.ExtensionContext,
-  configPath: string
+  configPath: string,
+  rootPath: string
 ) => {
+  console.log('loadConfigDependentFeatures', configPath);
+  fs.watch(configPath, async () => {
+    console.log('hubspot.config.yml changed');
+    loadHubspotConfigFile(rootPath);
+  });
+  logOutput('loadConfigDependentFeatures');
   await trackAction('extension-activated');
-
-  if (
-    vscode.workspace
-      .getConfiguration(EXTENSION_CONFIG_NAME)
-      .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
-  ) {
-    enableLinting();
-  }
-
-  context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(async (e) => {
-      if (
-        e.affectsConfiguration(
-          `${EXTENSION_CONFIG_NAME}.${EXTENSION_CONFIG_KEYS.HUBL_LINTING}`
-        )
-      ) {
-        if (
-          vscode.workspace
-            .getConfiguration(EXTENSION_CONFIG_NAME)
-            .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
-        ) {
-          enableLinting();
-          await trackAction('linting-enabled');
-        } else {
-          disableLinting();
-          await trackAction('linting-disabled');
-        }
-      }
-    })
-  );
-
+  setLintingEnabledState();
+  context.subscriptions.push(getUpdateLintingOnConfigChange());
   vscode.window.registerTreeDataProvider(
     'hubspot:portals',
     new PortalsProvider(configPath)
   );
+  initStatusBarActivePortal(context);
 };
 
 async function activate(context: vscode.ExtensionContext) {
@@ -138,12 +63,20 @@ async function activate(context: vscode.ExtensionContext) {
   // Update tree data when hubspot.config.yml is changed
   startAuthServer(
     {
-      configPath,
+      getConfigPath: loadHubspotConfigFile,
       rootPath,
+      onAuthSuccess: async (
+        config: any,
+        name: string,
+        newConfigPath: string
+      ) => {
+        console.log('onAuthSuccess', JSON.stringify(config), name);
+        await trackAction('auth-success', { name });
+        loadConfigDependentFeatures(context, newConfigPath, rootPath);
+      },
     },
     logOutput
   );
-  setCustomClauseVariables(configPath);
   vscode.window.registerTreeDataProvider(
     'hubspot:documentation',
     new DocumentationProvider()
@@ -151,9 +84,10 @@ async function activate(context: vscode.ExtensionContext) {
 
   if (configPath) {
     logOutput(`HubSpot config loaded from: ${configPath}`);
-    await loadConfigDependentFeatures(context, configPath);
+    console.log('configPath', configPath);
+    await loadConfigDependentFeatures(context, configPath, rootPath);
   } else {
-    logOutput(`No config found.`);
+    logOutput(`No config found. Config path: ${configPath}`);
   }
 }
 
