@@ -9,6 +9,7 @@ const loadHubspotConfigFile = (rootPath: string) => {
   console.log(`Root path: ${rootPath}`);
 
   const path = findConfig(rootPath);
+  setCustomClauseVariables(path);
 
   console.log(`Path: ${path}`);
 
@@ -17,8 +18,6 @@ const loadHubspotConfigFile = (rootPath: string) => {
   }
 
   loadConfig(path);
-
-  setCustomClauseVariables(path);
 
   if (!validateConfig()) {
     console.log(`!validateCofig`);

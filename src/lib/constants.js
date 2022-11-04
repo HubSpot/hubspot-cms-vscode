@@ -22,7 +22,7 @@ const EXTENSION_CONFIG_NAME = 'hubspot';
 
 const EXTENSION_CONFIG_KEYS = {
   NETWORK: {
-    AUTH_SERVER_PORT: 'authServerPort',
+    AUTH_SERVER_PORT: 'network.authServerPort',
   },
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
