@@ -23,7 +23,7 @@ const startAuthServer = (
   const app = express();
   const port = vscode.workspace
     .getConfiguration(EXTENSION_CONFIG_NAME)
-    .get(EXTENSION_CONFIG_KEYS.AUTH_SERVER_PORT);
+    .get(EXTENSION_CONFIG_KEYS.NETWORK.AUTH_SERVER_PORT);
 
   app.use(cors());
   app.use(bodyParser.urlencoded({ extended: true }));
