@@ -25,7 +25,7 @@
         "Snippets"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./dist/index.js",
+    "main": "./dist/extension.js",
     "activationEvents": [
         "onLanguage:html-hubl",
         "onLanguage:css-hubl",
