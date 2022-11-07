@@ -7,19 +7,8 @@ import {
 } from '../../lib/constants';
 
 const cors = require('cors');
-const {
-  updateConfigWithPersonalAccessKey,
-} = require('@hubspot/cli-lib/personalAccessKey');
-const {
-  createEmptyConfigFile,
-  updateDefaultAccount,
-  setConfigPath,
-} = require('@hubspot/cli-lib/lib/config');
 
-export const startAuthServer = (
-  { getConfigPath, rootPath, onAuthSuccess }: any,
-  logOutput: any
-) => {
+export const startAuthServer = ({ onPostRequest }: any) => {
   const app = express();
   const port = vscode.workspace
     .getConfiguration(EXTENSION_CONFIG_NAME)
@@ -30,56 +19,16 @@ export const startAuthServer = (
   app.use(bodyParser.json());
 
   app.post('/', async (req: any, res: any) => {
-    logOutput(`Auth POST Body: ${JSON.stringify(req.body, null, 2)}`);
+    console.log(`Auth POST Body: ${JSON.stringify(req.body, null, 2)}`);
 
     try {
-      const {
-        env = 'prod',
-        name,
-        personalAccessKeyResp: { encodedOAuthRefreshToken: personalAccessKey },
-      } = req.body;
-      let configPath = getConfigPath(rootPath);
-
-      if (configPath) {
-        // Do we need this?
-        setConfigPath(configPath);
-      } else {
-        configPath = `${rootPath}/hubspot.config.yml`;
-        await createEmptyConfigFile({ path: configPath });
-      }
-      const updatedConfig = await updateConfigWithPersonalAccessKey({
-        personalAccessKey,
-        name,
-        env,
-      });
-
-      vscode.window.showInformationMessage(
-        `Successfully added ${name} to the config.`
-      );
-      vscode.window
-        .showInformationMessage(
-          `Do you want to set ${name} as the default account?`,
-          'Yes',
-          'No'
-        )
-        .then((answer: string | undefined) => {
-          if (answer === 'Yes') {
-            console.log(`Updating defaultPortal to ${name}.`);
-            vscode.commands.executeCommand(
-              'hubspot.config.setDefaultAccount',
-              name
-            );
-          }
-        });
-
-      await onAuthSuccess(updatedConfig, name, configPath);
-      res.send(updatedConfig);
+      res.send(await onPostRequest(req));
     } catch (e) {
       res.status(500).send(e);
     }
   });
 
   app.listen(port, () => {
-    logOutput(`Auth server listening on port ${port}`);
+    console.log(`Auth server listening on port ${port}`);
   });
 };

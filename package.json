@@ -8,6 +8,7 @@
         "vscode": "^1.30.0"
     },
     "scripts": {
+        "dev": "npm run webpack-dev",
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
         "prettier:write": "prettier --write '**/*.{ts,js,json}'",
@@ -204,7 +205,7 @@
             {
                 "command": "hubspot.config.setDefaultAccount",
                 "title": "Set Default Account"
-              }
+            }
         ],
         "menus": {
             "explorer/context": [

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { updateStatusBarItems } from './statusBar';
 import { COMMANDS } from './constants';
+import { PortalsProvider, Portal } from './providers/portalsProvider';
 
 const { updateDefaultAccount } = require('@hubspot/cli-lib/lib/config');
 

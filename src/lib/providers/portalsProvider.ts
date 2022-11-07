@@ -1,13 +1,24 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as path from 'path';
 import * as yaml from 'js-yaml';
 
 export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   public config: any;
+  // private _onDidChangeTreeData: vscode.EventEmitter<
+  //   Portal | null | undefined
+  // > = new vscode.EventEmitter<Portal | null | undefined>();
+  // public readonly onDidChangeTreeData: vscode.Event<
+  //   Portal | null | undefined
+  // > = this._onDidChangeTreeData.event;
+
   constructor(private configPath: string) {
     this.config = this.getHubspotCofigYaml(configPath);
+    // TODO - Figure out why this is giving an error
   }
+
+  // refresh(): void {
+  //   this._onDidChangeTreeData.fire();
+  // }
 
   getTreeItem(element: Portal): vscode.TreeItem {
     return element;
@@ -69,7 +80,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   }
 }
 
-class Portal extends vscode.TreeItem {
+export class Portal extends vscode.TreeItem {
   constructor(
     public readonly name: string,
     public readonly id: string,
