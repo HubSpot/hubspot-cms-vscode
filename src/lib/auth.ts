@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { setCustomClauseVariables } from './variables';
 import { updateStatusBarItems } from './statusBar';
 import { trackAction } from './tracking';
-import { HubspotConfig } from './types';
+import { HubspotConfig, Portal } from './types';
 import { getDefaultPortalFromConfig } from './helpers';
 import { COMMANDS } from './constants';
 
@@ -13,6 +13,7 @@ const {
 } = require('@hubspot/cli-lib/personalAccessKey');
 const {
   createEmptyConfigFile,
+  setConfig,
   setConfigPath,
   updateDefaultAccount,
 } = require('@hubspot/cli-lib/lib/config');
@@ -26,6 +27,8 @@ const onLoadPath = (configPath: string) => {
   setCustomClauseVariables(configPath);
   if (!configPath) {
     vscode.commands.executeCommand(COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT, null);
+    setConfig(null);
+    setConfigPath(null);
   }
 };
 
@@ -50,6 +53,12 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   }
 
   const config = loadConfig(path);
+
+  console.log(
+    'loadedHubspotConfig',
+    config.defaultPortal,
+    JSON.stringify(config.portals.map((p: Portal) => p.name))
+  );
 
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
