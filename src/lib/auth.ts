@@ -3,6 +3,9 @@ import * as fs from 'fs';
 import { setCustomClauseVariables } from './variables';
 import { updateStatusBarItems } from './statusBar';
 import { trackAction } from './tracking';
+import { HubspotConfig } from './types';
+import { getDefaultPortalFromConfig } from './helpers';
+import { COMMANDS } from './constants';
 
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
 const {
@@ -11,10 +14,24 @@ const {
 const {
   createEmptyConfigFile,
   setConfigPath,
+  updateDefaultAccount,
 } = require('@hubspot/cli-lib/lib/config');
 
-let hubspotConfigWatcher: fs.FSWatcher;
+let hubspotConfigWatcher: fs.FSWatcher | null;
+let configDependentFeaturesLoaded: boolean = false;
 let loadConfigDependentFeatures: Function;
+let updateConfigDependentFeatures: Function;
+
+const onLoadPath = (configPath: string) => {
+  setCustomClauseVariables(configPath);
+  if (!configPath) {
+    vscode.commands.executeCommand(COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT, null);
+  }
+};
+
+const onLoadHubspotConfig = (config: HubspotConfig, configPath: string) => {
+  updateConfigDependentFeatures(config, configPath);
+};
 
 export const loadHubspotConfigFile = (rootPath: string) => {
   if (!rootPath) {
@@ -24,7 +41,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   console.log(`Root path: ${rootPath}`);
 
   const path = findConfig(rootPath);
-  setCustomClauseVariables(path);
+  onLoadPath(path);
 
   console.log(`Path: ${path}`);
 
@@ -32,26 +49,33 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  loadConfig(path);
+  const config = loadConfig(path);
 
   if (!validateConfig()) {
-    return;
+    throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
+    onLoadHubspotConfig(config, path);
     return path;
   }
 };
 
-export const onChangeHubspotConfig = (config: any) => {
+export const onChangeHubspotConfig = (config: HubspotConfig) => {
   console.log('onChangeHubspotConfig');
-  updateStatusBarItems(config.defaultAccount, config);
+  updateStatusBarItems(getDefaultPortalFromConfig(config));
 };
 
-export const initializeHubspotConfigFileWatch = (
+export const initializeHubspotConfigDependents = (
   rootPath: string,
   configPath: string
 ) => {
-  if (!hubspotConfigWatcher) {
+  if (!configDependentFeaturesLoaded) {
+    configDependentFeaturesLoaded = true;
     loadConfigDependentFeatures(configPath);
+  }
+
+  // This triggers an in-memory update of the config when the file changes
+  if (!hubspotConfigWatcher) {
+    console.log('Started watching hubspot.config.yml');
     hubspotConfigWatcher = fs.watch(configPath, async (eventType) => {
       if (eventType === 'change') {
         console.log('hubspot.config.yml changed');
@@ -60,6 +84,9 @@ export const initializeHubspotConfigFileWatch = (
         // TODO - Do we want to disable config-specific features?
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);
+        hubspotConfigWatcher && hubspotConfigWatcher.close();
+        hubspotConfigWatcher = null;
+        console.log('Stopped watching hubspot.config.yml');
       }
     });
   }
@@ -68,15 +95,17 @@ export const initializeHubspotConfigFileWatch = (
 export const registerConfigDependentFeatures = async (
   context: vscode.ExtensionContext,
   rootPath: string,
-  doLoadConfigDependentFeatures: Function
+  onConfigFound: Function,
+  onConfigUpdated: Function
 ) => {
+  loadConfigDependentFeatures = onConfigFound;
+  updateConfigDependentFeatures = onConfigUpdated;
   const configPath = loadHubspotConfigFile(rootPath);
-  loadConfigDependentFeatures = doLoadConfigDependentFeatures;
 
   if (configPath) {
     console.log(`HubSpot config loaded from: ${configPath}`);
     console.log('configPath', configPath);
-    initializeHubspotConfigFileWatch(rootPath, configPath);
+    initializeHubspotConfigDependents(rootPath, configPath);
   } else {
     console.log(`No config found. Config path: ${configPath}`);
   }
@@ -108,7 +137,7 @@ export const handleHubspotConfigPostRequest = async (
     env,
   });
 
-  initializeHubspotConfigFileWatch(rootPath, configPath);
+  initializeHubspotConfigDependents(rootPath, configPath);
 
   vscode.window.showInformationMessage(
     `Successfully added ${name} to the config.`
@@ -122,9 +151,10 @@ export const handleHubspotConfigPostRequest = async (
     .then((answer: string | undefined) => {
       if (answer === 'Yes') {
         console.log(`Updating defaultPortal to ${name}.`);
+        updateDefaultAccount(name);
         vscode.commands.executeCommand(
-          'hubspot.config.setDefaultAccount',
-          name
+          COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
+          getDefaultPortalFromConfig(updatedConfig)
         );
       }
     });

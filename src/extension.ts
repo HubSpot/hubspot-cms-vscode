@@ -8,12 +8,14 @@ import {
 } from './lib/auth';
 import { registerCommands } from './lib/commands';
 import { initializeStatusBar } from './lib/statusBar';
-import { getRootPath } from './lib/helpers';
+import { getDefaultPortalFromConfig, getRootPath } from './lib/helpers';
 import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
 } from './lib/lint';
 import { PortalsProvider } from './lib/providers/portalsProvider';
+import { HubspotConfig } from './lib/types';
+import { COMMANDS } from './lib/constants';
 
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
@@ -21,17 +23,33 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   registerCommands(context);
   initializeStatusBar(context);
-  registerConfigDependentFeatures(context, rootPath, (configPath: string) => {
-    console.log('loadConfigDependentFeatures');
-    setLintingEnabledState();
-    const portalProvider = new PortalsProvider(configPath);
-    context.subscriptions.push(getUpdateLintingOnConfigChange());
-    vscode.window.registerTreeDataProvider('hubspot:portals', portalProvider);
-    // vscode.commands.registerCommand(
-    //   'hubspot:portals:refresh',
-    //   portalProvider.refresh
-    // );
-  });
+  registerConfigDependentFeatures(
+    context,
+    rootPath,
+    (configPath: string) => {
+      console.log('loadConfigDependentFeatures');
+      setLintingEnabledState();
+      const portalProvider = new PortalsProvider(configPath);
+      context.subscriptions.push(getUpdateLintingOnConfigChange());
+      vscode.window.registerTreeDataProvider('hubspot:portals', portalProvider);
+      // vscode.commands.registerCommand(
+      //   'hubspot:portals:refresh',
+      //   portalProvider.refresh
+      // );
+    },
+    (config: HubspotConfig, configPath: string) => {
+      console.log(
+        'updateConfigDependentFeatures',
+        config.defaultPortal,
+        JSON.stringify(config.portals.map((p) => p.name)),
+        configPath
+      );
+      vscode.commands.executeCommand(
+        COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
+        getDefaultPortalFromConfig(config)
+      );
+    }
+  );
 
   // TODO - Restart server when hubspot.config.yml is changed
   // Update tree data when hubspot.config.yml is changed

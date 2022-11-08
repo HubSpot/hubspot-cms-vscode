@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 export const setCustomClauseVariables = (configPath: any) => {
   console.log(
-    `Setting hubspot.folderContainsHublFiles variable to ${!!configPath}: ${configPath}`
+    `Setting hubspot.folderContainsHubSpotConfigYaml variable to ${!!configPath}: ${configPath}`
   );
   vscode.commands.executeCommand(
     'setContext',

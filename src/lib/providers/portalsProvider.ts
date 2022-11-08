@@ -1,14 +1,17 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
+import { getDisplayedHubspotPortalInfo } from '../helpers';
+import { Portal } from '../types';
 
-export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
+export class PortalsProvider
+  implements vscode.TreeDataProvider<PortalTreeItem> {
   public config: any;
   // private _onDidChangeTreeData: vscode.EventEmitter<
-  //   Portal | null | undefined
-  // > = new vscode.EventEmitter<Portal | null | undefined>();
+  //   PortalTreeItem | null | undefined
+  // > = new vscode.EventEmitter<PortalTreeItem | null | undefined>();
   // public readonly onDidChangeTreeData: vscode.Event<
-  //   Portal | null | undefined
+  //   PortalTreeItem | null | undefined
   // > = this._onDidChangeTreeData.event;
 
   constructor(private configPath: string) {
@@ -20,11 +23,13 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   //   this._onDidChangeTreeData.fire();
   // }
 
-  getTreeItem(element: Portal): vscode.TreeItem {
+  getTreeItem(element: PortalTreeItem): vscode.TreeItem {
     return element;
   }
 
-  getChildren(element?: Portal): Thenable<Portal[] | undefined> {
+  getChildren(
+    element?: PortalTreeItem
+  ): Thenable<PortalTreeItem[] | undefined> {
     vscode.window.showInformationMessage(this.configPath);
     if (!this.configPath) {
       return Promise.resolve([]);
@@ -35,7 +40,6 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
       return Promise.resolve([]);
     } else {
       if (this.pathExists(this.configPath)) {
-        console.log('mappedPortals: ', JSON.stringify(this.getMappedPortals()));
         return Promise.resolve(this.getMappedPortals());
       } else {
         return Promise.resolve([]);
@@ -55,16 +59,17 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
     }
   }
 
-  private getMappedPortals(): Portal[] {
-    return this.config.portals.map((p: any) => {
-      return new Portal(
-        `${p.name} ${
+  private getMappedPortals(): PortalTreeItem[] {
+    return this.config.portals.map((p: Portal) => {
+      return new PortalTreeItem(
+        `${getDisplayedHubspotPortalInfo(p)} ${
           this.config.defaultPortal === p.portalId ||
           this.config.defaultPortal === p.name
             ? '(default)'
             : ''
         }`,
         p.portalId,
+        p,
         vscode.TreeItemCollapsibleState.None
       );
     });
@@ -80,16 +85,19 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   }
 }
 
-export class Portal extends vscode.TreeItem {
+export class PortalTreeItem extends vscode.TreeItem {
   constructor(
     public readonly name: string,
     public readonly id: string,
+    public readonly portalData: Portal,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
     public readonly iconPath: string = new vscode.ThemeIcon('account')
   ) {
     super(name, collapsibleState);
-    this.tooltip = `${this.name} - PortalId: ${this.id}`;
+    this.tooltip = `Active Account: ${getDisplayedHubspotPortalInfo(
+      portalData
+    )}`;
   }
 }

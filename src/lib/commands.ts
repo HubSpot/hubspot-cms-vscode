@@ -1,17 +1,16 @@
 import * as vscode from 'vscode';
 import { updateStatusBarItems } from './statusBar';
 import { COMMANDS } from './constants';
-import { PortalsProvider, Portal } from './providers/portalsProvider';
-
-const { updateDefaultAccount } = require('@hubspot/cli-lib/lib/config');
 
 export const registerCommands = (context: vscode.ExtensionContext) => {
   vscode.commands.registerCommand(
     COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-    (defaultAccount, config) => {
-      console.log(COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT);
-      updateDefaultAccount(defaultAccount);
-      updateStatusBarItems(defaultAccount, config);
+    (defaultAccount) => {
+      console.log(
+        'Setting default account to: ',
+        JSON.stringify(defaultAccount)
+      );
+      updateStatusBarItems(defaultAccount);
     }
   );
 };

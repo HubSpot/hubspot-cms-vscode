@@ -1,15 +1,18 @@
 import * as vscode from 'vscode';
+import { getDisplayedHubspotPortalInfo } from './helpers';
+import { Portal } from './types';
 
 let hsStatusBar: vscode.StatusBarItem;
 
-export const updateStatusBarItems = (
-  defaultAccount: string,
-  config: object
-) => {
-  console.log('updateStatusBarItems', defaultAccount, config);
+export const updateStatusBarItems = (defaultAccount: Portal | undefined) => {
+  console.log('updateStatusBarItems');
   if (defaultAccount) {
-    hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
-    hsStatusBar.tooltip = `Active HubSpot Account: ${defaultAccount}`;
+    hsStatusBar.text = `$(arrow-swap) ${getDisplayedHubspotPortalInfo(
+      defaultAccount
+    )}`;
+    hsStatusBar.tooltip = `Active HubSpot Account: ${getDisplayedHubspotPortalInfo(
+      defaultAccount
+    )}`;
     hsStatusBar.show();
   } else {
     hsStatusBar.hide();
@@ -23,7 +26,7 @@ export const initializeStatusBar = (context: vscode.ExtensionContext) => {
     vscode.StatusBarAlignment.Right,
     100
   );
-  hsStatusBar.command = 'hubspot.config.setDefaultAccount';
+  hsStatusBar.command = 'hubspot.config.selectDefaultAccount';
 
   context.subscriptions.push(hsStatusBar);
 };

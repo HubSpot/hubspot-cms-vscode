@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { HubspotConfig, Portal } from './types';
 
 export const getRootPath = () => {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -8,4 +9,21 @@ export const getRootPath = () => {
   }
 
   return workspaceFolders[0].uri.fsPath;
+};
+
+export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
+  return (
+    config &&
+    config.portals &&
+    config.portals.find(
+      (p: Portal) =>
+        p.portalId === config.defaultPortal || p.name === config.defaultPortal
+    )
+  );
+};
+
+export const getDisplayedHubspotPortalInfo = (portalData: Portal) => {
+  return portalData.name
+    ? `${portalData.name} - ${portalData.portalId}`
+    : portalData.portalId;
 };
