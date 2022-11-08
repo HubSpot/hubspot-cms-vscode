@@ -64,5 +64,10 @@ export class PortalTreeItem extends vscode.TreeItem {
     this.tooltip = `Active Account: ${getDisplayedHubspotPortalInfo(
       portalData
     )}`;
+    // this.command = {
+    //   command: 'hubspot.config.changeDefaultAccount',
+    //   title: 'Set Default Account',
+    //   arguments: [portalData],
+    // };
   }
 }
