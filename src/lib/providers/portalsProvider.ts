@@ -1,87 +1,52 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as yaml from 'js-yaml';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
-import { Portal } from '../types';
+import { HubspotConfig, Portal } from '../types';
 
-export class PortalsProvider
-  implements vscode.TreeDataProvider<PortalTreeItem> {
-  public config: any;
-  // private _onDidChangeTreeData: vscode.EventEmitter<
-  //   PortalTreeItem | null | undefined
-  // > = new vscode.EventEmitter<PortalTreeItem | null | undefined>();
-  // public readonly onDidChangeTreeData: vscode.Event<
-  //   PortalTreeItem | null | undefined
-  // > = this._onDidChangeTreeData.event;
+const { getConfig } = require('@hubspot/cli-lib');
 
-  constructor(private configPath: string) {
-    this.config = this.getHubspotCofigYaml(configPath);
-    // TODO - Figure out why this is giving an error
+export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
+  private config: HubspotConfig;
+  constructor() {
+    this.config = getConfig();
   }
 
-  // refresh(): void {
-  //   this._onDidChangeTreeData.fire();
-  // }
+  _onDidChangeTreeData: vscode.EventEmitter<undefined> = new vscode.EventEmitter<undefined>();
+  onDidChangeTreeData: vscode.Event<undefined> = this._onDidChangeTreeData
+    .event;
 
-  getTreeItem(element: PortalTreeItem): vscode.TreeItem {
-    return element;
+  refresh(): void {
+    console.log('Triggering PortalsProvider:refresh');
+    this._onDidChangeTreeData.fire();
   }
 
-  getChildren(
-    element?: PortalTreeItem
-  ): Thenable<PortalTreeItem[] | undefined> {
-    vscode.window.showInformationMessage(this.configPath);
-    if (!this.configPath) {
-      return Promise.resolve([]);
+  getTreeItem(p: Portal): vscode.TreeItem {
+    return new PortalTreeItem(
+      `${getDisplayedHubspotPortalInfo(p)} ${
+        this.config.defaultPortal === p.portalId ||
+        this.config.defaultPortal === p.name
+          ? '(default)'
+          : ''
+      }`,
+      p.portalId,
+      p,
+      vscode.TreeItemCollapsibleState.None
+    );
+  }
+
+  getChildren(): Thenable<Portal[] | undefined> {
+    console.log(
+      '_onDidChangeTreeData',
+      this._onDidChangeTreeData,
+      this._onDidChangeTreeData.event
+    );
+
+    this.config = getConfig();
+
+    if (this.config && this.config.portals) {
+      return Promise.resolve(this.config.portals);
     }
 
-    if (element) {
-      // Should never be called, but just in case
-      return Promise.resolve([]);
-    } else {
-      if (this.pathExists(this.configPath)) {
-        return Promise.resolve(this.getMappedPortals());
-      } else {
-        return Promise.resolve([]);
-      }
-    }
-  }
-
-  private getHubspotCofigYaml(configPath: string): any {
-    if (this.pathExists(configPath)) {
-      try {
-        return yaml.load(fs.readFileSync(configPath.slice(1), 'utf-8'));
-      } catch (e: any) {
-        throw new Error(e);
-      }
-    } else {
-      return {};
-    }
-  }
-
-  private getMappedPortals(): PortalTreeItem[] {
-    return this.config.portals.map((p: Portal) => {
-      return new PortalTreeItem(
-        `${getDisplayedHubspotPortalInfo(p)} ${
-          this.config.defaultPortal === p.portalId ||
-          this.config.defaultPortal === p.name
-            ? '(default)'
-            : ''
-        }`,
-        p.portalId,
-        p,
-        vscode.TreeItemCollapsibleState.None
-      );
-    });
-  }
-
-  private pathExists(p: string): boolean {
-    try {
-      fs.accessSync(p);
-    } catch (err) {
-      return false;
-    }
-    return true;
+    return Promise.resolve([]);
   }
 }
 

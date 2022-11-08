@@ -29,13 +29,13 @@ export const activate = async (context: vscode.ExtensionContext) => {
     (configPath: string) => {
       console.log('loadConfigDependentFeatures');
       setLintingEnabledState();
-      const portalProvider = new PortalsProvider(configPath);
+      const portalProvider = new PortalsProvider();
       context.subscriptions.push(getUpdateLintingOnConfigChange());
+      vscode.commands.registerCommand('hubspot:portals:refresh', () => {
+        console.log('hubspot:portals:refresh');
+        portalProvider.refresh();
+      });
       vscode.window.registerTreeDataProvider('hubspot:portals', portalProvider);
-      // vscode.commands.registerCommand(
-      //   'hubspot:portals:refresh',
-      //   portalProvider.refresh
-      // );
     },
     (config: HubspotConfig, configPath: string) => {
       console.log(
@@ -48,6 +48,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
         COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
         getDefaultPortalFromConfig(config)
       );
+      vscode.commands.executeCommand('hubspot:portals:refresh');
     }
   );
 
