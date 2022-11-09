@@ -1,20 +1,22 @@
 import * as vscode from 'vscode';
-import { getDisplayedHubspotPortalInfo } from './helpers';
-import { Portal } from './types';
+
+const { getConfig } = require('@hubspot/cli-lib');
 
 let hsStatusBar: vscode.StatusBarItem;
 
-export const updateStatusBarItems = (defaultAccount: Portal | undefined) => {
+export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
+
+  const config = getConfig();
+  console.log('config', config);
+  const defaultAccount = config.defaultPortal;
+
   if (defaultAccount) {
-    hsStatusBar.text = `$(arrow-swap) ${getDisplayedHubspotPortalInfo(
-      defaultAccount
-    )}`;
-    hsStatusBar.tooltip = `Active HubSpot Account: ${getDisplayedHubspotPortalInfo(
-      defaultAccount
-    )}`;
+    hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
+    hsStatusBar.tooltip = `Active HubSpot Account: ${defaultAccount}`;
     hsStatusBar.show();
   } else {
+    // TODO - Show something and allow user to set default account?
     hsStatusBar.hide();
   }
 };

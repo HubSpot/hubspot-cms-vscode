@@ -70,7 +70,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
 
 export const onChangeHubspotConfig = (config: HubspotConfig) => {
   console.log('onChangeHubspotConfig');
-  updateStatusBarItems(getDefaultPortalFromConfig(config));
+  updateStatusBarItems();
 };
 
 export const initializeHubspotConfigDependents = (

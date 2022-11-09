@@ -25,7 +25,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             : defaultAccount.name || defaultAccount.portalId;
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
-        // updateStatusBarItems(defaultAccount);
+        updateStatusBarItems();
         vscode.window.showInformationMessage(
           `Successfully set default account to ${newDefaultAccount}.`
         );
@@ -62,6 +62,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
                   // @ts-ignore selection is an object
                   selection.portal.name || selection.portal.portalId;
                 updateDefaultAccount(newDefaultAccount);
+                updateStatusBarItems();
                 vscode.window.showInformationMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
@@ -77,14 +78,15 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
       'hubspot.config.renameAccount',
       async (accountToRename) => {
         vscode.window
-          .showQuickPick([], {
+          .showInputBox({
             placeHolder: 'Enter a new name for the account',
-            canPickMany: false,
           })
           .then((newName) => {
+            // TODO - Validation
             if (newName) {
               const oldName = accountToRename.name || accountToRename.portalId;
               renameAccount(oldName, newName);
+              updateStatusBarItems();
               vscode.window.showInformationMessage(
                 `Successfully renamed default account from ${oldName} to ${newName}.`
               );
@@ -113,6 +115,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             `Successfully deleted account ${accountIdentifier}.`
           );
         }
+        updateStatusBarItems();
       }
     )
   );
