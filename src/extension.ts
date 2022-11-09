@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { DocumentationProvider } from './lib/providers/documentationProvider';
-import { startAuthServer } from './lib/servers/auth';
+import { startServer } from './lib/server';
 import {
   handleHubspotConfigPostRequest,
   registerConfigDependentFeatures,
@@ -56,7 +56,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   // TODO - Restart server when hubspot.config.yml is changed
   // Update tree data when hubspot.config.yml is changed
-  startAuthServer({
+  startServer({
     onPostRequest: async (req: any) => {
       return handleHubspotConfigPostRequest(req, { rootPath });
     },
