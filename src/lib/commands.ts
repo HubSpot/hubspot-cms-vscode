@@ -3,6 +3,7 @@ import { updateStatusBarItems } from './statusBar';
 import { COMMANDS } from './constants';
 import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
+import { portalNameInvalid } from './validation';
 
 const { getConfig } = require('@hubspot/cli-lib');
 const {
@@ -75,25 +76,35 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
     )
   );
 
+  const showRenameAccountPrompt = (accountToRename: Portal) => {
+    vscode.window
+      .showInputBox({
+        placeHolder: 'Enter a new name for the account',
+      })
+      .then((newName) => {
+        if (newName) {
+          const invalidReason = portalNameInvalid(newName, getConfig());
+
+          if (!invalidReason) {
+            const oldName = accountToRename.name || accountToRename.portalId;
+            renameAccount(oldName, newName);
+            updateStatusBarItems();
+            vscode.window.showInformationMessage(
+              `Successfully renamed default account from ${oldName} to ${newName}.`
+            );
+          } else {
+            vscode.window.showErrorMessage(invalidReason);
+            showRenameAccountPrompt(accountToRename);
+          }
+        }
+      });
+  };
+
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'hubspot.config.renameAccount',
       async (accountToRename) => {
-        vscode.window
-          .showInputBox({
-            placeHolder: 'Enter a new name for the account',
-          })
-          .then((newName) => {
-            // TODO - Validation
-            if (newName) {
-              const oldName = accountToRename.name || accountToRename.portalId;
-              renameAccount(oldName, newName);
-              updateStatusBarItems();
-              vscode.window.showInformationMessage(
-                `Successfully renamed default account from ${oldName} to ${newName}.`
-              );
-            }
-          });
+        showRenameAccountPrompt(accountToRename);
       }
     )
   );
@@ -121,13 +132,4 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
       }
     )
   );
-
-  // context.subscriptions.push(
-  //   vscode.commands.registerCommand(
-  //     'hubspot.config.changeDefaultAccount',
-  //     async (portalData) => {
-  //       updateDefaultAccount(portalData.name || portalData.portalId);
-  //     }
-  //   )
-  // );
 };

@@ -1,3 +1,5 @@
+import { HubspotConfig } from './types';
+
 const vscode = require('vscode');
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
@@ -124,4 +126,23 @@ export const triggerValidate = (document: any, collection: any) => {
   timeout = setTimeout(function () {
     updateValidation(document, collection);
   }, 1000);
+};
+
+export const portalNameInvalid = (
+  portalName: string,
+  config: HubspotConfig
+) => {
+  if (typeof portalName !== 'string') {
+    return 'Portal name must be a string';
+  } else if (!portalName.length) {
+    return 'Portal name cannot be empty';
+  } else if (!/^\S*$/.test(portalName)) {
+    return 'Portal name cannot contain spaces';
+  }
+  return config &&
+    (config.portals || [])
+      .map((p) => p.name)
+      .find((name) => name === portalName)
+    ? `${portalName} already exists in config.`
+    : false;
 };

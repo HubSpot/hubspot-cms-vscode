@@ -120,7 +120,6 @@ export const registerConfigDependentFeatures = async (
   }
 };
 
-// Handled express auth server POST request w/ new auth data
 export const handleHubspotConfigPostRequest = async (
   req: any,
   { rootPath }: { rootPath: string }
@@ -133,7 +132,6 @@ export const handleHubspotConfigPostRequest = async (
   let configPath = loadHubspotConfigFile(rootPath);
 
   if (configPath) {
-    // Do we need this?
     setConfigPath(configPath);
   } else {
     configPath = `${rootPath}/hubspot.config.yml`;

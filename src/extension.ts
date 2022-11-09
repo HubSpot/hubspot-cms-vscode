@@ -54,8 +54,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
     }
   );
 
-  // TODO - Restart server when hubspot.config.yml is changed
-  // Update tree data when hubspot.config.yml is changed
   startServer({
     onPostRequest: async (req: any) => {
       return handleHubspotConfigPostRequest(req, { rootPath });
