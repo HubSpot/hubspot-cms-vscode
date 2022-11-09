@@ -16,7 +16,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-      (defaultAccount) => {
+      (defaultAccount, { silenceNotification = false } = {}) => {
         if (!defaultAccount) return;
         const newDefaultAccount =
           typeof defaultAccount === 'string' ||
@@ -26,9 +26,11 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
         updateStatusBarItems();
-        vscode.window.showInformationMessage(
-          `Successfully set default account to ${newDefaultAccount}.`
-        );
+        if (!silenceNotification) {
+          vscode.window.showInformationMessage(
+            `Successfully set default account to ${newDefaultAccount}.`
+          );
+        }
       }
     )
   );

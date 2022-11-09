@@ -48,7 +48,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
       );
       vscode.commands.executeCommand(
         COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-        getDefaultPortalFromConfig(config)
+        getDefaultPortalFromConfig(config),
+        { silenceNotification: true }
       );
       vscode.commands.executeCommand('hubspot:portals:refresh');
     }
