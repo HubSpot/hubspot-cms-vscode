@@ -196,6 +196,18 @@
             {
                 "command": "hubspot.config.selectDefaultAccount",
                 "title": "Hubspot: Select Default Account"
+            },
+            {
+                "command": "hubspot.config.setDefaultAccount",
+                "title": "Set Default Account"
+            },
+            {
+                "command": "hubspot.config.deleteAccount",
+                "title": "Delete Account"
+            },
+            {
+                "command": "hubspot.config.renameAccount",
+                "title": "Rename Account"
             }
         ],
         "menus": {
@@ -204,6 +216,20 @@
                     "command": "hubspot.initializeAuth",
                     "when": "hubspot.folderContainsHubSpotConfigYaml",
                     "group": "HubSpot"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "hubspot.config.setDefaultAccount",
+                    "when": "viewItem == portal"
+                },
+                {
+                    "command": "hubspot.config.renameAccount",
+                    "when": "viewItem == portal"
+                },
+                {
+                    "command": "hubspot.config.deleteAccount",
+                    "when": "viewItem == portal"
                 }
             ]
         },

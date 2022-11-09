@@ -5,18 +5,30 @@ import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 
 const { getConfig } = require('@hubspot/cli-lib');
-const { updateDefaultAccount } = require('@hubspot/cli-lib/lib/config');
+const {
+  deleteAccount,
+  deleteConfigFile,
+  renameAccount,
+  updateDefaultAccount,
+} = require('@hubspot/cli-lib/lib/config');
 
 export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
       (defaultAccount) => {
-        console.log(
-          'Setting default account to: ',
-          JSON.stringify(defaultAccount)
+        if (!defaultAccount) return;
+        const newDefaultAccount =
+          typeof defaultAccount === 'string' ||
+          typeof defaultAccount === 'number'
+            ? defaultAccount
+            : defaultAccount.name || defaultAccount.portalId;
+        console.log('Setting default account to: ', newDefaultAccount);
+        updateDefaultAccount(newDefaultAccount);
+        // updateStatusBarItems(defaultAccount);
+        vscode.window.showInformationMessage(
+          `Successfully set default account to ${newDefaultAccount}.`
         );
-        updateStatusBarItems(defaultAccount);
       }
     )
   );
@@ -46,13 +58,60 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             )
             .then((selection) => {
               if (selection) {
-                console.log('selection: ', selection);
-                updateDefaultAccount(
+                const newDefaultAccount =
                   // @ts-ignore selection is an object
-                  selection.portal.name || selection.portal.portalId
+                  selection.portal.name || selection.portal.portalId;
+                updateDefaultAccount(newDefaultAccount);
+                vscode.window.showInformationMessage(
+                  `Successfully set default account to ${newDefaultAccount}.`
                 );
               }
             });
+        }
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'hubspot.config.renameAccount',
+      async (accountToRename) => {
+        vscode.window
+          .showQuickPick([], {
+            placeHolder: 'Enter a new name for the account',
+            canPickMany: false,
+          })
+          .then((newName) => {
+            if (newName) {
+              const oldName = accountToRename.name || accountToRename.portalId;
+              renameAccount(oldName, newName);
+              vscode.window.showInformationMessage(
+                `Successfully renamed default account from ${oldName} to ${newName}.`
+              );
+            }
+          });
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'hubspot.config.deleteAccount',
+      async (accountToDelete) => {
+        const config = getConfig();
+        const accountIdentifier =
+          accountToDelete.name || accountToDelete.portalId;
+
+        if (config && config.portals.length === 1) {
+          deleteConfigFile();
+          vscode.window.showInformationMessage(
+            `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
+          );
+        } else {
+          deleteAccount(accountIdentifier);
+          vscode.window.showInformationMessage(
+            `Successfully deleted account ${accountIdentifier}.`
+          );
         }
       }
     )

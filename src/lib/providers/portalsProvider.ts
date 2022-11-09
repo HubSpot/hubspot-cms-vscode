@@ -53,7 +53,8 @@ export class PortalTreeItem extends vscode.TreeItem {
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
-    public readonly iconPath: string = new vscode.ThemeIcon('account')
+    public readonly iconPath: string = new vscode.ThemeIcon('account'),
+    public readonly contextValue: string = 'portal'
   ) {
     super(name, collapsibleState);
     this.tooltip = `Active Account: ${getDisplayedHubspotPortalInfo(
