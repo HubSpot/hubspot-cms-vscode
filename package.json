@@ -190,6 +190,10 @@
         },
         "commands": [
             {
+                "command": "hubspot.create.module",
+                "title": "Initialize HubSpot Authentication"
+            },
+            {
                 "command": "hubspot.config.selectDefaultAccount",
                 "title": "Hubspot: Select Default Account"
             },
@@ -207,6 +211,13 @@
             }
         ],
         "menus": {
+            "explorer/context": [
+                {
+                    "command": "hubspot.create.module",
+                    "when": "hubspot.folderContainsHubSpotConfigYaml",
+                    "group": "HubSpot"
+                }
+            ],
             "view/item/context": [
                 {
                     "command": "hubspot.config.setDefaultAccount",

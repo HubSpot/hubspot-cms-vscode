@@ -122,6 +122,12 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
     )
   );
 
+  context.subscriptions.push(
+    vscode.commands.registerCommand('hubspot.create.module', async (data) => {
+      console.log('hubspot.create.module', data);
+    })
+  );
+
   // context.subscriptions.push(
   //   vscode.commands.registerCommand(
   //     'hubspot.config.changeDefaultAccount',
