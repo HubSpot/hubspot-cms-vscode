@@ -185,11 +185,6 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
-                },
-                "hubspot.network.authServerPort": {
-                    "type": "number",
-                    "default": 4441,
-                    "markdownDescription": "Port to use for running the local auth server used for obtaining authentication data when authenticating HubSpot accounts"
                 }
             }
         },

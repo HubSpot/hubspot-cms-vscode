@@ -21,9 +21,6 @@ export const VSCODE_SEVERITY = {
 export const EXTENSION_CONFIG_NAME = 'hubspot';
 
 export const EXTENSION_CONFIG_KEYS = {
-  NETWORK: {
-    AUTH_SERVER_PORT: 'network.authServerPort',
-  },
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
 };
