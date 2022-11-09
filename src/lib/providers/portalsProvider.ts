@@ -34,12 +34,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   }
 
   getChildren(): Thenable<Portal[] | undefined> {
-    console.log(
-      '_onDidChangeTreeData',
-      this._onDidChangeTreeData,
-      this._onDidChangeTreeData.event
-    );
-
+    console.log('Getting children for PortalsProvider');
     this.config = getConfig();
 
     if (this.config && this.config.portals) {
