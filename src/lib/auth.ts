@@ -160,10 +160,9 @@ export const handleHubspotConfigPostRequest = async (
     .then((answer: string | undefined) => {
       if (answer === 'Yes') {
         console.log(`Updating defaultPortal to ${name}.`);
-        updateDefaultAccount(name);
         vscode.commands.executeCommand(
           COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-          getDefaultPortalFromConfig(updatedConfig)
+          name
         );
       }
     });
