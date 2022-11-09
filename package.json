@@ -241,10 +241,6 @@
                 {
                     "id": "hubspot:portalAuth",
                     "name": "Authentication"
-                },
-                {
-                    "id": "hubspot:documentation",
-                    "name": "Documentation"
                 }
             ]
         },
