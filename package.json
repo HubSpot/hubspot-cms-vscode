@@ -236,12 +236,12 @@
         "viewsWelcome": [
             {
                 "view": "hubspot:portalAuth",
-                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://local.hubspotqa.com/personal-access-key/883356191?redirectUrl=http://localhost:4441)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "!hubspot.folderContainsHubSpotConfigYaml"
             },
             {
                 "view": "hubspot:portalAuth",
-                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://local.hubspotqa.com/personal-access-key/883356191?redirectUrl=http://localhost:4441)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "hubspot.folderContainsHubSpotConfigYaml"
             }
         ]
