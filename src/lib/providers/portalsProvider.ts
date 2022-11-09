@@ -10,9 +10,10 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
     this.config = getConfig();
   }
 
-  _onDidChangeTreeData: vscode.EventEmitter<undefined> = new vscode.EventEmitter<undefined>();
-  onDidChangeTreeData: vscode.Event<undefined> = this._onDidChangeTreeData
-    .event;
+  _onDidChangeTreeData: vscode.EventEmitter<undefined> =
+    new vscode.EventEmitter<undefined>();
+  onDidChangeTreeData: vscode.Event<undefined> =
+    this._onDidChangeTreeData.event;
 
   refresh(): void {
     console.log('Triggering PortalsProvider:refresh');
