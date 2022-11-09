@@ -90,7 +90,6 @@ export const initializeHubspotConfigDependents = (
         console.log('hubspot.config.yml changed');
         loadHubspotConfigFile(rootPath);
       } else if (eventType === 'rename') {
-        // TODO - Do we want to disable config-specific features?
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);
         hubspotConfigWatcher && hubspotConfigWatcher.close();
