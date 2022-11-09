@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 
-import { DocumentationProvider } from './lib/providers/documentationProvider';
 import { startServer } from './lib/server';
 import {
   handleHubspotConfigPostRequest,
@@ -62,8 +61,4 @@ export const activate = async (context: vscode.ExtensionContext) => {
       return handleHubspotConfigPostRequest(req, { rootPath });
     },
   });
-  vscode.window.registerTreeDataProvider(
-    'hubspot:documentation',
-    new DocumentationProvider()
-  );
 };
