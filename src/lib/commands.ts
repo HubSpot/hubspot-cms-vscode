@@ -4,6 +4,7 @@ import { COMMANDS } from './constants';
 import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
+import { createModuleFlow } from './commands/create/module';
 
 const { getConfig } = require('@hubspot/cli-lib');
 const {
@@ -134,8 +135,15 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('hubspot.create.module', async (data) => {
-      console.log('hubspot.create.module', data);
-    })
+    vscode.commands.registerCommand(
+      'hubspot.create.module',
+      async (clickContext) => {
+        console.log('hubspot.create.module', clickContext);
+        if (clickContext.scheme === 'file') {
+          await createModuleFlow(context, clickContext.path);
+          console.log('DONE');
+        }
+      }
+    )
   );
 };

@@ -191,7 +191,7 @@
         "commands": [
             {
                 "command": "hubspot.create.module",
-                "title": "Initialize HubSpot Authentication"
+                "title": "Create new module"
             },
             {
                 "command": "hubspot.config.selectDefaultAccount",
