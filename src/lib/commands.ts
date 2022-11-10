@@ -138,10 +138,8 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
     vscode.commands.registerCommand(
       'hubspot.create.module',
       async (clickContext) => {
-        console.log('hubspot.create.module', clickContext);
         if (clickContext.scheme === 'file') {
-          await createModuleFlow(context, clickContext.path);
-          console.log('DONE');
+          return await createModuleFlow(clickContext.path);
         }
       }
     )
