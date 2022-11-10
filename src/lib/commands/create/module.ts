@@ -105,12 +105,16 @@ export const createModuleFlow = async (destinationPath: string) => {
       let moduleName: string | undefined;
 
       await showNamePrompt(destinationPath).then(async (name) => {
+        if (!name) return reject();
         moduleName = name;
         await showLabelPrompt().then(async (label) => {
+          if (!label) return reject();
           moduleDefinition.moduleLabel = label;
           await showContentTypeSelection().then(async (contentTypes) => {
+            if (!contentTypes) return reject();
             moduleDefinition.contentTypes = contentTypes;
             await showGlobalPrompt().then(async (global) => {
+              if (typeof global !== 'boolean') return reject();
               moduleDefinition.global = global;
               resolve(
                 createModule(moduleDefinition, moduleName, destinationPath)
@@ -120,6 +124,7 @@ export const createModuleFlow = async (destinationPath: string) => {
         });
       });
     } catch (e: any) {
+      console.log('ERROR: ', e);
       reject(e);
     }
   });
