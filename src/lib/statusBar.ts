@@ -8,7 +8,6 @@ export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
 
   const config = getConfig();
-  console.log('config', config);
   const defaultAccount = config.defaultPortal;
 
   if (defaultAccount) {

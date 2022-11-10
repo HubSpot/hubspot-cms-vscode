@@ -90,7 +90,6 @@ export const initializeHubspotConfigDependents = (
         console.log('hubspot.config.yml changed');
         loadHubspotConfigFile(rootPath);
       } else if (eventType === 'rename') {
-        // TODO - Do we want to disable config-specific features?
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);
         hubspotConfigWatcher && hubspotConfigWatcher.close();
@@ -120,7 +119,6 @@ export const registerConfigDependentFeatures = async (
   }
 };
 
-// Handled express auth server POST request w/ new auth data
 export const handleHubspotConfigPostRequest = async (
   req: any,
   { rootPath }: { rootPath: string }
@@ -133,7 +131,6 @@ export const handleHubspotConfigPostRequest = async (
   let configPath = loadHubspotConfigFile(rootPath);
 
   if (configPath) {
-    // Do we need this?
     setConfigPath(configPath);
   } else {
     configPath = `${rootPath}/hubspot.config.yml`;
