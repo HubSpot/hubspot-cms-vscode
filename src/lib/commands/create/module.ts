@@ -94,9 +94,9 @@ export const createModuleFlow = async (destinationPath: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       const moduleDefinition: {
-        moduleLabel: string;
-        contentTypes: string[];
-        global: boolean;
+        moduleLabel: string | undefined;
+        contentTypes: string[] | undefined;
+        global: boolean | undefined;
       } = {
         moduleLabel: '',
         contentTypes: [],
@@ -107,20 +107,11 @@ export const createModuleFlow = async (destinationPath: string) => {
       await showNamePrompt(destinationPath).then(async (name) => {
         moduleName = name;
         await showLabelPrompt().then(async (label) => {
-          // @ts-ignore
           moduleDefinition.moduleLabel = label;
           await showContentTypeSelection().then(async (contentTypes) => {
-            // @ts-ignore
             moduleDefinition.contentTypes = contentTypes;
             await showGlobalPrompt().then(async (global) => {
-              // @ts-ignore
               moduleDefinition.global = global;
-              console.log(
-                'module: ',
-                moduleName,
-                JSON.stringify(moduleDefinition),
-                destinationPath
-              );
               resolve(
                 createModule(moduleDefinition, moduleName, destinationPath)
               );
