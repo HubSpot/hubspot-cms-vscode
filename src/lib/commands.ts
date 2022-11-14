@@ -136,7 +136,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'hubspot.create.module',
+      COMMANDS.CREATE_MODULE,
       async (clickContext) => {
         if (clickContext.scheme === 'file') {
           await createModuleFlow(clickContext.path);

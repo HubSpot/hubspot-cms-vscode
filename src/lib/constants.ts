@@ -34,4 +34,5 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
+  CREATE_MODULE: 'hubspot.create.module',
 };
