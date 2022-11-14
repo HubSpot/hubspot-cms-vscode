@@ -234,24 +234,24 @@
         "views": {
             "hubspot-explorer": [
                 {
-                    "id": "hubspot:portals",
+                    "id": "hubspot.treedata.portals",
                     "name": "Portals",
                     "when": "hubspot.folderContainsHubSpotConfigYaml"
                 },
                 {
-                    "id": "hubspot:portalAuth",
+                    "id": "hubspot.viewsWelcome.portalAuth",
                     "name": "Authentication"
                 }
             ]
         },
         "viewsWelcome": [
             {
-                "view": "hubspot:portalAuth",
+                "view": "hubspot.viewsWelcome.portalAuth",
                 "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "!hubspot.folderContainsHubSpotConfigYaml"
             },
             {
-                "view": "hubspot:portalAuth",
+                "view": "hubspot.viewsWelcome.portalAuth",
                 "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "hubspot.folderContainsHubSpotConfigYaml"
             }

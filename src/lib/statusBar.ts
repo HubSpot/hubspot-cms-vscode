@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { COMMANDS } from './constants';
 
 const { getConfig } = require('@hubspot/cli-lib');
 
@@ -27,7 +28,7 @@ export const initializeStatusBar = (context: vscode.ExtensionContext) => {
     vscode.StatusBarAlignment.Right,
     100
   );
-  hsStatusBar.command = 'hubspot.config.selectDefaultAccount';
+  hsStatusBar.command = COMMANDS.CONFIG_SELECT_DEFAULT_ACCOUNT;
 
   context.subscriptions.push(hsStatusBar);
 };
