@@ -17,7 +17,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
 
   refresh(): void {
     console.log('Triggering PortalsProvider:refresh');
-    this._onDidChangeTreeData.fire();
+    this._onDidChangeTreeData.fire(undefined);
   }
 
   getTreeItem(p: Portal): vscode.TreeItem {
