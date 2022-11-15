@@ -116,5 +116,4 @@ dist
 .DS_store
 
 hubspot.config.yml
-/tmp
-/temp
+tmp
