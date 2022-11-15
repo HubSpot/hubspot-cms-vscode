@@ -35,4 +35,11 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 export const COMMANDS = {
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   CREATE_MODULE: 'hubspot.create.module',
+  CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
+  CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
+  PORTALS_REFRESH: 'hubspot.portals.refresh',
+};
+
+export const TREE_DATA = {
+  PORTALS: 'hubspot.treedata.portals',
 };

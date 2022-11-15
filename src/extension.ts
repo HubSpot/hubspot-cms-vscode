@@ -14,7 +14,7 @@ import {
 } from './lib/lint';
 import { PortalsProvider } from './lib/providers/portalsProvider';
 import { HubspotConfig } from './lib/types';
-import { COMMANDS } from './lib/constants';
+import { COMMANDS, TREE_DATA } from './lib/constants';
 
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
@@ -31,12 +31,12 @@ export const activate = async (context: vscode.ExtensionContext) => {
       context.subscriptions.push(getUpdateLintingOnConfigChange());
       const portalProvider = new PortalsProvider();
       context.subscriptions.push(
-        vscode.commands.registerCommand('hubspot:portals:refresh', () => {
-          console.log('hubspot:portals:refresh');
+        vscode.commands.registerCommand(COMMANDS.PORTALS_REFRESH, () => {
+          console.log(COMMANDS.PORTALS_REFRESH);
           portalProvider.refresh();
         })
       );
-      vscode.window.registerTreeDataProvider('hubspot:portals', portalProvider);
+      vscode.window.registerTreeDataProvider(TREE_DATA.PORTALS, portalProvider);
     },
     (config: HubspotConfig, configPath: string) => {
       console.log(
@@ -50,7 +50,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
         getDefaultPortalFromConfig(config),
         { silenceNotification: true }
       );
-      vscode.commands.executeCommand('hubspot:portals:refresh');
+      vscode.commands.executeCommand(COMMANDS.PORTALS_REFRESH);
     }
   );
 

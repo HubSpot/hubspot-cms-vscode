@@ -39,7 +39,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'hubspot.config.selectDefaultAccount',
+      COMMANDS.CONFIG_SELECT_DEFAULT_ACCOUNT,
       async () => {
         const config = getConfig();
         if (config && config.portals) {
@@ -112,7 +112,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'hubspot.config.deleteAccount',
+      COMMANDS.CONFIG_DELETE_ACCOUNT,
       async (accountToDelete) => {
         const config = getConfig();
         const accountIdentifier =
