@@ -6,7 +6,7 @@ import {
   registerConfigDependentFeatures,
 } from './lib/auth';
 import { registerCommands } from './lib/commands';
-import { initializeStatusBar } from './lib/statusBar';
+import { initializeStatusBar, updateStatusBarItems } from './lib/statusBar';
 import { getDefaultPortalFromConfig, getRootPath } from './lib/helpers';
 import {
   getUpdateLintingOnConfigChange,
@@ -37,6 +37,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
         })
       );
       vscode.window.registerTreeDataProvider(TREE_DATA.PORTALS, portalProvider);
+      updateStatusBarItems();
     },
     (config: HubspotConfig, configPath: string) => {
       console.log(
@@ -51,6 +52,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
         { silenceNotification: true }
       );
       vscode.commands.executeCommand(COMMANDS.PORTALS_REFRESH);
+      updateStatusBarItems();
     }
   );
 
