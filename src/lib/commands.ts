@@ -118,18 +118,28 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
         const accountIdentifier =
           accountToDelete.name || accountToDelete.portalId;
 
-        if (config && config.portals.length === 1) {
-          deleteConfigFile();
-          vscode.window.showInformationMessage(
-            `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
-          );
-        } else {
-          deleteAccount(accountIdentifier);
-          vscode.window.showInformationMessage(
-            `Successfully deleted account ${accountIdentifier}.`
-          );
-        }
-        updateStatusBarItems();
+        await vscode.window
+          .showInformationMessage(
+            `Are you sure that you want to delete ${accountIdentifier} from the config?`,
+            'Yes',
+            'No'
+          )
+          .then((answer) => {
+            if (answer === 'Yes') {
+              if (config && config.portals.length === 1) {
+                deleteConfigFile();
+                vscode.window.showInformationMessage(
+                  `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
+                );
+              } else {
+                deleteAccount(accountIdentifier);
+                vscode.window.showInformationMessage(
+                  `Successfully deleted account ${accountIdentifier}.`
+                );
+              }
+              updateStatusBarItems();
+            }
+          });
       }
     )
   );
