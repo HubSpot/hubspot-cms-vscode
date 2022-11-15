@@ -45,11 +45,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
         JSON.stringify(config.portals.map((p) => p.name)),
         configPath
       );
-      vscode.commands.executeCommand(
-        COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-        getDefaultPortalFromConfig(config),
-        { silenceNotification: true }
-      );
       vscode.commands.executeCommand(COMMANDS.PORTALS_REFRESH);
       updateStatusBarItems();
     },

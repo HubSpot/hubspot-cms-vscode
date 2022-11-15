@@ -34,6 +34,11 @@ const onLoadHubspotConfig = (config: HubspotConfig, configPath: string) => {
   updateConfigDependentFeatures(config, configPath);
 };
 
+export const onChangeHubspotConfig = () => {
+  console.log('onChangeHubspotConfig');
+  updateConfigDependentFeatures();
+};
+
 export const loadHubspotConfigFile = (rootPath: string) => {
   if (!rootPath) {
     return;
@@ -64,11 +69,6 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     onLoadHubspotConfig(config, path);
     return path;
   }
-};
-
-export const onChangeHubspotConfig = () => {
-  console.log('onChangeHubspotConfig');
-  updateStatusBarItems();
 };
 
 export const initializeHubspotConfigDependents = (
