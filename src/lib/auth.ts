@@ -4,7 +4,6 @@ import { setCustomClauseVariables } from './variables';
 import { updateStatusBarItems } from './statusBar';
 import { trackAction } from './tracking';
 import { HubspotConfig, Portal } from './types';
-import { getDefaultPortalFromConfig } from './helpers';
 import { COMMANDS } from './constants';
 
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
@@ -15,7 +14,6 @@ const {
   createEmptyConfigFile,
   setConfig,
   setConfigPath,
-  updateDefaultAccount,
 } = require('@hubspot/cli-lib/lib/config');
 
 let hubspotConfigWatcher: fs.FSWatcher | null;
@@ -68,7 +66,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   }
 };
 
-export const onChangeHubspotConfig = (config: HubspotConfig) => {
+export const onChangeHubspotConfig = () => {
   console.log('onChangeHubspotConfig');
   updateStatusBarItems();
 };
@@ -89,6 +87,7 @@ export const initializeHubspotConfigDependents = (
       if (eventType === 'change') {
         console.log('hubspot.config.yml changed');
         loadHubspotConfigFile(rootPath);
+        onChangeHubspotConfig();
       } else if (eventType === 'rename') {
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);

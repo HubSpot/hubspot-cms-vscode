@@ -26,7 +26,6 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             : defaultAccount.name || defaultAccount.portalId;
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
-        updateStatusBarItems();
         if (!silenceNotification) {
           vscode.window.showInformationMessage(
             `Successfully set default account to ${newDefaultAccount}.`
@@ -65,7 +64,6 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
                   // @ts-ignore selection is an object
                   selection.portal.name || selection.portal.portalId;
                 updateDefaultAccount(newDefaultAccount);
-                updateStatusBarItems();
                 vscode.window.showInformationMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
@@ -88,7 +86,6 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
           if (!invalidReason) {
             const oldName = accountToRename.name || accountToRename.portalId;
             renameAccount(oldName, newName);
-            updateStatusBarItems();
             vscode.window.showInformationMessage(
               `Successfully renamed default account from ${oldName} to ${newName}.`
             );
