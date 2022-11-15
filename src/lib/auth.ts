@@ -99,12 +99,15 @@ export const initializeHubspotConfigDependents = (
   }
 };
 
-export const registerConfigDependentFeatures = async (
-  context: vscode.ExtensionContext,
-  rootPath: string,
-  onConfigFound: Function,
-  onConfigUpdated: Function
-) => {
+export const registerConfigDependentFeatures = async ({
+  rootPath,
+  onConfigFound,
+  onConfigUpdated,
+}: {
+  rootPath: string;
+  onConfigFound: Function;
+  onConfigUpdated: Function;
+}) => {
   loadConfigDependentFeatures = onConfigFound;
   updateConfigDependentFeatures = onConfigUpdated;
   const configPath = loadHubspotConfigFile(rootPath);

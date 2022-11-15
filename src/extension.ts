@@ -22,10 +22,9 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   registerCommands(context);
   initializeStatusBar(context);
-  registerConfigDependentFeatures(
-    context,
+  registerConfigDependentFeatures({
     rootPath,
-    (configPath: string) => {
+    onConfigFound: (configPath: string) => {
       console.log('loadConfigDependentFeatures');
       setLintingEnabledState();
       context.subscriptions.push(getUpdateLintingOnConfigChange());
@@ -39,7 +38,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
       vscode.window.registerTreeDataProvider(TREE_DATA.PORTALS, portalProvider);
       updateStatusBarItems();
     },
-    (config: HubspotConfig, configPath: string) => {
+    onConfigUpdated: (config: HubspotConfig, configPath: string) => {
       console.log(
         'updateConfigDependentFeatures',
         config.defaultPortal,
@@ -53,8 +52,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
       );
       vscode.commands.executeCommand(COMMANDS.PORTALS_REFRESH);
       updateStatusBarItems();
-    }
-  );
+    },
+  });
 
   startServer({
     onPostRequest: async (req: any) => {
