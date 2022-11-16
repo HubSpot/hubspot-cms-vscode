@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import { setCustomClauseVariables } from './variables';
-import { updateStatusBarItems } from './statusBar';
 import { trackAction } from './tracking';
-import { HubspotConfig, Portal } from './types';
+import { Portal } from './types';
 import { COMMANDS } from './constants';
 
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
@@ -129,7 +129,7 @@ export const handleHubspotConfigPostRequest = async (
   if (configPath) {
     setConfigPath(configPath);
   } else {
-    configPath = `${rootPath}/hubspot.config.yml`;
+    configPath = path.resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
   }
