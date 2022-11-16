@@ -17,7 +17,7 @@ export const updateStatusBarItems = () => {
     hsStatusBar.backgroundColor = undefined;
     hsStatusBar.show();
   } else {
-    hsStatusBar.text = `$(extensions-warning-message) No Default Account Set`;
+    hsStatusBar.text = `$(extensions-warning-message) No Default HubSpot Account`;
     hsStatusBar.tooltip =
       'There is currently no default HubSpot account set within the config. Click here to select a defaultPortal.';
     hsStatusBar.backgroundColor = new vscode.ThemeColor(

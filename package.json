@@ -191,34 +191,34 @@
         "commands": [
             {
                 "command": "hubspot.config.selectDefaultAccount",
-                "title": "Hubspot: Select Default Account"
+                "title": "Hubspot: Select default account"
             },
             {
                 "command": "hubspot.config.setDefaultAccount",
-                "title": "Set Default Account"
+                "title": "Set as default account"
             },
             {
                 "command": "hubspot.config.deleteAccount",
-                "title": "Delete Account"
+                "title": "Delete account"
             },
             {
                 "command": "hubspot.config.renameAccount",
-                "title": "Rename Account"
+                "title": "Rename account"
             }
         ],
         "menus": {
             "view/item/context": [
                 {
                     "command": "hubspot.config.setDefaultAccount",
-                    "when": "viewItem == portal"
+                    "when": "viewItem == accountTreeItem"
                 },
                 {
                     "command": "hubspot.config.renameAccount",
-                    "when": "viewItem == portal"
+                    "when": "viewItem == accountTreeItem"
                 },
                 {
                     "command": "hubspot.config.deleteAccount",
-                    "when": "viewItem == portal"
+                    "when": "viewItem == accountTreeItem"
                 }
             ]
         },
@@ -234,26 +234,26 @@
         "views": {
             "hubspot-explorer": [
                 {
-                    "id": "hubspot.treedata.portals",
-                    "name": "Portals",
-                    "when": "hubspot.folderContainsHubSpotConfigYaml"
+                    "id": "hubspot.treedata.accounts",
+                    "name": "Accounts",
+                    "when": "hubspot.configPath"
                 },
                 {
-                    "id": "hubspot.viewsWelcome.portalAuth",
+                    "id": "hubspot.viewsWelcome.accountAuth",
                     "name": "Authentication"
                 }
             ]
         },
         "viewsWelcome": [
             {
-                "view": "hubspot.viewsWelcome.portalAuth",
+                "view": "hubspot.viewsWelcome.accountAuth",
                 "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "!hubspot.folderContainsHubSpotConfigYaml"
+                "when": "!hubspot.configPath"
             },
             {
-                "view": "hubspot.viewsWelcome.portalAuth",
+                "view": "hubspot.viewsWelcome.accountAuth",
                 "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](https://app.hubspot.com/l/personal-access-key)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "hubspot.folderContainsHubSpotConfigYaml"
+                "when": "hubspot.configPath"
             }
         ]
     },

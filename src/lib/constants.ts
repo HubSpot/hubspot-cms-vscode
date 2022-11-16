@@ -36,9 +36,9 @@ export const COMMANDS = {
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
   CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
-  PORTALS_REFRESH: 'hubspot.portals.refresh',
+  ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
 };
 
 export const TREE_DATA = {
-  PORTALS: 'hubspot.treedata.portals',
+  ACCOUNTS: 'hubspot.treedata.accounts',
 };

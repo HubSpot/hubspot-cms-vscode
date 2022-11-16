@@ -30,12 +30,7 @@ const onLoadPath = (configPath: string) => {
   }
 };
 
-const onLoadHubspotConfig = (config: HubspotConfig, configPath: string) => {
-  updateConfigDependentFeatures(config, configPath);
-};
-
-export const onChangeHubspotConfig = () => {
-  console.log('onChangeHubspotConfig');
+const onLoadHubspotConfig = () => {
   updateConfigDependentFeatures();
 };
 
@@ -66,7 +61,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
-    onLoadHubspotConfig(config, path);
+    onLoadHubspotConfig();
     return path;
   }
 };
@@ -77,7 +72,7 @@ export const initializeHubspotConfigDependents = (
 ) => {
   if (!configDependentFeaturesLoaded) {
     configDependentFeaturesLoaded = true;
-    loadConfigDependentFeatures(configPath);
+    loadConfigDependentFeatures();
   }
 
   // This triggers an in-memory update of the config when the file changes
@@ -87,7 +82,6 @@ export const initializeHubspotConfigDependents = (
       if (eventType === 'change') {
         console.log('hubspot.config.yml changed');
         loadHubspotConfigFile(rootPath);
-        onChangeHubspotConfig();
       } else if (eventType === 'rename') {
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);
