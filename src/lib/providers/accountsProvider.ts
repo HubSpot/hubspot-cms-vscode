@@ -26,7 +26,7 @@ export class AccountsProvider implements vscode.TreeDataProvider<Portal> {
         this.config.defaultPortal === p.portalId ||
         this.config.defaultPortal === p.name
           ? '(default)'
-          : ''
+          : '${hubspot.configPath}'
       }`,
       p.portalId,
       p,

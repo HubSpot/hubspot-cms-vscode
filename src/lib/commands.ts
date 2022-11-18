@@ -99,7 +99,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'hubspot.config.renameAccount',
+      COMMANDS.CONFIG_RENAME_ACCOUNT,
       async (accountToRename) => {
         showRenameAccountPrompt(accountToRename);
       }
@@ -136,6 +136,34 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
               updateStatusBarItems();
             }
           });
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'hubspot.auth.onClickAuthorize',
+      async () => {
+        const authUrl = 'https://app.hubspot.com/l/personal-access-key';
+
+        vscode.commands.executeCommand(
+          'setContext',
+          'hubspot.auth.isAuthenticating',
+          true
+        );
+        console.log('uriScheme: ', vscode.env.uriScheme);
+        const callableUri = await vscode.env.asExternalUri(
+          vscode.Uri.parse(authUrl)
+        );
+        await vscode.env.openExternal(callableUri);
+
+        setTimeout(() => {
+          vscode.commands.executeCommand(
+            'setContext',
+            'hubspot.auth.isAuthenticating',
+            false
+          );
+        }, 1800000);
       }
     )
   );

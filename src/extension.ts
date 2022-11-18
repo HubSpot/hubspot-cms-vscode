@@ -1,10 +1,7 @@
 import * as vscode from 'vscode';
 
-import { startServer } from './lib/server';
-import {
-  handleHubspotConfigPostRequest,
-  registerConfigDependentFeatures,
-} from './lib/auth';
+import { registerConfigDependentFeatures } from './lib/auth';
+import { registerURIHandler } from './lib/uri';
 import { registerCommands } from './lib/commands';
 import { initializeStatusBar, updateStatusBarItems } from './lib/statusBar';
 import { getRootPath } from './lib/helpers';
@@ -21,6 +18,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   registerCommands(context);
   initializeStatusBar(context);
+  registerURIHandler(context, rootPath);
   registerConfigDependentFeatures({
     rootPath,
     onConfigFound: () => {
@@ -43,12 +41,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
     onConfigUpdated: () => {
       vscode.commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
       updateStatusBarItems();
-    },
-  });
-
-  startServer({
-    onPostRequest: async (req: any) => {
-      return handleHubspotConfigPostRequest(req, { rootPath });
     },
   });
 };
