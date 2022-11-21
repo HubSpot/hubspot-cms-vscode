@@ -5,8 +5,6 @@ import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
 
-const findProcess = require('find-process');
-const ps = require('ps-node');
 const { getConfig } = require('@hubspot/cli-lib');
 const {
   deleteAccount,

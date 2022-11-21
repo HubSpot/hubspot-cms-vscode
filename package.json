@@ -5,7 +5,7 @@
     "version": "0.15.0",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.30.0"
+        "vscode": "^1.73.0"
     },
     "scripts": {
         "dev": "npm run webpack-dev",
@@ -274,11 +274,9 @@
     },
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.2",
-        "find-process": "^1.4.7",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
         "node-fetch": "^3.1.1",
-        "ps-node": "^0.1.6",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
