@@ -43,3 +43,9 @@ export const COMMANDS = {
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
 };
+
+export const TERMINAL_IDS = {
+  CLI_INSTALL: 'HubSpot CLI Install',
+  CLI_INSTALL_CHECK: 'HubSpot CLI Install Check',
+  NPM_INSTALL_CHECK: 'NPM Install Check',
+};

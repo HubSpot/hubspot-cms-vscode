@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { updateStatusBarItems } from './statusBar';
-import { COMMANDS } from './constants';
+import { COMMANDS, TERMINAL_IDS } from './constants';
 import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
@@ -172,12 +172,11 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('hubspot.cli.install', () => {
-      const terminalName = 'HubSpot CLI Install';
-      const terminal = vscode.window.createTerminal(terminalName);
+      const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
 
       terminal.hide();
       vscode.window.onDidCloseTerminal((closedTerminal) => {
-        if (closedTerminal.name === terminalName) {
+        if (closedTerminal.name === TERMINAL_IDS.CLI_INSTALL) {
           vscode.window.showInformationMessage('HubSpot CLI installed.');
         }
       });
