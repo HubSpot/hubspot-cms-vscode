@@ -5,6 +5,8 @@ import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
 
+const findProcess = require('find-process');
+const ps = require('ps-node');
 const { getConfig } = require('@hubspot/cli-lib');
 const {
   deleteAccount,
@@ -166,5 +168,22 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
         }, 1800000);
       }
     )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('hubspot.cli.install', () => {
+      const terminalName = 'HubSpot CLI Install';
+      const terminal = vscode.window.createTerminal(terminalName);
+
+      terminal.hide();
+      vscode.window.onDidCloseTerminal((closedTerminal) => {
+        if (closedTerminal.name === terminalName) {
+          vscode.window.showInformationMessage('HubSpot CLI installed.');
+        }
+      });
+      terminal.sendText("echo 'Installing the HubSpot CLI.'");
+      terminal.sendText('npm i -g @hubspot/cli@latest');
+      terminal.sendText('exit');
+    })
   );
 };
