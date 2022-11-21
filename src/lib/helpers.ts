@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { HubspotConfig, Portal } from './types';
 
+const { exec } = require('node:child_process');
+
 export const getRootPath = () => {
   const workspaceFolders = vscode.workspace.workspaceFolders;
 
@@ -26,4 +28,27 @@ export const getDisplayedHubspotPortalInfo = (portalData: Portal) => {
   return portalData.name
     ? `${portalData.name} - ${portalData.portalId}`
     : portalData.portalId;
+};
+
+export const checkIfTerminalCommandExists = async (terminalCommand: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      exec(
+        `which ${terminalCommand} && exit`,
+        (error: Error, stdout: string, stderr: string) => {
+          if (
+            error ||
+            stderr ||
+            (stdout && stdout === `${terminalCommand} not found`)
+          ) {
+            resolve(false);
+          } else {
+            resolve(stdout);
+          }
+        }
+      );
+    } catch (e) {
+      reject(e);
+    }
+  });
 };

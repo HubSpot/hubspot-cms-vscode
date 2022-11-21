@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
 import { updateStatusBarItems } from './statusBar';
 import { COMMANDS, TERMINAL_IDS } from './constants';
-import { getDisplayedHubspotPortalInfo } from './helpers';
+import {
+  checkIfTerminalCommandExists,
+  getDisplayedHubspotPortalInfo,
+} from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
 
@@ -169,18 +172,59 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('hubspot.cli.install', () => {
+    vscode.commands.registerCommand(COMMANDS.INSTALL_HUBSPOT_CLI, () => {
       const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
 
       terminal.hide();
-      vscode.window.onDidCloseTerminal((closedTerminal) => {
+      vscode.window.onDidCloseTerminal(async (closedTerminal) => {
         if (closedTerminal.name === TERMINAL_IDS.CLI_INSTALL) {
-          vscode.window.showInformationMessage('HubSpot CLI installed.');
+          const retVal = await vscode.commands.executeCommand(
+            COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
+          );
+          console.log('retVal: ', retVal);
+          if (retVal) {
+            vscode.window.showInformationMessage('HubSpot CLI installed.');
+          } else {
+            vscode.window.showInformationMessage(
+              'Error Installing HubSpot CLI.'
+            );
+          }
         }
       });
       terminal.sendText("echo 'Installing the HubSpot CLI.'");
       terminal.sendText('npm i -g @hubspot/cli@latest');
       terminal.sendText('exit');
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      COMMANDS.CHECK_HUBSPOT_CLI_INSTALL,
+      async () => {
+        const hsPath = await checkIfTerminalCommandExists('hs');
+        vscode.commands.executeCommand(
+          'setContext',
+          'hubspot.paths.hs',
+          hsPath
+        );
+
+        console.log('hsPath: ', hsPath);
+        return hsPath;
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(COMMANDS.CHECK_NPM_INSTALL, async () => {
+      const npmPath = await checkIfTerminalCommandExists('npm');
+      vscode.commands.executeCommand(
+        'setContext',
+        'hubspot.paths.npm',
+        npmPath
+      );
+
+      console.log('npmPath: ', npmPath);
+      return npmPath;
     })
   );
 };

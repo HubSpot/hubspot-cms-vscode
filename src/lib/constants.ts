@@ -34,10 +34,13 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
+  CHECK_HUBSPOT_CLI_INSTALL: 'hubspot.loadPath.hs',
+  CHECK_NPM_INSTALL: 'hubspot.loadPath.npm',
   CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
   CONFIG_RENAME_ACCOUNT: 'hubspot.config.renameAccount',
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
+  INSTALL_HUBSPOT_CLI: 'hubspot.install.hs',
 };
 
 export const TREE_DATA = {

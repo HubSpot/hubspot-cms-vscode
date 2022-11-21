@@ -268,7 +268,12 @@
             },
             {
                 "view": "hubspot.viewsWelcome.fileManagement",
-                "contents": "In order to use additional features that are not currently available within the HubSpot VSCode extension, you can install the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Install CLI](command:hubspot.cli.install)"
+                "contents": "In order to use additional features that are not currently available within the HubSpot VSCode extension, you can install the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Install CLI](command:hubspot.install.hs)",
+                "when": "hubspot.paths.npm && !hubspot.paths.hs"
+            },
+            {
+                "view": "hubspot.viewsWelcome.fileManagement",
+                "contents": "\n[Upload Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Fetch Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Watch Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Remove Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)"
             }
         ]
     },

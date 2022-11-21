@@ -16,6 +16,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 
+  vscode.commands.executeCommand(COMMANDS.CHECK_NPM_INSTALL);
+  vscode.commands.executeCommand(COMMANDS.CHECK_HUBSPOT_CLI_INSTALL);
   registerCommands(context);
   initializeStatusBar(context);
   registerURIHandler(context, rootPath);
