@@ -25,7 +25,7 @@ jobs:
             git checkout -b 'update_snippets'
             git add .
             git commit -m "Add updated snippets"
-            gh pr create --title "Update Snippets" -- "Todo add body"
+            gh pr create --title "Update Snippets" --body "Todo add body"
             # git push -u origin update_snippets
           else
             echo 'clean'
