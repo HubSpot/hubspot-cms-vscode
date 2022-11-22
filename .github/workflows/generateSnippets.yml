@@ -14,7 +14,12 @@ jobs:
           node-version: 16.x
       - name: Install deps
         run: |
-          yarn install
+          npm install
       - name: Generate Snippets
         run: |
-          yarn generate
+          # node ./scripts/generate.js
+          if [[ $(git diff --stat) != '' ]]; then
+            git diff
+          else
+            echo 'clean'
+          fi
