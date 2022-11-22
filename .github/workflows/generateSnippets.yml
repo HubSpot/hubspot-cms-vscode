@@ -1,0 +1,20 @@
+on:
+  schedule:
+    # At 00:00 on every day-of-week from Monday through Friday.
+    - cron: '0 0 * * 1-5'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install deps
+        run: |
+          yarn install
+      - name: Generate Snippets
+        run: |
+          yarn generate
