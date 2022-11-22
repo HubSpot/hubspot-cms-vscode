@@ -214,7 +214,7 @@
             "explorer/context": [
                 {
                     "command": "hubspot.create.module",
-                    "when": "hubspot.folderContainsHubSpotConfigYaml && explorerResourceIsFolder",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
                     "group": "HubSpot"
                 }
             ],
