@@ -1,7 +1,8 @@
-on:
-  schedule:
+# on:
+on: [push]
+  # schedule:
     # At 00:00 on every day-of-week from Monday through Friday.
-    - cron: '0 0 * * 1-5'
+    # - cron: '0 0 * * 1-5'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +25,7 @@ jobs:
             git checkout -b 'update_snippets'
             git add .
             git commit -m "Add updated snippets"
-            # gh pr create --title "Update Snippets"
+            gh pr create --title "Update Snippets"
             # git push -u origin update_snippets
           else
             echo 'clean'
