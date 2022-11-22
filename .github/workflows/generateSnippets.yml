@@ -26,9 +26,9 @@ jobs:
             git add .
             git commit -m "Add updated snippets"
             git push -u origin update_snippets --force
-            gh pr create --title "Update HubL Snippets" --body "Todo add body"
+            gh pr create --title "Update HubL Snippets" --fill
           else
-            echo 'clean'
+            echo "There are no snippet changes."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
