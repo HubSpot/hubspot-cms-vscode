@@ -25,7 +25,7 @@ jobs:
             git checkout -b 'update_snippets'
             git add .
             git commit -m "Add updated snippets"
-            git push -u origin update_snippets
+            git push -u origin update_snippets --force
             gh pr create --title "Update HubL Snippets" --body "Todo add body"
           else
             echo 'clean'
