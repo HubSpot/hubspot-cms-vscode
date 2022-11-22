@@ -17,9 +17,17 @@ jobs:
           npm install
       - name: Generate Snippets
         run: |
-          # node ./scripts/generate.js
-          if [[ $(git diff --stat) != '' ]]; then
-            git diff
+          node ./scripts/generate.js
+          if [[ $(git diff --stat ./snippets ) != '' ]]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git checkout -b 'update_snippets'
+            git add .
+            git commit -m "Add updated snippets"
+            # gh pr create --title "Update Snippets"
+            # git push -u origin update_snippets
           else
             echo 'clean'
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
