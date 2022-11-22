@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import { setCustomClauseVariables } from './variables';
-import { updateStatusBarItems } from './statusBar';
 import { trackAction } from './tracking';
-import { HubspotConfig, Portal } from './types';
-import { getDefaultPortalFromConfig } from './helpers';
+import { Portal } from './types';
 import { COMMANDS } from './constants';
 
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
@@ -15,7 +14,6 @@ const {
   createEmptyConfigFile,
   setConfig,
   setConfigPath,
-  updateDefaultAccount,
 } = require('@hubspot/cli-lib/lib/config');
 
 let hubspotConfigWatcher: fs.FSWatcher | null;
@@ -32,8 +30,8 @@ const onLoadPath = (configPath: string) => {
   }
 };
 
-const onLoadHubspotConfig = (config: HubspotConfig, configPath: string) => {
-  updateConfigDependentFeatures(config, configPath);
+const onLoadHubspotConfig = () => {
+  updateConfigDependentFeatures();
 };
 
 export const loadHubspotConfigFile = (rootPath: string) => {
@@ -63,14 +61,9 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
-    onLoadHubspotConfig(config, path);
+    onLoadHubspotConfig();
     return path;
   }
-};
-
-export const onChangeHubspotConfig = (config: HubspotConfig) => {
-  console.log('onChangeHubspotConfig');
-  updateStatusBarItems();
 };
 
 export const initializeHubspotConfigDependents = (
@@ -79,7 +72,7 @@ export const initializeHubspotConfigDependents = (
 ) => {
   if (!configDependentFeaturesLoaded) {
     configDependentFeaturesLoaded = true;
-    loadConfigDependentFeatures(configPath);
+    loadConfigDependentFeatures();
   }
 
   // This triggers an in-memory update of the config when the file changes
@@ -100,12 +93,15 @@ export const initializeHubspotConfigDependents = (
   }
 };
 
-export const registerConfigDependentFeatures = async (
-  context: vscode.ExtensionContext,
-  rootPath: string,
-  onConfigFound: Function,
-  onConfigUpdated: Function
-) => {
+export const registerConfigDependentFeatures = async ({
+  rootPath,
+  onConfigFound,
+  onConfigUpdated,
+}: {
+  rootPath: string;
+  onConfigFound: Function;
+  onConfigUpdated: Function;
+}) => {
   loadConfigDependentFeatures = onConfigFound;
   updateConfigDependentFeatures = onConfigUpdated;
   const configPath = loadHubspotConfigFile(rootPath);
@@ -133,7 +129,7 @@ export const handleHubspotConfigPostRequest = async (
   if (configPath) {
     setConfigPath(configPath);
   } else {
-    configPath = `${rootPath}/hubspot.config.yml`;
+    configPath = path.resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
   }

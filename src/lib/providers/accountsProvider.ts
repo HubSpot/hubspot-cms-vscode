@@ -4,7 +4,7 @@ import { HubspotConfig, Portal } from '../types';
 
 const { getConfig } = require('@hubspot/cli-lib');
 
-export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
+export class AccountsProvider implements vscode.TreeDataProvider<Portal> {
   private config: HubspotConfig;
   constructor() {
     this.config = getConfig();
@@ -16,12 +16,12 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
     this._onDidChangeTreeData.event;
 
   refresh(): void {
-    console.log('Triggering PortalsProvider:refresh');
+    console.log('Triggering AccountsProvider:refresh');
     this._onDidChangeTreeData.fire(undefined);
   }
 
   getTreeItem(p: Portal): vscode.TreeItem {
-    return new PortalTreeItem(
+    return new AccountTreeItem(
       `${getDisplayedHubspotPortalInfo(p)} ${
         this.config.defaultPortal === p.portalId ||
         this.config.defaultPortal === p.name
@@ -35,7 +35,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   }
 
   getChildren(): Thenable<Portal[] | undefined> {
-    console.log('Getting children for PortalsProvider');
+    console.log('Getting children for AccountsProvider');
     this.config = getConfig();
 
     if (this.config && this.config.portals) {
@@ -46,7 +46,7 @@ export class PortalsProvider implements vscode.TreeDataProvider<Portal> {
   }
 }
 
-export class PortalTreeItem extends vscode.TreeItem {
+export class AccountTreeItem extends vscode.TreeItem {
   constructor(
     public readonly name: string,
     public readonly id: string,
@@ -55,7 +55,7 @@ export class PortalTreeItem extends vscode.TreeItem {
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
     public readonly iconPath: string = new vscode.ThemeIcon('account'),
-    public readonly contextValue: string = 'portal'
+    public readonly contextValue: string = 'accountTreeItem'
   ) {
     super(name, collapsibleState);
     this.tooltip = `Active Account: ${getDisplayedHubspotPortalInfo(

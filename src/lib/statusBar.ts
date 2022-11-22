@@ -14,10 +14,16 @@ export const updateStatusBarItems = () => {
   if (defaultAccount) {
     hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
     hsStatusBar.tooltip = `Active HubSpot Account: ${defaultAccount}`;
+    hsStatusBar.backgroundColor = undefined;
     hsStatusBar.show();
   } else {
-    // TODO - Show something and allow user to set default account?
-    hsStatusBar.hide();
+    hsStatusBar.text = `$(extensions-warning-message) No Default HubSpot Account`;
+    hsStatusBar.tooltip =
+      'There is currently no default HubSpot account set within the config. Click here to select a defaultPortal.';
+    hsStatusBar.backgroundColor = new vscode.ThemeColor(
+      'statusBarItem.warningBackground'
+    );
+    hsStatusBar.show();
   }
 };
 

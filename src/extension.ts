@@ -6,14 +6,13 @@ import {
   registerConfigDependentFeatures,
 } from './lib/auth';
 import { registerCommands } from './lib/commands';
-import { initializeStatusBar } from './lib/statusBar';
-import { getDefaultPortalFromConfig, getRootPath } from './lib/helpers';
+import { initializeStatusBar, updateStatusBarItems } from './lib/statusBar';
+import { getRootPath } from './lib/helpers';
 import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
 } from './lib/lint';
-import { PortalsProvider } from './lib/providers/portalsProvider';
-import { HubspotConfig } from './lib/types';
+import { AccountsProvider } from './lib/providers/accountsProvider';
 import { COMMANDS, TREE_DATA } from './lib/constants';
 
 export const activate = async (context: vscode.ExtensionContext) => {
@@ -22,37 +21,30 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   registerCommands(context);
   initializeStatusBar(context);
-  registerConfigDependentFeatures(
-    context,
+  registerConfigDependentFeatures({
     rootPath,
-    (configPath: string) => {
+    onConfigFound: () => {
       console.log('loadConfigDependentFeatures');
       setLintingEnabledState();
       context.subscriptions.push(getUpdateLintingOnConfigChange());
-      const portalProvider = new PortalsProvider();
+      const accountProvider = new AccountsProvider();
       context.subscriptions.push(
-        vscode.commands.registerCommand(COMMANDS.PORTALS_REFRESH, () => {
-          console.log(COMMANDS.PORTALS_REFRESH);
-          portalProvider.refresh();
+        vscode.commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
+          console.log(COMMANDS.ACCOUNTS_REFRESH);
+          accountProvider.refresh();
         })
       );
-      vscode.window.registerTreeDataProvider(TREE_DATA.PORTALS, portalProvider);
+      vscode.window.registerTreeDataProvider(
+        TREE_DATA.ACCOUNTS,
+        accountProvider
+      );
+      updateStatusBarItems();
     },
-    (config: HubspotConfig, configPath: string) => {
-      console.log(
-        'updateConfigDependentFeatures',
-        config.defaultPortal,
-        JSON.stringify(config.portals.map((p) => p.name)),
-        configPath
-      );
-      vscode.commands.executeCommand(
-        COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-        getDefaultPortalFromConfig(config),
-        { silenceNotification: true }
-      );
-      vscode.commands.executeCommand(COMMANDS.PORTALS_REFRESH);
-    }
-  );
+    onConfigUpdated: () => {
+      vscode.commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
+      updateStatusBarItems();
+    },
+  });
 
   startServer({
     onPostRequest: async (req: any) => {
