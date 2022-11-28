@@ -26,6 +26,9 @@ jobs:
           else
             echo "There are no snippet changes."
           fi
+      - name: Debug
+        run: |
+          echo ${{ env.SNIPPET_DIR_CHANGES }}
       - name: Commit and push changes
         if: ${{ env.SNIPPET_DIR_CHANGES == true }}
         run: |
