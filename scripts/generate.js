@@ -133,12 +133,11 @@ const createFile = async (data, type) => {
 
   try {
     const filepath = path.resolve(
-      __dirname,
+      process.cwd(),
       `./snippets/auto_gen/hubl_${type}.json`
     );
     const snippetCount = Object.keys(snippets).length;
-
-    fs.outputJSONSync(`./snippets/auto_gen/hubl_${type}.json`, snippets, {
+    fs.outputJSONSync(filepath, snippets, {
       spaces: 2,
     });
 
