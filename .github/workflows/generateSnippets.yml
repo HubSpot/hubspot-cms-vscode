@@ -1,8 +1,7 @@
-# on:
-on: [push]
-  # schedule:
+on:
+  schedule:
     # At 00:00 on Monday.
-    # - cron: '0 0 * * 1'
+    - cron: '0 0 * * 1'
 jobs:
   build:
     runs-on: ubuntu-latest
