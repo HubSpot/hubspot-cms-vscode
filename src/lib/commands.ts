@@ -4,7 +4,7 @@ import { COMMANDS } from './constants';
 import { getDisplayedHubspotPortalInfo } from './helpers';
 import { Portal } from './types';
 import { portalNameInvalid } from './validation';
-import { createModuleFlow } from './commands/create/module';
+import { convertFolderToModule } from './fileHelpers';
 
 const { getConfig } = require('@hubspot/cli-lib');
 const {
@@ -146,7 +146,13 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
       COMMANDS.CREATE_MODULE,
       async (clickContext) => {
         if (clickContext.scheme === 'file') {
-          await createModuleFlow(clickContext.path);
+          const createFileSubscription = vscode.workspace.onWillCreateFiles(
+            convertFolderToModule(clickContext.fsPath, () => {
+              createFileSubscription.dispose();
+            })
+          );
+
+          vscode.commands.executeCommand('explorer.newFolder');
         }
       }
     )
