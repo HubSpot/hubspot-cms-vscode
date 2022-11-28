@@ -26,11 +26,8 @@ jobs:
           else
             echo "There are no snippet changes."
           fi
-      - name: Debug
-        run: |
-          echo ${{ env.SNIPPET_DIR_CHANGES }}
       - name: Commit and push changes
-        if: ${{ env.SNIPPET_DIR_CHANGES == true }}
+        if: env.SNIPPET_DIR_CHANGES == true
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -39,7 +36,7 @@ jobs:
           git commit -m "Add updated snippets"
           git push -u origin update_snippets --force
       - name: Create PR
-        if: ${{ env.SNIPPET_DIR_CHANGES == true }}
+        if: env.SNIPPET_DIR_CHANGES == true
         run: |
           gh pr create --title "Update HubL Snippets" --fill
         env:
