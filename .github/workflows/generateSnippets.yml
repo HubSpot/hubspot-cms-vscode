@@ -1,8 +1,8 @@
 # on:
 on: [push]
   # schedule:
-    # At 00:00 on every day-of-week from Monday through Friday.
-    # - cron: '0 0 * * 1-5'
+    # At 00:00 on Monday.
+    # - cron: '0 0 * * 1'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,16 +19,24 @@ jobs:
       - name: Generate Snippets
         run: |
           node ./scripts/generate.js
+      - name: Determine if there are changes
           if [[ $(git diff --stat ./snippets ) != '' ]]; then
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git checkout -b 'update_snippets'
-            git add .
-            git commit -m "Add updated snippets"
-            git push -u origin update_snippets --force
-            gh pr create --title "Update HubL Snippets" --fill
+            echo "SNIPPET_DIR_CHANGES=true" >> $GITHUB_ENV
           else
             echo "There are no snippet changes."
           fi
+      - name: Commit and push changes
+        if: ${{ env.SNIPPET_DIR_CHANGES == true }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b 'update_snippets'
+          git add .
+          git commit -m "Add updated snippets"
+          git push -u origin update_snippets --force
+      - name: Create PR
+        if: ${{ env.SNIPPET_DIR_CHANGES == true }}
+        run: |
+          gh pr create --title "Update HubL Snippets" --fill
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
