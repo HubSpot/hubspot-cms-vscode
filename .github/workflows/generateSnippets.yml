@@ -20,6 +20,7 @@ jobs:
         run: |
           node ./scripts/generate.js
       - name: Determine if there are changes
+        run: |
           if [[ $(git diff --stat ./snippets ) != '' ]]; then
             echo "SNIPPET_DIR_CHANGES=true" >> $GITHUB_ENV
           else
