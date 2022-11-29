@@ -33,10 +33,11 @@ export const GLOBAL_STATE_KEYS = {
 export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
-  CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
-  CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
-  CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
+  CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
+  CONFIG_RENAME_ACCOUNT: 'hubspot.config.renameAccount',
+  CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
+  CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
 };
 
 export const TREE_DATA = {
