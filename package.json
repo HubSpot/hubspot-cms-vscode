@@ -191,7 +191,7 @@
         }
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^3.0.7",
+        "@hubspot/cli-lib": "^4.1.3",
         "fs-extra": "^9.0.1",
         "node-fetch": "^2.6.7",
         "set-value": ">=4.0.1"
