@@ -144,7 +144,8 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
     vscode.commands.registerCommand(
       'hubspot.auth.onClickAuthorize',
       async () => {
-        const authUrl = 'https://app.hubspot.com/l/personal-access-key';
+        const authUrl =
+          'https://app.hubspot.com/l/personal-access-key/auth/vscode';
 
         vscode.commands.executeCommand(
           'setContext',
