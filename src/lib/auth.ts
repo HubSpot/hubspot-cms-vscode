@@ -46,15 +46,14 @@ export const loadHubspotConfigFile = (rootPath: string) => {
 
   const config = loadConfig(path);
 
-  console.log(
-    'loadedHubspotConfig',
-    config.defaultPortal,
-    JSON.stringify(config.portals.map((p: Portal) => p.name))
-  );
-
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
+    console.log(
+      'loadedHubspotConfig',
+      config.defaultPortal,
+      JSON.stringify(config.portals.map((p: Portal) => p.name))
+    );
     onLoadHubspotConfig();
     return path;
   }
