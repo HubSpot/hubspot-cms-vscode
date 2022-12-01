@@ -42,6 +42,8 @@ export const COMMANDS = {
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   INSTALL_HUBSPOT_CLI: 'hubspot.install.hs',
+  ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
+  ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
 };
 
 export const TREE_DATA = {
