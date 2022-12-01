@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 const { createModule } = require('@hubspot/cli-lib/modules');
 
 const copySampleModuleFilesToFolder = (folderPath: string) => {
@@ -21,7 +22,7 @@ const copySampleModuleFilesToFolder = (folderPath: string) => {
  * @param folderName - name of a folder with or without a .module extension
  */
 const getUniqueModuleFolderName = (folderPath: string) => {
-  const folderName = folderPath.split('/').pop() || '';
+  const folderName = folderPath.split(path.sep).pop() || '';
   const hasModuleExtension = folderName.split('.').pop() === 'module';
   let modulePath = hasModuleExtension ? folderPath : `${folderPath}.module`;
   let uniqueModulePath = modulePath;
