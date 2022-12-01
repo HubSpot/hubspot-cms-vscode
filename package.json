@@ -245,35 +245,30 @@
                     "name": "Authentication"
                 },
                 {
-                    "id": "hubspot.viewsWelcome.fileManagement",
-                    "name": "File Management"
+                    "id": "hubspot.viewsWelcome.tools",
+                    "name": "Tools",
+                    "when": "hubspot.paths.npm && !hubspot.paths.hs"
+                },
+                {
+                    "id": "hubspot.treeData.quickLinks",
+                    "name": "Quick Links"
                 }
             ]
         },
         "viewsWelcome": [
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "!hubspot.configPath && !hubspot.auth.isAuthenticating"
+                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "!hubspot.configPath"
             },
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "hubspot.configPath && !hubspot.auth.isAuthenticating"
+                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "hubspot.configPath"
             },
             {
-                "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[$(loading~spin)   Waiting for Authentication](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "hubspot.auth.isAuthenticating"
-            },
-            {
-                "view": "hubspot.viewsWelcome.fileManagement",
-                "contents": "In order to use additional features that are not currently available within the HubSpot VSCode extension, you can install the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Install CLI (npm)](command:hubspot.install.hs)\n[Install CLI (yarn)](command:hubspot.install.hs)",
-                "when": "hubspot.paths.npm && !hubspot.paths.hs"
-            },
-            {
-                "view": "hubspot.viewsWelcome.fileManagement",
-                "contents": "\n[Upload Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Fetch Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Watch Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)\n[Remove Project](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli)"
+                "view": "hubspot.viewsWelcome.tools",
+                "contents": "In order to use additional features that are not currently available within the HubSpot VSCode extension, you can install the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Install CLI](command:hubspot.install.hs)"
             }
         ]
     },
