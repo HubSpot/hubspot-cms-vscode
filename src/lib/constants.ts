@@ -53,3 +53,8 @@ export const TREE_DATA = {
 export const TERMINAL_IDS = {
   CLI_INSTALL: 'HubSpot CLI Install',
 };
+
+export const POLLING_INTERVALS = {
+  SLOW: 60000,
+  FAST: 1000,
+};
