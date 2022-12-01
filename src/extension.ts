@@ -9,14 +9,15 @@ import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
 } from './lib/lint';
-import { AccountsProvider } from './lib/providers/accountsProvider';
-import { COMMANDS, TREE_DATA } from './lib/constants';
+import { COMMANDS } from './lib/constants';
+import { initializeProviders } from './lib/providers';
 
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 
   registerCommands(context);
+  initializeProviders(context);
   initializeStatusBar(context);
   registerURIHandler(context, rootPath);
   registerConfigDependentFeatures({
@@ -25,17 +26,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
       console.log('loadConfigDependentFeatures');
       setLintingEnabledState();
       context.subscriptions.push(getUpdateLintingOnConfigChange());
-      const accountProvider = new AccountsProvider();
-      context.subscriptions.push(
-        vscode.commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
-          console.log(COMMANDS.ACCOUNTS_REFRESH);
-          accountProvider.refresh();
-        })
-      );
-      vscode.window.registerTreeDataProvider(
-        TREE_DATA.ACCOUNTS,
-        accountProvider
-      );
       updateStatusBarItems();
     },
     onConfigUpdated: () => {
