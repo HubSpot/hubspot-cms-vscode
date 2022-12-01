@@ -141,31 +141,15 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'hubspot.auth.onClickAuthorize',
-      async () => {
-        const authUrl =
-          'https://app.hubspot.com/l/personal-access-key/auth/vscode';
+    vscode.commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
+      const authUrl =
+        'https://app.hubspot.com/l/personal-access-key/auth/vscode';
 
-        vscode.commands.executeCommand(
-          'setContext',
-          'hubspot.auth.isAuthenticating',
-          true
-        );
-        console.log('uriScheme: ', vscode.env.uriScheme);
-        const callableUri = await vscode.env.asExternalUri(
-          vscode.Uri.parse(authUrl)
-        );
-        await vscode.env.openExternal(callableUri);
-
-        setTimeout(() => {
-          vscode.commands.executeCommand(
-            'setContext',
-            'hubspot.auth.isAuthenticating',
-            false
-          );
-        }, 1800000);
-      }
-    )
+      console.log('uriScheme: ', vscode.env.uriScheme);
+      const callableUri = await vscode.env.asExternalUri(
+        vscode.Uri.parse(authUrl)
+      );
+      await vscode.env.openExternal(callableUri);
+    })
   );
 };

@@ -250,18 +250,13 @@
         "viewsWelcome": [
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "!hubspot.configPath && !hubspot.auth.isAuthenticating"
+                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "!hubspot.configPath"
             },
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "hubspot.configPath && !hubspot.auth.isAuthenticating"
-            },
-            {
-                "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[$(loading~spin)   Waiting for Authentication](command:hubspot.auth.onClickAuthorize)\n[Create Developer Sandbox Account](https://app.hubspot.com/signup-hubspot/cms-developers)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
-                "when": "hubspot.auth.isAuthenticating"
+                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "hubspot.configPath"
             }
         ]
     },
