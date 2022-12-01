@@ -43,10 +43,12 @@ export const convertFolderToModule = (
   folderPath: string,
   cleanupCallback: Function
 ) => {
-  return (e: any) => {
+  return (e: vscode.FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
+          const edit = new vscode.WorkspaceEdit();
+
           if (
             e.files &&
             e.files.length === 1 &&
@@ -57,16 +59,15 @@ export const convertFolderToModule = (
               e.files[0].fsPath
             );
 
-            const edit = new vscode.WorkspaceEdit();
             edit.renameFile(e.files[0], vscode.Uri.file(uniqueModulePath));
 
             vscode.workspace.applyEdit(edit).then(() => {
               copySampleModuleFilesToFolder(uniqueModulePath);
-              resolve(uniqueModulePath);
+              resolve(edit);
             });
           }
 
-          return resolve(false);
+          return resolve(edit);
         } catch (e: any) {
           return reject(e);
         }
