@@ -54,7 +54,6 @@ export const initializeConfig = (rootPath: string) => {
 
   if (configPath) {
     console.log(`HubSpot config loaded from: ${configPath}`);
-    console.log('configPath', configPath);
     vscode.commands.executeCommand(
       COMMANDS.ON_CONFIG_FOUND,
       rootPath,
