@@ -24,10 +24,6 @@ const onLoadPath = (configPath: string) => {
   }
 };
 
-const onLoadHubspotConfig = () => {
-  updateConfigDependentFeatures();
-};
-
 export const loadHubspotConfigFile = (rootPath: string) => {
   if (!rootPath) {
     return;
@@ -54,7 +50,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
       config.defaultPortal,
       JSON.stringify(config.portals.map((p: Portal) => p.name))
     );
-    onLoadHubspotConfig();
+    updateConfigDependentFeatures();
     return path;
   }
 };
@@ -68,14 +64,15 @@ export const initializeHubspotConfigDependents = (
     loadConfigDependentFeatures();
   }
 
-  // This triggers an in-memory update of the config when the file changes
   if (!hubspotConfigWatcher) {
     console.log('Started watching hubspot.config.yml');
+    // This triggers an in-memory update of the config when the file changes
     hubspotConfigWatcher = fs.watch(configPath, async (eventType) => {
       if (eventType === 'change') {
         console.log('hubspot.config.yml changed');
         loadHubspotConfigFile(rootPath);
       } else if (eventType === 'rename') {
+        // 'rename' event is triggers for renames and deletes
         console.log('hubspot.config.yml renamed/deleted');
         loadHubspotConfigFile(rootPath);
         hubspotConfigWatcher && hubspotConfigWatcher.close();
@@ -86,6 +83,14 @@ export const initializeHubspotConfigDependents = (
   }
 };
 
+/**
+ * Some features rely on the existence of hubspot.config.yml, this function
+ * allows registering those features so they are only initialized when
+ * the hubspot.config.yml file is present
+ * @param rootPath root path of the project (where hubspot.config.yml would reside)
+ * @param onConfigFound callback to be executed when a hubspot.config.yml is found
+ * @param onConfigUpdated callback to be executed when the hubspot.config.yml is updated/changed
+ */
 export const registerConfigDependentFeatures = async ({
   rootPath,
   onConfigFound,
