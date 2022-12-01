@@ -34,6 +34,7 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
+  AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
   CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
   CONFIG_RENAME_ACCOUNT: 'hubspot.config.renameAccount',
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
