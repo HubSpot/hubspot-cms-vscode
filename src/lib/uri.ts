@@ -2,10 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackAction } from './tracking';
-import {
-  initializeHubspotConfigDependents,
-  loadHubspotConfigFile,
-} from './auth';
+import { loadHubspotConfigFile } from './auth';
 import { COMMANDS } from './constants';
 
 const {
@@ -43,7 +40,11 @@ const handleAuthRequest = async (
     env,
   });
 
-  initializeHubspotConfigDependents(rootPath, configPath);
+  vscode.commands.executeCommand(
+    COMMANDS.ON_CONFIG_FOUND,
+    rootPath,
+    configPath
+  );
 
   vscode.commands.executeCommand(
     'setContext',
