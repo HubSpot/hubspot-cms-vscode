@@ -9,7 +9,7 @@ export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
 
   const config = getConfig();
-  const defaultAccount = config.defaultPortal;
+  const defaultAccount = config && config.defaultPortal;
 
   if (defaultAccount) {
     hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
