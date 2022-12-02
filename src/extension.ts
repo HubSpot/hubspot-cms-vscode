@@ -6,6 +6,7 @@ import { initializeStatusBar } from './lib/statusBar';
 import { getRootPath } from './lib/helpers';
 import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
+import { hublClient } from './lib/client';
 
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
@@ -16,6 +17,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   initializeProviders(context);
   initializeStatusBar(context);
-
+  hublClient(context);
   initializeConfig(rootPath);
 };
