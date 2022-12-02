@@ -34,16 +34,11 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  const config = loadConfig(path);
+  loadConfig(path);
 
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
-    console.log(
-      'loadedHubspotConfig',
-      config.defaultPortal,
-      JSON.stringify(config.portals.map((p: Portal) => p.name))
-    );
     vscode.commands.executeCommand(COMMANDS.ON_CONFIG_UPDATED);
     return path;
   }
