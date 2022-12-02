@@ -41,6 +41,9 @@ export const COMMANDS = {
   CONFIG_RENAME_ACCOUNT: 'hubspot.config.renameAccount',
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
+  FETCH: {
+    LATEST_CLI_VERSION: 'hubspot.fetch.cli.latestVersion',
+  },
   INSTALL_HUBSPOT_CLI: 'hubspot.install.hs',
   ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
   ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',

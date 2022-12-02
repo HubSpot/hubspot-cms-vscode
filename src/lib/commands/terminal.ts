@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { checkIfTerminalCommandExists } from '../helpers';
+import { compare } from 'compare-versions';
+import { checkTerminalCommandVersion, runTerminalCommand } from '../helpers';
 import { COMMANDS, POLLING_INTERVALS, TERMINAL_IDS } from '../constants';
 
 export const registerCommands = (context: vscode.ExtensionContext) => {
@@ -30,32 +31,74 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.CHECK_HUBSPOT_CLI_INSTALL,
+      COMMANDS.FETCH.LATEST_CLI_VERSION,
       async () => {
-        const hsPath = await checkIfTerminalCommandExists('hs');
+        const hsVersion = (await runTerminalCommand('hs --version')).trim();
+        const latestHsVersion = (
+          await runTerminalCommand(
+            `npm info @hubspot/cli@latest | grep 'latest: ' | sed -n -e 's/^latest: //p'`
+          )
+        ).trim();
         vscode.commands.executeCommand(
           'setContext',
-          'hubspot.paths.hs',
-          hsPath
+          'hubspot.terminal.versions.latest.hs',
+          hsVersion
+        );
+        console.log('latestVersion: ', latestHsVersion);
+
+        console.log(
+          'Newer CLI Version Available: ',
+          compare(latestHsVersion, hsVersion, '>')
         );
 
-        console.log('hsPath: ', hsPath);
-        return hsPath;
+        vscode.commands.executeCommand(
+          'setContext',
+          'hubspot.updateAvailableForCLI',
+          compare(latestHsVersion, hsVersion, '>')
+        );
+
+        return latestHsVersion;
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      COMMANDS.CHECK_HUBSPOT_CLI_INSTALL,
+      async () => {
+        const hsVersion = await checkTerminalCommandVersion('hs');
+        vscode.commands.executeCommand(
+          'setContext',
+          'hubspot.terminal.versions.installed.hs',
+          hsVersion
+        );
+        vscode.commands.executeCommand(
+          'setContext',
+          'hubspot.versionChecksComplete',
+          true
+        );
+
+        console.log('hsVersion: ', hsVersion);
+        if (hsVersion) {
+          vscode.commands.executeCommand(COMMANDS.FETCH.LATEST_CLI_VERSION);
+        }
+
+        return hsVersion;
       }
     )
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.CHECK_NPM_INSTALL, async () => {
-      const npmPath = await checkIfTerminalCommandExists('npm');
+      const npmVersion = await checkTerminalCommandVersion('npm');
       vscode.commands.executeCommand(
         'setContext',
-        'hubspot.paths.npm',
-        npmPath
+        'hubspot.terminal.versions.installed.npm',
+        npmVersion
       );
 
-      console.log('npmPath: ', npmPath);
-      return npmPath;
+      console.log('npmVersion: ', npmVersion);
+      return npmVersion;
     })
   );
 };

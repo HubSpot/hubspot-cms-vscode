@@ -8,8 +8,6 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
   const accountProvider = new AccountsProvider();
   const quickLinksProvider = new QuickLinksProvider();
 
-  console.log('quickLinksProvider: ', quickLinksProvider);
-
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
       console.log(COMMANDS.ACCOUNTS_REFRESH);
