@@ -15,6 +15,9 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
           COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
         );
 
+        // TODO - Figure out a way to do this without jarring UI
+        await vscode.commands.executeCommand(COMMANDS.FETCH.LATEST_CLI_VERSION);
+
         if (hsPath) {
           clearInterval(hubspotInstalledPoll);
           vscode.window.showInformationMessage('HubSpot CLI installed.');
