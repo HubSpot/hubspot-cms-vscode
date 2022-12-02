@@ -23,3 +23,8 @@ export interface HubspotConfig {
   allowUsageTracking?: boolean | undefined;
   useCustomObjectHubFile?: boolean | undefined;
 }
+
+export interface QuickLink {
+  label: string;
+  url: string;
+}

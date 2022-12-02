@@ -250,7 +250,7 @@
                     "when": "hubspot.paths.npm && !hubspot.paths.hs"
                 },
                 {
-                    "id": "hubspot.treeData.quickLinks",
+                    "id": "hubspot.treedata.quickLinks",
                     "name": "Quick Links"
                 }
             ]
