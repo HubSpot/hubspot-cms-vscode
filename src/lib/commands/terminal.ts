@@ -17,7 +17,9 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
         if (hsVersion) {
           clearInterval(hubspotInstalledPoll);
-          vscode.window.showInformationMessage('HubSpot CLI installed.');
+          vscode.window.showInformationMessage(
+            `HubSpot CLI version ${hsVersion} installed.`
+          );
         }
       }, POLLING_INTERVALS.FAST);
 
@@ -44,7 +46,9 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
         if (hsVersion === latestVersion) {
           clearInterval(hubspotUpdatedPoll);
-          vscode.window.showInformationMessage('HubSpot CLI updated.');
+          vscode.window.showInformationMessage(
+            `HubSpot CLI updated to version ${latestVersion}.`
+          );
         }
       }, POLLING_INTERVALS.FAST);
 
