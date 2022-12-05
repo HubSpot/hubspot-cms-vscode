@@ -39,7 +39,7 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
 export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
+      COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
       (defaultAccount, { silenceNotification = false } = {}) => {
         if (!defaultAccount) return;
         const newDefaultAccount =
@@ -60,7 +60,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.CONFIG_SELECT_DEFAULT_ACCOUNT,
+      COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
         const config = getConfig();
         if (config && config.portals) {
@@ -99,7 +99,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.CONFIG_RENAME_ACCOUNT,
+      COMMANDS.CONFIG.RENAME_ACCOUNT,
       async (accountToRename) => {
         showRenameAccountPrompt(accountToRename);
       }
@@ -108,7 +108,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.CONFIG_DELETE_ACCOUNT,
+      COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
         const config = getConfig();
         const accountIdentifier =

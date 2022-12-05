@@ -7,12 +7,14 @@ import { getRootPath } from './lib/helpers';
 import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
 import { initializeTerminal } from './lib/terminal';
+import { registerEvents } from './lib/events';
 
 export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 
   registerCommands(context);
+  registerEvents(context);
   registerURIHandler(context, rootPath);
 
   initializeProviders(context);
