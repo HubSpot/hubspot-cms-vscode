@@ -12,7 +12,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
       const hubspotInstalledPoll = setInterval(async () => {
         const hsVersion = await vscode.commands.executeCommand(
-          COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
+          COMMANDS.VERSION_CHECK.HS
         );
 
         if (hsVersion) {
@@ -33,13 +33,13 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
     vscode.commands.registerCommand(COMMANDS.HUBSPOT_CLI.UPDATE, async () => {
       const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
       const latestVersion = await vscode.commands.executeCommand(
-        COMMANDS.FETCH.LATEST_CLI_VERSION
+        COMMANDS.VERSION_CHECK.HS_LATEST
       );
       terminal.show();
 
       const hubspotUpdatedPoll = setInterval(async () => {
         const hsVersion = await vscode.commands.executeCommand(
-          COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
+          COMMANDS.VERSION_CHECK.HS
         );
 
         if (hsVersion === latestVersion) {
@@ -58,7 +58,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      COMMANDS.FETCH.LATEST_CLI_VERSION,
+      COMMANDS.VERSION_CHECK.HS_LATEST,
       async () => {
         const hsVersion = (await runTerminalCommand('hs --version')).trim();
         const latestHsVersion = (
@@ -90,33 +90,30 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      COMMANDS.CHECK_HUBSPOT_CLI_INSTALL,
-      async () => {
-        const hsVersion = await checkTerminalCommandVersion('hs');
-        vscode.commands.executeCommand(
-          'setContext',
-          'hubspot.terminal.versions.installed.hs',
-          hsVersion
-        );
-        vscode.commands.executeCommand(
-          'setContext',
-          'hubspot.versionChecksComplete',
-          true
-        );
+    vscode.commands.registerCommand(COMMANDS.VERSION_CHECK.HS, async () => {
+      const hsVersion = await checkTerminalCommandVersion('hs');
+      vscode.commands.executeCommand(
+        'setContext',
+        'hubspot.terminal.versions.installed.hs',
+        hsVersion
+      );
+      vscode.commands.executeCommand(
+        'setContext',
+        'hubspot.versionChecksComplete',
+        true
+      );
 
-        console.log('hsVersion: ', hsVersion);
-        if (hsVersion) {
-          vscode.commands.executeCommand(COMMANDS.FETCH.LATEST_CLI_VERSION);
-        }
-
-        return hsVersion;
+      console.log('hsVersion: ', hsVersion);
+      if (hsVersion) {
+        vscode.commands.executeCommand(COMMANDS.VERSION_CHECK.HS_LATEST);
       }
-    )
+
+      return hsVersion;
+    })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(COMMANDS.CHECK_NPM_INSTALL, async () => {
+    vscode.commands.registerCommand(COMMANDS.VERSION_CHECK.NPM, async () => {
       const npmVersion = await checkTerminalCommandVersion('npm');
       vscode.commands.executeCommand(
         'setContext',
