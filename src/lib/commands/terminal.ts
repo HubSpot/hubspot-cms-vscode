@@ -5,20 +5,17 @@ import { COMMANDS, POLLING_INTERVALS, TERMINAL_IDS } from '../constants';
 
 export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(COMMANDS.INSTALL_HUBSPOT_CLI, () => {
+    vscode.commands.registerCommand(COMMANDS.HUBSPOT_CLI.INSTALL, () => {
       const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
 
       terminal.show();
 
       const hubspotInstalledPoll = setInterval(async () => {
-        const hsPath = await vscode.commands.executeCommand(
+        const hsVersion = await vscode.commands.executeCommand(
           COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
         );
 
-        // TODO - Figure out a way to do this without jarring UI
-        await vscode.commands.executeCommand(COMMANDS.FETCH.LATEST_CLI_VERSION);
-
-        if (hsPath) {
+        if (hsVersion) {
           clearInterval(hubspotInstalledPoll);
           vscode.window.showInformationMessage('HubSpot CLI installed.');
         }
@@ -28,6 +25,33 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
       terminal.sendText('npm i -g @hubspot/cli@latest');
       terminal.sendText(
         "echo 'Installation complete. You can now close this terminal window.'"
+      );
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(COMMANDS.HUBSPOT_CLI.UPDATE, async () => {
+      const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
+      const latestVersion = await vscode.commands.executeCommand(
+        COMMANDS.FETCH.LATEST_CLI_VERSION
+      );
+      terminal.show();
+
+      const hubspotUpdatedPoll = setInterval(async () => {
+        const hsVersion = await vscode.commands.executeCommand(
+          COMMANDS.CHECK_HUBSPOT_CLI_INSTALL
+        );
+
+        if (hsVersion === latestVersion) {
+          clearInterval(hubspotUpdatedPoll);
+          vscode.window.showInformationMessage('HubSpot CLI updated.');
+        }
+      }, POLLING_INTERVALS.FAST);
+
+      terminal.sendText("echo 'Updating the HubSpot CLI.'");
+      terminal.sendText('npm i -g @hubspot/cli@latest');
+      terminal.sendText(
+        "echo 'Update complete. You can now close this terminal window.'"
       );
     })
   );

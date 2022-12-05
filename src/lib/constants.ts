@@ -44,7 +44,10 @@ export const COMMANDS = {
   FETCH: {
     LATEST_CLI_VERSION: 'hubspot.fetch.cli.latestVersion',
   },
-  INSTALL_HUBSPOT_CLI: 'hubspot.install.hs',
+  HUBSPOT_CLI: {
+    INSTALL: 'hubspot.hs.install',
+    UPDATE: 'hubspot.hs.update',
+  },
   ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
   ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
 };
@@ -60,5 +63,5 @@ export const TERMINAL_IDS = {
 
 export const POLLING_INTERVALS = {
   SLOW: 60000,
-  FAST: 1000,
+  FAST: 2500,
 };
