@@ -253,6 +253,11 @@
                     "id": "hubspot.treedata.quickLinks",
                     "name": "Quick Links"
                 }
+                ,
+                {
+                    "id": "hubspot.treedata.remoteFs",
+                    "name": "Remote FS"
+                }
             ]
         },
         "viewsWelcome": [

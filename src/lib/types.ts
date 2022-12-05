@@ -28,3 +28,7 @@ export interface QuickLink {
   label: string;
   url: string;
 }
+
+export interface GetDirectoryContentsByPath {
+  any: any;
+}
