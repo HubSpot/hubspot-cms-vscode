@@ -9,7 +9,7 @@ const BETA_NOTIFICATION_MESSAGE =
   'Now in Beta: HubL Error Linting. Opt-in to beta feautures to enable this feature.';
 const BETA_NOTIFICATION_BUTTON = 'Enable Beta Features';
 
-const notifyBeta = (ctx) => {
+const notifyBeta = (ctx: any) => {
   if (
     ctx.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_LINTING_MESSAGE) === true
   ) {
@@ -17,7 +17,7 @@ const notifyBeta = (ctx) => {
   }
   window
     .showInformationMessage(BETA_NOTIFICATION_MESSAGE, BETA_NOTIFICATION_BUTTON)
-    .then((selection) => {
+    .then((selection: any) => {
       if (selection === BETA_NOTIFICATION_BUTTON) {
         workspace
           .getConfiguration(EXTENSION_CONFIG_NAME)

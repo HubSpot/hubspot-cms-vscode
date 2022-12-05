@@ -5,12 +5,13 @@
     "version": "0.17.0",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.30.0"
+        "vscode": "^1.53.0"
     },
     "scripts": {
+        "dev": "npm run webpack-dev",
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
-        "prettier:write": "prettier --write '**/*.{js,json}'",
+        "prettier:write": "prettier --write '**/*.{ts,js,json}'",
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
@@ -22,14 +23,15 @@
     },
     "homepage": "https://github.com/HubSpot/hubspot-cms-vscode/blob/master/README.md",
     "categories": [
-        "Snippets"
+        "Programming Languages",
+        "Snippets",
+        "Linters"
     ],
     "icon": "images/hubspot-logo.png",
-    "main": "./dist/index.js",
+
+    "main": "./dist/extension.js",
     "activationEvents": [
-        "onLanguage:html-hubl",
-        "onLanguage:css-hubl",
-        "onLanguage:hubl"
+        "onStartupFinished"
     ],
     "contributes": {
         "snippets": [
@@ -188,23 +190,94 @@
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
                 }
             }
-        }
+        },
+        "commands": [
+            {
+                "command": "hubspot.config.selectDefaultAccount",
+                "title": "Hubspot: Select default account"
+            },
+            {
+                "command": "hubspot.config.setDefaultAccount",
+                "title": "Set as default account"
+            },
+            {
+                "command": "hubspot.config.deleteAccount",
+                "title": "Delete account"
+            },
+            {
+                "command": "hubspot.config.renameAccount",
+                "title": "Rename account"
+            }
+        ],
+        "menus": {
+            "view/item/context": [
+                {
+                    "command": "hubspot.config.setDefaultAccount",
+                    "when": "viewItem == accountTreeItem"
+                },
+                {
+                    "command": "hubspot.config.renameAccount",
+                    "when": "viewItem == accountTreeItem"
+                },
+                {
+                    "command": "hubspot.config.deleteAccount",
+                    "when": "viewItem == accountTreeItem"
+                }
+            ]
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "hubspot-explorer",
+                    "title": "HubSpot",
+                    "icon": "images/hubspot-logo.svg"
+                }
+            ]
+        },
+        "views": {
+            "hubspot-explorer": [
+                {
+                    "id": "hubspot.treedata.accounts",
+                    "name": "Accounts",
+                    "when": "hubspot.configPath"
+                },
+                {
+                    "id": "hubspot.viewsWelcome.accountAuth",
+                    "name": "Authentication"
+                }
+            ]
+        },
+        "viewsWelcome": [
+            {
+                "view": "hubspot.viewsWelcome.accountAuth",
+                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "!hubspot.configPath"
+            },
+            {
+                "view": "hubspot.viewsWelcome.accountAuth",
+                "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "when": "hubspot.configPath"
+            }
+        ]
     },
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.3",
         "fs-extra": "^9.0.1",
-        "node-fetch": "^2.6.7",
+        "js-yaml": "^4.1.0",
+        "node-fetch": "^3.1.1",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
+        "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
-        "@types/vscode": "1.30.0",
+        "@types/vscode": "1.53.0",
         "eslint": "^7.5.0",
         "node-loader": "^2.0.0",
-        "prettier": "^2.0.5",
+        "prettier": "^2.7.1",
         "ts-loader": "^9.2.3",
         "typescript": "^4.3.4",
         "webpack": "^5.40.0",
-        "webpack-cli": "^4.7.2"
+        "webpack-cli": "^4.7.2",
+        "webpack-node-externals": "^3.0.0"
     }
 }

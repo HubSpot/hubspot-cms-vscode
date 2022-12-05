@@ -1,3 +1,5 @@
+import { HubspotConfig } from './types';
+
 const vscode = require('vscode');
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
@@ -17,7 +19,7 @@ const {
 const fs = require('fs');
 const path = require('path');
 
-const getRange = (document, error) => {
+const getRange = (document: any, error: any) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;
 
   if (error.startPosition > 0) {
@@ -30,7 +32,7 @@ const getRange = (document, error) => {
   }
 };
 
-const isFileInWorkspace = (error) => {
+const isFileInWorkspace = (error: any) => {
   const pathToActiveFile = vscode.window.activeTextEditor.document.uri.path;
   const dirToActiveFile = path.dirname(pathToActiveFile);
 
@@ -43,11 +45,11 @@ const isFileInWorkspace = (error) => {
   return fs.existsSync(path.resolve(dirToActiveFile, filePath));
 };
 
-const clearValidation = (document, collection) => {
+const clearValidation = (document: any, collection: any) => {
   collection.set(document.uri, null);
 };
 
-const getRenderingErrors = async (source, context) => {
+const getRenderingErrors = async (source: any, context: any) => {
   try {
     const { renderingErrors } = await validateHubl(
       getPortalId(),
@@ -60,7 +62,7 @@ const getRenderingErrors = async (source, context) => {
   }
 };
 
-const getTemplateType = (document) => {
+const getTemplateType = (document: any) => {
   if (isCodedFile(document.fileName)) {
     const getAnnotationValue = getAnnotationsFromSource(document.getText());
     return {
@@ -76,7 +78,7 @@ const getTemplateType = (document) => {
   return {};
 };
 
-const updateValidation = async (document, collection) => {
+const updateValidation = async (document: any, collection: any) => {
   if (!document) {
     return collection.clear();
   }
@@ -91,7 +93,7 @@ const updateValidation = async (document, collection) => {
     return clearValidation(document, collection);
   }
 
-  const resolvedRenderingErrors = renderingErrors.filter((error) => {
+  const resolvedRenderingErrors = renderingErrors.filter((error: any) => {
     if (
       error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
       error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
@@ -101,7 +103,7 @@ const updateValidation = async (document, collection) => {
     return true;
   });
 
-  const templateErrors = resolvedRenderingErrors.map((error) => {
+  const templateErrors = resolvedRenderingErrors.map((error: any) => {
     return {
       code: '',
       message: error.message,
@@ -113,8 +115,8 @@ const updateValidation = async (document, collection) => {
   collection.set(document.uri, templateErrors);
 };
 
-let timeout = null;
-const triggerValidate = (document, collection) => {
+let timeout: NodeJS.Timeout;
+export const triggerValidate = (document: any, collection: any) => {
   clearTimeout(timeout);
 
   if (!['html-hubl', 'css-hubl'].includes(document.languageId)) {
@@ -126,4 +128,21 @@ const triggerValidate = (document, collection) => {
   }, 1000);
 };
 
-module.exports = { triggerValidate };
+export const portalNameInvalid = (
+  portalName: string,
+  config: HubspotConfig
+) => {
+  if (typeof portalName !== 'string') {
+    return 'Portal name must be a string';
+  } else if (!portalName.length) {
+    return 'Portal name cannot be empty';
+  } else if (!/^\S*$/.test(portalName)) {
+    return 'Portal name cannot contain spaces';
+  }
+  return config &&
+    (config.portals || [])
+      .map((p) => p.name)
+      .find((name) => name === portalName)
+    ? `${portalName} already exists in config.`
+    : false;
+};
