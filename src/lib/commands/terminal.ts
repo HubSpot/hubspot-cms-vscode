@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 import { compare } from 'compare-versions';
 import { checkTerminalCommandVersion, runTerminalCommand } from '../helpers';
-import { COMMANDS, POLLING_INTERVALS, TERMINAL_IDS } from '../constants';
+import { COMMANDS, POLLING_INTERVALS } from '../constants';
 
 export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.HUBSPOT_CLI.INSTALL, () => {
-      const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
+      const terminal = vscode.window.createTerminal();
 
       terminal.show();
 
@@ -31,7 +31,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.HUBSPOT_CLI.UPDATE, async () => {
-      const terminal = vscode.window.createTerminal(TERMINAL_IDS.CLI_INSTALL);
+      const terminal = vscode.window.createTerminal();
       const latestVersion = await vscode.commands.executeCommand(
         COMMANDS.VERSION_CHECK.HS_LATEST
       );

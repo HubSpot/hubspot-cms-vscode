@@ -62,10 +62,6 @@ export const TREE_DATA = {
   QUICK_LINKS: 'hubspot.treedata.quickLinks',
 };
 
-export const TERMINAL_IDS = {
-  CLI_INSTALL: 'HubSpot CLI Install',
-};
-
 export const POLLING_INTERVALS = {
   SLOW: 60000,
   FAST: 2500,
