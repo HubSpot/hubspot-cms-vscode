@@ -234,6 +234,24 @@
                     "command": "hubspot.config.deleteAccount",
                     "when": "viewItem == accountTreeItem"
                 }
+            ],
+            "commandPalette": [
+                {
+                    "command": "hubspot.create.module",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.setDefaultAccount",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.renameAccount",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.deleteAccount",
+                    "when": "false"
+                }
             ]
         },
         "viewsContainers": {
