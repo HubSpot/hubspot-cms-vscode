@@ -28,6 +28,11 @@ export interface QuickLink {
   label: string;
   url: string;
 }
+export interface FileLink {
+  label: string;
+  url: string;
+  icon: string;
+}
 
 export interface GetDirectoryContentsByPath {
   any: any;
