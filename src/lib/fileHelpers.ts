@@ -44,7 +44,7 @@ export const convertFolderToModule = (
   folderPath: string,
   cleanupCallback: Function
 ) => {
-  return (e: any) => {
+  return (e: vscode.FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
@@ -68,9 +68,9 @@ export const convertFolderToModule = (
             });
           }
 
-          return resolve(false);
+          reject(edit);
         } catch (e: any) {
-          return reject(e);
+          reject(e);
         }
       })
     );
