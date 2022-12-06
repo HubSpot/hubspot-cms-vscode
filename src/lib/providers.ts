@@ -15,8 +15,17 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
   );
   vscode.window.registerTreeDataProvider(TREE_DATA.ACCOUNTS, accountProvider);
 
+  async function findInitialFiles(fileDir: string) {
+    const files = [];
+    const pattern = new vscode.RelativePattern(fileDir, '**/*');
+    for (const file of await vscode.workspace.findFiles(pattern)) {
+      files.push(path.relative(fileDir, file.path));
+    }
+    return files;
+  }
+
   const filePathHandler = {
-    provideCompletionItems(
+    async provideCompletionItems(
       document: vscode.TextDocument,
       position: vscode.Position
     ) {
@@ -26,22 +35,20 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
       if (!linePrefix.endsWith("include '")) {
         return undefined;
       }
-      const files: vscode.CompletionItem[] = [];
       try {
-        const filePath = document.uri.fsPath;
-        const fileDir = path.dirname(filePath);
-        fs.readdirSync(fileDir).forEach((file) => {
-          files.push(
-            new vscode.CompletionItem(
-              `./${file}`,
-              vscode.CompletionItemKind.File
-            )
+        const currentFileDir = path.dirname(document.uri.fsPath);
+        const filesInDir = await findInitialFiles(currentFileDir);
+
+        return filesInDir.map((file) => {
+          return new vscode.CompletionItem(
+            `./${file}`,
+            vscode.CompletionItemKind.File
           );
         });
       } catch (e) {
-        console.log('err', e);
+        console.log('There was an error reading the directory');
       }
-      return files;
+      return [];
     },
     // This is triggered when selecting an option- may not need this
     //@ts-ignore
