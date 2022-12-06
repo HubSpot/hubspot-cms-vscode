@@ -20,9 +20,9 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
       document: vscode.TextDocument,
       position: vscode.Position
     ) {
-      const linePrefix = document
-        .lineAt(position)
-        .text.substr(0, position.character);
+      const linePrefix = document.getText(
+        new vscode.Range(position.line, 0, position.line, position.character)
+      );
       if (!linePrefix.endsWith("include '")) {
         return undefined;
       }
