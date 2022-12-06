@@ -192,6 +192,10 @@
         },
         "commands": [
             {
+                "command": "hubspot.create.module",
+                "title": "Create new module"
+            },
+            {
                 "command": "hubspot.config.selectDefaultAccount",
                 "title": "Hubspot: Select default account"
             },
@@ -209,6 +213,13 @@
             }
         ],
         "menus": {
+            "explorer/context": [
+                {
+                    "command": "hubspot.create.module",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                }
+            ],
             "view/item/context": [
                 {
                     "command": "hubspot.config.setDefaultAccount",
@@ -221,6 +232,24 @@
                 {
                     "command": "hubspot.config.deleteAccount",
                     "when": "viewItem == accountTreeItem"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "hubspot.create.module",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.setDefaultAccount",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.renameAccount",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.config.deleteAccount",
+                    "when": "false"
                 }
             ]
         },
