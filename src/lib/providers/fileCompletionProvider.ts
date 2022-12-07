@@ -65,7 +65,6 @@ export const FileCompletionProvider = () => {
 
       const currentFileDir = path.dirname(document.uri.fsPath);
 
-      // TODO: getCompletionItems()
       return getCompletionItems(currentFileDir, lineSuffix, triggerCharacter);
     },
   };
