@@ -43,29 +43,29 @@ const getCompletionItems = (
   });
 };
 
-export const FileCompletionProvider = () => {
-  return {
-    provideCompletionItems(
-      document: vscode.TextDocument,
-      position: vscode.Position,
-      token: vscode.CancellationToken,
-      { triggerCharacter }: vscode.CompletionContext
-    ) {
-      const linePrefix = document.getText(
-        new vscode.Range(position.line, 0, position.line, position.character)
-      );
+export class FileCompletionProvider
+  implements vscode.CompletionItemProvider<vscode.CompletionItem>
+{
+  provideCompletionItems(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    token: vscode.CancellationToken,
+    { triggerCharacter }: vscode.CompletionContext
+  ) {
+    const linePrefix = document.getText(
+      new vscode.Range(position.line, 0, position.line, position.character)
+    );
 
-      if (!shouldProvideCompletion(linePrefix)) {
-        return [];
-      }
+    if (!shouldProvideCompletion(linePrefix)) {
+      return [];
+    }
 
-      const lineSuffix = document.getText(
-        new vscode.Range(position.line, position.character, position.line, 999)
-      );
+    const lineSuffix = document.getText(
+      new vscode.Range(position.line, position.character, position.line, 999)
+    );
 
-      const currentFileDir = path.dirname(document.uri.fsPath);
+    const currentFileDir = path.dirname(document.uri.fsPath);
 
-      return getCompletionItems(currentFileDir, lineSuffix, triggerCharacter);
-    },
-  };
-};
+    return getCompletionItems(currentFileDir, lineSuffix, triggerCharacter);
+  }
+}
