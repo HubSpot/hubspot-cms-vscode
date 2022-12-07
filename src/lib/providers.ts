@@ -6,7 +6,7 @@ import { COMMANDS, TREE_DATA } from './constants';
 
 export const initializeProviders = (context: vscode.ExtensionContext) => {
   const accountProvider = new AccountsProvider();
-  const fileCompletionProvider = FileCompletionProvider();
+
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
       console.log(COMMANDS.ACCOUNTS_REFRESH);
@@ -18,7 +18,7 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
       'html-hubl',
-      fileCompletionProvider,
+      FileCompletionProvider(),
       "'",
       '"'
     )
