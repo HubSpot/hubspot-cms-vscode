@@ -24,6 +24,10 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
     return files;
   }
 
+  const shouldProvideCompletion = (linePrefix: string) => {
+    return /((?:include)|(?:import)|(?:path=))\s*?(?:'|")$/.test(linePrefix);
+  };
+
   const filePathHandler = {
     async provideCompletionItems(
       document: vscode.TextDocument,
@@ -32,10 +36,14 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
       const linePrefix = document.getText(
         new vscode.Range(position.line, 0, position.line, position.character)
       );
-      if (!linePrefix.endsWith("include '")) {
+      const lineSuffix = document.getText(
+        new vscode.Range(position.line, position.character, position.line, 999)
+      );
+      if (!shouldProvideCompletion(linePrefix)) {
         return undefined;
       }
       try {
+        // TODO: getCompletionItems()
         const currentFileDir = path.dirname(document.uri.fsPath);
         const filesInDir = await findInitialFiles(currentFileDir);
 
@@ -62,7 +70,8 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
       'html-hubl',
       //@ts-ignore
       filePathHandler,
-      "'"
+      "'",
+      '"'
     )
   );
 };
