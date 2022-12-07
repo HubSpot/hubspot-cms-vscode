@@ -11,7 +11,10 @@ import { loadHubspotConfigFile } from '../auth';
 let configFoundAndLoaded = false;
 let hubspotConfigWatcher: fs.FSWatcher | null;
 
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (
+  context: vscode.ExtensionContext,
+  rootPath: string
+) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       COMMANDS.ON_CONFIG_FOUND,
@@ -58,8 +61,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
-      const authUrl =
-        'https://app.hubspot.com/l/personal-access-key/auth/vscode';
+      const authUrl = `https://app.hubspot.com/l/personal-access-key/auth/vscode${rootPath}`;
 
       const callableUri = await vscode.env.asExternalUri(
         vscode.Uri.parse(authUrl)

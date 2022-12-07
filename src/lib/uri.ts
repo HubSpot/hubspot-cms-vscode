@@ -17,10 +17,8 @@ const getQueryObject = (uri: vscode.Uri) => {
   return new URLSearchParams(uri.query);
 };
 
-const handleAuthRequest = async (
-  rootPath: string,
-  authParams: URLSearchParams
-) => {
+const handleAuthRequest = async (authParams: URLSearchParams) => {
+  const rootPath = authParams.get('rootPath') || '';
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
   const env = authParams.get('env') || 'prod';
   const name = authParams.get('name');
@@ -75,10 +73,7 @@ const handleAuthRequest = async (
   return updatedConfig;
 };
 
-export const registerURIHandler = (
-  context: vscode.ExtensionContext,
-  rootPath: string
-) => {
+export const registerURIHandler = (context: vscode.ExtensionContext) => {
   // https://github.com/microsoft/vscode-extension-samples/blob/main/uri-handler-sample/package.json
   vscode.window.registerUriHandler({
     handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
@@ -87,7 +82,7 @@ export const registerURIHandler = (
         const queryObject = getQueryObject(uri);
 
         console.log('queryObject: ', queryObject);
-        handleAuthRequest(rootPath, queryObject);
+        handleAuthRequest(queryObject);
       }
     },
   });

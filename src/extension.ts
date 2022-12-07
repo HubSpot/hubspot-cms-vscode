@@ -11,8 +11,8 @@ export const activate = async (context: vscode.ExtensionContext) => {
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 
-  registerCommands(context);
-  registerURIHandler(context, rootPath);
+  registerCommands(context, rootPath);
+  registerURIHandler(context);
 
   initializeProviders(context);
   initializeStatusBar(context);

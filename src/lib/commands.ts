@@ -3,8 +3,11 @@ import { registerCommands as registerConfigCommands } from './commands/config';
 import { registerCommands as registerAuthCommands } from './commands/auth';
 import { registerCommands as registerModuleCommands } from './commands/module';
 
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (
+  context: vscode.ExtensionContext,
+  rootPath: string
+) => {
   registerConfigCommands(context);
-  registerAuthCommands(context);
+  registerAuthCommands(context, rootPath);
   registerModuleCommands(context);
 };
