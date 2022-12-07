@@ -25,30 +25,50 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
   }
 
   const shouldProvideCompletion = (linePrefix: string) => {
-    return /((?:include)|(?:import)|(?:path=))\s*?(?:'|")$/.test(linePrefix);
+    return /((?:include)|(?:import)|(?:extends)|(?:path=))\s*?(?:'|")$/.test(
+      linePrefix
+    );
   };
 
+  const checkIfClosingQuoteExists = (
+    lineSuffix: string,
+    triggerCharacter?: string
+  ) => {
+    return triggerCharacter && !lineSuffix.startsWith(triggerCharacter);
+  };
   const filePathHandler = {
     async provideCompletionItems(
       document: vscode.TextDocument,
-      position: vscode.Position
+      position: vscode.Position,
+      token: vscode.CancellationToken,
+      { triggerCharacter }: vscode.CompletionContext
     ) {
       const linePrefix = document.getText(
         new vscode.Range(position.line, 0, position.line, position.character)
       );
+
       if (!shouldProvideCompletion(linePrefix)) {
         return undefined;
       }
+
+      const lineSuffix = document.getText(
+        new vscode.Range(position.line, position.character, position.line, 999)
+      );
+
       try {
         // TODO: getCompletionItems()
         const currentFileDir = path.dirname(document.uri.fsPath);
         const filesInDir = await findInitialFiles(currentFileDir);
 
         return filesInDir.map((file) => {
-          return new vscode.CompletionItem(
+          const item = new vscode.CompletionItem(
             `./${file}`,
             vscode.CompletionItemKind.File
           );
+          if (checkIfClosingQuoteExists(lineSuffix, triggerCharacter)) {
+            item.insertText = `./${file}${triggerCharacter} `;
+            return item;
+          }
         });
       } catch (e) {
         console.log('There was an error reading the directory');
