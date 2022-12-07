@@ -36,9 +36,6 @@ export const initializeProviders = (context: vscode.ExtensionContext) => {
       const linePrefix = document.getText(
         new vscode.Range(position.line, 0, position.line, position.character)
       );
-      const lineSuffix = document.getText(
-        new vscode.Range(position.line, position.character, position.line, 999)
-      );
       if (!shouldProvideCompletion(linePrefix)) {
         return undefined;
       }
