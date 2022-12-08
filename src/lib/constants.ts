@@ -40,7 +40,6 @@ export const COMMANDS = {
   CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
   CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   CREATE_MODULE: 'hubspot.create.module',
-  CREATE_SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
   CREATE_SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
   ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
   ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',

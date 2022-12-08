@@ -237,11 +237,8 @@
                     "group": "HubSpot"
                 },
                 {
-                    "command": "hubspot.create.serverlessFunction",
-                    "group": "HubSpot"
-                },
-                {
                     "command": "hubspot.create.serverlessFunctionFolder",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
                     "group": "HubSpot"
                 }
             ],
