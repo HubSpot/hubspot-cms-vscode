@@ -20,11 +20,11 @@ const copySampleModuleFilesToFolder = (folderPath: string) => {
 const copySampleFunctionFilesToFolder = (folderPath: string) => {
   const { dir, base } = path.parse(folderPath);
   return createFunction(
-    { 
-      functionsFolder: base, 
-      filename: "example", 
-      endpointPath: "example", 
-      endpointMethod: "GET" 
+    {
+      functionsFolder: base,
+      filename: 'example',
+      endpointPath: 'example',
+      endpointMethod: 'GET',
     },
     dir
   );
@@ -97,7 +97,9 @@ export const convertFolderToModule = (
 const getUniqueFunctionsFolderName = (folderPath: string) => {
   const folderName = folderPath.split(path.sep).pop() || '';
   const hasFunctionsExtension = folderName.split('.').pop() === 'functions';
-  let functionsPath = hasFunctionsExtension ? folderPath : `${folderPath}.functions`;
+  let functionsPath = hasFunctionsExtension
+    ? folderPath
+    : `${folderPath}.functions`;
   let uniqueFunctionsPath = functionsPath;
 
   if (!hasFunctionsExtension) {
@@ -107,7 +109,9 @@ const getUniqueFunctionsFolderName = (folderPath: string) => {
       incrementor++;
       const functionsPathParts = functionsPath.split('.');
       functionsPathParts.pop();
-      uniqueFunctionsPath = `${functionsPathParts.join('.')}${incrementor}.functions`;
+      uniqueFunctionsPath = `${functionsPathParts.join(
+        '.'
+      )}${incrementor}.functions`;
     }
   }
   return uniqueFunctionsPath;
@@ -133,7 +137,10 @@ export const convertFolderToServerlessFunction = (
               e.files[0].fsPath
             );
 
-            edit.renameFile(e.files[0], vscode.Uri.file(uniqueFunctionsFolderPath));
+            edit.renameFile(
+              e.files[0],
+              vscode.Uri.file(uniqueFunctionsFolderPath)
+            );
 
             vscode.workspace.applyEdit(edit).then(() => {
               copySampleFunctionFilesToFolder(uniqueFunctionsFolderPath);
