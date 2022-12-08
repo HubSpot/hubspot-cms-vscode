@@ -16,7 +16,7 @@ export class AccountsProvider implements vscode.TreeDataProvider<Portal> {
     this._onDidChangeTreeData.event;
 
   refresh(): void {
-    console.log('Triggering AccountsProvider:refresh');
+    console.log('AccountsProvider:refresh');
     this._onDidChangeTreeData.fire(undefined);
   }
 
@@ -35,7 +35,7 @@ export class AccountsProvider implements vscode.TreeDataProvider<Portal> {
   }
 
   getChildren(): Thenable<Portal[] | undefined> {
-    console.log('Getting children for AccountsProvider');
+    console.log('AccountsProvider:getChildren');
     this.config = getConfig();
 
     if (this.config && this.config.portals) {

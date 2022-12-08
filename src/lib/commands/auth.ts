@@ -25,21 +25,21 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
         }
 
         if (!hubspotConfigWatcher) {
-          console.log('Started watching hubspot.config.yml');
+          console.log(`watching: ${configPath}`);
           // This triggers an in-memory update of the config when the file changes
           hubspotConfigWatcher = fs.watch(
             configPath,
             async (eventType: any) => {
               if (eventType === 'change') {
-                console.log('hubspot.config.yml changed');
+                console.log(`${configPath} changed`);
                 loadHubspotConfigFile(rootPath);
               } else if (eventType === 'rename') {
                 // 'rename' event is triggers for renames and deletes
-                console.log('hubspot.config.yml renamed/deleted');
+                console.log(`${configPath} renamed/deleted`);
                 loadHubspotConfigFile(rootPath);
                 hubspotConfigWatcher && hubspotConfigWatcher.close();
                 hubspotConfigWatcher = null;
-                console.log('Stopped watching hubspot.config.yml');
+                console.log(`stopped watching ${configPath}`);
               }
             }
           );
