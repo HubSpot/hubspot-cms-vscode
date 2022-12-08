@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { trackEvent } from './lib/tracking';
 
 import { registerURIHandler } from './lib/uri';
 import { registerCommands } from './lib/commands';
@@ -8,6 +9,7 @@ import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
 
 export const activate = async (context: vscode.ExtensionContext) => {
+  await trackEvent('activate');
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 

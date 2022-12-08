@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { triggerValidate } from './validation';
-import { trackAction } from './tracking';
+import { trackEvent } from './tracking';
 import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
 
 const collection = vscode.languages.createDiagnosticCollection('hubl');

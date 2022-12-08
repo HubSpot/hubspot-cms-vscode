@@ -5,7 +5,7 @@ const {
 } = require('@hubspot/cli-lib');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
-export const trackAction = async (action: string, options?: object) => {
+export const trackEvent = async (action: string, options?: object) => {
   if (!isTrackingAllowed()) {
     return;
   }
