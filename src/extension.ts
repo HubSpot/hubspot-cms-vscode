@@ -1,5 +1,4 @@
-import { env, version, ExtensionContext } from 'vscode';
-import { platform, release } from 'os';
+import { ExtensionContext } from 'vscode';
 
 import { registerURIHandler } from './lib/uri';
 import { registerCommands } from './lib/commands';
@@ -19,14 +18,4 @@ export const activate = async (context: ExtensionContext) => {
   initializeStatusBar(context);
 
   initializeConfig(rootPath);
-
-  console.log('tracking data: ', {
-    machineId: env.machineId,
-    shell: env.shell,
-    language: env.language,
-    source: env.appName,
-    vscodeVersion: version,
-    extensionName: 'hubspot.hubl',
-    os: `${platform()} ${release()}`,
-  });
 };
