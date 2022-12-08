@@ -1,6 +1,13 @@
-import { env, version, workspace } from 'vscode';
+import { env, version, workspace, ExtensionContext } from 'vscode';
 import { platform, release } from 'os';
 import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
+
+let extensionVersion: string;
+
+export const initializeTracking = (context: ExtensionContext) => {
+  // @ts-ignore TODO - Why is extension not available, when it is?
+  extensionVersion = context.extension.packageJSON.version;
+};
 
 const {
   getAccountId,
@@ -12,12 +19,13 @@ const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 export const getUserIdentificationInformation = () => {
   return {
     extensionName: 'hubspot.hubl',
+    source: env.appName,
+    vscodeVersion: version,
+    extensionVersion,
     language: env.language,
     machineId: env.machineId,
     os: `${platform()} ${release()}`,
     shell: env.shell,
-    source: env.appName,
-    vscodeVersion: version,
   };
 };
 
