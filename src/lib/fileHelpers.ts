@@ -18,14 +18,15 @@ const copySampleModuleFilesToFolder = (folderPath: string) => {
 };
 
 const copySampleFunctionFilesToFolder = (folderPath: string) => {
+  const { dir, base } = path.parse(folderPath);
   return createFunction(
     { 
-      functionsFolder: "Test", 
-      filename: "Example", 
-      endpointPath: "Testing", 
-      endpointMethod: "TEST!" 
+      functionsFolder: base, 
+      filename: "example", 
+      endpointPath: "example", 
+      endpointMethod: "GET" 
     },
-    folderPath
+    dir
   );
 };
 
@@ -74,13 +75,11 @@ export const convertFolderToModule = (
             );
 
             edit.renameFile(e.files[0], vscode.Uri.file(uniqueModulePath));
-
             vscode.workspace.applyEdit(edit).then(() => {
               copySampleModuleFilesToFolder(uniqueModulePath);
               resolve(edit);
             });
           }
-
           reject(edit);
         } catch (e: any) {
           reject(e);
@@ -103,7 +102,7 @@ const getUniqueFunctionsFolderName = (folderPath: string) => {
 
   if (!hasFunctionsExtension) {
     let incrementor = 0;
-    // Add incremental number to module name if it already exists
+    // Add incremental number to functions folder name if it already exists
     while (fs.existsSync(uniqueFunctionsPath)) {
       incrementor++;
       const functionsPathParts = functionsPath.split('.');
@@ -141,7 +140,6 @@ export const convertFolderToServerlessFunction = (
               resolve(edit);
             });
           }
-
           reject(edit);
         } catch (e: any) {
           reject(e);

@@ -197,10 +197,6 @@
                 "title": "New module"
             },
             {
-                "command": "hubspot.create.serverlessFunction",
-                "title": "New serverless function"
-            },
-            {
                 "command": "hubspot.create.serverlessFunctionFolder",
                 "title": "New serverless function folder"
             },
@@ -224,7 +220,7 @@
         "submenus": [
             {
                 "id": "hubspot.create",
-                "label": "$(add) Create"
+                "label": "Create"
             }
         ],
         "menus": {
@@ -266,6 +262,10 @@
             "commandPalette": [
                 {
                     "command": "hubspot.create.module",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "false"
                 },
                 {
