@@ -63,7 +63,7 @@ const handleAuthRequest = async (
       if (answer === 'Yes') {
         await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultPortal to ${name}.`);
-        commands.executeCommand(COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT, name);
+        commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, name);
       }
     });
 
