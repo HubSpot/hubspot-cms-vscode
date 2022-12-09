@@ -28,7 +28,6 @@
         "Linters"
     ],
     "icon": "images/hubspot-logo.png",
-
     "main": "./dist/extension.js",
     "activationEvents": [
         "onStartupFinished"
@@ -273,6 +272,15 @@
                 {
                     "id": "hubspot.viewsWelcome.accountAuth",
                     "name": "Authentication"
+                },
+                {
+                    "id": "hubspot.viewsWelcome.tools",
+                    "name": "Tools",
+                    "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
+                },
+                {
+                    "id": "hubspot.treedata.helpAndFeedback",
+                    "name": "Help & Feedback"
                 }
             ]
         },
@@ -286,11 +294,22 @@
                 "view": "hubspot.viewsWelcome.accountAuth",
                 "contents": "In order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "hubspot.configPath"
+            },
+            {
+                "view": "hubspot.viewsWelcome.tools",
+                "contents": "In order to use additional features that are not currently available within the HubSpot VS Code extension, you can install the HubSpot CLI (via npm) using the button below. To see other available installation options, [check out the documentation](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Install CLI](command:hubspot.hs.install)",
+                "when": "!hubspot.terminal.versions.installed.hs"
+            },
+            {
+                "view": "hubspot.viewsWelcome.tools",
+                "contents": "An update is available for the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Update CLI](command:hubspot.hs.update)",
+                "when": "hubspot.updateAvailableForCLI"
             }
         ]
     },
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.4-beta.1",
+        "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
         "node-fetch": "^3.1.1",
