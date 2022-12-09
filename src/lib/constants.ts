@@ -60,7 +60,7 @@ export const EVENTS = {
 
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
-  QUICK_LINKS: 'hubspot.treedata.quickLinks',
+  HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
 };
 
 export const POLLING_INTERVALS = {

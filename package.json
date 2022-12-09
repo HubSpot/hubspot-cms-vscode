@@ -279,8 +279,8 @@
                     "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
                 },
                 {
-                    "id": "hubspot.treedata.quickLinks",
-                    "name": "Quick Links"
+                    "id": "hubspot.treedata.helpAndFeedback",
+                    "name": "Help & Feedback"
                 }
             ]
         },

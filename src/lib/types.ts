@@ -24,7 +24,7 @@ export interface HubspotConfig {
   useCustomObjectHubFile?: boolean | undefined;
 }
 
-export interface QuickLink {
+export interface Link {
   label: string;
   url: string;
 }
