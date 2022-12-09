@@ -30,6 +30,35 @@ const copySampleFunctionFilesToFolder = (folderPath: string) => {
   );
 };
 
+/*
+ * Returns a non-duplicate folder name with the format <folderName>.<extension>
+ * It will add a number to the end of the folder name if it already exists
+ * @param folderName - name of a folder
+ * @param extension - name of extension
+ */
+const getUniqueFolderName = (folderPath: string, extension: string) => {
+  const folderName = folderPath.split(path.sep).pop() || '';
+  const hasExtension = folderName.split('.').pop() === extension;
+  let newFolderPath = hasExtension
+    ? folderPath
+    : `${folderPath}.${extension}`;
+  let uniqueFolderPath = newFolderPath;
+
+  if (!hasExtension) {
+    let incrementor = 0;
+    // Add incremental number to folder name if it already exists
+    while (fs.existsSync(uniqueFolderPath)) {
+      incrementor++;
+      const folderPathParts = newFolderPath.split('.');
+      folderPathParts.pop();
+      uniqueFolderPath = `${folderPathParts.join(
+        '.'
+      )}${incrementor}.${extension}`;
+    }
+  }
+  return uniqueFolderPath;
+};
+
 export const convertFolderToModule = (
   folderPath: string,
   cleanupCallback: Function
@@ -64,35 +93,6 @@ export const convertFolderToModule = (
       })
     );
   };
-};
-
-/*
- * Returns a non-duplicate folder name with the format <folderName>.<extension>
- * It will add a number to the end of the folder name if it already exists
- * @param folderName - name of a folder
- * @param extension - name of extension
- */
-const getUniqueFolderName = (folderPath: string, extension: string) => {
-  const folderName = folderPath.split(path.sep).pop() || '';
-  const hasExtension = folderName.split('.').pop() === extension;
-  let newFolderPath = hasExtension
-    ? folderPath
-    : `${folderPath}.${extension}`;
-  let uniqueFolderPath = newFolderPath;
-
-  if (!hasExtension) {
-    let incrementor = 0;
-    // Add incremental number to functions folder name if it already exists
-    while (fs.existsSync(uniqueFolderPath)) {
-      incrementor++;
-      const folderPathParts = newFolderPath.split('.');
-      folderPathParts.pop();
-      uniqueFolderPath = `${folderPathParts.join(
-        '.'
-      )}${incrementor}.${extension}`;
-    }
-  }
-  return uniqueFolderPath;
 };
 
 export const convertFolderToServerlessFunction = (
