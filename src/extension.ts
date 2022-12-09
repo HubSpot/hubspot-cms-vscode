@@ -7,6 +7,8 @@ import { getRootPath } from './lib/helpers';
 import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
 import { initializeTracking } from './lib/tracking';
+import { initializeTerminal } from './lib/terminal';
+import { registerEvents } from './lib/events';
 
 export const activate = async (context: ExtensionContext) => {
   console.log(
@@ -17,9 +19,11 @@ export const activate = async (context: ExtensionContext) => {
   const rootPath = getRootPath();
 
   registerCommands(context);
+  registerEvents(context);
   registerURIHandler(context, rootPath);
 
   initializeProviders(context);
+  initializeTerminal(context);
   initializeStatusBar(context);
   initializeTracking(context);
 

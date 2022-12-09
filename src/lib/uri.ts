@@ -3,7 +3,7 @@ import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
-import { COMMANDS } from './constants';
+import { COMMANDS, EVENTS } from './constants';
 
 const {
   updateConfigWithPersonalAccessKey,
@@ -40,11 +40,7 @@ const handleAuthRequest = async (
     env,
   });
 
-  vscode.commands.executeCommand(
-    COMMANDS.ON_CONFIG_FOUND,
-    rootPath,
-    configPath
-  );
+  vscode.commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
   vscode.commands.executeCommand(
     'setContext',
@@ -64,7 +60,7 @@ const handleAuthRequest = async (
       if (answer === 'Yes') {
         console.log(`Updating defaultPortal to ${name}.`);
         vscode.commands.executeCommand(
-          COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
+          COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
           name
         );
       }
