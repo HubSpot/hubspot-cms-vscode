@@ -9,7 +9,7 @@ import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
-import { COMMANDS, EVENTS } from './constants';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
   updateConfigWithPersonalAccessKey,
@@ -35,11 +35,14 @@ const handleAuthRequest = async (
 
   if (configPath) {
     setConfigPath(configPath);
+    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = path.resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
+    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
+
   const updatedConfig = await updateConfigWithPersonalAccessKey({
     personalAccessKey,
     name,
@@ -56,14 +59,13 @@ const handleAuthRequest = async (
       'Yes',
       'No'
     )
-    .then((answer: string | undefined) => {
+    .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
+        await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultPortal to ${name}.`);
         commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, name);
       }
     });
-
-  await trackEvent('auth-success', { name });
 
   return updatedConfig;
 };
