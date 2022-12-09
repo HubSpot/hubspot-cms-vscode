@@ -9,7 +9,7 @@ import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
-import { COMMANDS, TRACKED_EVENTS } from './constants';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
   updateConfigWithPersonalAccessKey,
@@ -49,7 +49,7 @@ const handleAuthRequest = async (
     env,
   });
 
-  commands.executeCommand(COMMANDS.ON_CONFIG_FOUND, rootPath, configPath);
+  commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
   commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
   window.showInformationMessage(`Successfully added ${name} to the config.`);
