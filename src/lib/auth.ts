@@ -18,12 +18,12 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  console.log(`Root path: ${rootPath}`);
+  console.log(`rootPath: ${rootPath}`);
 
   const path = findConfig(rootPath);
   onLoadPath(path);
 
-  console.log(`Path: ${path}`);
+  console.log(`path: ${path}`);
 
   if (!path) {
     return;
@@ -43,7 +43,7 @@ export const initializeConfig = (rootPath: string) => {
   const configPath = loadHubspotConfigFile(rootPath);
 
   if (configPath) {
-    console.log(`HubSpot config loaded from: ${configPath}`);
+    console.log(`configPath: ${configPath}`);
     commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
   } else {
     console.log(`No config found. Config path: ${configPath}`);

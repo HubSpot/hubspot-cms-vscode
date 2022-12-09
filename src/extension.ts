@@ -13,8 +13,8 @@ export const activate = async (context: ExtensionContext) => {
   console.log('Activating Extension...');
   const rootPath = getRootPath();
 
-  registerCommands(context);
-  registerEvents(context, rootPath);
+  registerCommands(context, rootPath);
+  registerEvents(context);
   registerURIHandler(context);
 
   initializeProviders(context);
