@@ -2,8 +2,8 @@ import {
   Event,
   EventEmitter,
   ThemeIcon,
-  TreeItem,
   TreeDataProvider,
+  TreeItem,
   TreeItemCollapsibleState,
 } from 'vscode';
 import { getDisplayedHubspotPortalInfo } from '../helpers';

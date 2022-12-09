@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { commands, window, ExtensionContext } from 'vscode';
 import { updateStatusBarItems } from '../statusBar';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
@@ -15,7 +15,7 @@ const {
 } = require('@hubspot/cli-lib/lib/config');
 
 const showRenameAccountPrompt = (accountToRename: Portal) => {
-  vscode.window
+  window
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
     })
@@ -26,12 +26,12 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
 
         if (!invalidReason) {
           renameAccount(oldName, newName);
-          vscode.window.showInformationMessage(
+          window.showInformationMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
           await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT);
         } else {
-          vscode.window.showErrorMessage(invalidReason);
+          window.showErrorMessage(invalidReason);
           await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT_ERROR, {
             oldName,
             newName,
@@ -43,9 +43,9 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     });
 };
 
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
       async (defaultAccount, { silenceNotification = false } = {}) => {
         if (!defaultAccount) return;
@@ -58,7 +58,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
         updateDefaultAccount(newDefaultAccount);
         await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
         if (!silenceNotification) {
-          vscode.window.showInformationMessage(
+          window.showInformationMessage(
             `Successfully set default account to ${newDefaultAccount}.`
           );
         }
@@ -67,12 +67,12 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
         const config = getConfig();
         if (config && config.portals) {
-          vscode.window
+          window
             .showQuickPick(
               config.portals.map((p: Portal) => {
                 return {
@@ -96,7 +96,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
                   selection.portal.name || selection.portal.portalId;
                 await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
-                vscode.window.showInformationMessage(
+                window.showInformationMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
               }
@@ -107,7 +107,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.CONFIG.RENAME_ACCOUNT,
       async (accountToRename) => {
         showRenameAccountPrompt(accountToRename);
@@ -116,14 +116,14 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
         const config = getConfig();
         const accountIdentifier =
           accountToDelete.name || accountToDelete.portalId;
 
-        await vscode.window
+        await window
           .showInformationMessage(
             `Are you sure that you want to delete ${accountIdentifier} from the config?`,
             'Yes',
@@ -133,12 +133,12 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             if (answer === 'Yes') {
               if (config && config.portals.length === 1) {
                 deleteConfigFile();
-                vscode.window.showInformationMessage(
+                window.showInformationMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
                 );
               } else {
                 deleteAccount(accountIdentifier);
-                vscode.window.showInformationMessage(
+                window.showInformationMessage(
                   `Successfully deleted account ${accountIdentifier}.`
                 );
               }

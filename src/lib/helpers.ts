@@ -1,10 +1,10 @@
-import * as vscode from 'vscode';
+import { workspace } from 'vscode';
 import { HubspotConfig, Portal } from './types';
 
 const { exec } = require('node:child_process');
 
 export const getRootPath = () => {
-  const workspaceFolders = vscode.workspace.workspaceFolders;
+  const workspaceFolders = workspace.workspaceFolders;
 
   if (!workspaceFolders || workspaceFolders.length < 1) {
     throw new Error('No workspace folder found.');
