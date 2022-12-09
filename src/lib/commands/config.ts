@@ -18,7 +18,7 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
     })
-    .then((newName) => {
+    .then((newName: string | undefined) => {
       if (newName) {
         const invalidReason = portalNameInvalid(newName, getConfig());
 
