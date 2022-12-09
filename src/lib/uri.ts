@@ -35,12 +35,12 @@ const handleAuthRequest = async (
 
   if (configPath) {
     setConfigPath(configPath);
-    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG);
+    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = path.resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
-    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG);
+    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
 
   const updatedConfig = await updateConfigWithPersonalAccessKey({
@@ -59,14 +59,13 @@ const handleAuthRequest = async (
       'Yes',
       'No'
     )
-    .then((answer: string | undefined) => {
+    .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
+        await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultPortal to ${name}.`);
         commands.executeCommand(COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT, name);
       }
     });
-
-  await trackEvent('auth-success', { name });
 
   return updatedConfig;
 };

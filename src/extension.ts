@@ -7,9 +7,10 @@ import { getRootPath } from './lib/helpers';
 import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
 import { initializeTracking, trackEvent } from './lib/tracking';
+import { TRACKED_EVENTS } from './lib/constants';
 
 export const activate = async (context: ExtensionContext) => {
-  await trackEvent('activate');
+  await trackEvent(TRACKED_EVENTS.ACTIVATE);
   console.log(
     'Activating Extension Version: ',
     // @ts-ignore TODO - Why is extension not available, when it is?
