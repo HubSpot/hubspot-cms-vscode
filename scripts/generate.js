@@ -110,8 +110,8 @@ const createFile = async (data, type) => {
 
   let snippets = {};
   for (let entry of docEntries) {
-    if (type === 'tags' && snippetData.codeSnippets[entry['name']]) {
-      snippets[entry['name']] = snippetData.codeSnippets[entry['name']];
+    if (type === 'tags' && data.codeSnippets[entry['name']]) {
+      snippets[entry['name']] = data.codeSnippets[entry['name']];
     } else {
       snippets[entry['name']] = createSnippet(entry, type);
     }
