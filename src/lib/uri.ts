@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { URLSearchParams } from 'url';
-import { trackAction } from './tracking';
+import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
 import { COMMANDS } from './constants';
 
@@ -70,7 +70,7 @@ const handleAuthRequest = async (
       }
     });
 
-  await trackAction('auth-success', { name });
+  await trackEvent('auth-success', { name });
 
   return updatedConfig;
 };

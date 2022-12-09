@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { triggerValidate } from './validation';
-import { trackAction } from './tracking';
+import { trackEvent } from './tracking';
 import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
 
 const collection = vscode.languages.createDiagnosticCollection('hubl');
@@ -29,10 +29,10 @@ export const getUpdateLintingOnConfigChange = () => {
           .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
       ) {
         enableLinting();
-        await trackAction('linting-enabled');
+        await trackEvent('linting-enabled');
       } else {
         disableLinting();
-        await trackAction('linting-disabled');
+        await trackEvent('linting-disabled');
       }
     }
   });

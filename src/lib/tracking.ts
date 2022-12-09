@@ -29,7 +29,7 @@ export const getUserIdentificationInformation = () => {
   };
 };
 
-export const trackAction = async (action: string, options?: object) => {
+export const trackEvent = async (action: string, options?: object) => {
   if (
     !isTrackingAllowed() ||
     !workspace.getConfiguration().telemetry.enableTelemetry ||
