@@ -30,30 +30,6 @@ const copySampleFunctionFilesToFolder = (folderPath: string) => {
   );
 };
 
-/*
- * Returns a non-duplicate folder name with the format <folderName>.module
- * It will add a number to the end of the folder name if it already exists
- * @param folderName - name of a folder with or without a .module extension
- */
-const getUniqueModuleFolderName = (folderPath: string) => {
-  const folderName = folderPath.split(path.sep).pop() || '';
-  const hasModuleExtension = folderName.split('.').pop() === 'module';
-  let modulePath = hasModuleExtension ? folderPath : `${folderPath}.module`;
-  let uniqueModulePath = modulePath;
-
-  if (!hasModuleExtension) {
-    let incrementor = 0;
-    // Add incremental number to module name if it already exists
-    while (fs.existsSync(uniqueModulePath)) {
-      incrementor++;
-      const modulePathParts = modulePath.split('.');
-      modulePathParts.pop();
-      uniqueModulePath = `${modulePathParts.join('.')}${incrementor}.module`;
-    }
-  }
-  return uniqueModulePath;
-};
-
 export const convertFolderToModule = (
   folderPath: string,
   cleanupCallback: Function
@@ -70,8 +46,9 @@ export const convertFolderToModule = (
             new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
           ) {
             cleanupCallback();
-            const uniqueModulePath = getUniqueModuleFolderName(
-              e.files[0].fsPath
+            const uniqueModulePath = getUniqueFolderName(
+              e.files[0].fsPath,
+              'module'
             );
 
             edit.renameFile(e.files[0], vscode.Uri.file(uniqueModulePath));
@@ -90,31 +67,32 @@ export const convertFolderToModule = (
 };
 
 /*
- * Returns a non-duplicate folder name with the format <folderName>.functions
+ * Returns a non-duplicate folder name with the format <folderName>.<extension>
  * It will add a number to the end of the folder name if it already exists
- * @param folderName - name of a folder with or without a .functions extension
+ * @param folderName - name of a folder
+ * @param extension - name of extension
  */
-const getUniqueFunctionsFolderName = (folderPath: string) => {
+const getUniqueFolderName = (folderPath: string, extension: string) => {
   const folderName = folderPath.split(path.sep).pop() || '';
-  const hasFunctionsExtension = folderName.split('.').pop() === 'functions';
-  let functionsPath = hasFunctionsExtension
+  const hasExtension = folderName.split('.').pop() === extension;
+  let newFolderPath = hasExtension
     ? folderPath
-    : `${folderPath}.functions`;
-  let uniqueFunctionsPath = functionsPath;
+    : `${folderPath}.${extension}`;
+  let uniqueFolderPath = newFolderPath;
 
-  if (!hasFunctionsExtension) {
+  if (!hasExtension) {
     let incrementor = 0;
     // Add incremental number to functions folder name if it already exists
-    while (fs.existsSync(uniqueFunctionsPath)) {
+    while (fs.existsSync(uniqueFolderPath)) {
       incrementor++;
-      const functionsPathParts = functionsPath.split('.');
-      functionsPathParts.pop();
-      uniqueFunctionsPath = `${functionsPathParts.join(
+      const folderPathParts = newFolderPath.split('.');
+      folderPathParts.pop();
+      uniqueFolderPath = `${folderPathParts.join(
         '.'
-      )}${incrementor}.functions`;
+      )}${incrementor}.${extension}`;
     }
   }
-  return uniqueFunctionsPath;
+  return uniqueFolderPath;
 };
 
 export const convertFolderToServerlessFunction = (
@@ -133,8 +111,9 @@ export const convertFolderToServerlessFunction = (
             new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
           ) {
             cleanupCallback();
-            const uniqueFunctionsFolderPath = getUniqueFunctionsFolderName(
-              e.files[0].fsPath
+            const uniqueFunctionsFolderPath = getUniqueFolderName(
+              e.files[0].fsPath,
+              'functions'
             );
 
             edit.renameFile(
