@@ -1,7 +1,8 @@
 import { commands, ExtensionContext } from 'vscode';
+import * as fs from 'fs';
 import { updateStatusBarItems } from '../lib/statusBar';
 import { COMMANDS, EVENTS } from './constants';
-import * as fs from 'fs';
+
 import { getUpdateLintingOnConfigChange, setLintingEnabledState } from './lint';
 import { loadHubspotConfigFile } from './auth';
 
