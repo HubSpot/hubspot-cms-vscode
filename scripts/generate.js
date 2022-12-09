@@ -95,13 +95,11 @@ const createSnippet = (docEntry, type) => {
     return;
   }
 
-  return [
-    {
-      body: buildSnippetBody(docEntry, type),
-      description: buildSnippetDescription(docEntry, type),
-      prefix: PREFIX[type] + docEntry.name,
-    },
-  ];
+  return {
+    body: [buildSnippetBody(docEntry, type)],
+    description: buildSnippetDescription(docEntry, type),
+    prefix: PREFIX[type] + docEntry.name,
+  };
 };
 
 const createFile = async (data, type) => {
