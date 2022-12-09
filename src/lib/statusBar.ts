@@ -34,7 +34,7 @@ export const initializeStatusBar = (context: vscode.ExtensionContext) => {
     vscode.StatusBarAlignment.Right,
     100
   );
-  hsStatusBar.command = COMMANDS.CONFIG_SELECT_DEFAULT_ACCOUNT;
+  hsStatusBar.command = COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT;
 
   context.subscriptions.push(hsStatusBar);
 };
