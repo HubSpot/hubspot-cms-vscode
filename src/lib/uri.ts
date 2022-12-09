@@ -1,4 +1,10 @@
-import * as vscode from 'vscode';
+import {
+  commands,
+  window,
+  ExtensionContext,
+  ProviderResult,
+  Uri,
+} from 'vscode';
 import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackAction } from './tracking';
@@ -13,7 +19,7 @@ const {
   setConfigPath,
 } = require('@hubspot/cli-lib/lib/config');
 
-const getQueryObject = (uri: vscode.Uri) => {
+const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
 };
 
@@ -40,17 +46,11 @@ const handleAuthRequest = async (
     env,
   });
 
-  vscode.commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
+  commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
-  vscode.commands.executeCommand(
-    'setContext',
-    'hubspot.auth.isAuthenticating',
-    false
-  );
-  vscode.window.showInformationMessage(
-    `Successfully added ${name} to the config.`
-  );
-  vscode.window
+  commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
+  window.showInformationMessage(`Successfully added ${name} to the config.`);
+  window
     .showInformationMessage(
       `Do you want to set ${name} as the default account?`,
       'Yes',
@@ -59,10 +59,7 @@ const handleAuthRequest = async (
     .then((answer: string | undefined) => {
       if (answer === 'Yes') {
         console.log(`Updating defaultPortal to ${name}.`);
-        vscode.commands.executeCommand(
-          COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
-          name
-        );
+        commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, name);
       }
     });
 
@@ -72,12 +69,12 @@ const handleAuthRequest = async (
 };
 
 export const registerURIHandler = (
-  context: vscode.ExtensionContext,
+  context: ExtensionContext,
   rootPath: string
 ) => {
   // https://github.com/microsoft/vscode-extension-samples/blob/main/uri-handler-sample/package.json
-  vscode.window.registerUriHandler({
-    handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
+  window.registerUriHandler({
+    handleUri(uri: Uri): ProviderResult<void> {
       console.log('URI Handler uri: ', uri);
       if (uri.path === '/auth') {
         const queryObject = getQueryObject(uri);

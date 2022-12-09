@@ -1,9 +1,15 @@
-import * as vscode from 'vscode';
+import {
+  ThemeIcon,
+  TreeItem,
+  TreeItemCollapsibleState,
+  TreeDataProvider,
+  Uri,
+} from 'vscode';
 import { Link } from '../types';
 
-export class HelpAndFeedbackProvider implements vscode.TreeDataProvider<any> {
-  getTreeItem(q: Link): vscode.TreeItem {
-    return new LinkTreeItem(q.label, vscode.Uri.parse(q.url));
+export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
+  getTreeItem(q: Link): TreeItem {
+    return new LinkTreeItem(q.label, Uri.parse(q.url));
   }
 
   getChildren(): Thenable<any> {
@@ -16,14 +22,11 @@ export class HelpAndFeedbackProvider implements vscode.TreeDataProvider<any> {
   }
 }
 
-export class LinkTreeItem extends vscode.TreeItem {
-  constructor(
-    public readonly label: string,
-    public readonly resourceUri: vscode.Uri
-  ) {
-    super(label, vscode.TreeItemCollapsibleState.None);
+export class LinkTreeItem extends TreeItem {
+  constructor(public readonly label: string, public readonly resourceUri: Uri) {
+    super(label, TreeItemCollapsibleState.None);
     this.tooltip = `Open link: ${resourceUri.toString()}`;
-    this.iconPath = new vscode.ThemeIcon('link-external');
+    this.iconPath = new ThemeIcon('link-external');
     this.contextValue = 'link';
     this.command = {
       command: 'vscode.open',
