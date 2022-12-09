@@ -1,6 +1,7 @@
 import {
   Event,
   EventEmitter,
+  ThemeIcon,
   TreeItem,
   TreeDataProvider,
   TreeItemCollapsibleState,
@@ -58,7 +59,7 @@ export class AccountTreeItem extends TreeItem {
     public readonly collapsibleState: TreeItemCollapsibleState,
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
-    public readonly iconPath: string = new vscode.ThemeIcon('account'),
+    public readonly iconPath: string = new ThemeIcon('account'),
     public readonly contextValue: string = 'accountTreeItem'
   ) {
     super(name, collapsibleState);
