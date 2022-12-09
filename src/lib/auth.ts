@@ -1,17 +1,13 @@
-import * as vscode from 'vscode';
+import { commands } from 'vscode';
 import { COMMANDS, EVENTS } from './constants';
 
 const { findConfig, loadConfig, validateConfig } = require('@hubspot/cli-lib');
 const { setConfig, setConfigPath } = require('@hubspot/cli-lib/lib/config');
 
 const onLoadPath = (configPath: string) => {
-  vscode.commands.executeCommand(
-    'setContext',
-    'hubspot.configPath',
-    configPath
-  );
+  commands.executeCommand('setContext', 'hubspot.configPath', configPath);
   if (!configPath) {
-    vscode.commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, null);
+    commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, null);
     setConfig(null);
     setConfigPath(null);
   }
@@ -38,7 +34,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   if (!validateConfig()) {
     throw new Error(`Invalid config could not be loaded: ${path}`);
   } else {
-    vscode.commands.executeCommand(EVENTS.ON_CONFIG_UPDATED);
+    commands.executeCommand(EVENTS.ON_CONFIG_UPDATED);
     return path;
   }
 };
@@ -48,11 +44,7 @@ export const initializeConfig = (rootPath: string) => {
 
   if (configPath) {
     console.log(`HubSpot config loaded from: ${configPath}`);
-    vscode.commands.executeCommand(
-      EVENTS.ON_CONFIG_FOUND,
-      rootPath,
-      configPath
-    );
+    commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
   } else {
     console.log(`No config found. Config path: ${configPath}`);
   }
