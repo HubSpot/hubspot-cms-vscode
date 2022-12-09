@@ -39,9 +39,7 @@ const copySampleFunctionFilesToFolder = (folderPath: string) => {
 const getUniqueFolderName = (folderPath: string, extension: string) => {
   const folderName = folderPath.split(path.sep).pop() || '';
   const hasExtension = folderName.split('.').pop() === extension;
-  let newFolderPath = hasExtension
-    ? folderPath
-    : `${folderPath}.${extension}`;
+  let newFolderPath = hasExtension ? folderPath : `${folderPath}.${extension}`;
   let uniqueFolderPath = newFolderPath;
 
   if (!hasExtension) {
