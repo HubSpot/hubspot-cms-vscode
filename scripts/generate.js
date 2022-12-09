@@ -90,13 +90,15 @@ const buildSnippetDescription = (docEntry) => {
   return description;
 };
 
-const createSnippet = (docEntry, type) => {
+const createSnippet = (docEntry, type, existingSnippet) => {
   if (OMIT_SNIPPET.includes(docEntry.name)) {
     return;
   }
 
   return {
-    body: [buildSnippetBody(docEntry, type)],
+    body: [
+      existingSnippet ? existingSnippet : buildSnippetBody(docEntry, type),
+    ],
     description: buildSnippetDescription(docEntry, type),
     prefix: PREFIX[type] + docEntry.name,
   };
@@ -109,7 +111,11 @@ const createFile = async (data, type) => {
   let snippets = {};
   for (let entry of docEntries) {
     if (type === 'tags' && data.codeSnippets[entry['name']]) {
-      snippets[entry['name']] = data.codeSnippets[entry['name']];
+      snippets[entry['name']] = createSnippet(
+        entry,
+        type,
+        data.codeSnippets[entry['name']]
+      );
     } else {
       snippets[entry['name']] = createSnippet(entry, type);
     }
