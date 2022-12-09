@@ -48,3 +48,15 @@ export const COMMANDS = {
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
 };
+
+export const TRACKED_EVENTS = {
+  AUTH_INITIALIZE_CONFIG: 'authInitializedConfig',
+  AUTH_UPDATE_CONFIG: 'authUpdatedConfig',
+  AUTHORIZE_ACCOUNT_CLICKED: 'authorizeAccountClicked',
+  CREATE_MODULE: 'createdModule',
+  DELETE_ACCOUNT: 'accountDeleted',
+  RENAME_ACCOUNT: 'accountRenamed',
+  RENAME_ACCOUNT_ERROR: 'accountRenameError',
+  SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
+  UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
+};

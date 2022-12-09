@@ -1,19 +1,20 @@
-import * as vscode from 'vscode';
+import { commands, env, ExtensionContext, Uri } from 'vscode';
 import * as fs from 'fs';
 import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
 } from '../../lib/lint';
 import { updateStatusBarItems } from '../../lib/statusBar';
-import { COMMANDS } from '../constants';
+import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { loadHubspotConfigFile } from '../auth';
+import { trackEvent } from '../tracking';
 
 let configFoundAndLoaded = false;
 let hubspotConfigWatcher: fs.FSWatcher | null;
 
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.ON_CONFIG_FOUND,
       (rootPath, configPath) => {
         if (!configFoundAndLoaded) {
@@ -49,22 +50,22 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(COMMANDS.ON_CONFIG_UPDATED, () => {
+    commands.registerCommand(COMMANDS.ON_CONFIG_UPDATED, () => {
       console.log(COMMANDS.ON_CONFIG_UPDATED);
-      vscode.commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
+      commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
       updateStatusBarItems();
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
+    commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
       const authUrl =
         'https://app.hubspot.com/l/personal-access-key/auth/vscode';
 
-      const callableUri = await vscode.env.asExternalUri(
-        vscode.Uri.parse(authUrl)
-      );
-      await vscode.env.openExternal(callableUri);
+      await trackEvent(TRACKED_EVENTS.AUTHORIZE_ACCOUNT_CLICKED, { authUrl });
+      const callableUri = await env.asExternalUri(Uri.parse(authUrl));
+
+      await env.openExternal(callableUri);
     })
   );
 };

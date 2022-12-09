@@ -1,23 +1,21 @@
-import * as vscode from 'vscode';
+import { commands, workspace, ExtensionContext } from 'vscode';
 import { convertFolderToModule } from '../fileHelpers';
+import { trackEvent } from '../tracking';
+import { COMMANDS, TRACKED_EVENTS } from '../constants';
 
-import { COMMANDS } from '../constants';
-
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      COMMANDS.CREATE_MODULE,
-      async (clickContext) => {
-        if (clickContext.scheme === 'file') {
-          const createFileSubscription = vscode.workspace.onWillCreateFiles(
-            convertFolderToModule(clickContext.fsPath, () => {
-              createFileSubscription.dispose();
-            })
-          );
+    commands.registerCommand(COMMANDS.CREATE_MODULE, async (clickContext) => {
+      if (clickContext.scheme === 'file') {
+        const createFileSubscription = workspace.onWillCreateFiles(
+          convertFolderToModule(clickContext.fsPath, async () => {
+            await trackEvent(TRACKED_EVENTS.CREATE_MODULE);
+            createFileSubscription.dispose();
+          })
+        );
 
-          vscode.commands.executeCommand('explorer.newFolder');
-        }
+        commands.executeCommand('explorer.newFolder');
       }
-    )
+    })
   );
 };

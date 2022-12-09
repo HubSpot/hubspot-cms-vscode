@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import { updateStatusBarItems } from '../statusBar';
-import { COMMANDS } from '../constants';
+import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
 import { Portal } from '../types';
 import { portalNameInvalid } from '../validation';
+import { trackEvent } from '../tracking';
 
 const { getConfig } = require('@hubspot/cli-lib');
 const {
@@ -18,18 +19,24 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
     })
-    .then((newName) => {
+    .then(async (newName: any) => {
       if (newName) {
+        const oldName = accountToRename.name || accountToRename.portalId;
         const invalidReason = portalNameInvalid(newName, getConfig());
 
         if (!invalidReason) {
-          const oldName = accountToRename.name || accountToRename.portalId;
           renameAccount(oldName, newName);
           vscode.window.showInformationMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
+          await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT);
         } else {
           vscode.window.showErrorMessage(invalidReason);
+          await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT_ERROR, {
+            oldName,
+            newName,
+            invalidReason,
+          });
           showRenameAccountPrompt(accountToRename);
         }
       }
@@ -40,7 +47,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-      (defaultAccount, { silenceNotification = false } = {}) => {
+      async (defaultAccount, { silenceNotification = false } = {}) => {
         if (!defaultAccount) return;
         const newDefaultAccount =
           typeof defaultAccount === 'string' ||
@@ -49,6 +56,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             : defaultAccount.name || defaultAccount.portalId;
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
+        await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
         if (!silenceNotification) {
           vscode.window.showInformationMessage(
             `Successfully set default account to ${newDefaultAccount}.`
@@ -81,11 +89,12 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
                 canPickMany: false,
               }
             )
-            .then((selection) => {
+            .then(async (selection) => {
               if (selection) {
                 const newDefaultAccount =
                   // @ts-ignore selection is an object
                   selection.portal.name || selection.portal.portalId;
+                await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
                 vscode.window.showInformationMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
@@ -120,7 +129,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
             'Yes',
             'No'
           )
-          .then((answer) => {
+          .then(async (answer) => {
             if (answer === 'Yes') {
               if (config && config.portals.length === 1) {
                 deleteConfigFile();
@@ -133,6 +142,7 @@ export const registerCommands = (context: vscode.ExtensionContext) => {
                   `Successfully deleted account ${accountIdentifier}.`
                 );
               }
+              await trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
               updateStatusBarItems();
             }
           });
