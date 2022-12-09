@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot VS Code Extension",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "0.17.0",
+    "version": "1.0.0",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.53.0"
@@ -188,6 +188,11 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
+                },
+                "hubspot.allowUsageTracking": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "Allow usage tracking within extension."
                 }
             }
         },

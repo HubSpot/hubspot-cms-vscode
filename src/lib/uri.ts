@@ -70,7 +70,7 @@ const handleAuthRequest = async (
       }
     });
 
-  await trackAction('auth-success', { name });
+  await trackEvent('auth-success', { name });
 
   return updatedConfig;
 };

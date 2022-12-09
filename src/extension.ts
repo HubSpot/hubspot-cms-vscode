@@ -1,5 +1,4 @@
-import * as vscode from 'vscode';
-import { trackEvent } from './lib/tracking';
+import { ExtensionContext } from 'vscode';
 
 import { registerURIHandler } from './lib/uri';
 import { registerCommands } from './lib/commands';
@@ -7,10 +6,15 @@ import { initializeStatusBar } from './lib/statusBar';
 import { getRootPath } from './lib/helpers';
 import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
+import { initializeTracking, trackEvent } from './lib/tracking';
 
-export const activate = async (context: vscode.ExtensionContext) => {
+export const activate = async (context: ExtensionContext) => {
   await trackEvent('activate');
-  console.log('Activating Extension...');
+  console.log(
+    'Activating Extension Version: ',
+    // @ts-ignore TODO - Why is extension not available, when it is?
+    context.extension.packageJSON.version
+  );
   const rootPath = getRootPath();
 
   registerCommands(context);
@@ -18,6 +22,7 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
   initializeProviders(context);
   initializeStatusBar(context);
+  initializeTracking(context);
 
   initializeConfig(rootPath);
 };
