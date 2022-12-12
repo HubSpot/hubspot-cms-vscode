@@ -115,10 +115,7 @@ export const convertFolderToServerlessFunction = (
               'functions'
             );
 
-            edit.renameFile(
-              e.files[0],
-              Uri.file(uniqueFunctionsFolderPath)
-            );
+            edit.renameFile(e.files[0], Uri.file(uniqueFunctionsFolderPath));
 
             workspace.applyEdit(edit).then(() => {
               copySampleFunctionFilesToFolder(uniqueFunctionsFolderPath);
