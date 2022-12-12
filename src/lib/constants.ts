@@ -43,6 +43,7 @@ export const COMMANDS = {
   },
   CREATE_MODULE: 'hubspot.create.module',
   CREATE_SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  CREATE_SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',

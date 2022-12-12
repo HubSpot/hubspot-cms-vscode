@@ -1,5 +1,8 @@
 import { ExtensionContext, commands, workspace } from 'vscode';
-import { convertFolderToServerlessFunction } from '../fileHelpers';
+import { 
+    convertFileToServerlessFunction, 
+    convertFolderToServerlessFunction 
+} from '../fileHelpers';
 import { COMMANDS } from '../constants';
 
 export const registerCommands = (context: ExtensionContext) => {
@@ -13,6 +16,19 @@ export const registerCommands = (context: ExtensionContext) => {
           })
         );
         commands.executeCommand('explorer.newFolder');
+      }
+    )
+  );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.CREATE_SERVERLESS_FUNCTION,
+      async (clickContext) => {
+        const createFileSubscription = workspace.onWillCreateFiles(
+          convertFileToServerlessFunction(clickContext.fsPath, () => {
+            createFileSubscription.dispose();
+          })
+        )
+        commands.executeCommand('explorer.newFile')
       }
     )
   );

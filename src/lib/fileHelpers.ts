@@ -1,6 +1,8 @@
 import { workspace, FileWillCreateEvent, Uri, WorkspaceEdit } from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+const findup = require('findup-sync');
+
 const { createModule } = require('@hubspot/cli-lib/modules');
 const { createFunction } = require('@hubspot/cli-lib/functions');
 
@@ -130,3 +132,58 @@ export const convertFolderToServerlessFunction = (
     );
   };
 };
+
+export const convertFileToServerlessFunction = (
+  filePath: string,
+  cleanupCallback: Function
+) => {
+   return (e: FileWillCreateEvent) => {
+    return e.waitUntil(
+      new Promise((resolve, reject) => {
+        try {
+          const edit = new WorkspaceEdit();
+
+          if (
+            e.files &&
+            e.files.length === 1 &&
+            new RegExp(`${filePath}/.*`).test(e.files[0].fsPath)
+          ) {
+            cleanupCallback();
+            const uniqueFilePath = getUniqueFolderName(
+              e.files[0].fsPath,
+              'js'
+            );
+            const functionsFolderPath = findup('*.functions', 
+              { cwd: filePath, nocase: true }
+            );
+            const functionsFolderDest = path.dirname(functionsFolderPath);
+            const functionsFolderName = path.basename(functionsFolderPath);
+            const functionFileName = uniqueFilePath.slice(functionsFolderPath.length + 1);
+
+            edit.renameFile(e.files[0], Uri.file(uniqueFilePath));
+            
+            workspace.applyEdit(edit).then(() => {
+              createFunction(
+                { 
+                  functionsFolder: functionsFolderName, 
+                  filename: functionFileName, 
+                  endpointPath: functionFileName.slice(0, -3), 
+                  endpointMethod: 'GET' 
+                },
+                functionsFolderDest,
+                {
+                  allowExistingFile: true
+                }
+              );
+              resolve(edit);
+            });
+          }
+
+          reject(edit);
+        } catch (e: any) {
+          reject(e);
+        }
+      })
+    )
+   }
+}

@@ -5,7 +5,7 @@ import { COMMANDS } from '../constants';
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
-    commands.registerCommand(COMMANDS.CREATE_MODULE, async (clickContext) => {
+    commands.registerCommand(COMMANDS.CREATE_MODULE, (clickContext) => {
       if (clickContext.scheme === 'file') {
         const createFileSubscription = workspace.onWillCreateFiles(
           convertFolderToModule(clickContext.fsPath, () => {

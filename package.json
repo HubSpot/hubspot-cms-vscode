@@ -200,6 +200,10 @@
                 "title": "New serverless function folder"
             },
             {
+                "command": "hubspot.create.serverlessFunction",
+                "title": "New serverless function"
+            },
+            {
                 "command": "hubspot.config.selectDefaultAccount",
                 "title": "Hubspot: Select default account"
             },
@@ -232,6 +236,11 @@
             "hubspot.create": [
                 {
                     "command": "hubspot.create.module",
+                    "when": "hubspot.configPath && explorerResourcesIsFolder",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunction",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
                     "group": "HubSpot"
                 },
@@ -262,6 +271,10 @@
                 },
                 {
                     "command": "hubspot.create.serverlessFunctionFolder",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunction",
                     "when": "false"
                 },
                 {
@@ -335,12 +348,14 @@
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.4-beta.1",
         "compare-versions": "^5.0.1",
+        "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
         "node-fetch": "^3.1.1",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
+        "@types/findup-sync": "^4.0.2",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/vscode": "1.53.0",
