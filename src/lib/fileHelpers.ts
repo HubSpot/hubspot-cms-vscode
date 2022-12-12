@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { workspace, FileWillCreateEvent, Uri, WorkspaceEdit } from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 const { createModule } = require('@hubspot/cli-lib/modules');
@@ -61,11 +61,11 @@ export const convertFolderToModule = (
   folderPath: string,
   cleanupCallback: Function
 ) => {
-  return (e: vscode.FileWillCreateEvent) => {
+  return (e: FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
-          const edit = new vscode.WorkspaceEdit();
+          const edit = new WorkspaceEdit();
 
           if (
             e.files &&
@@ -78,8 +78,9 @@ export const convertFolderToModule = (
               'module'
             );
 
-            edit.renameFile(e.files[0], vscode.Uri.file(uniqueModulePath));
-            vscode.workspace.applyEdit(edit).then(() => {
+            edit.renameFile(e.files[0], Uri.file(uniqueModulePath));
+
+            workspace.applyEdit(edit).then(() => {
               copySampleModuleFilesToFolder(uniqueModulePath);
               resolve(edit);
             });
@@ -97,11 +98,11 @@ export const convertFolderToServerlessFunction = (
   folderPath: string,
   cleanupCallback: Function
 ) => {
-  return (e: vscode.FileWillCreateEvent) => {
+  return (e: FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
-          const edit = new vscode.WorkspaceEdit();
+          const edit = new WorkspaceEdit();
 
           if (
             e.files &&
@@ -116,10 +117,10 @@ export const convertFolderToServerlessFunction = (
 
             edit.renameFile(
               e.files[0],
-              vscode.Uri.file(uniqueFunctionsFolderPath)
+              Uri.file(uniqueFunctionsFolderPath)
             );
 
-            vscode.workspace.applyEdit(edit).then(() => {
+            workspace.applyEdit(edit).then(() => {
               copySampleFunctionFilesToFolder(uniqueFunctionsFolderPath);
               resolve(edit);
             });
