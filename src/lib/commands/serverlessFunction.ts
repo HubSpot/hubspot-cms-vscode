@@ -1,18 +1,18 @@
-import * as vscode from 'vscode';
+import { ExtensionContext, commands, workspace } from 'vscode';
 import { convertFolderToServerlessFunction } from '../fileHelpers';
 import { COMMANDS } from '../constants';
 
-export const registerCommands = (context: vscode.ExtensionContext) => {
+export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(
+    commands.registerCommand(
       COMMANDS.CREATE_SERVERLESS_FUNCTION_FOLDER,
-      async (clickContext) => {
-        const createFileSubscription = vscode.workspace.onWillCreateFiles(
+      (clickContext) => {
+        const createFileSubscription = workspace.onWillCreateFiles(
           convertFolderToServerlessFunction(clickContext.fsPath, () => {
             createFileSubscription.dispose();
           })
         );
-        vscode.commands.executeCommand('explorer.newFolder');
+        commands.executeCommand('explorer.newFolder');
       }
     )
   );

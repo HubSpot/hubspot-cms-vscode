@@ -22,8 +22,8 @@ const copySampleFunctionFilesToFolder = (folderPath: string) => {
   return createFunction(
     {
       functionsFolder: base,
-      filename: 'example',
-      endpointPath: 'example',
+      filename: 'serverless',
+      endpointPath: 'serverless',
       endpointMethod: 'GET',
     },
     dir
