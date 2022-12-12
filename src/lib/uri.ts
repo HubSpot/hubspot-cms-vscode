@@ -28,7 +28,9 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
   const env = authParams.get('env') || 'prod';
   const name = authParams.get('name');
+  const portalId = authParams.get('portalId');
   const { key: personalAccessKey } = JSON.parse(personalAccessKeyResp);
+  const accountIdentifier = name || portalId;
   let configPath = loadHubspotConfigFile(rootPath);
 
   if (configPath) {
@@ -47,17 +49,22 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
   commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
-  window.showInformationMessage(`Successfully added ${name} to the config.`);
+  window.showInformationMessage(
+    `Successfully added ${accountIdentifier} to the config.`
+  );
   window
     .showInformationMessage(
-      `Do you want to set ${name} as the default account?`,
+      `Do you want to set ${accountIdentifier} as the default account?`,
       'Yes',
       'No'
     )
     .then((answer: string | undefined) => {
       if (answer === 'Yes') {
-        console.log(`Updating defaultPortal to ${name}.`);
-        commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, name);
+        console.log(`Updating defaultPortal to ${accountIdentifier}.`);
+        commands.executeCommand(
+          COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
+          accountIdentifier
+        );
       }
     });
 
