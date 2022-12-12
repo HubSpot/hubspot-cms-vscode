@@ -18,6 +18,10 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
         label: 'CLI Documentation',
         url: 'https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli#interacting-with-the-developer-file-system',
       },
+      {
+        label: 'Rate the extension',
+        url: 'https://marketplace.visualstudio.com/items?itemName=hubspot.hubl&ssr=false#review-details',
+      },
     ]);
   }
 }
