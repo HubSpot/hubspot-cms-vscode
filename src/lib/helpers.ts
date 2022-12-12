@@ -27,7 +27,7 @@ export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
 export const getDisplayedHubspotPortalInfo = (portalData: Portal) => {
   return portalData.name
     ? `${portalData.name} - ${portalData.portalId}`
-    : portalData.portalId;
+    : `${portalData.portalId}`;
 };
 
 export const runTerminalCommand = async (
