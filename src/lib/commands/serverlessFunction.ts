@@ -22,7 +22,7 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE_SERVERLESS_FUNCTION,
-      async (clickContext) => {
+      (clickContext) => {
         const createFileSubscription = workspace.onWillCreateFiles(
           convertFileToServerlessFunction(clickContext.fsPath, () => {
             createFileSubscription.dispose();
