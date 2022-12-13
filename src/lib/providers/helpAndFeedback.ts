@@ -20,7 +20,7 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
       },
       {
         label: 'Report issue',
-        url: 'https://github.com/HubSpot/hubspot-cms-vscode/issues/new',
+        url: 'https://github.com/HubSpot/hubspot-cms-vscode/issues/new?assignees=&labels=bug&template=bug_report.md&title=',
       },
     ]);
   }
