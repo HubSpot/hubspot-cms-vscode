@@ -9,8 +9,7 @@ export const getRootPath = () => {
   if (!workspaceFolders || workspaceFolders.length < 1) {
     throw new Error('No workspace folder found.');
   }
-
-  return workspaceFolders[0].uri.fsPath;
+  return workspaceFolders[0].uri.path;
 };
 
 export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
