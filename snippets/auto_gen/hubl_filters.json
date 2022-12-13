@@ -20,6 +20,20 @@
     "description": "Renders the attribute of a dictionary\nParameters:\n- name(String) The dictionary attribute name to access",
     "prefix": "|attr"
   },
+  "b64decode": {
+    "body": [
+      "|b64decode(${1:encoding})"
+    ],
+    "description": "Decode a base 64 input into a string.\nParameters:\n- encoding(string) The string encoding charset to use.",
+    "prefix": "|b64decode"
+  },
+  "b64encode": {
+    "body": [
+      "|b64encode(${1:encoding})"
+    ],
+    "description": "Encode the string input into base 64.\nParameters:\n- encoding(string) The string encoding charset to use.",
+    "prefix": "|b64encode"
+  },
   "batch": {
     "body": [
       "|batch(${1:linecount}, '${2:fill_with}')"
@@ -204,10 +218,31 @@
   },
   "format_currency": {
     "body": [
-      "|format_currency('${1:locale}', '${2:currency code}', '${3:use default decimal digits}')"
+      "|format_currency('${1:locale}', '${2:currency code}', '${3:use default decimal digits}', '${4:extend Decimal Digits To Value Precision}')"
     ],
-    "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency\n- use_default decimal digits(String) A boolean input that determines if formatter needs to use default decimal digits of the currency code. The default is false.",
+    "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency\n- use_default decimal digits(String) A boolean input that determines if formatter needs to use default decimal digits of the currency code. The default is false.\n- extend_Decimal Digits To Value Precision(String) A boolean input that determines if formatter needs to use the number of decimal digits from the given value. If the number of decimal digits from the input value is greater than the default number of decimal digits of the currency, use the number of decimal digits from the input value. Otherwise use the currency's default. The default is false.",
     "prefix": "|format_currency"
+  },
+  "format_date": {
+    "body": [
+      "|format_date('${1:format}', '${2:timeZone}', '${3:locale}')"
+    ],
+    "description": "Formats the date component of a date object\nParameters:\n- format(String) The format to use. One of 'short', 'medium', 'long', 'full', or a custom pattern following Unicode LDML\nhttps://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns\n- timeZone(String) Time zone of the output date in IANA TZDB format\nhttps://data.iana.org/time-zones/tzdb/\n- locale(String) The locale to use for locale-aware formats",
+    "prefix": "|format_date"
+  },
+  "format_datetime": {
+    "body": [
+      "|format_datetime('${1:format}', '${2:timeZone}', '${3:locale}')"
+    ],
+    "description": "Formats both the date and time components of a date object\nParameters:\n- format(String) The format to use. One of 'short', 'medium', 'long', 'full', or a custom pattern following Unicode LDML\nhttps://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns\n- timeZone(String) Time zone of the output date in IANA TZDB format\nhttps://data.iana.org/time-zones/tzdb/\n- locale(String) The locale to use for locale-aware formats",
+    "prefix": "|format_datetime"
+  },
+  "format_time": {
+    "body": [
+      "|format_time('${1:format}', '${2:timeZone}', '${3:locale}')"
+    ],
+    "description": "Formats the time component of a date object\nParameters:\n- format(String) The format to use. One of 'short', 'medium', 'long', 'full', or a custom pattern following Unicode LDML\nhttps://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns\n- timeZone(String) Time zone of the output date in IANA TZDB format\nhttps://data.iana.org/time-zones/tzdb/\n- locale(String) The locale to use for locale-aware formats",
+    "prefix": "|format_time"
   },
   "fromjson": {
     "body": [
@@ -367,7 +402,7 @@
     "body": [
       "|random"
     ],
-    "description": "Return a random item from the sequence.",
+    "description": "",
     "prefix": "|random"
   },
   "regex_replace": {
@@ -451,7 +486,7 @@
     "body": [
       "|shuffle"
     ],
-    "description": "Randomly shuffle a given list, returning a new list with all of the items of the original list in a random order",
+    "description": "",
     "prefix": "|shuffle"
   },
   "slice": {
@@ -559,6 +594,13 @@
     "description": "Truncates a given string, respecting html markup (i.e. will properly close all nested tags)\nParameters:\n- length(number) Length at which to truncate text (HTML characters not included)\n- end(String) The characters that will be added to indicate where the text was truncated\n- breakword(boolean) If set to true, text will be truncated in the middle of words",
     "prefix": "|truncatehtml"
   },
+  "unescape_html": {
+    "body": [
+      "|unescape_html"
+    ],
+    "description": "Converts HTML entities in string s to Unicode characters.",
+    "prefix": "|unescape_html"
+  },
   "union": {
     "body": [
       "|union(${1:list})"
@@ -586,6 +628,13 @@
     ],
     "description": "Convert a value to uppercase",
     "prefix": "|upper"
+  },
+  "urldecode": {
+    "body": [
+      "|urldecode"
+    ],
+    "description": "Decodes encoded URL strings back to the original URL. It accepts both dictionaries and regular strings as well as pairwise iterables.",
+    "prefix": "|urldecode"
   },
   "urlencode": {
     "body": [
