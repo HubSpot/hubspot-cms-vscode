@@ -24,14 +24,19 @@ const getQueryObject = (uri: Uri) => {
 };
 
 const handleAuthRequest = async (authParams: URLSearchParams) => {
-  const rootPath = authParams.get('rootPath') || '';
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
   const env = authParams.get('env') || 'prod';
   const name = authParams.get('name');
   const portalId = authParams.get('portalId');
   const { key: personalAccessKey } = JSON.parse(personalAccessKeyResp);
   const accountIdentifier = name || portalId;
+  let rootPath = authParams.get('rootPath') || '';
   let configPath = loadHubspotConfigFile(rootPath);
+
+  // handle windows paths, which look something like /C:/Some/path
+  if (/^\/\w:\/.*$/.test(rootPath)) {
+    rootPath = rootPath.slice(1);
+  }
 
   if (configPath) {
     setConfigPath(configPath);
