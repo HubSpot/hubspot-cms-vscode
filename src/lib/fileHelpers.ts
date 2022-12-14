@@ -137,7 +137,7 @@ export const convertFileToServerlessFunction = (
   filePath: string,
   cleanupCallback: Function
 ) => {
-   return (e: FileWillCreateEvent) => {
+  return (e: FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
@@ -149,30 +149,30 @@ export const convertFileToServerlessFunction = (
             new RegExp(`${filePath}/.*`).test(e.files[0].fsPath)
           ) {
             cleanupCallback();
-            const uniqueFilePath = getUniqueFolderName(
-              e.files[0].fsPath,
-              'js'
-            );
-            const functionsFolderPath = findup('*.functions', 
-              { cwd: filePath, nocase: true }
-            );
+            const uniqueFilePath = getUniqueFolderName(e.files[0].fsPath, 'js');
+            const functionsFolderPath = findup('*.functions', {
+              cwd: filePath,
+              nocase: true,
+            });
             const functionsFolderDest = path.dirname(functionsFolderPath);
             const functionsFolderName = path.basename(functionsFolderPath);
-            const functionFileName = uniqueFilePath.slice(functionsFolderPath.length + 1);
+            const functionFileName = uniqueFilePath.slice(
+              functionsFolderPath.length + 1
+            );
 
             edit.renameFile(e.files[0], Uri.file(uniqueFilePath));
-            
+
             workspace.applyEdit(edit).then(() => {
               createFunction(
-                { 
-                  functionsFolder: functionsFolderName, 
-                  filename: functionFileName, 
-                  endpointPath: functionFileName.slice(0, -3), 
-                  endpointMethod: 'GET' 
+                {
+                  functionsFolder: functionsFolderName,
+                  filename: functionFileName,
+                  endpointPath: functionFileName.slice(0, -3),
+                  endpointMethod: 'GET',
                 },
                 functionsFolderDest,
                 {
-                  allowExistingFile: true
+                  allowExistingFile: true,
                 }
               );
               resolve(edit);
@@ -184,6 +184,6 @@ export const convertFileToServerlessFunction = (
           reject(e);
         }
       })
-    )
-   }
-}
+    );
+  };
+};

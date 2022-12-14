@@ -1,7 +1,7 @@
 import { ExtensionContext, commands, workspace } from 'vscode';
-import { 
-    convertFileToServerlessFunction, 
-    convertFolderToServerlessFunction 
+import {
+  convertFileToServerlessFunction,
+  convertFolderToServerlessFunction,
 } from '../fileHelpers';
 import { COMMANDS } from '../constants';
 
@@ -27,8 +27,8 @@ export const registerCommands = (context: ExtensionContext) => {
           convertFileToServerlessFunction(clickContext.fsPath, () => {
             createFileSubscription.dispose();
           })
-        )
-        commands.executeCommand('explorer.newFile')
+        );
+        commands.executeCommand('explorer.newFile');
       }
     )
   );
