@@ -7,7 +7,7 @@ export const registerCommands = (
 ) => {
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
-      const authUrl = `https://app.hubspot.com/l/personal-access-key/auth/vscode${rootPath}`;
+      const authUrl = `https://app.hubspot.com/l/personal-access-key?vsCodeExtensionRootPath=${rootPath}`;
 
       const callableUri = await env.asExternalUri(Uri.parse(authUrl));
       await env.openExternal(callableUri);
