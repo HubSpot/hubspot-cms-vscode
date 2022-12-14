@@ -198,7 +198,11 @@
         "commands": [
             {
                 "command": "hubspot.create.module",
-                "title": "Create new module"
+                "title": "New module"
+            },
+            {
+                "command": "hubspot.create.serverlessFunctionFolder",
+                "title": "New serverless function folder"
             },
             {
                 "command": "hubspot.config.selectDefaultAccount",
@@ -217,10 +221,27 @@
                 "title": "Rename account"
             }
         ],
+        "submenus": [
+            {
+                "id": "hubspot.create",
+                "label": "Create"
+            }
+        ],
         "menus": {
             "explorer/context": [
                 {
+                    "submenu": "hubspot.create",
+                    "group": "HubSpot"
+                }
+            ],
+            "hubspot.create": [
+                {
                     "command": "hubspot.create.module",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
                     "group": "HubSpot"
                 }
@@ -242,6 +263,10 @@
             "commandPalette": [
                 {
                     "command": "hubspot.create.module",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "false"
                 },
                 {
