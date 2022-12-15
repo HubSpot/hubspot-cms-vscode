@@ -1,10 +1,11 @@
 import { commands, window, ExtensionContext } from 'vscode';
 
-import { AccountsProvider } from './providers/accounts';
-import { HelpAndFeedbackProvider } from './providers/helpAndFeedback';
 import { COMMANDS, TREE_DATA } from './constants';
 
-export const initializeProviders = (context: ExtensionContext) => {
+import { AccountsProvider } from './providers/treedata/accounts';
+import { HelpAndFeedbackProvider } from './providers/treedata/helpAndFeedback';
+
+const initializeTreeDataProviders = (context: ExtensionContext) => {
   const accountProvider = new AccountsProvider();
   const helpAndFeedbackProvider = new HelpAndFeedbackProvider();
 
@@ -19,4 +20,8 @@ export const initializeProviders = (context: ExtensionContext) => {
     TREE_DATA.HELP_AND_FEEDBACK,
     helpAndFeedbackProvider
   );
+};
+
+export const initializeProviders = (context: ExtensionContext) => {
+  initializeTreeDataProviders(context);
 };

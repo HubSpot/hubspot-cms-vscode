@@ -5,7 +5,7 @@ import {
   TreeDataProvider,
   Uri,
 } from 'vscode';
-import { Link } from '../types';
+import { Link } from '../../types';
 
 export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
   getTreeItem(q: Link): TreeItem {
@@ -25,6 +25,10 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
       {
         label: 'Rate the extension',
         url: 'https://marketplace.visualstudio.com/items?itemName=hubspot.hubl&ssr=false#review-details',
+      },
+      {
+        label: 'Submit feedback',
+        url: 'https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli',
       },
     ]);
   }

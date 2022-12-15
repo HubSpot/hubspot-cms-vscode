@@ -47,6 +47,12 @@ export const COMMANDS = {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',
   },
+  NOTIFICATIONS: {
+    SHOW_FEEDBACK_REQUEST: 'hubspot.notifications.showFeedbackRequest',
+  },
+  PANELS: {
+    OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
+  },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
     HS_LATEST: 'hubspot.versionCheck.hs.latest',

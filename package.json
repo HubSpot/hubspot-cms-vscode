@@ -214,6 +214,14 @@
             {
                 "command": "hubspot.config.renameAccount",
                 "title": "Rename account"
+            },
+            {
+                "command": "hubspot.notifications.showFeedbackRequest",
+                "title": "Show feedback request"
+            },
+            {
+                "command": "hubspot.modals.openFeedbackPanel",
+                "title": "Open feedback panel"
             }
         ],
         "submenus": [

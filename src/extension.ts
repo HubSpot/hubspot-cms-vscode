@@ -8,6 +8,7 @@ import { initializeProviders } from './lib/providers';
 import { initializeConfig } from './lib/auth';
 import { initializeTerminal } from './lib/terminal';
 import { registerEvents } from './lib/events';
+import { initializePanels } from './lib/panels';
 
 export const activate = async (context: ExtensionContext) => {
   console.log('Activating Extension...');
@@ -18,6 +19,7 @@ export const activate = async (context: ExtensionContext) => {
   registerURIHandler(context, rootPath);
 
   initializeProviders(context);
+  initializePanels(context);
   initializeTerminal(context);
   initializeStatusBar(context);
 

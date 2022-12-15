@@ -6,8 +6,8 @@ import {
   TreeItemCollapsibleState,
   TreeDataProvider,
 } from 'vscode';
-import { getDisplayedHubspotPortalInfo } from '../helpers';
-import { HubspotConfig, Portal } from '../types';
+import { getDisplayedHubspotPortalInfo } from '../../helpers';
+import { HubspotConfig, Portal } from '../../types';
 
 const { getConfig } = require('@hubspot/cli-lib');
 
