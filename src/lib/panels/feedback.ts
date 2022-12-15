@@ -8,6 +8,8 @@ import {
 } from 'vscode';
 import { getUri } from '../utilities';
 
+// Used this as a base https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
+
 /**
  * This class manages the state and behavior of HelloWorld webview panels.
  *
@@ -60,9 +62,9 @@ export class FeedbackPanel {
       // If a webview panel does not already exist create and show a new one
       const panel = window.createWebviewPanel(
         // Panel view type
-        'showHelloWorld',
+        'feedbackPanel',
         // Panel title
-        'Feedback Panel',
+        'Submit HubSpot VSCode Extension Feedback',
         // The editor column the panel should be displayed in
         ViewColumn.One,
         // Extra panel configurations
@@ -106,14 +108,16 @@ export class FeedbackPanel {
    * rendered within the webview panel
    */
   private _getWebviewContent(webview: Webview, extensionUri: Uri) {
-    const toolkitUri = getUri(webview, extensionUri, [
-      'node_modules',
-      '@vscode',
-      'webview-ui-toolkit',
-      'dist',
-      'toolkit.js',
+    const mainUri = getUri(webview, extensionUri, [
+      'webview-ui',
+      'js',
+      'main.js',
     ]);
-    const mainUri = getUri(webview, extensionUri, ['webview-ui', 'main.js']);
+    const stylesheetUri = getUri(webview, extensionUri, [
+      'webview-ui',
+      'css',
+      'styles.css',
+    ]);
 
     // Tip: Install the es6-string-html VS Code extension to enable code highlighting below
     return /*html*/ `
@@ -122,13 +126,93 @@ export class FeedbackPanel {
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <script type="module" src="${toolkitUri}"></script>
+          <link rel="stylesheet" href="${stylesheetUri}"></link>
           <script type="module" src="${mainUri}"></script>
-          <title>Hello World</title>
+          <title>HubSpot VSCode Extension Feedback</title>
         </head>
         <body>
-          <h1>Feedback Panel</h1>
-          <vscode-button id="howdy">Submit</vscode-button>
+          <h1>HubSpot VSCode Extension Feedback</h1>
+          <div class="description">
+            <p>
+              Thank you for taking the time to provide feedback on the HubSpot VSCode Extension.
+            </p>
+          </div>
+          <form class="rendered-form">
+            <div class="form-field">
+                <label>Visual Studio Code Version</label><br />
+                <input name="vs-code-version" type="text" value="1.74.0" disabled>
+            </div>
+            <div class="form-field">
+                <label>HubSpot Extension Version</label><br />
+                <input name="hubspot-extension-version" type="text" value="v1.0.0" disabled>
+            </div>
+            <div class="form-field">
+                <label>Machine ID</label><br />
+                <input name="vs-code-version" type="text" value="some value" disabled>
+            </div>
+            <div class="form-field">
+                <label>Rate your experience with this developer tool</label>
+                <div class="radio-group" style="display: flex">
+                    <div class="radio">
+                        <input name="experience-1" id="experience-1" value="1" type="radio">
+                        <label for="experience-1">1</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-2" value="2" type="radio">
+                        <label for="experience-2">2</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-3" value="3" type="radio">
+                        <label for="experience-3">3</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-4" value="4" type="radio">
+                        <label for="experience-4">4</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-5" value="5" type="radio">
+                        <label for="experience-5">5</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-6" value="6" type="radio">
+                        <label for="experience-6">6</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-7" value="7" type="radio">
+                        <label for="experience-7">7</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-8" value="8" type="radio">
+                        <label for="experience-8">8</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-9" value="9" type="radio">
+                        <label for="experience-9">9</label>
+                    </div>
+                    <div class="radio">
+                        <input name="experience" id="experience-10" value="10" type="radio">
+                        <label for="experience-10">10</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="reason">Why did you choose this rating?</label><br />
+                <textarea type="textarea" name="readon" id="reason"></textarea>
+            </div>
+
+            <div>
+              <h3>May we contact you for questions? If so, please provide your name and email</h3>
+              <div class="form-field">
+                  <label for="name">Full Name</label><br />
+                  <input type="text" name="name" id="name">
+              </div>
+              <div class="form-field">
+                  <label for="email">Email</label><br />
+                  <input type="text" name="email" id="email">
+              </div>
+            </div>
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
         </body>
       </html>
     `;
