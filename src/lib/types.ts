@@ -1,3 +1,5 @@
+import { Command } from 'vscode';
+
 export interface Portal {
   name: string;
   portalId: string;
@@ -27,4 +29,12 @@ export interface HubspotConfig {
 export interface Link {
   label: string;
   url: string;
+}
+
+export function instanceOfLink(object: any): object is Link {
+  return 'url' in object;
+}
+
+export function instanceOfCommand(object: any): object is Command {
+  return 'title' in object && 'command' in object;
 }

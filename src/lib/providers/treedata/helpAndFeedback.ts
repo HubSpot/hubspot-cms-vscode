@@ -1,15 +1,23 @@
 import {
+  Command,
   ThemeIcon,
   TreeItem,
   TreeItemCollapsibleState,
   TreeDataProvider,
   Uri,
 } from 'vscode';
-import { Link } from '../../types';
+import { instanceOfLink, instanceOfCommand, Link } from '../../types';
+import { COMMANDS } from '../../constants';
 
 export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
-  getTreeItem(q: Link): TreeItem {
-    return new LinkTreeItem(q.label, Uri.parse(q.url));
+  getTreeItem(q: any): TreeItem {
+    if (instanceOfCommand(q)) {
+      return new CommandTreeItem(q);
+    } else if (instanceOfLink(q)) {
+      return new LinkTreeItem(q.label, Uri.parse(q.url));
+    } else {
+      throw new Error('Invalid tree item passed to HelpAndFeedbackProvider');
+    }
   }
 
   getChildren(): Thenable<any> {
@@ -27,8 +35,8 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
         url: 'https://marketplace.visualstudio.com/items?itemName=hubspot.hubl&ssr=false#review-details',
       },
       {
-        label: 'Submit feedback',
-        url: 'https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli',
+        title: 'Submit feedback',
+        command: COMMANDS.PANELS.OPEN_FEEDBACK_PANEL,
       },
     ]);
   }
@@ -39,11 +47,21 @@ export class LinkTreeItem extends TreeItem {
     super(label, TreeItemCollapsibleState.None);
     this.tooltip = `Open link: ${resourceUri.toString()}`;
     this.iconPath = new ThemeIcon('link-external');
-    this.contextValue = 'link';
+    this.contextValue = 'link-tree-item';
     this.command = {
       command: 'vscode.open',
       title: '',
       arguments: [resourceUri],
     };
+  }
+}
+
+export class CommandTreeItem extends TreeItem {
+  constructor(public readonly command: Command) {
+    super(command.title, TreeItemCollapsibleState.None);
+    this.tooltip = `Open ${command.title}`;
+    this.iconPath = new ThemeIcon('file');
+    this.contextValue = 'command-tree-item';
+    this.command = command;
   }
 }
