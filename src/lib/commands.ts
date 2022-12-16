@@ -5,9 +5,12 @@ import { registerCommands as registerTerminalCommands } from './commands/termina
 import { registerCommands as registerModuleCommands } from './commands/module';
 import { registerCommands as registerServerlessFunctionCommands } from './commands/serverlessFunction';
 
-export const registerCommands = (context: ExtensionContext) => {
+export const registerCommands = (
+  context: ExtensionContext,
+  rootPath: string
+) => {
   registerConfigCommands(context);
-  registerAuthCommands(context);
+  registerAuthCommands(context, rootPath);
   registerTerminalCommands(context);
   registerModuleCommands(context);
   registerServerlessFunctionCommands(context);
