@@ -8,14 +8,14 @@ import {
 } from 'vscode';
 import { getUri } from '../utilities';
 
-// Used this as a base https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
+// This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
 /**
  * This class manages the state and behavior of HelloWorld webview panels.
  *
  * It contains all the data and methods for:
  *
- * - Creating and rendering HelloWorld webview panels
+ * - Creating and rendering FeedbackPanel webview panels
  * - Properly cleaning up and disposing of webview resources when the panel is closed
  * - Setting the HTML (and by proxy CSS/JavaScript) content of the webview panel
  * - Setting message listeners so data can be passed between the webview and extension
@@ -64,7 +64,7 @@ export class FeedbackPanel {
         // Panel view type
         'feedbackPanel',
         // Panel title
-        'Submit HubSpot VSCode Extension Feedback',
+        'HubSpot VSCode Extension Feedback',
         // The editor column the panel should be displayed in
         ViewColumn.One,
         // Extra panel configurations
@@ -137,7 +137,7 @@ export class FeedbackPanel {
               Thank you for taking the time to provide feedback on the HubSpot VSCode Extension.
             </p>
           </div>
-          <form class="rendered-form">
+          <form id="feedback-form">
             <div class="form-field">
                 <label>Visual Studio Code Version</label><br />
                 <input name="vs-code-version" type="text" value="1.74.0" disabled>
@@ -211,7 +211,7 @@ export class FeedbackPanel {
                   <input type="text" name="email" id="email">
               </div>
             </div>
-            <button type="submit" id="submit-button">Submit</button>
+            <button type="submit">Submit</button>
         </form>
         </body>
       </html>
@@ -232,12 +232,10 @@ export class FeedbackPanel {
         const text = message.text;
 
         switch (command) {
-          case 'hello':
-            // Code that should run in response to the hello message command
+          case 'submit':
             window.showInformationMessage(text);
+            this._panel.dispose();
             return;
-          // Add more switch case statements here as more webview message commands
-          // are created within the webview context (i.e. inside media/main.js)
         }
       },
       undefined,
