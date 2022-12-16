@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
- 
+
 /*
  * Returns a non-duplicate folder/file name with the format <name>.<extension>
  * It will add a number to the end of the name if it already exists
