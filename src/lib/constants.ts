@@ -41,8 +41,15 @@ export const COMMANDS = {
     SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
     SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   },
-  CREATE_MODULE: 'hubspot.create.module',
-  CREATE_SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  CREATE: {
+    MODULE: 'hubspot.create.module',
+    SECTION: 'hubspot.create.section',
+    TEMPLATE: 'hubspot.create.template',
+    PARTIAL: 'hubspot.create.partial',
+    GLOBAL_PARTIAL: 'hubspot.create.globalPartial',
+    SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
+    SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  },
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',
