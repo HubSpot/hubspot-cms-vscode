@@ -37,7 +37,7 @@ const getUserIdentificationInformation = (accountId: string) => {
     os: `${platform()} ${release()}`,
     shell: env.shell,
     version: extensionVersion,
-    vscode_version: version,
+    vscodeVersion: version,
     authType: getAuthType(accountId),
   };
 };
