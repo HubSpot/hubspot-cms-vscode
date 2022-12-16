@@ -34,6 +34,11 @@ body {
   font-family: 'Lexend Deca', sans-serif;
 }
 
+.radio-group {
+  margin-top: 10px;
+  width: 500px;
+}
+
 .radio {
   flex: 1 0 auto;
   display: flex;
