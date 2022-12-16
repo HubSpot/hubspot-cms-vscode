@@ -20,9 +20,9 @@ export const activate = async (context: ExtensionContext) => {
   );
   const rootPath = getRootPath();
 
-  registerCommands(context);
+  registerCommands(context, rootPath);
   registerEvents(context);
-  registerURIHandler(context, rootPath);
+  registerURIHandler(context);
 
   initializeProviders(context);
   initializeTerminal(context);
