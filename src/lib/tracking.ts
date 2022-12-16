@@ -53,15 +53,13 @@ export const trackEvent = async (action: string, options?: object) => {
     return;
   }
   const accountId = getAccountId();
-  const data = getUserIdentificationInformation(accountId);
 
-  console.log('data: ', data);
   await trackUsage(
     'vscode-extension-interaction',
     'INTERACTION',
     {
       ...options,
-      ...data,
+      ...getUserIdentificationInformation(accountId),
       action,
     },
     accountId
