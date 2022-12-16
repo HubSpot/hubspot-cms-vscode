@@ -9,8 +9,7 @@ export const getRootPath = () => {
   if (!workspaceFolders || workspaceFolders.length < 1) {
     throw new Error('No workspace folder found.');
   }
-
-  return workspaceFolders[0].uri.fsPath;
+  return workspaceFolders[0].uri.path;
 };
 
 export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
@@ -27,7 +26,7 @@ export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
 export const getDisplayedHubspotPortalInfo = (portalData: Portal) => {
   return portalData.name
     ? `${portalData.name} - ${portalData.portalId}`
-    : portalData.portalId;
+    : `${portalData.portalId}`;
 };
 
 export const runTerminalCommand = async (
@@ -68,7 +67,7 @@ export const checkTerminalCommandVersion = async (terminalCommand: string) => {
           const commandVersion = await runTerminalCommand(
             `${terminalCommand} --version`
           );
-          resolve(commandVersion);
+          resolve(commandVersion.trim());
         } catch (e) {
           // Unknown version
           resolve('unknown');

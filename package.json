@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot VS Code Extension",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "0.17.0",
+    "version": "1.0.0",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.53.0"
