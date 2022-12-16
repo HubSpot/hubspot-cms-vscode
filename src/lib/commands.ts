@@ -6,8 +6,11 @@ import { registerCommands as registerNotificationCommands } from './commands/not
 import { registerCommands as registerServerlessFunctionCommands } from './commands/serverlessFunction';
 import { registerCommands as registerTerminalCommands } from './commands/terminal';
 
-export const registerCommands = (context: ExtensionContext) => {
-  registerAuthCommands(context);
+export const registerCommands = (
+  context: ExtensionContext,
+  rootPath: string
+) => {
+  registerAuthCommands(context, rootPath);
   registerConfigCommands(context);
   registerModuleCommands(context);
   registerNotificationCommands(context);
