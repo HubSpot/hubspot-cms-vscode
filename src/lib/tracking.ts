@@ -5,7 +5,6 @@ import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
 let extensionVersion: string;
 
 export const initializeTracking = (context: ExtensionContext) => {
-  // @ts-ignore TODO - Why is extension not available, when it is?
   extensionVersion = context.extension.packageJSON.version;
 };
 
@@ -16,16 +15,30 @@ const {
 } = require('@hubspot/cli-lib');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
-export const getUserIdentificationInformation = () => {
+const getAuthType = (accountId: string) => {
+  let authType = 'unknown';
+
+  if (accountId) {
+    const accountConfig = getAccountConfig(accountId);
+    authType =
+      accountConfig && accountConfig.authType
+        ? accountConfig.authType
+        : 'apikey';
+  }
+
+  return authType;
+};
+
+const getUserIdentificationInformation = (accountId: string) => {
   return {
-    extensionName: 'hubspot.hubl',
-    source: env.appName,
-    vscodeVersion: version,
-    extensionVersion,
+    applicationName: 'hubspot.hubl',
     language: env.language,
     machineId: env.machineId,
     os: `${platform()} ${release()}`,
     shell: env.shell,
+    version: extensionVersion,
+    vscode_version: version,
+    authType: getAuthType(accountId),
   };
 };
 
@@ -39,25 +52,16 @@ export const trackEvent = async (action: string, options?: object) => {
   ) {
     return;
   }
-
-  let authType = 'unknown';
   const accountId = getAccountId();
+  const data = getUserIdentificationInformation(accountId);
 
-  if (accountId) {
-    const accountConfig = getAccountConfig(accountId);
-    authType =
-      accountConfig && accountConfig.authType
-        ? accountConfig.authType
-        : 'apikey';
-  }
-
+  console.log('data: ', data);
   await trackUsage(
     'vscode-extension-interaction',
     'INTERACTION',
     {
       ...options,
-      ...getUserIdentificationInformation(),
-      authType,
+      ...data,
       action,
     },
     accountId

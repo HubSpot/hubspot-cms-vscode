@@ -12,10 +12,10 @@ import { initializeTracking, trackEvent } from './lib/tracking';
 import { TRACKED_EVENTS } from './lib/constants';
 
 export const activate = async (context: ExtensionContext) => {
+  initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
   console.log(
     'Activating Extension Version: ',
-    // @ts-ignore TODO - Why is extension not available, when it is?
     context.extension.packageJSON.version
   );
   const rootPath = getRootPath();
@@ -27,7 +27,6 @@ export const activate = async (context: ExtensionContext) => {
   initializeProviders(context);
   initializeTerminal(context);
   initializeStatusBar(context);
-  initializeTracking(context);
 
   initializeConfig(rootPath);
 };

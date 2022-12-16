@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.53.0"
+        "vscode": "^1.55.0"
     },
     "scripts": {
         "dev": "npm run webpack-dev",
@@ -348,7 +348,7 @@
     "devDependencies": {
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
-        "@types/vscode": "1.53.0",
+        "@types/vscode": "1.55.0",
         "eslint": "^7.5.0",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
