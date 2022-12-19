@@ -13,6 +13,7 @@ export interface Portal {
     };
   };
   personalAccessKey: string;
+  env?: string;
 }
 
 export interface HubspotConfig {

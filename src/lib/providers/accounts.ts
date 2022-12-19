@@ -11,6 +11,22 @@ import { HubspotConfig, Portal } from '../types';
 
 const { getConfig } = require('@hubspot/cli-lib');
 
+const getAdditonalAccountIdentifiers = (
+  portal: Portal,
+  config: HubspotConfig
+) => {
+  let additionalAccountIdentifiers = '';
+
+  if (
+    config.defaultPortal === portal.portalId ||
+    config.defaultPortal === portal.name
+  ) {
+    additionalAccountIdentifiers = '(default)';
+  }
+
+  return additionalAccountIdentifiers;
+};
+
 export class AccountsProvider implements TreeDataProvider<Portal> {
   private config: HubspotConfig;
   constructor() {
@@ -27,12 +43,10 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
 
   getTreeItem(p: Portal): TreeItem {
     return new AccountTreeItem(
-      `${getDisplayedHubspotPortalInfo(p)} ${
-        this.config.defaultPortal === p.portalId ||
-        this.config.defaultPortal === p.name
-          ? '(default)'
-          : ''
-      }`,
+      `${getDisplayedHubspotPortalInfo(p)} ${getAdditonalAccountIdentifiers(
+        p,
+        this.config
+      )}`,
       p.portalId,
       p,
       TreeItemCollapsibleState.None
@@ -59,7 +73,10 @@ export class AccountTreeItem extends TreeItem {
     public readonly collapsibleState: TreeItemCollapsibleState,
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
-    public readonly iconPath: string = new ThemeIcon('account'),
+    public readonly iconPath: string = new ThemeIcon(
+      'account',
+      'statusBarItem.errorBackground'
+    ),
     public readonly contextValue: string = 'accountTreeItem'
   ) {
     super(name, collapsibleState);
