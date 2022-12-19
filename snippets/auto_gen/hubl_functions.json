@@ -300,6 +300,13 @@
     "description": "Returns URL to specified template by id\nParameters:\n- template_id(number) The ID number of the template of file",
     "prefix": "~get_public_template_url_by_id"
   },
+  "get_rss_url": {
+    "body": [
+      "get_rss_url(${1:attributes})"
+    ],
+    "description": "Returns a URL for a specified RSS listing\nParameters:\n- attributes(dict) Dictionary of parameters corresponding to most parameters of the rss listing tag. Supports 'show_date'(true/false), 'show_author'(true/false), 'show_detail'(true/false), 'limit_to_chars'(Number), 'publish_date_format'('short'/'medium'/'long' or a custom format such as \"MMMM d, yyyy 'at' h:mm a\"), 'click_through_text'(String), 'include_featured_image'(true/false), 'is_external'(true/false), 'number_of_items'(Number), 'publish_date_language'(String), 'rss_url'(String), 'content_group_id (Number)', 'select_blog'(String), and 'tag_id'(Number)",
+    "prefix": "~get_rss_url"
+  },
   "head_css": {
     "body": [
       "head_css()"
