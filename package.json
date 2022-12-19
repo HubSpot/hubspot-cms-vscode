@@ -218,8 +218,25 @@
             {
                 "command": "hubspot.account.viewPersonalAccessKey",
                 "title": "View personal access key",
-                "icon": "images/hubspot-logo.svg"
-              }
+                "icon": "$(link-external)"
+            },
+            {
+                "command": "hubspot.account.sandbox",
+                "title": "Sandbox account",
+                "icon": {
+                    "dark": "images/sand-dark.png",
+                    "light": "images/sand-light.png"
+                }
+            },
+            {
+                "command": "hubspot.account.qa",
+                "title": "QA Account",
+                "icon": {
+                    "dark": "images/bug-dark.png",
+                    "light": "images/bug-light.png"
+                }
+            }
+
         ],
         "submenus": [
             {
@@ -261,6 +278,16 @@
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
+                    "when": "viewItem == accountTreeItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "hubspot.account.sandbox",
+                    "when": "viewItem == accountTreeItem",
+                    "group": "inline"
+                },
+                {
+                    "command": "hubspot.account.qa",
                     "when": "viewItem == accountTreeItem",
                     "group": "inline"
                 }
