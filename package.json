@@ -217,26 +217,9 @@
             },
             {
                 "command": "hubspot.account.viewPersonalAccessKey",
-                "title": "View personal access key",
+                "title": "Show personal access key info",
                 "icon": "$(link-external)"
-            },
-            {
-                "command": "hubspot.account.sandbox",
-                "title": "Sandbox account",
-                "icon": {
-                    "dark": "images/sand-dark.png",
-                    "light": "images/sand-light.png"
-                }
-            },
-            {
-                "command": "hubspot.account.qa",
-                "title": "QA Account",
-                "icon": {
-                    "dark": "images/bug-dark.png",
-                    "light": "images/bug-light.png"
-                }
             }
-
         ],
         "submenus": [
             {
@@ -278,18 +261,7 @@
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
-                    "when": "viewItem == accountTreeItem",
-                    "group": "inline"
-                },
-                {
-                    "command": "hubspot.account.sandbox",
-                    "when": "viewItem == accountTreeItem",
-                    "group": "inline"
-                },
-                {
-                    "command": "hubspot.account.qa",
-                    "when": "viewItem == accountTreeItem",
-                    "group": "inline"
+                    "when": "viewItem == accountTreeItem"
                 }
             ],
             "commandPalette": [
@@ -370,7 +342,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.4-beta.1",
+        "@hubspot/cli-lib": "^4.1.4",
         "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
