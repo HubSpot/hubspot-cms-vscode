@@ -1,5 +1,5 @@
 import { commands, languages, window, ExtensionContext } from 'vscode';
-import { FileCompletionProvider } from './providers/fileCompletionProvider';
+import { FileCompletionProvider } from './providers/fileCompletion';
 import { AccountsProvider } from './providers/accounts';
 import { HelpAndFeedbackProvider } from './providers/helpAndFeedback';
 import { COMMANDS, TREE_DATA } from './constants';
