@@ -31,19 +31,23 @@ export const registerEvents = (context: ExtensionContext) => {
       if (!hubspotConfigWatcher) {
         console.log(`watching: ${configPath}`);
         // This triggers an in-memory update of the config when the file changes
-        hubspotConfigWatcher = fs.watch(configPath, async (eventType: any) => {
-          if (eventType === 'change') {
-            console.log(`${configPath} changed`);
-            loadHubspotConfigFile(rootPath);
-          } else if (eventType === 'rename') {
-            // 'rename' event is triggers for renames and deletes
-            console.log(`${configPath} renamed/deleted`);
-            loadHubspotConfigFile(rootPath);
-            hubspotConfigWatcher && hubspotConfigWatcher.close();
-            hubspotConfigWatcher = null;
-            console.log(`stopped watching ${configPath}`);
+        hubspotConfigWatcher = fs.watch(
+          configPath,
+          // Type should be WatchEventType but isn't present in types
+          async (eventType: 'change' | 'rename') => {
+            if (eventType === 'change') {
+              console.log(`${configPath} changed`);
+              loadHubspotConfigFile(rootPath);
+            } else if (eventType === 'rename') {
+              // 'rename' event is triggers for renames and deletes
+              console.log(`${configPath} renamed/deleted`);
+              loadHubspotConfigFile(rootPath);
+              hubspotConfigWatcher && hubspotConfigWatcher.close();
+              hubspotConfigWatcher = null;
+              console.log(`stopped watching ${configPath}`);
+            }
           }
-        });
+        );
       }
     })
   );
