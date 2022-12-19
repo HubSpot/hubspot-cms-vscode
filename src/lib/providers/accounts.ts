@@ -91,6 +91,10 @@ export class AccountTreeItem extends TreeItem {
       portalData.sandboxAccountType
         ? `Sandbox Account Type: ${portalData.sandboxAccountType}`
         : ''
+    }${
+      portalData.parentAccountId
+        ? `Parent Account ID: ${portalData.parentAccountId}`
+        : ''
     }`;
   }
 }
