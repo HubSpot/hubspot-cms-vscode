@@ -1,6 +1,6 @@
 {
     "name": "hubl",
-    "displayName": "HubSpot VS Code Extension",
+    "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
     "version": "1.0.0",
     "publisher": "HubSpot",
