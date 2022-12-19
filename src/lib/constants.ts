@@ -35,14 +35,36 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 export const COMMANDS = {
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
   AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
-  CONFIG_DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
-  CONFIG_RENAME_ACCOUNT: 'hubspot.config.renameAccount',
-  CONFIG_SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
-  CONFIG_SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
+  CONFIG: {
+    DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
+    RENAME_ACCOUNT: 'hubspot.config.renameAccount',
+    SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
+    SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
+  },
+  CREATE_MODULE: 'hubspot.create.module',
+  CREATE_SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  HUBSPOT_CLI: {
+    INSTALL: 'hubspot.hs.install',
+    UPDATE: 'hubspot.hs.update',
+  },
+  VERSION_CHECK: {
+    HS: 'hubspot.versionCheck.hs',
+    HS_LATEST: 'hubspot.versionCheck.hs.latest',
+    NPM: 'hubspot.versionCheck.npm',
+  },
+};
+
+export const EVENTS = {
   ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
   ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
 };
 
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
+  HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
+};
+
+export const POLLING_INTERVALS = {
+  SLOW: 60000,
+  FAST: 2500,
 };

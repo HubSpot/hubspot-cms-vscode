@@ -1,27 +1,30 @@
-import * as vscode from 'vscode';
-
-import { AccountsProvider } from './providers/accountsProvider';
+import { commands, languages, window, ExtensionContext } from 'vscode';
 import { FileCompletionProvider } from './providers/fileCompletionProvider';
+import { AccountsProvider } from './providers/accounts';
+import { HelpAndFeedbackProvider } from './providers/helpAndFeedback';
 import { COMMANDS, TREE_DATA } from './constants';
 
-export const initializeProviders = (context: vscode.ExtensionContext) => {
+export const initializeProviders = (context: ExtensionContext) => {
   const accountProvider = new AccountsProvider();
   const fileCompletionProvider = new FileCompletionProvider();
+  const helpAndFeedbackProvider = new HelpAndFeedbackProvider();
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
+    commands.registerCommand(COMMANDS.ACCOUNTS_REFRESH, () => {
       console.log(COMMANDS.ACCOUNTS_REFRESH);
       accountProvider.refresh();
     })
   );
-  vscode.window.registerTreeDataProvider(TREE_DATA.ACCOUNTS, accountProvider);
 
-  context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-      'html-hubl',
-      fileCompletionProvider,
-      "'",
-      '"'
-    )
+  languages.registerCompletionItemProvider(
+    'html-hubl',
+    fileCompletionProvider,
+    "'",
+    '"'
+  );
+  window.registerTreeDataProvider(TREE_DATA.ACCOUNTS, accountProvider);
+  window.registerTreeDataProvider(
+    TREE_DATA.HELP_AND_FEEDBACK,
+    helpAndFeedbackProvider
   );
 };

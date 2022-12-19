@@ -2,7 +2,6 @@
 
 'use strict';
 
-const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 /**@type {import('webpack').Configuration}*/
@@ -21,7 +20,6 @@ const config = {
     {
       vscode: 'commonjs vscode',
     },
-    nodeExternals(),
   ],
   resolve: {
     extensions: ['.ts', '.js'],

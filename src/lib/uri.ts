@@ -1,9 +1,15 @@
-import * as vscode from 'vscode';
+import {
+  commands,
+  window,
+  ExtensionContext,
+  ProviderResult,
+  Uri,
+} from 'vscode';
 import * as path from 'path';
 import { URLSearchParams } from 'url';
 import { trackAction } from './tracking';
 import { loadHubspotConfigFile } from './auth';
-import { COMMANDS } from './constants';
+import { COMMANDS, EVENTS } from './constants';
 
 const {
   updateConfigWithPersonalAccessKey,
@@ -13,19 +19,24 @@ const {
   setConfigPath,
 } = require('@hubspot/cli-lib/lib/config');
 
-const getQueryObject = (uri: vscode.Uri) => {
+const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
 };
 
-const handleAuthRequest = async (
-  rootPath: string,
-  authParams: URLSearchParams
-) => {
+const handleAuthRequest = async (authParams: URLSearchParams) => {
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
   const env = authParams.get('env') || 'prod';
   const name = authParams.get('name');
+  const portalId = authParams.get('portalId');
   const { key: personalAccessKey } = JSON.parse(personalAccessKeyResp);
+  const accountIdentifier = name || portalId;
+  let rootPath = authParams.get('rootPath') || '';
   let configPath = loadHubspotConfigFile(rootPath);
+
+  // handle windows paths, which look something like /C:/Some/path
+  if (/^\/\w:\/.*$/.test(rootPath)) {
+    rootPath = rootPath.slice(1);
+  }
 
   if (configPath) {
     setConfigPath(configPath);
@@ -40,32 +51,24 @@ const handleAuthRequest = async (
     env,
   });
 
-  vscode.commands.executeCommand(
-    COMMANDS.ON_CONFIG_FOUND,
-    rootPath,
-    configPath
-  );
+  commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
-  vscode.commands.executeCommand(
-    'setContext',
-    'hubspot.auth.isAuthenticating',
-    false
+  commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
+  window.showInformationMessage(
+    `Successfully added ${accountIdentifier} to the config.`
   );
-  vscode.window.showInformationMessage(
-    `Successfully added ${name} to the config.`
-  );
-  vscode.window
+  window
     .showInformationMessage(
-      `Do you want to set ${name} as the default account?`,
+      `Do you want to set ${accountIdentifier} as the default account?`,
       'Yes',
       'No'
     )
     .then((answer: string | undefined) => {
       if (answer === 'Yes') {
-        console.log(`Updating defaultPortal to ${name}.`);
-        vscode.commands.executeCommand(
-          COMMANDS.CONFIG_SET_DEFAULT_ACCOUNT,
-          name
+        console.log(`Updating defaultPortal to ${accountIdentifier}.`);
+        commands.executeCommand(
+          COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
+          accountIdentifier
         );
       }
     });
@@ -75,19 +78,16 @@ const handleAuthRequest = async (
   return updatedConfig;
 };
 
-export const registerURIHandler = (
-  context: vscode.ExtensionContext,
-  rootPath: string
-) => {
+export const registerURIHandler = (context: ExtensionContext) => {
   // https://github.com/microsoft/vscode-extension-samples/blob/main/uri-handler-sample/package.json
-  vscode.window.registerUriHandler({
-    handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
+  window.registerUriHandler({
+    handleUri(uri: Uri): ProviderResult<void> {
       console.log('URI Handler uri: ', uri);
       if (uri.path === '/auth') {
         const queryObject = getQueryObject(uri);
 
         console.log('queryObject: ', queryObject);
-        handleAuthRequest(rootPath, queryObject);
+        handleAuthRequest(queryObject);
       }
     },
   });

@@ -1,6 +1,6 @@
+import { window, DiagnosticSeverity, Position } from 'vscode';
 import { HubspotConfig } from './types';
 
-const vscode = require('vscode');
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
 
@@ -24,16 +24,22 @@ const getRange = (document: any, error: any) => {
 
   if (error.startPosition > 0) {
     return document.getWordRangeAtPosition(
-      new vscode.Position(adjustedLineNumber, error.startPosition - 1),
+      new Position(adjustedLineNumber, error.startPosition - 1),
       HUBL_TAG_DEFINITION_REGEX
     );
   } else {
-    return document.lineAt(new vscode.Position(adjustedLineNumber, 0)).range;
+    return document.lineAt(new Position(adjustedLineNumber, 0)).range;
   }
 };
 
 const isFileInWorkspace = (error: any) => {
-  const pathToActiveFile = vscode.window.activeTextEditor.document.uri.path;
+  const activeEditor = window.activeTextEditor;
+
+  if (!activeEditor) {
+    return false;
+  }
+
+  const pathToActiveFile = activeEditor.document.uri.path;
   const dirToActiveFile = path.dirname(pathToActiveFile);
 
   let filePath = error.categoryErrors.fullName || error.categoryErrors.path;
@@ -41,8 +47,7 @@ const isFileInWorkspace = (error: any) => {
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
-
-  return fs.existsSync(path.resolve(dirToActiveFile, filePath));
+  return fs.existsSync(path.normalize(filePath));
 };
 
 const clearValidation = (document: any, collection: any) => {
@@ -70,6 +75,7 @@ const getTemplateType = (document: any) => {
         getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
       tempalate_type:
         TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
+      template_path: document.uri.path,
     };
   }
   if (isModuleHTMLFile(document.fileName)) {
@@ -108,7 +114,7 @@ const updateValidation = async (document: any, collection: any) => {
       code: '',
       message: error.message,
       range: getRange(document, error),
-      severity: vscode.DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
+      severity: DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
     };
   });
 
