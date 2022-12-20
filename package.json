@@ -1,6 +1,6 @@
 {
     "name": "hubl",
-    "displayName": "HubSpot VS Code Extension",
+    "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
     "version": "1.0.0",
     "publisher": "HubSpot",
@@ -219,6 +219,11 @@
             {
                 "command": "hubspot.config.renameAccount",
                 "title": "Rename account"
+            },
+            {
+                "command": "hubspot.account.viewPersonalAccessKey",
+                "title": "Show personal access key info",
+                "icon": "$(link-external)"
             }
         ],
         "submenus": [
@@ -257,6 +262,10 @@
                 },
                 {
                     "command": "hubspot.config.deleteAccount",
+                    "when": "viewItem == accountTreeItem"
+                },
+                {
+                    "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem"
                 }
             ],
@@ -338,7 +347,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.4-beta.1",
+        "@hubspot/cli-lib": "^4.1.4",
         "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",

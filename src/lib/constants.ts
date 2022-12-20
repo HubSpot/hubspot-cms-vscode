@@ -34,6 +34,9 @@ export const GLOBAL_STATE_KEYS = {
 export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
+  ACCOUNT: {
+    VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
+  },
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
   AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
   CONFIG: {

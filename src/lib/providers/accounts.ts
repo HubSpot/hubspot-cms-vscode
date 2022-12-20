@@ -11,6 +11,23 @@ import { HubspotConfig, Portal } from '../types';
 
 const { getConfig } = require('@hubspot/cli-lib');
 
+const isDefaultPortal = (portal: Portal, config: HubspotConfig) => {
+  return (
+    config.defaultPortal === portal.portalId ||
+    config.defaultPortal === portal.name
+  );
+};
+
+const getAccountIdentifiers = (portal: Portal) => {
+  let accountIdentifiers = '';
+
+  if (portal.env === 'qa') {
+    accountIdentifiers = '[QA]';
+  }
+
+  return accountIdentifiers;
+};
+
 export class AccountsProvider implements TreeDataProvider<Portal> {
   private config: HubspotConfig;
   constructor() {
@@ -26,15 +43,12 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
   }
 
   getTreeItem(p: Portal): TreeItem {
+    const identifiers = getAccountIdentifiers(p);
+    const name = `${getDisplayedHubspotPortalInfo(p)} ${identifiers}`;
     return new AccountTreeItem(
-      `${getDisplayedHubspotPortalInfo(p)} ${
-        this.config.defaultPortal === p.portalId ||
-        this.config.defaultPortal === p.name
-          ? '(default)'
-          : ''
-      }`,
-      p.portalId,
+      name,
       p,
+      { isDefault: isDefaultPortal(p, this.config) },
       TreeItemCollapsibleState.None
     );
   }
@@ -54,17 +68,33 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
 export class AccountTreeItem extends TreeItem {
   constructor(
     public readonly name: string,
-    public readonly id: string,
     public readonly portalData: Portal,
+    public readonly options: { isDefault: boolean },
     public readonly collapsibleState: TreeItemCollapsibleState,
     // TODO: Figure out why this is erroring out
     // @ts-ignore: Private method access
-    public readonly iconPath: string = new ThemeIcon('account'),
+    public iconPath: string = new ThemeIcon('account'),
     public readonly contextValue: string = 'accountTreeItem'
   ) {
     super(name, collapsibleState);
-    this.tooltip = `Active Account: ${getDisplayedHubspotPortalInfo(
-      portalData
-    )}`;
+
+    if (options.isDefault) {
+      // TODO: Figure out why this is erroring out
+      // @ts-ignore: Private method access
+      this.iconPath = new ThemeIcon('star-full');
+    }
+    this.tooltip = `${options.isDefault ? '* Default Account\n' : ''}${
+      portalData.name ? `Name: ${portalData.name}\n` : ''
+    }ID: ${portalData.portalId}\n${
+      portalData.env ? `Environment: ${portalData.env}\n` : ''
+    }${
+      portalData.sandboxAccountType
+        ? `Sandbox Account Type: ${portalData.sandboxAccountType}`
+        : ''
+    }${
+      portalData.parentAccountId
+        ? `Parent Account ID: ${portalData.parentAccountId}`
+        : ''
+    }`;
   }
 }
