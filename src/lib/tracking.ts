@@ -2,29 +2,28 @@ import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
 
 const doNotPromptTelemetryKey = 'hubspotDoNotShowTelemetry';
-const vscodeTelemetryDocsUrl = 'https://code.visualstudio.com/docs/getstarted/telemetry';
+const vscodeTelemetryDocsUrl =
+  'https://code.visualstudio.com/docs/getstarted/telemetry';
 let extensionVersion: string;
 
 export const initializeTracking = (context: ExtensionContext) => {
   extensionVersion = context.extension.packageJSON.version;
   if (context.globalState.get(doNotPromptTelemetryKey) === undefined) {
-    context.globalState.update(doNotPromptTelemetryKey, true)
-    showTelemetryPrompt()
+    context.globalState.update(doNotPromptTelemetryKey, true);
+    showTelemetryPrompt();
   }
 };
 
 const showTelemetryPrompt = async () => {
   const selection = await window.showInformationMessage(
-    'The HubSpot VSCode Extension collects basic usage data in order to improve the extension\'s experience. If you\'d like to opt out, we respect the global telemetry setting in VSCode.',
+    "The HubSpot VSCode Extension collects basic usage data in order to improve the extension's experience. If you'd like to opt out, we respect the global telemetry setting in VSCode.",
     ...['Read More', 'Okay']
   );
   if (!selection) return;
   if (selection === 'Read More') {
-    env.openExternal(
-      Uri.parse(vscodeTelemetryDocsUrl)
-    )
+    env.openExternal(Uri.parse(vscodeTelemetryDocsUrl));
   }
-}
+};
 
 const {
   getAccountId,
