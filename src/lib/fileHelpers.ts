@@ -1,21 +1,9 @@
 import { workspace, FileWillCreateEvent, Uri, WorkspaceEdit } from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-const { createModule } = require('@hubspot/cli-lib/modules');
-const { createFunction } = require('@hubspot/cli-lib/functions');
 
-const copySampleModuleFilesToFolder = (folderPath: string) => {
-  return createModule(
-    {
-      moduleLabel: '',
-      contentTypes: [],
-      global: false,
-    },
-    '',
-    folderPath,
-    { allowExistingDir: true }
-  );
-};
+const { createFunction } = require('@hubspot/cli-lib/functions');
+const { downloadGitHubRepoContentsAtPath } = require('@hubspot/cli-lib/github');
 
 const copySampleFunctionFilesToFolder = (folderPath: string) => {
   const { dir, base } = path.parse(folderPath);
@@ -80,8 +68,13 @@ export const convertFolderToModule = (
 
             edit.renameFile(e.files[0], Uri.file(uniqueModulePath));
 
-            workspace.applyEdit(edit).then(() => {
-              copySampleModuleFilesToFolder(uniqueModulePath);
+            workspace.applyEdit(edit).then(async () => {
+              console.log('uniqueModulePath: ', uniqueModulePath);
+              await downloadGitHubRepoContentsAtPath(
+                uniqueModulePath,
+                'hubspot-cli',
+                'packages/cli-lib/defaults/Sample.module'
+              );
               resolve(edit);
             });
           }
