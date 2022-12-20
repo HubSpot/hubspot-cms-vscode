@@ -1,6 +1,5 @@
 import { env, version, workspace, ExtensionContext } from 'vscode';
 import { platform, release } from 'os';
-import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
 
 let extensionVersion: string;
 
@@ -45,10 +44,7 @@ const getUserIdentificationInformation = (accountId: string) => {
 export const trackEvent = async (action: string, options?: object) => {
   if (
     !isTrackingAllowed() ||
-    !workspace.getConfiguration().telemetry.enableTelemetry ||
-    !workspace
-      .getConfiguration(EXTENSION_CONFIG_NAME)
-      .get(EXTENSION_CONFIG_KEYS.ALLOW_USAGE_TRACKING)
+    !workspace.getConfiguration().telemetry.enableTelemetry
   ) {
     return;
   }

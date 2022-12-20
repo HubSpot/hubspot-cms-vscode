@@ -23,7 +23,6 @@ export const EXTENSION_CONFIG_NAME = 'hubspot';
 export const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
-  ALLOW_USAGE_TRACKING: 'allowUsageTracking',
 };
 
 export const GLOBAL_STATE_KEYS = {

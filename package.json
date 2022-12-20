@@ -187,11 +187,6 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
-                },
-                "hubspot.allowUsageTracking": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Allow usage tracking within extension."
                 }
             }
         },
