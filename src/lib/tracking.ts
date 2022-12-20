@@ -1,15 +1,15 @@
 import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
+import { GLOBAL_STATE_KEYS } from './constants';
 
-const doNotPromptTelemetryKey = 'hubspotDoNotShowTelemetry';
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';
 let extensionVersion: string;
 
 export const initializeTracking = (context: ExtensionContext) => {
   extensionVersion = context.extension.packageJSON.version;
-  if (context.globalState.get(doNotPromptTelemetryKey) === undefined) {
-    context.globalState.update(doNotPromptTelemetryKey, true);
+  if (context.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE) === undefined) {
+    context.globalState.update(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE, true);
     showTelemetryPrompt();
   }
 };
