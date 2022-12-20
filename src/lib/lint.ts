@@ -1,7 +1,11 @@
 import { languages, window, workspace, Disposable } from 'vscode';
 import { triggerValidate } from './validation';
-import { trackAction } from './tracking';
-import { EXTENSION_CONFIG_NAME, EXTENSION_CONFIG_KEYS } from './constants';
+import { trackEvent } from './tracking';
+import {
+  EXTENSION_CONFIG_NAME,
+  EXTENSION_CONFIG_KEYS,
+  TRACKED_EVENTS,
+} from './constants';
 
 const collection = languages.createDiagnosticCollection('hubl');
 let documentChangeListener: Disposable;
@@ -29,10 +33,10 @@ export const getUpdateLintingOnConfigChange = () => {
           .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
       ) {
         enableLinting();
-        await trackAction('linting-enabled');
+        await trackEvent(TRACKED_EVENTS.LINTING_ENABLED);
       } else {
         disableLinting();
-        await trackAction('linting-disabled');
+        await trackEvent(TRACKED_EVENTS.LINTING_DISABLED);
       }
     }
   });
