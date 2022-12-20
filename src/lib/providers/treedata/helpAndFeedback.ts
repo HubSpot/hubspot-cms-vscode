@@ -14,7 +14,7 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
     if (instanceOfCommand(q)) {
       return new CommandTreeItem(q);
     } else if (instanceOfLink(q)) {
-      return new LinkTreeItem(q.label, Uri.parse(q.url));
+      return new UrlLinkTreeItem(q.label, Uri.parse(q.url));
     } else {
       throw new Error('Invalid tree item passed to HelpAndFeedbackProvider');
     }
@@ -35,6 +35,10 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
         url: 'https://marketplace.visualstudio.com/items?itemName=hubspot.hubl&ssr=false#review-details',
       },
       {
+        label: 'About HubSpot VSCode Extension',
+        url: 'https://github.com/HubSpot/hubspot-cms-vscode/blob/master/README.md',
+      },
+      {
         title: 'Submit feedback',
         command: COMMANDS.PANELS.OPEN_FEEDBACK_PANEL,
       },
@@ -42,12 +46,12 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
   }
 }
 
-export class LinkTreeItem extends TreeItem {
+export class UrlLinkTreeItem extends TreeItem {
   constructor(public readonly label: string, public readonly resourceUri: Uri) {
     super(label, TreeItemCollapsibleState.None);
     this.tooltip = `Open link: ${resourceUri.toString()}`;
     this.iconPath = new ThemeIcon('link-external');
-    this.contextValue = 'link-tree-item';
+    this.contextValue = 'url-link-tree-item';
     this.command = {
       command: 'vscode.open',
       title: '',

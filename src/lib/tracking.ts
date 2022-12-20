@@ -1,3 +1,12 @@
+import { env, version, workspace, ExtensionContext } from 'vscode';
+import { platform, release } from 'os';
+
+let extensionVersion: string;
+
+export const initializeTracking = (context: ExtensionContext) => {
+  extensionVersion = context.extension.packageJSON.version;
+};
+
 const {
   getAccountId,
   isTrackingAllowed,
@@ -5,13 +14,8 @@ const {
 } = require('@hubspot/cli-lib');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
-export const trackAction = async (action: string, options?: object) => {
-  if (!isTrackingAllowed()) {
-    return;
-  }
-
+const getAuthType = (accountId: string) => {
   let authType = 'unknown';
-  const accountId = getAccountId();
 
   if (accountId) {
     const accountConfig = getAccountConfig(accountId);
@@ -21,11 +25,39 @@ export const trackAction = async (action: string, options?: object) => {
         : 'apikey';
   }
 
-  // TODO - Pass options!
+  return authType;
+};
+
+const getUserIdentificationInformation = (accountId: string) => {
+  return {
+    applicationName: 'hubspot.hubl',
+    language: env.language,
+    machineId: env.machineId,
+    os: `${platform()} ${release()}`,
+    shell: env.shell,
+    version: extensionVersion,
+    vscodeVersion: version,
+    authType: getAuthType(accountId),
+  };
+};
+
+export const trackEvent = async (action: string, options?: object) => {
+  if (
+    !isTrackingAllowed() ||
+    !workspace.getConfiguration().telemetry.enableTelemetry
+  ) {
+    return;
+  }
+  const accountId = getAccountId();
+
   await trackUsage(
     'vscode-extension-interaction',
     'INTERACTION',
-    { authType, action },
+    {
+      ...options,
+      ...getUserIdentificationInformation(accountId),
+      action,
+    },
     accountId
   );
 };

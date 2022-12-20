@@ -33,6 +33,9 @@ export const GLOBAL_STATE_KEYS = {
 export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
+  ACCOUNT: {
+    VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
+  },
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
   AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
   CONFIG: {
@@ -73,4 +76,20 @@ export const TREE_DATA = {
 export const POLLING_INTERVALS = {
   SLOW: 60000,
   FAST: 2500,
+};
+
+export const TRACKED_EVENTS = {
+  ACTIVATE: 'activated',
+  AUTH_INITIALIZE_CONFIG: 'authInitializedConfig',
+  AUTH_UPDATE_CONFIG: 'authUpdatedConfig',
+  AUTHORIZE_ACCOUNT_CLICKED: 'authorizeAccountClicked',
+  CREATE_MODULE: 'createdModule',
+  DELETE_ACCOUNT: 'accountDeleted',
+  LINTING_ENABLED: 'lintingEnabled',
+  LINTING_DISABLED: 'lintingDisabled',
+  RENAME_ACCOUNT: 'accountRenamed',
+  RENAME_ACCOUNT_ERROR: 'accountRenameError',
+  SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
+  SET_DEFAULT_ACCOUNT: 'setDefaultAccountClicked',
+  UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
 };

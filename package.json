@@ -1,11 +1,11 @@
 {
     "name": "hubl",
-    "displayName": "HubSpot VS Code Extension",
+    "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
     "version": "1.0.0",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.53.0"
+        "vscode": "^1.55.0"
     },
     "scripts": {
         "dev": "npm run webpack-dev",
@@ -222,6 +222,11 @@
             {
                 "command": "hubspot.modals.openFeedbackPanel",
                 "title": "Open feedback panel"
+            },
+            {
+                "command": "hubspot.account.viewPersonalAccessKey",
+                "title": "Show personal access key info",
+                "icon": "$(link-external)"
             }
         ],
         "submenus": [
@@ -260,6 +265,10 @@
                 },
                 {
                     "command": "hubspot.config.deleteAccount",
+                    "when": "viewItem == accountTreeItem"
+                },
+                {
+                    "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem"
                 }
             ],
@@ -341,7 +350,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.4-beta.1",
+        "@hubspot/cli-lib": "^4.1.4",
         "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
@@ -351,7 +360,7 @@
     "devDependencies": {
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
-        "@types/vscode": "1.53.0",
+        "@types/vscode": "1.55.0",
         "eslint": "^7.5.0",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
