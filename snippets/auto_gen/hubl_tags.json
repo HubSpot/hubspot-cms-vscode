@@ -22,9 +22,9 @@
   },
   "blog_subscribe": {
     "body": [
-      "{% blog_subscribe 'my_blog_subscribe' \n\tselect_blog='${1:select_blog}', \n\ttitle='${2:title}', \n\tno_title='${3:no_title}', \n\tresponse_message='${4:response_message}', \n\tedit_form_link='${5:edit_form_link}'%}"
+      "{% blog_subscribe 'my_blog_subscribe' \n\tselect_blog='${1:select_blog}', \n\ttitle='${2:title}', \n\tno_title='${3:no_title}', \n\tresponse_message='${4:response_message}', \n\theading_level='${5:heading_level}', \n\tedit_form_link='${6:edit_form_link}'%}"
     ],
-    "description": "Blog subscription module\nParameters:\n- select_blog('default' or blog id) Selects which blog subscription form to render\n- title(String) Defines text in an h3 tag title above the subscribe form\n- no_title(boolean)  If True, the h3 tag above the title is removed\n- response_message(String) Defines the inline thank-you message that is rendered when a user submits a form\n- edit_form_link(String) Generates a link that allows users to click through to the corresponding Form editor screen",
+    "description": "Blog subscription module\nParameters:\n- select_blog('default' or blog id) Selects which blog subscription form to render\n- title(String) Defines text in a <heading_level> tag title above the subscribe form\n- no_title(boolean)  If True, the <heading_level> tag above the title is removed\n- response_message(String) Defines the inline thank-you message that is rendered when a user submits a form\n- heading_level(String) Defines the heading level of the title\n- edit_form_link(String) Generates a link that allows users to click through to the corresponding Form editor screen",
     "prefix": "~blog_subscribe"
   },
   "boolean": {
