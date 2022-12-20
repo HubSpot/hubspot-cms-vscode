@@ -8,8 +8,14 @@ let extensionVersion: string;
 
 export const initializeTracking = (context: ExtensionContext) => {
   extensionVersion = context.extension.packageJSON.version;
-  if (context.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE) === undefined) {
-    context.globalState.update(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE, true);
+  if (
+    context.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE) ===
+    undefined
+  ) {
+    context.globalState.update(
+      GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE,
+      true
+    );
     showTelemetryPrompt();
   }
 };
