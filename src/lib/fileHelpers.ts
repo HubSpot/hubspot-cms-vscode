@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const { createFunction } = require('@hubspot/cli-lib/functions');
-const { downloadGitHubRepoContentsAtPath } = require('@hubspot/cli-lib/github');
+const { downloadGitHubRepoContents } = require('@hubspot/cli-lib/github');
 
 const copySampleFunctionFilesToFolder = (folderPath: string) => {
   const { dir, base } = path.parse(folderPath);
@@ -69,11 +69,10 @@ export const convertFolderToModule = (
             edit.renameFile(e.files[0], Uri.file(uniqueModulePath));
 
             workspace.applyEdit(edit).then(async () => {
-              await downloadGitHubRepoContentsAtPath(
-                uniqueModulePath,
+              await downloadGitHubRepoContents(
                 'hubspot-cli',
-                // TODO - Update to packages/cli-assets/defaults/Sample.module
-                'packages/cli-lib/defaults/Sample.module'
+                'packages/cli-assets/cms/modules/Sample.module',
+                uniqueModulePath
               );
               resolve(edit);
             });
