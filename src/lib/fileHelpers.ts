@@ -69,10 +69,10 @@ export const convertFolderToModule = (
             edit.renameFile(e.files[0], Uri.file(uniqueModulePath));
 
             workspace.applyEdit(edit).then(async () => {
-              console.log('uniqueModulePath: ', uniqueModulePath);
               await downloadGitHubRepoContentsAtPath(
                 uniqueModulePath,
                 'hubspot-cli',
+                // TODO - Update to packages/cli-assets/defaults/Sample.module
                 'packages/cli-lib/defaults/Sample.module'
               );
               resolve(edit);
