@@ -27,6 +27,7 @@ export const EXTENSION_CONFIG_KEYS = {
 
 export const GLOBAL_STATE_KEYS = {
   HAS_SEEN_LINTING_MESSAGE: 'HS_HAS_SEEN_LINTING_MESSAGE',
+  HAS_SEEN_TELEMETRY_MESSAGE: 'HS_HAS_SEEN_TELEMETRY_MESSAGE',
 };
 
 // Used when VS Code attempts to find the correct range of characters to select
