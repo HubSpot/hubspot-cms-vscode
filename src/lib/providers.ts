@@ -1,4 +1,3 @@
-
 import { commands, languages, window, ExtensionContext } from 'vscode';
 import { FileCompletionProvider } from './providers/fileCompletion';
 import { COMMANDS, TREE_DATA } from './constants';
