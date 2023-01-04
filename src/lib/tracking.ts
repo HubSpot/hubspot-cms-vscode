@@ -14,7 +14,7 @@ const {
 } = require('@hubspot/cli-lib');
 const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 
-const getAuthType = (accountId: string) => {
+const getAuthType = (accountId?: string) => {
   let authType = 'unknown';
 
   if (accountId) {
@@ -28,7 +28,7 @@ const getAuthType = (accountId: string) => {
   return authType;
 };
 
-const getUserIdentificationInformation = (accountId: string) => {
+export const getUserIdentificationInformation = (accountId?: string) => {
   return {
     applicationName: 'hubspot.hubl',
     language: env.language,

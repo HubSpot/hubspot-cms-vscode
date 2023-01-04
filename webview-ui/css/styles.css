@@ -66,3 +66,7 @@ button {
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
+
+.form-field.hidden {
+  display: none;
+}

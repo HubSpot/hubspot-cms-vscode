@@ -6,6 +6,15 @@ function handleSubmitClick(e) {
   e.preventDefault();
 
   // Handle form data submission here
+  console.log('e.target: ', e.target);
+  const disabledInputs = e.target.querySelectorAll('input[disabled]');
+
+  disabledInputs.forEach((input) => {
+    input.disabled = false;
+  });
+  const formData = new webviewWindow.FormData(e.target);
+  const formDataEntries = Object.fromEntries(formData.entries());
+  console.log('formDataEntries: ', formDataEntries);
 
   vscode.postMessage({
     command: 'submit',

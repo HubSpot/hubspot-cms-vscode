@@ -7,6 +7,7 @@ import {
   ViewColumn,
 } from 'vscode';
 import { getUri } from '../utilities';
+import { getUserIdentificationInformation } from '../tracking';
 
 // This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
@@ -111,13 +112,14 @@ export class FeedbackPanel {
     const mainUri = getUri(webview, extensionUri, [
       'webview-ui',
       'js',
-      'main.js',
+      'feedback-form.js',
     ]);
     const stylesheetUri = getUri(webview, extensionUri, [
       'webview-ui',
       'css',
       'styles.css',
     ]);
+    const userIdentificationInformation = getUserIdentificationInformation();
 
     // Tip: Install the es6-string-html VS Code extension to enable code highlighting below
     return /*html*/ `
@@ -137,67 +139,79 @@ export class FeedbackPanel {
               Thank you for taking the time to provide feedback on the HubSpot VSCode Extension.
             </p>
           </div>
-          <form id="feedback-form">
+          <form id="feedback-form" enctype="multipart/form-data">
             <div class="form-field">
                 <label>Visual Studio Code Version</label><br />
-                <input name="vs-code-version" type="text" value="1.74.0" disabled>
+                <input name="vs-code-version" type="text" value="${userIdentificationInformation.vscodeVersion}" disabled>
             </div>
             <div class="form-field">
                 <label>HubSpot Extension Version</label><br />
-                <input name="hubspot-extension-version" type="text" value="v1.0.0" disabled>
+                <input name="hubspot-extension-version" type="text" value="${userIdentificationInformation.version}" disabled>
             </div>
-            <div class="form-field">
+            <div class="form-field hidden">
                 <label>Machine ID</label><br />
-                <input name="vs-code-version" type="text" value="some value" disabled>
+                <input name="machine-id" type="hidden" value="${userIdentificationInformation.machineId}" disabled>
+            </div>
+            <div class="form-field hidden">
+                <label>OS</label><br />
+                <input name="operating-system" type="hidden" value="${userIdentificationInformation.os}" disabled>
+            </div>
+            <div class="form-field hidden">
+                <label>Shell</label><br />
+                <input name="shell" type="hidden" value="${userIdentificationInformation.shell}" disabled>
+            </div>
+            <div class="form-field hidden">
+                <label>Language</label><br />
+                <input name="language" type="hidden" value="${userIdentificationInformation.language}" disabled>
             </div>
             <div class="form-field">
                 <label>Rate your experience with this developer tool</label>
                 <div class="radio-group" style="display: flex">
                     <div class="radio">
-                        <input name="experience-1" id="experience-1" value="1" type="radio">
+                        <input name="experience-rating" id="experience-1" value="1" type="radio">
                         <label for="experience-1">1</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-2" value="2" type="radio">
+                        <input name="experience-rating" id="experience-2" value="2" type="radio">
                         <label for="experience-2">2</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-3" value="3" type="radio">
+                        <input name="experience-rating" id="experience-3" value="3" type="radio">
                         <label for="experience-3">3</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-4" value="4" type="radio">
+                        <input name="experience-rating" id="experience-4" value="4" type="radio">
                         <label for="experience-4">4</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-5" value="5" type="radio">
+                        <input name="experience-rating" id="experience-5" value="5" type="radio">
                         <label for="experience-5">5</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-6" value="6" type="radio">
+                        <input name="experience-rating" id="experience-6" value="6" type="radio">
                         <label for="experience-6">6</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-7" value="7" type="radio">
+                        <input name="experience-rating" id="experience-7" value="7" type="radio">
                         <label for="experience-7">7</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-8" value="8" type="radio">
+                        <input name="experience-rating" id="experience-8" value="8" type="radio">
                         <label for="experience-8">8</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-9" value="9" type="radio">
+                        <input name="experience-rating" id="experience-9" value="9" type="radio">
                         <label for="experience-9">9</label>
                     </div>
                     <div class="radio">
-                        <input name="experience" id="experience-10" value="10" type="radio">
+                        <input name="experience-rating" id="experience-10" value="10" type="radio">
                         <label for="experience-10">10</label>
                     </div>
                 </div>
             </div>
             <div class="form-field">
-                <label for="reason">Why did you choose this rating?</label><br />
-                <textarea type="textarea" name="readon" id="reason"></textarea>
+                <label for="reason-for-rating">Why did you choose this rating?</label><br />
+                <textarea type="textarea" name="reason-for-rating" id="reason"></textarea>
             </div>
 
             <div>
