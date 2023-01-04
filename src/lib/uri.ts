@@ -7,9 +7,9 @@ import {
 } from 'vscode';
 import * as path from 'path';
 import { URLSearchParams } from 'url';
-import { trackAction } from './tracking';
+import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
-import { COMMANDS, EVENTS } from './constants';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
   updateConfigWithPersonalAccessKey,
@@ -40,11 +40,14 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
 
   if (configPath) {
     setConfigPath(configPath);
+    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = path.resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
+    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
+
   const updatedConfig = await updateConfigWithPersonalAccessKey({
     personalAccessKey,
     name,
@@ -63,8 +66,9 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
       'Yes',
       'No'
     )
-    .then((answer: string | undefined) => {
+    .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
+        await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultPortal to ${accountIdentifier}.`);
         commands.executeCommand(
           COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
@@ -72,8 +76,6 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
         );
       }
     });
-
-  await trackAction('auth-success', { name });
 
   return updatedConfig;
 };

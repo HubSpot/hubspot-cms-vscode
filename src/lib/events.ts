@@ -11,14 +11,6 @@ let hubspotConfigWatcher: fs.FSWatcher | null;
 
 export const registerEvents = (context: ExtensionContext) => {
   context.subscriptions.push(
-    commands.registerCommand(EVENTS.ON_CONFIG_UPDATED, () => {
-      console.log(EVENTS.ON_CONFIG_UPDATED);
-      commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
-      updateStatusBarItems();
-    })
-  );
-
-  context.subscriptions.push(
     commands.registerCommand(EVENTS.ON_CONFIG_FOUND, (rootPath, configPath) => {
       if (!configFoundAndLoaded) {
         configFoundAndLoaded = true;
@@ -45,6 +37,13 @@ export const registerEvents = (context: ExtensionContext) => {
           }
         });
       }
+    })
+  );
+  context.subscriptions.push(
+    commands.registerCommand(EVENTS.ON_CONFIG_UPDATED, () => {
+      console.log(EVENTS.ON_CONFIG_UPDATED);
+      commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
+      updateStatusBarItems();
     })
   );
 };

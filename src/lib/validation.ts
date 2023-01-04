@@ -47,8 +47,7 @@ const isFileInWorkspace = (error: any) => {
   if (error.category === 'MODULE_NOT_FOUND') {
     filePath = filePath + '.module';
   }
-
-  return fs.existsSync(path.resolve(dirToActiveFile, filePath));
+  return fs.existsSync(path.normalize(filePath));
 };
 
 const clearValidation = (document: any, collection: any) => {
@@ -76,6 +75,7 @@ const getTemplateType = (document: any) => {
         getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
       tempalate_type:
         TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
+      template_path: document.uri.path,
     };
   }
   if (isModuleHTMLFile(document.fileName)) {

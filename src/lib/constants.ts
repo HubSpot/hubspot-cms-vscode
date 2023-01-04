@@ -27,12 +27,16 @@ export const EXTENSION_CONFIG_KEYS = {
 
 export const GLOBAL_STATE_KEYS = {
   HAS_SEEN_LINTING_MESSAGE: 'HS_HAS_SEEN_LINTING_MESSAGE',
+  HAS_SEEN_TELEMETRY_MESSAGE: 'HS_HAS_SEEN_TELEMETRY_MESSAGE',
 };
 
 // Used when VS Code attempts to find the correct range of characters to select
 export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
+  ACCOUNT: {
+    VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
+  },
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
   AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
   CONFIG: {
@@ -75,3 +79,34 @@ export const POLLING_INTERVALS = {
   SLOW: 60000,
   FAST: 2500,
 };
+
+export const TRACKED_EVENTS = {
+  ACTIVATE: 'activated',
+  AUTH_INITIALIZE_CONFIG: 'authInitializedConfig',
+  AUTH_UPDATE_CONFIG: 'authUpdatedConfig',
+  AUTHORIZE_ACCOUNT_CLICKED: 'authorizeAccountClicked',
+  CREATE: {
+    MODULE: 'createdModule',
+    SECTION: 'createdSection',
+    TEMPLATE: 'createdTemplate',
+    PARTIAL: 'createdPartial',
+    GLOBAL_PARTIAL: 'createdGlobalPartial',
+    SERVERLESS_FUNCTION: 'createdServerlessFunction',
+    SERVERLESS_FUNCTION_FOLDER: 'createdServerlessFunctionFolder'
+  },
+  DELETE_ACCOUNT: 'accountDeleted',
+  LINTING_ENABLED: 'lintingEnabled',
+  LINTING_DISABLED: 'lintingDisabled',
+  RENAME_ACCOUNT: 'accountRenamed',
+  RENAME_ACCOUNT_ERROR: 'accountRenameError',
+  SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
+  SET_DEFAULT_ACCOUNT: 'setDefaultAccountClicked',
+  UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
+};
+
+export const TEMPLATE_NAMES = {
+  SECTION: 'section',
+  TEMPLATE: 'page-template',
+  PARTIAL: 'partial',
+  GLOBAL_PARTIAL: 'global-partial'
+}

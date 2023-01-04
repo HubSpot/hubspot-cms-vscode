@@ -13,6 +13,9 @@ export interface Portal {
     };
   };
   personalAccessKey: string;
+  env?: string;
+  sandboxAccountType?: string;
+  parentAccountId?: number;
 }
 
 export interface HubspotConfig {

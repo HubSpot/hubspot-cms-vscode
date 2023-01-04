@@ -6,13 +6,14 @@ import {
   Uri,
   workspace,
 } from 'vscode';
-import { COMMANDS } from '../constants';
+import { COMMANDS, TRACKED_EVENTS, TEMPLATE_NAMES } from '../constants';
 import { getUniquePathName } from '../fileHelpers';
 const findup = require('findup-sync');
 const { createTemplate } = require('@hubspot/cli-lib/templates');
 const { createModule } = require('@hubspot/cli-lib/modules');
 const { createFunction } = require('@hubspot/cli-lib/functions');
 import * as path from 'path';
+import { trackEvent } from '../tracking';
 
 // returns a listener that deletes the created file and then allows a given callback to run
 // doAfter receives unique filepath with the given extension
@@ -74,9 +75,10 @@ export const registerCommands = (context: ExtensionContext) => {
         createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
-          'section',
+          TEMPLATE_NAMES.SECTION,
           { allowExisting: true }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.SECTION);
       })
     )
   );
@@ -87,9 +89,10 @@ export const registerCommands = (context: ExtensionContext) => {
         createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
-          'page-template',
+          TEMPLATE_NAMES.TEMPLATE,
           { allowExisting: true }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.TEMPLATE);
       })
     )
   );
@@ -100,9 +103,10 @@ export const registerCommands = (context: ExtensionContext) => {
         createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
-          'partial',
+          TEMPLATE_NAMES.PARTIAL,
           { allowExisting: true }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.PARTIAL);
       })
     )
   );
@@ -113,9 +117,10 @@ export const registerCommands = (context: ExtensionContext) => {
         createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
-          'global-partial',
+          TEMPLATE_NAMES.GLOBAL_PARTIAL,
           { allowExisting: true }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.GLOBAL_PARTIAL);
       })
     )
   );
@@ -133,6 +138,7 @@ export const registerCommands = (context: ExtensionContext) => {
           folderPath,
           { allowExistingDir: true }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.MODULE);
       })
     )
   );
@@ -159,6 +165,7 @@ export const registerCommands = (context: ExtensionContext) => {
             allowExistingFile: true,
           }
         );
+        trackEvent(TRACKED_EVENTS.CREATE.SERVERLESS_FUNCTION);
       })
     )
   );
@@ -176,6 +183,7 @@ export const registerCommands = (context: ExtensionContext) => {
           },
           dir
         );
+        trackEvent(TRACKED_EVENTS.CREATE.SERVERLESS_FUNCTION_FOLDER);
       })
     )
   );
