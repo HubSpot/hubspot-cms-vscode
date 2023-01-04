@@ -70,8 +70,8 @@ export const convertFolderToModule = (
 
             workspace.applyEdit(edit).then(async () => {
               await downloadGitHubRepoContents(
-                'hubspot-cli',
-                'packages/cli-assets/cms/modules/Sample.module',
+                'cms-sample-assets',
+                'modules/Sample.module',
                 uniqueModulePath
               );
               resolve(edit);
