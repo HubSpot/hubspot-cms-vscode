@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "moduleResolution": "node",
-        "module": "ESNext",
+        "module": "commonjs",
         "types": [
             "node",
             "@wdio/globals/types",
@@ -9,6 +9,6 @@
             "@wdio/mocha-framework",
             "wdio-vscode-service"
         ],
-        "target": "es2022"
+        "target": "es2019"
     }
 }
