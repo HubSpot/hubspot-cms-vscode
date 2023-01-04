@@ -24,7 +24,7 @@
     "body": [
       "blog_by_id(${1:id})"
     ],
-    "description": "Returns a Blog by id\nParameters:\n- id(id) The id of the blog to look up",
+    "description": "Returns a Blog by id or the default Blog\nParameters:\n- id(id or 'default') The id of the blog to look up or 'default'",
     "prefix": "~blog_by_id"
   },
   "blog_page_link": {
@@ -38,7 +38,7 @@
     "body": [
       "blog_popular_posts(${1:selected_blog}, ${2:limit}, ${3:tag_slug}, ${4:time_frame})"
     ],
-    "description": "Returns a sequence of blog post objects for the specified blog, sorted by most popular first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- limit(number) Specifies the number of posts to add to the sequence up to a limit of 200\n- tag_slug(tag slug) Optional tag to filter posts by\n- time_frame(choice) Optional timeframe to filter posts by (must be one of 'popular_all_time', 'popular_past_year', 'popular_past_six_months', 'popular_past_month')",
+    "description": "Returns a sequence of blog post objects for the specified blog, sorted by most popular first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- limit(number) Specifies the number of posts to add to the sequence up to a limit of 200\n- tag_slug(list) Optional list of tags to filter posts by\n- time_frame(choice) Optional timeframe to filter posts by (must be one of 'popular_all_time', 'popular_past_year', 'popular_past_six_months', 'popular_past_month')",
     "prefix": "~blog_popular_posts"
   },
   "blog_post_archive_url": {
@@ -174,12 +174,26 @@
     "description": "Renders a call to action embed tag\nParameters:\n- guid(String) The ID of the CTA to render\n- align_opt(enum justifyleft|justifycenter|justifyright|justifyfull) Adjusts alignment of CTA",
     "prefix": "~cta"
   },
+  "data_token": {
+    "body": [
+      "data_token(${1:expression}, ${2:default}, ${3:options})"
+    ],
+    "description": "Returns the value of any data in the context.\nParameters:\n- expression(string) An expression for the object and property to render\n- default(string) (Optional) A default value to use if the expression has no value\n- options(dict) (Optional) Options for rendering data token",
+    "prefix": "~data_token"
+  },
   "datetimeformat": {
     "body": [
       "datetimeformat(${1:var}, '${2:format}', '${3:timezone}')"
     ],
     "description": "formats a date to a string\nParameters:\n- var(date) \n- format(String) \n- timezone(String) Time zone of output date",
     "prefix": "~datetimeformat"
+  },
+  "display_call_to_action": {
+    "body": [
+      "display_call_to_action(${1:id})"
+    ],
+    "description": "Returns the JS needed to display a call to action\nParameters:\n- id(id) The id of the call to action to look up",
+    "prefix": "~display_call_to_action"
   },
   "facebook_messenger_link": {
     "body": [
@@ -209,6 +223,48 @@
     "description": "Outputs all javascript enqueued for the head as html",
     "prefix": "~footer_js"
   },
+  "format_address": {
+    "body": [
+      "format_address('${1:locale}', '${2:fullAddress}')"
+    ],
+    "description": "Formats an address based on locale\nParameters:\n- locale(String) \n- fullAddress(String) fullAddress object, {address: string, address2: string, city: string, state: string country: string zip: string} Address, city, state, country and zip are required. Address2 is an optional field.",
+    "prefix": "~format_address"
+  },
+  "format_company_name": {
+    "body": [
+      "format_company_name('${1:name}', ${2:useHonorificIfApplicable})"
+    ],
+    "description": "Formats a company's name by adding Japanese honorifics where appropriate\nParameters:\n- name(String) Name of the company\n- useHonorificIfApplicable(boolean) When this is set to true and the context's language is in Japanese, this will add a Japanese company honorific where appropriate",
+    "prefix": "~format_company_name"
+  },
+  "format_date": {
+    "body": [
+      "format_date()"
+    ],
+    "description": "",
+    "prefix": "~format_date"
+  },
+  "format_datetime": {
+    "body": [
+      "format_datetime()"
+    ],
+    "description": "",
+    "prefix": "~format_datetime"
+  },
+  "format_name": {
+    "body": [
+      "format_name('${1:firstName}', '${2:surname}', ${3:useHonorificIfApplicable})"
+    ],
+    "description": "Formats a person's name by putting the surname before the first name and adds Japanese honorifics where appropriate\nParameters:\n- firstName(String) Person's first name\n- surname(String) Person's surname or last name\n- useHonorificIfApplicable(boolean) When this is set to true and the context's language is in Japanese, this will add a Japanese customer honorific where appropriate",
+    "prefix": "~format_name"
+  },
+  "format_time": {
+    "body": [
+      "format_time()"
+    ],
+    "description": "",
+    "prefix": "~format_time"
+  },
   "geo_distance": {
     "body": [
       "geo_distance(${1:point1}, ${2:point2_lat}, ${3:point2_long}, ${4:units})"
@@ -223,6 +279,13 @@
     "description": "Returns URL to specified asset by given path\nParameters:\n- path(String) The Design Manager file path to the template or file",
     "prefix": "~get_asset_url"
   },
+  "get_asset_version": {
+    "body": [
+      "get_asset_version()"
+    ],
+    "description": "",
+    "prefix": "~get_asset_version"
+  },
   "get_public_template_url": {
     "body": [
       "get_public_template_url()"
@@ -236,6 +299,13 @@
     ],
     "description": "Returns URL to specified template by id\nParameters:\n- template_id(number) The ID number of the template of file",
     "prefix": "~get_public_template_url_by_id"
+  },
+  "get_rss_url": {
+    "body": [
+      "get_rss_url(${1:attributes})"
+    ],
+    "description": "Returns a URL for a specified RSS listing\nParameters:\n- attributes(dict) Dictionary of parameters corresponding to most parameters of the rss listing tag. Supports 'show_date'(true/false), 'show_author'(true/false), 'show_detail'(true/false), 'limit_to_chars'(Number), 'publish_date_format'('short'/'medium'/'long' or a custom format such as \"MMMM d, yyyy 'at' h:mm a\"), 'click_through_text'(String), 'include_featured_image'(true/false), 'is_external'(true/false), 'number_of_items'(Number), 'publish_date_language'(String), 'rss_url'(String), 'content_group_id (Number)', 'select_blog'(String), and 'tag_id'(Number)",
+    "prefix": "~get_rss_url"
   },
   "head_css": {
     "body": [
@@ -307,12 +377,26 @@
     "description": "Generates stylesheet link tag for specified template path\nParameters:\n- path(String) The Design Manager file path to the template or file",
     "prefix": "~include_css"
   },
+  "include_custom_fonts": {
+    "body": [
+      "include_custom_fonts()"
+    ],
+    "description": "",
+    "prefix": "~include_custom_fonts"
+  },
   "include_javascript": {
     "body": [
       "include_javascript('${1:path}')"
     ],
     "description": "Generates script include tag for specified template path\nParameters:\n- path(String) ",
     "prefix": "~include_javascript"
+  },
+  "load_translations": {
+    "body": [
+      "load_translations(${1:path}, ${2:language_code}, ${3:language_code_fallback})"
+    ],
+    "description": "Loads translations for a given path and returns a map of the values\nParameters:\n- path(string) The Design Manager file path to the _locales directory of the translations\n- language_code(string) The language code\n- language_code_fallback(string) The language code fallback if original is not present",
+    "prefix": "~load_translations"
   },
   "locale_name": {
     "body": [
@@ -334,6 +418,13 @@
     ],
     "description": "Gets the URL for an asset attached to a module\nParameters:\n- name(String) The name of the asset",
     "prefix": "~module_asset_url"
+  },
+  "namespace": {
+    "body": [
+      "namespace(${1:dictionary}, ${2:kwargs})"
+    ],
+    "description": "Create a namespace object that can hold arbitrary attributes.It may be initialized from a dictionary or with keyword arguments.\nParameters:\n- dictionary(Map) The dictionary to initialize with\n- kwargs(NamedParameter...) Keyword arguments to put into the namespace dictionary",
+    "prefix": "~namespace"
   },
   "oembed": {
     "body": [
@@ -363,6 +454,13 @@
     "description": "Returns the lat/lon location of a postal code\nParameters:\n- postal_code(string) postal code of the location\n- country_code(string) Country code for the postal code",
     "prefix": "~postal_location"
   },
+  "product_recommendations": {
+    "body": [
+      "product_recommendations(${1:store_id}, ${2:limit}, ${3:currency}, ${4:min_price}, ${5:max_price})"
+    ],
+    "description": "Returns a list of products of most popular products in a portal based on their appearance in deals \nParameters:\n- store_id(string) The ID of the ecommerce store or 'all' or 'HS'\n- limit(number) The max number of products to fetch\n- currency(string) The optional currency\n- min_price(number) The optional min price\n- max_price(number) The optional max price",
+    "prefix": "~product_recommendations"
+  },
   "range": {
     "body": [
       "range(${1:start}, ${2:end}, ${3:step})"
@@ -374,14 +472,14 @@
     "body": [
       "require_css('${1:url}', ${2:render_options})"
     ],
-    "description": "Loads a css file to be output in the head\nParameters:\n- url(String) URL of the CSS resource to be loaded on the page\n- render_options(dict) Dictionary of options to modify generated tag. Supports 'async'(true/false).",
+    "description": "Loads a css file to be output in the head\nParameters:\n- url(String) URL of the CSS resource to be loaded on the page\n- render_options(dict) Dictionary of options to modify generated tag. Supports 'async'(true/false) and any other key-value pair will be added as HTML attributes to the style tag.",
     "prefix": "~require_css"
   },
   "require_js": {
     "body": [
       "require_js('${1:url}', ${2:render_options})"
     ],
-    "description": "Enqueues a js file to be output in the head or footer\nParameters:\n- url(String) URL of the JavaScript resource to be loaded on the page\n- render_options(dict) Dictionary of options to modify generated tag. Supports 'position'('head'/'footer'), 'defer'(true/false), and 'async'(true/false).",
+    "description": "Enqueues a js file to be output in the head or footer\nParameters:\n- url(String) URL of the JavaScript resource to be loaded on the page\n- render_options(dict) Dictionary of options to modify generated tag. Supports 'position'('head'/'footer'), 'defer'(true/false), 'async'(true/false), and any other key-value pair will be added as HTML attributes to the script tag.",
     "prefix": "~require_js"
   },
   "resize_image_url": {
@@ -435,9 +533,9 @@
   },
   "today": {
     "body": [
-      "today(${1:timezone})"
+      "today()"
     ],
-    "description": "return datetime of beginning of the day\nParameters:\n- timezone(string) timezone",
+    "description": "",
     "prefix": "~today"
   },
   "topic_cluster_by_content_id": {
