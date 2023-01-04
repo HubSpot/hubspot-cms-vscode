@@ -92,7 +92,7 @@ export const TRACKED_EVENTS = {
     PARTIAL: 'createdPartial',
     GLOBAL_PARTIAL: 'createdGlobalPartial',
     SERVERLESS_FUNCTION: 'createdServerlessFunction',
-    SERVERLESS_FUNCTION_FOLDER: 'createdServerlessFunctionFolder'
+    SERVERLESS_FUNCTION_FOLDER: 'createdServerlessFunctionFolder',
   },
   DELETE_ACCOUNT: 'accountDeleted',
   LINTING_ENABLED: 'lintingEnabled',
@@ -108,5 +108,5 @@ export const TEMPLATE_NAMES = {
   SECTION: 'section',
   TEMPLATE: 'page-template',
   PARTIAL: 'partial',
-  GLOBAL_PARTIAL: 'global-partial'
-}
+  GLOBAL_PARTIAL: 'global-partial',
+};
