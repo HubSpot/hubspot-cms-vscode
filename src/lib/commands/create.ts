@@ -5,7 +5,7 @@ import {
   WorkspaceEdit,
   Uri,
   workspace,
-  window
+  window,
 } from 'vscode';
 import { COMMANDS, TRACKED_EVENTS, TEMPLATE_NAMES } from '../constants';
 import { getUniquePathName } from '../fileHelpers';
@@ -147,8 +147,8 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CREATE.SERVERLESS_FUNCTION,
       onClickCreateFile('js', (filePath: string) => {
-        if (!new RegExp('(.*)\.functions(.*)').test(filePath)) {
-          window.showErrorMessage("Could not find parent .functions folder!")
+        if (!new RegExp('(.*).functions(.*)').test(filePath)) {
+          window.showErrorMessage('Could not find parent .functions folder!');
           return;
         }
         const functionsFolderPath = findup('*.functions', {
@@ -179,8 +179,10 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.CREATE.SERVERLESS_FUNCTION_FOLDER,
       onClickCreateFolder('functions', (folderPath: string) => {
         const { dir, base } = path.parse(folderPath);
-        if (new RegExp('(.*)\.functions(.*)').test(dir)) {
-          window.showErrorMessage("Cannot create functions folder within another functions folder!")
+        if (new RegExp('(.*).functions(.*)').test(dir)) {
+          window.showErrorMessage(
+            'Cannot create functions folder within another functions folder!'
+          );
           return;
         }
         createFunction(
