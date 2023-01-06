@@ -351,6 +351,7 @@
     },
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.4",
+        "axios": "^1.2.2",
         "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",

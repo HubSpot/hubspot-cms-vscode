@@ -1,0 +1,15 @@
+{
+  "name": "s3jsonsubmit.functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "s3bucketsubmission.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1290.0",
+    "axios": "^1.2.2"
+  }
+}

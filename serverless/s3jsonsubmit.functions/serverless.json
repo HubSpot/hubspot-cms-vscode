@@ -1,0 +1,11 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "s3jsonsubmit": {
+      "method": ["GET", "POST"],
+      "file": "s3bucketsubmission.js"
+    }
+  }
+}

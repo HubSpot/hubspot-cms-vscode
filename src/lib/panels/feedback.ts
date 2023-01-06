@@ -6,6 +6,7 @@ import {
   Uri,
   ViewColumn,
 } from 'vscode';
+import axios from 'axios';
 import { getUri } from '../utilities';
 import { getUserIdentificationInformation } from '../tracking';
 
@@ -184,7 +185,7 @@ export class FeedbackPanel {
                         <label for="experience-4">4</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-5" value="5" type="radio">
+                        <input name="experience-rating" id="experience-5" value="5" type="radio" checked>
                         <label for="experience-5">5</label>
                     </div>
                     <div class="radio">
@@ -211,18 +212,18 @@ export class FeedbackPanel {
             </div>
             <div class="form-field">
                 <label for="reason-for-rating">Why did you choose this rating?</label><br />
-                <textarea type="textarea" name="reason-for-rating" id="reason"></textarea>
+                <textarea type="textarea" name="reason-for-rating" id="reason">Some reason</textarea>
             </div>
 
             <div>
               <h3>May we contact you for questions? If so, please provide your name and email</h3>
               <div class="form-field">
                   <label for="name">Full Name</label><br />
-                  <input type="text" name="name" id="name">
+                  <input type="text" name="name" id="name" value="Test User">
               </div>
               <div class="form-field">
                   <label for="email">Email</label><br />
-                  <input type="text" name="email" id="email">
+                  <input type="text" name="email" id="email" value="testing@example.com">
               </div>
             </div>
             <button type="submit">Submit</button>
@@ -241,14 +242,26 @@ export class FeedbackPanel {
    */
   private _setWebviewMessageListener(webview: Webview) {
     webview.onDidReceiveMessage(
-      (message: any) => {
-        const command = message.command;
-        const text = message.text;
+      async (message: any) => {
+        const { command, data } = message;
+
+        console.log('Message recieved: ', message);
 
         switch (command) {
           case 'submit':
-            window.showInformationMessage(text);
-            this._panel.dispose();
+            const res = await axios({
+              method: 'post',
+              // url: 'https://mtalley-6597896.hs-sites.com/_hcms/api/s3jsonsubmit',
+              url: 'http://localhost:5432/_hcms/api/s3jsonsubmit',
+              data,
+            });
+
+            console.log('res: ', res.status);
+
+            window.showInformationMessage(
+              'Thanks for submitting your feedback!'
+            );
+            // this._panel.dispose();
             return;
         }
       },
