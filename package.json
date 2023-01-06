@@ -301,20 +301,22 @@
                 {
                     "id": "hubspot.treedata.accounts",
                     "name": "Accounts",
-                    "when": "hubspot.configPath"
+                    "when": "!workbench.explorer.emptyView.active && hubspot.configPath"
                 },
                 {
                     "id": "hubspot.viewsWelcome.accountAuth",
-                    "name": "Authentication"
+                    "name": "Authentication",
+                    "when": "!workbench.explorer.emptyView.active"
                 },
                 {
                     "id": "hubspot.viewsWelcome.tools",
                     "name": "Tools",
-                    "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
+                    "when": "!workbench.explorer.emptyView.active && hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
                 },
                 {
                     "id": "hubspot.treedata.helpAndFeedback",
-                    "name": "Help & Feedback"
+                    "name": "Help & Feedback",
+                    "when": "!workbench.explorer.emptyView.active"
                 }
             ]
         },
