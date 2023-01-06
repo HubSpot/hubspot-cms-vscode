@@ -5,6 +5,7 @@ import {
   WorkspaceEdit,
   Uri,
   workspace,
+  window
 } from 'vscode';
 import { COMMANDS, TRACKED_EVENTS, TEMPLATE_NAMES } from '../constants';
 import { getUniquePathName } from '../fileHelpers';
@@ -36,7 +37,7 @@ const buildFileCreateListener = (
         edit.renameFile(e.files[0], Uri.file(uniqueFilePath));
         await workspace.applyEdit(edit);
       }
-      doAfter(uniqueFilePath);
+      await doAfter(uniqueFilePath);
     }
   };
 };
@@ -71,8 +72,8 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE.SECTION,
-      onClickCreateFile('html', (uniqueFilePath: string) => {
-        createTemplate(
+      onClickCreateFile('html', async (uniqueFilePath: string) => {
+        await createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
           TEMPLATE_NAMES.SECTION,
@@ -85,8 +86,8 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE.TEMPLATE,
-      onClickCreateFile('html', (uniqueFilePath: string) => {
-        createTemplate(
+      onClickCreateFile('html', async (uniqueFilePath: string) => {
+        await createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
           TEMPLATE_NAMES.TEMPLATE,
@@ -99,8 +100,8 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE.PARTIAL,
-      onClickCreateFile('html', (uniqueFilePath: string) => {
-        createTemplate(
+      onClickCreateFile('html', async (uniqueFilePath: string) => {
+        await createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
           TEMPLATE_NAMES.PARTIAL,
@@ -113,8 +114,8 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE.GLOBAL_PARTIAL,
-      onClickCreateFile('html', (uniqueFilePath: string) => {
-        createTemplate(
+      onClickCreateFile('html', async (uniqueFilePath: string) => {
+        await createTemplate(
           path.basename(uniqueFilePath),
           path.dirname(uniqueFilePath),
           TEMPLATE_NAMES.GLOBAL_PARTIAL,
@@ -127,8 +128,8 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CREATE.MODULE,
-      onClickCreateFolder('module', (folderPath: string) => {
-        createModule(
+      onClickCreateFolder('module', async (folderPath: string) => {
+        await createModule(
           {
             moduleLabel: '',
             contentTypes: [],
@@ -146,8 +147,12 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CREATE.SERVERLESS_FUNCTION,
       onClickCreateFile('js', (filePath: string) => {
+        if (!new RegExp('(.*)\.functions(.*)').test(filePath)) {
+          window.showErrorMessage("Could not find parent .functions folder!")
+          return;
+        }
         const functionsFolderPath = findup('*.functions', {
-          cwd: filePath,
+          cwd: path.join(filePath, '..'),
           nocase: true,
         });
         const functionsFolderDest = path.dirname(functionsFolderPath);
@@ -174,6 +179,10 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.CREATE.SERVERLESS_FUNCTION_FOLDER,
       onClickCreateFolder('functions', (folderPath: string) => {
         const { dir, base } = path.parse(folderPath);
+        if (new RegExp('(.*)\.functions(.*)').test(dir)) {
+          window.showErrorMessage("Cannot create functions folder within another functions folder!")
+          return;
+        }
         createFunction(
           {
             functionsFolder: base,
