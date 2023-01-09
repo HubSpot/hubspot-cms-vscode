@@ -46,14 +46,14 @@ const publishTable = async () => {
 // };
 exports.main = async (context, sendResponse) => {
   console.log('context: ', context);
-  const { body, contact } = context;
+  const { body } = context;
 
   // TODO - Send body to S3 bucket as JSON file
 
   // Send body to HubDB table row and publish it
 
   try {
-    await addTableRow(body, contact.vid);
+    await addTableRow(body);
     await publishTable();
 
     return sendResponse({
