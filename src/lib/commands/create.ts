@@ -46,40 +46,39 @@ const buildFolderCreateListener = (
   extension: string,
   folderPath: string,
   doAfter: Function,
-  cleanupCallback: Function,
+  cleanupCallback: Function
 ) => {
   return (e: FileWillCreateEvent) => {
     return e.waitUntil(
       new Promise((resolve, reject) => {
         try {
           const edit = new WorkspaceEdit();
-          
+
           if (
             e.files?.length === 1 &&
             new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
           ) {
             cleanupCallback();
             const uniqueFolderPath = getUniquePathName(
-              e.files[0].fsPath, 
+              e.files[0].fsPath,
               extension
             );
 
             edit.renameFile(e.files[0], Uri.file(uniqueFolderPath));
 
-
             workspace.applyEdit(edit).then(async () => {
               await doAfter(uniqueFolderPath);
               resolve(edit);
-            })
+            });
           }
           reject(edit);
         } catch (e: any) {
           reject(e);
         }
       })
-    )
-  }
-}
+    );
+  };
+};
 
 // doAfter receives (filepath: string)
 const onClickCreateFile = (extension: string, doAfter: Function) => {
