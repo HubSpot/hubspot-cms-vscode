@@ -1,6 +1,7 @@
 describe('WDIO VSCode Service', function () {
-  this.retries(3);
 
+  before(() => browser.pause(3000));
+  
   it('should be able to load VSCode', async () => {
     const workbench = await browser.getWorkbench();
     expect(await workbench.getTitleBar().getTitle()).toBe(
