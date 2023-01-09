@@ -52,6 +52,8 @@ exports.main = async (context, sendResponse) => {
   console.log('context: ', context);
   const { body } = context;
 
+  console.log('body: ', body);
+
   try {
     // Add HubDB table row with data from body and publish it
     await addTableRow(body);

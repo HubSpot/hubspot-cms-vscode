@@ -1,8 +1,8 @@
 {
-  "name": "s3jsonsubmit.functions",
+  "name": "vscodeExtensionFeedbackSubmit.functions",
   "version": "1.0.0",
   "description": "",
-  "main": "s3bucketsubmission.js",
+  "main": "submit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

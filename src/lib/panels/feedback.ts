@@ -251,8 +251,8 @@ export class FeedbackPanel {
           case 'submit':
             const res = await axios({
               method: 'post',
-              // url: 'https://mtalley-6597896.hs-sites.com/_hcms/api/s3jsonsubmit',
-              url: 'http://localhost:5432/_hcms/api/s3jsonsubmit',
+              // url: 'https://mtalley-6597896.hs-sites.com/_hcms/api/vscode/feedback/submit',
+              url: 'http://localhost:5432/_hcms/api/vscode/feedback/submit',
               data,
             });
 

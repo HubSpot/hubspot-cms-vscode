@@ -3,9 +3,9 @@
   "version": "1.0",
   "environment": {},
   "endpoints": {
-    "s3jsonsubmit": {
-      "method": ["GET", "POST"],
-      "file": "s3bucketsubmission.js"
+    "vscode/feedback/submit": {
+      "method": ["POST"],
+      "file": "submit.js"
     }
   }
 }
