@@ -1,5 +1,5 @@
 {
-  "name": "feedback_form_submissions",
+  "name": "vscode_extension_feedback_form_submissions",
   "useForPages": false,
   "label": "Feedback Form Submissions",
   "allowChildTables": false,

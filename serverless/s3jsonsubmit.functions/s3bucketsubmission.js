@@ -3,18 +3,22 @@ const axios = require('axios');
 // const dayjs = require('dayjs');
 // var relativeTime = require('dayjs/plugin/relativeTime');
 // dayjs.extend(relativeTime);
-const { ACCESS_TOKEN, HUBDB_TABLE_NAME } = process.env;
+const {
+  VSCODE_EXTENSION_FEEDBACK_ACCESS_TOKEN,
+  VSCODE_EXTENSION_FEEDBACK_HUBDB_TABLE_NAME,
+  VSCODE_EXTENSION_FEEDBACK_S3_BUCKET_NAME,
+} = process.env;
 const HUBDB_API_PATH = `https://api.hubspot.com/cms/v3/hubdb`;
 
 const addTableRow = async (rowData) => {
   return axios({
     method: 'POST',
-    url: `${HUBDB_API_PATH}/tables/${HUBDB_TABLE_NAME}/rows`,
+    url: `${HUBDB_API_PATH}/tables/${VSCODE_EXTENSION_FEEDBACK_HUBDB_TABLE_NAME}/rows`,
     data: {
       values: rowData,
     },
     headers: {
-      authorization: `Bearer ${ACCESS_TOKEN}`,
+      authorization: `Bearer ${VSCODE_EXTENSION_FEEDBACK_ACCESS_TOKEN}`,
     },
   });
 };
@@ -22,10 +26,10 @@ const addTableRow = async (rowData) => {
 const publishTable = async () => {
   return axios({
     method: 'POST',
-    url: `${HUBDB_API_PATH}/tables/${HUBDB_TABLE_NAME}/draft/push-live`,
+    url: `${HUBDB_API_PATH}/tables/${VSCODE_EXTENSION_FEEDBACK_HUBDB_TABLE_NAME}/draft/push-live`,
     data: {},
     headers: {
-      authorization: `Bearer ${ACCESS_TOKEN}`,
+      authorization: `Bearer ${VSCODE_EXTENSION_FEEDBACK_ACCESS_TOKEN}`,
     },
   });
 };
@@ -48,11 +52,8 @@ exports.main = async (context, sendResponse) => {
   console.log('context: ', context);
   const { body } = context;
 
-  // TODO - Send body to S3 bucket as JSON file
-
-  // Send body to HubDB table row and publish it
-
   try {
+    // Add HubDB table row with data from body and publish it
     await addTableRow(body);
     await publishTable();
 
@@ -66,4 +67,6 @@ exports.main = async (context, sendResponse) => {
       body: error,
     });
   }
+
+  // TODO - Send body to S3 bucket as JSON file
 };
