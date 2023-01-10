@@ -195,6 +195,13 @@
     "description": "Return the first item of a sequence.",
     "prefix": "|first"
   },
+  "flatten": {
+    "body": [
+      "|flatten(${1:list}, ${2:depth})"
+    ],
+    "description": "Create a new list with all sub-lists recursively added to it up to the specified depth.\nParameters:\n- list(list) The original list.\n- depth(number) The depth level specifying how deep a nested list structure should be flattened. Defaults to 1. Max is 10.",
+    "prefix": "|flatten"
+  },
   "float": {
     "body": [
       "|float(${1:default})"
