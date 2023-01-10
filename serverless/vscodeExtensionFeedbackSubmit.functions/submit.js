@@ -1,4 +1,3 @@
-// Using this example as a template: https://github.com/HubSpot/serverless-function-examples/tree/master/cms/hubdb-module-data-persist
 const axios = require('axios');
 const {
   VSCODE_EXTENSION_FEEDBACK_ACCESS_TOKEN,
@@ -30,25 +29,10 @@ const publishTable = async () => {
   });
 };
 
-// Body Example:
-// {
-//   'vs-code-version': '1.74.2',
-//   'hubspot-extension-version': '1.0.0',
-//   'machine-id':
-//     '5471bb7dbd45f67c909994d9ea2f63a72a19efe098bd1849d313c5ff2371b404',
-//   'operating-system': 'darwin 21.6.0',
-//   shell: '/bin/zsh',
-//   language: 'en',
-//   'experience-rating': '5',
-//   'reason-for-rating': 'Some reason',
-//   name: 'Test User',
-//   email: 'testing@example.com',
-// };
 exports.main = async (context, sendResponse) => {
   const { body } = context;
 
   try {
-    // Add HubDB table row with data from body and publish it
     await addTableRow(body);
     await publishTable();
 
