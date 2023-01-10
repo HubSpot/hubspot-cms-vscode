@@ -197,6 +197,26 @@
                 "title": "New module"
             },
             {
+                "command": "hubspot.create.section",
+                "title": "New section"
+            },
+            {
+                "command": "hubspot.create.template",
+                "title": "New page template"
+            },
+            {
+                "command": "hubspot.create.partial",
+                "title": "New partial"
+            },
+            {
+                "command": "hubspot.create.globalPartial",
+                "title": "New global partial"
+            },
+            {
+                "command": "hubspot.create.serverlessFunction",
+                "title": "New serverless function"
+            },
+            {
                 "command": "hubspot.create.serverlessFunctionFolder",
                 "title": "New serverless function folder"
             },
@@ -226,6 +246,10 @@
             {
                 "id": "hubspot.create",
                 "label": "Create"
+            },
+            {
+                "id": "hubspot.create.templateMenu",
+                "label": "Template"
             }
         ],
         "menus": {
@@ -242,7 +266,38 @@
                     "group": "HubSpot"
                 },
                 {
+                    "submenu": "hubspot.create.templateMenu",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunction",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                },
+                {
                     "command": "hubspot.create.serverlessFunctionFolder",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                }
+            ],
+            "hubspot.create.templateMenu": [
+                {
+                    "command": "hubspot.create.section",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.template",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.partial",
+                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "group": "HubSpot"
+                },
+                {
+                    "command": "hubspot.create.globalPartial",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
                     "group": "HubSpot"
                 }
@@ -268,6 +323,26 @@
             "commandPalette": [
                 {
                     "command": "hubspot.create.module",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.section",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.template",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.partial",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.globalPartial",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.create.serverlessFunction",
                     "when": "false"
                 },
                 {
@@ -345,14 +420,16 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.5",
+        "@hubspot/cli-lib": "^4.1.6-beta.0",
         "compare-versions": "^5.0.1",
+        "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
         "js-yaml": "^4.1.0",
         "node-fetch": "^3.1.1",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
+        "@types/findup-sync": "^4.0.2",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/vscode": "1.55.0",

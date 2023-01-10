@@ -45,8 +45,15 @@ export const COMMANDS = {
     SELECT_DEFAULT_ACCOUNT: 'hubspot.config.selectDefaultAccount',
     SET_DEFAULT_ACCOUNT: 'hubspot.config.setDefaultAccount',
   },
-  CREATE_MODULE: 'hubspot.create.module',
-  CREATE_SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  CREATE: {
+    MODULE: 'hubspot.create.module',
+    SECTION: 'hubspot.create.section',
+    TEMPLATE: 'hubspot.create.template',
+    PARTIAL: 'hubspot.create.partial',
+    GLOBAL_PARTIAL: 'hubspot.create.globalPartial',
+    SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
+    SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  },
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',
@@ -78,7 +85,15 @@ export const TRACKED_EVENTS = {
   AUTH_INITIALIZE_CONFIG: 'authInitializedConfig',
   AUTH_UPDATE_CONFIG: 'authUpdatedConfig',
   AUTHORIZE_ACCOUNT_CLICKED: 'authorizeAccountClicked',
-  CREATE_MODULE: 'createdModule',
+  CREATE: {
+    MODULE: 'createdModule',
+    SECTION: 'createdSection',
+    TEMPLATE: 'createdTemplate',
+    PARTIAL: 'createdPartial',
+    GLOBAL_PARTIAL: 'createdGlobalPartial',
+    SERVERLESS_FUNCTION: 'createdServerlessFunction',
+    SERVERLESS_FUNCTION_FOLDER: 'createdServerlessFunctionFolder',
+  },
   DELETE_ACCOUNT: 'accountDeleted',
   LINTING_ENABLED: 'lintingEnabled',
   LINTING_DISABLED: 'lintingDisabled',
@@ -87,4 +102,11 @@ export const TRACKED_EVENTS = {
   SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
   SET_DEFAULT_ACCOUNT: 'setDefaultAccountClicked',
   UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
+};
+
+export const TEMPLATE_NAMES = {
+  SECTION: 'section',
+  TEMPLATE: 'page-template',
+  PARTIAL: 'partial',
+  GLOBAL_PARTIAL: 'global-partial',
 };
