@@ -7,12 +7,12 @@ import {
 } from 'vscode';
 import { Link } from '../types';
 
-export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
+export class HelpAndFeedbackProvider implements TreeDataProvider<Link> {
   getTreeItem(q: Link): TreeItem {
     return new UrlLinkTreeItem(q.label, Uri.parse(q.url));
   }
 
-  getChildren(): Thenable<any> {
+  getChildren(): Thenable<Link[]> {
     return Promise.resolve([
       {
         label: 'CLI Documentation',

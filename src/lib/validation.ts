@@ -1,5 +1,11 @@
-import { window, DiagnosticSeverity, Position } from 'vscode';
-import { HubspotConfig } from './types';
+import {
+  window,
+  DiagnosticSeverity,
+  Position,
+  TextDocument,
+  DiagnosticCollection,
+} from 'vscode';
+import { HubspotConfig, HubLValidationError } from './types';
 
 const { validateHubl } = require('@hubspot/cli-lib/api/validate');
 const { getPortalId } = require('@hubspot/cli-lib');
@@ -19,7 +25,7 @@ const {
 const fs = require('fs');
 const path = require('path');
 
-const getRange = (document: any, error: any) => {
+const getRange = (document: TextDocument, error: HubLValidationError) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;
 
   if (error.startPosition > 0) {
@@ -32,7 +38,7 @@ const getRange = (document: any, error: any) => {
   }
 };
 
-const isFileInWorkspace = (error: any) => {
+const isFileInWorkspace = (error: HubLValidationError) => {
   const activeEditor = window.activeTextEditor;
 
   if (!activeEditor) {
@@ -50,11 +56,14 @@ const isFileInWorkspace = (error: any) => {
   return fs.existsSync(path.normalize(filePath));
 };
 
-const clearValidation = (document: any, collection: any) => {
-  collection.set(document.uri, null);
+const clearValidation = (
+  document: TextDocument,
+  collection: DiagnosticCollection
+) => {
+  collection.set(document.uri, undefined);
 };
 
-const getRenderingErrors = async (source: any, context: any) => {
+const getRenderingErrors = async (source: string, context: object) => {
   try {
     const { renderingErrors } = await validateHubl(
       getPortalId(),
@@ -67,7 +76,7 @@ const getRenderingErrors = async (source: any, context: any) => {
   }
 };
 
-const getTemplateType = (document: any) => {
+const getTemplateType = (document: TextDocument) => {
   if (isCodedFile(document.fileName)) {
     const getAnnotationValue = getAnnotationsFromSource(document.getText());
     return {
@@ -84,7 +93,10 @@ const getTemplateType = (document: any) => {
   return {};
 };
 
-const updateValidation = async (document: any, collection: any) => {
+const updateValidation = async (
+  document: TextDocument,
+  collection: DiagnosticCollection
+) => {
   if (!document) {
     return collection.clear();
   }
@@ -99,30 +111,37 @@ const updateValidation = async (document: any, collection: any) => {
     return clearValidation(document, collection);
   }
 
-  const resolvedRenderingErrors = renderingErrors.filter((error: any) => {
-    if (
-      error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
-      error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
-    ) {
-      return isFileInWorkspace(error) ? false : true;
+  const resolvedRenderingErrors = renderingErrors.filter(
+    (error: HubLValidationError) => {
+      if (
+        error.reason === TEMPLATE_ERRORS_TYPES.MISSING ||
+        error.reason === TEMPLATE_ERRORS_TYPES.BAD_URL
+      ) {
+        return isFileInWorkspace(error) ? false : true;
+      }
+      return true;
     }
-    return true;
-  });
+  );
 
-  const templateErrors = resolvedRenderingErrors.map((error: any) => {
-    return {
-      code: '',
-      message: error.message,
-      range: getRange(document, error),
-      severity: DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
-    };
-  });
+  const templateErrors = resolvedRenderingErrors.map(
+    (error: HubLValidationError) => {
+      return {
+        code: '',
+        message: error.message,
+        range: getRange(document, error),
+        severity: DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
+      };
+    }
+  );
 
   collection.set(document.uri, templateErrors);
 };
 
 let timeout: NodeJS.Timeout;
-export const triggerValidate = (document: any, collection: any) => {
+export const triggerValidate = (
+  document: TextDocument,
+  collection: DiagnosticCollection
+) => {
   clearTimeout(timeout);
 
   if (!['html-hubl', 'css-hubl'].includes(document.languageId)) {
