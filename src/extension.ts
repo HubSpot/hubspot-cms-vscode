@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode';
+import { ExtensionContext, workspace } from 'vscode';
 
 import { getRootPath } from './lib/helpers';
 import { TRACKED_EVENTS } from './lib/constants';
@@ -15,6 +15,8 @@ import { initializePanels } from './lib/panels';
 import { initializeTracking, trackEvent } from './lib/tracking';
 
 export const activate = async (context: ExtensionContext) => {
+  if (!workspace.workspaceFolders) return;
+
   initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
   console.log(

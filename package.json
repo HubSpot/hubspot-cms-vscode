@@ -15,7 +15,8 @@
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
-        "test-compile": "tsc -p ./"
+        "test-compile": "tsc -p ./",
+        "test:e2e": "wdio run ./wdio.conf.ts"
     },
     "repository": {
         "type": "git",
@@ -309,20 +310,22 @@
                 {
                     "id": "hubspot.treedata.accounts",
                     "name": "Accounts",
-                    "when": "hubspot.configPath"
+                    "when": "!workbench.explorer.emptyView.active && hubspot.configPath"
                 },
                 {
                     "id": "hubspot.viewsWelcome.accountAuth",
-                    "name": "Authentication"
+                    "name": "Authentication",
+                    "when": "!workbench.explorer.emptyView.active"
                 },
                 {
                     "id": "hubspot.viewsWelcome.tools",
                     "name": "Tools",
-                    "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
+                    "when": "!workbench.explorer.emptyView.active && hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
                 },
                 {
                     "id": "hubspot.treedata.helpAndFeedback",
-                    "name": "Help & Feedback"
+                    "name": "Help & Feedback",
+                    "when": "!workbench.explorer.emptyView.active"
                 }
             ]
         },
@@ -350,7 +353,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.4",
+        "@hubspot/cli-lib": "^4.1.5",
         "axios": "^1.2.2",
         "compare-versions": "^5.0.1",
         "fs-extra": "^9.0.1",
@@ -362,11 +365,19 @@
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/vscode": "1.55.0",
+        "@wdio/cli": "^8.0.13",
+        "@wdio/local-runner": "^8.0.13",
+        "@wdio/mocha-framework": "^8.0.13",
+        "@wdio/spec-reporter": "^8.0.13",
+        "chromedriver": "^108.0.0",
         "eslint": "^7.5.0",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
         "ts-loader": "^9.2.3",
+        "ts-node": "^10.9.1",
         "typescript": "^4.3.4",
+        "wdio-chromedriver-service": "^8.0.1",
+        "wdio-vscode-service": "^5.0.0",
         "webpack": "^5.40.0",
         "webpack-cli": "^4.7.2",
         "webpack-node-externals": "^3.0.0"

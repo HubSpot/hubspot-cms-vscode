@@ -20,7 +20,7 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
     }
   }
 
-  getChildren(): Thenable<any> {
+  getChildren(): Thenable<Array<Link | Command>> {
     return Promise.resolve([
       {
         label: 'CLI Documentation',
