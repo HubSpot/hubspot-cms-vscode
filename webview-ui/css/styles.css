@@ -56,7 +56,8 @@ textarea {
   margin: 0.25em 0 1em 0;
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='email'] {
   height: 25px;
   width: 500px;
   margin: 0.25em 0 1em 0;

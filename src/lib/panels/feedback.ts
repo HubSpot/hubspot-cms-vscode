@@ -6,7 +6,7 @@ import {
   Uri,
   ViewColumn,
 } from 'vscode';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { getUri } from '../utilities';
 import { getUserIdentificationInformation } from '../tracking';
 
@@ -129,23 +129,23 @@ export class FeedbackPanel {
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="stylesheet" href="${stylesheetUri}"></link>
+          <link rel="stylesheet" href="${stylesheetUri}" />
           <script type="module" src="${mainUri}"></script>
           <title>HubSpot VSCode Extension Feedback</title>
         </head>
         <body>
           <h1>HubSpot VSCode Extension Feedback</h1>
           <div class="description">
-            <p>
+            <h3>
               Thank you for taking the time to provide feedback on the HubSpot VSCode Extension.
-            </p>
+            </h3>
           </div>
           <form id="feedback-form" enctype="multipart/form-data">
-            <div class="form-field">
+            <div class="form-field hidden">
                 <label>Visual Studio Code Version</label><br />
                 <input name="vs-code-version" type="text" value="${userIdentificationInformation.vscodeVersion}" disabled>
             </div>
-            <div class="form-field">
+            <div class="form-field hidden">
                 <label>HubSpot Extension Version</label><br />
                 <input name="hubspot-extension-version" type="text" value="${userIdentificationInformation.version}" disabled>
             </div>
@@ -185,7 +185,7 @@ export class FeedbackPanel {
                         <label for="experience-4">4</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-5" value="5" type="radio" checked>
+                        <input name="experience-rating" id="experience-5" value="5" type="radio">
                         <label for="experience-5">5</label>
                     </div>
                     <div class="radio">
@@ -212,18 +212,18 @@ export class FeedbackPanel {
             </div>
             <div class="form-field">
                 <label for="reason-for-rating">Why did you choose this rating?</label><br />
-                <textarea type="textarea" name="reason-for-rating" id="reason">Some reason</textarea>
+                <textarea type="textarea" name="reason-for-rating" id="reason"></textarea>
             </div>
 
             <div>
-              <h3>May we contact you for questions? If so, please provide your name and email</h3>
+              <h3>May we contact you for questions? If so, please provide your name and email.</h3>
               <div class="form-field">
                   <label for="name">Full Name</label><br />
-                  <input type="text" name="name" id="name" value="Test User">
+                  <input type="text" name="name" id="name">
               </div>
               <div class="form-field">
                   <label for="email">Email</label><br />
-                  <input type="text" name="email" id="email" value="testing@example.com">
+                  <input type="email" name="email" id="email">
               </div>
             </div>
             <button type="submit">Submit</button>
@@ -243,25 +243,31 @@ export class FeedbackPanel {
   private _setWebviewMessageListener(webview: Webview) {
     webview.onDidReceiveMessage(
       async (message: any) => {
-        const { command, data } = message;
-
-        console.log('Message recieved: ', message);
+        const { command, data, errorMessage } = message;
 
         switch (command) {
           case 'submit':
-            const res = await axios({
-              method: 'post',
-              // url: 'https://mtalley-6597896.hs-sites.com/_hcms/api/vscode/feedback/submit',
-              url: 'http://localhost:5432/_hcms/api/vscode/feedback/submit',
-              data,
-            });
+            try {
+              this._panel.dispose();
+              await axios({
+                method: 'post',
+                url: 'https://23748177.hs-sites.com/_hcms/api/vscode/feedback/submit',
+                data,
+              });
 
-            console.log('res: ', res.status);
-
-            window.showInformationMessage(
-              'Thanks for submitting your feedback!'
-            );
-            // this._panel.dispose();
+              window.showInformationMessage(
+                'Thanks for submitting your feedback!'
+              );
+              return;
+            } catch (err: any) {
+              console.log('Error: ', err, err.response.data);
+              window.showErrorMessage(
+                'There was an error submitting your feedback. Please try again later.'
+              );
+              return;
+            }
+          case 'submit-error':
+            window.showErrorMessage(errorMessage);
             return;
         }
       },

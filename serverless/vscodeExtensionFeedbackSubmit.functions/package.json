@@ -1,15 +1,16 @@
 {
-  "name": "vscodeExtensionFeedbackSubmit.functions",
+  "name": "vscode-extension-feedback-submit-handler",
   "version": "1.0.0",
   "description": "",
   "main": "submit.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload": "hs upload ../vscodeExtensionFeedbackSubmit.functions vscodeExtensionFeedbackSubmit.functions --portal=23748177",
+    "deploy": "hs functions deploy vscodeExtensionFeedbackSubmit.functions --portal=23748177",
+    "upload:deploy": "npm run upload && npm run deploy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1290.0",
-    "axios": "^1.2.2"
   }
 }

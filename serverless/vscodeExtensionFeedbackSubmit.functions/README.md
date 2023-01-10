@@ -16,3 +16,7 @@ This function supports the feedback submission form within the HubSpot VSCode Ex
 
 3. Upload the function using `hs upload ./serverless/vscodeExtensionFeedbackSubmit.functions vscodeExtensionFeedbackSubmit.functions --portal=<portalId>`
 4. Deploy the function using `hs functions deploy vscodeExtensionFeedbackSubmit.functions --portal=<portalId>`
+
+#### Testing
+
+Put your environment variables into `./serverless/vscodeExtensionFeedbackSubmit.functions/.env` and run the function locally using `hs functions server ./serverless/vscodeExtensionFeedbackSubmit.functions --log-output --portal=<portalId>`.
