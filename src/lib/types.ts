@@ -31,3 +31,15 @@ export interface Link {
   label: string;
   url: string;
 }
+
+export interface HubLValidationError {
+  reason: string;
+  message: string;
+  lineno: number;
+  startPosition: number;
+  categoryErrors: {
+    fullName?: string;
+    path?: string;
+  };
+  category: string;
+}

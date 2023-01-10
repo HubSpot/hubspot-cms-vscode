@@ -8,3 +8,6 @@ generate.js
 LICENSE
 scripts/**
 node_modules/**
+.wdio-vscode-service
+test
+wdio.conf.ts
