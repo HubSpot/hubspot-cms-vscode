@@ -139,6 +139,13 @@
     "description": "Returns true if value is contained in the iterable\nParameters:\n- list(object) The iterable to check for the value",
     "prefix": "in"
   },
+  "include_dnd_partial": {
+    "body": [
+      "include_dnd_partial"
+    ],
+    "description": "",
+    "prefix": "include_dnd_partial"
+  },
   "integer": {
     "body": [
       "integer"
@@ -152,6 +159,20 @@
     ],
     "description": "Return true if the object is iterable (sequence, dict, etc)",
     "prefix": "iterable"
+  },
+  "js_module": {
+    "body": [
+      "js_module"
+    ],
+    "description": "",
+    "prefix": "js_module"
+  },
+  "js_partial": {
+    "body": [
+      "js_partial"
+    ],
+    "description": "",
+    "prefix": "js_partial"
   },
   "le": {
     "body": [
