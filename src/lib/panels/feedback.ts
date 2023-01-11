@@ -216,18 +216,18 @@ export class FeedbackPanel {
             </div>
             <div class="form-field">
                 <label for="reason-for-rating">Why did you choose this rating?</label><br />
-                <textarea type="textarea" name="reason-for-rating" id="reason"></textarea>
+                <textarea type="textarea" name="reason-for-rating" id="reason" maxlength="10000"></textarea>
             </div>
 
             <div>
               <h3>May we contact you for questions? If so, please provide your name and email.</h3>
               <div class="form-field">
                   <label for="name">Full Name</label><br />
-                  <input type="text" name="name" id="name">
+                  <input type="text" name="name" id="name" maxlength="250">
               </div>
               <div class="form-field">
                   <label for="email">Email</label><br />
-                  <input type="email" name="email" id="email">
+                  <input type="email" name="email" id="email" maxlength="250">
               </div>
             </div>
             <button type="submit">Submit</button>
