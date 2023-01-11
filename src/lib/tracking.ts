@@ -2,6 +2,13 @@ import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
 import { GLOBAL_STATE_KEYS } from './constants';
 
+const {
+  getAccountId,
+  isTrackingAllowed,
+  getAccountConfig,
+} = require('@hubspot/cli-lib');
+const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';
 let extensionVersion: string;
@@ -31,12 +38,12 @@ const showTelemetryPrompt = async () => {
   }
 };
 
-const {
-  getAccountId,
-  isTrackingAllowed,
-  getAccountConfig,
-} = require('@hubspot/cli-lib');
-const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+const isTrackingAllowedInVSCode = () => {
+  return (
+    isTrackingAllowed() &&
+    workspace.getConfiguration().telemetry.enableTelemetry
+  );
+};
 
 const getAuthType = (accountId?: string) => {
   let authType = 'unknown';
@@ -53,6 +60,10 @@ const getAuthType = (accountId?: string) => {
 };
 
 export const getUserIdentificationInformation = (accountId?: string) => {
+  if (!isTrackingAllowedInVSCode()) {
+    return {};
+  }
+
   return {
     applicationName: 'hubspot.hubl',
     language: env.language,
@@ -66,10 +77,7 @@ export const getUserIdentificationInformation = (accountId?: string) => {
 };
 
 export const trackEvent = async (action: string, options?: object) => {
-  if (
-    !isTrackingAllowed() ||
-    !workspace.getConfiguration().telemetry.enableTelemetry
-  ) {
+  if (!isTrackingAllowedInVSCode()) {
     return;
   }
   const accountId = getAccountId();
