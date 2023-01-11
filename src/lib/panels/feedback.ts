@@ -147,27 +147,27 @@ export class FeedbackPanel {
           <form id="feedback-form" enctype="multipart/form-data">
             <div class="form-field hidden">
                 <label>Visual Studio Code Version</label><br />
-                <input name="vs-code-version" type="text" value="${userIdentificationInformation.vscodeVersion}" disabled>
+                <input name="vs-code-version" type="hidden" value="${userIdentificationInformation.vscodeVersion}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>HubSpot Extension Version</label><br />
-                <input name="hubspot-extension-version" type="text" value="${userIdentificationInformation.version}" disabled>
+                <input name="hubspot-extension-version" type="hidden" value="${userIdentificationInformation.version}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Machine ID</label><br />
-                <input name="machine-id" type="hidden" value="${userIdentificationInformation.machineId}" disabled>
+                <input name="machine-id" type="hidden" value="${userIdentificationInformation.machineId}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>OS</label><br />
-                <input name="operating-system" type="hidden" value="${userIdentificationInformation.os}" disabled>
+                <input name="operating-system" type="hidden" value="${userIdentificationInformation.os}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Shell</label><br />
-                <input name="shell" type="hidden" value="${userIdentificationInformation.shell}" disabled>
+                <input name="shell" type="hidden" value="${userIdentificationInformation.shell}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Language</label><br />
-                <input name="language" type="hidden" value="${userIdentificationInformation.language}" disabled>
+                <input name="language" type="hidden" value="${userIdentificationInformation.language}" readonly>
             </div>
             <div class="form-field">
                 <label>Rate your experience with this developer tool</label>
@@ -270,9 +270,7 @@ export class FeedbackPanel {
 
               trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
 
-              window.showInformationMessage(
-                'Thanks for submitting your feedback!'
-              );
+              window.showInformationMessage('Feedback submitted! Thanks you!');
 
               return;
             } catch (err: any) {
