@@ -26,6 +26,7 @@ export const EXTENSION_CONFIG_KEYS = {
 };
 
 export const GLOBAL_STATE_KEYS = {
+  DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL: 'DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL',
   HAS_SEEN_LINTING_MESSAGE: 'HS_HAS_SEEN_LINTING_MESSAGE',
   HAS_SEEN_TELEMETRY_MESSAGE: 'HS_HAS_SEEN_TELEMETRY_MESSAGE',
 };
@@ -53,6 +54,9 @@ export const COMMANDS = {
     GLOBAL_PARTIAL: 'hubspot.create.globalPartial',
     SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
     SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
+  },
+  GLOBAL_STATE: {
+    UPDATE_DELAY: 'hubspot.globalState.updateDelay',
   },
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',

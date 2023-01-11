@@ -5,6 +5,7 @@ import { registerCommands as registerNotificationCommands } from './commands/not
 import { registerCommands as registerTerminalCommands } from './commands/terminal';
 import { registerCommands as registerCreateCommands } from './commands/create';
 import { registerCommands as registerAccountCommands } from './commands/account';
+import { registerCommands as registerGlobalStateCommands } from './commands/globalState';
 
 export const registerCommands = (
   context: ExtensionContext,
@@ -16,4 +17,5 @@ export const registerCommands = (
   registerNotificationCommands(context);
   registerCreateCommands(context);
   registerTerminalCommands(context);
+  registerGlobalStateCommands(context);
 };

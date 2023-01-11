@@ -1,14 +1,16 @@
 import {
-  Disposable,
-  Webview,
-  WebviewPanel,
+  commands,
   window,
+  Disposable,
   Uri,
   ViewColumn,
+  Webview,
+  WebviewPanel,
 } from 'vscode';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { getUri } from '../utilities';
 import { getUserIdentificationInformation } from '../tracking';
+import { COMMANDS, GLOBAL_STATE_KEYS } from '../constants';
 
 // This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
@@ -258,6 +260,16 @@ export class FeedbackPanel {
               window.showInformationMessage(
                 'Thanks for submitting your feedback!'
               );
+
+              // Delay showing the message again for 90 days when the form has
+              // been filled out
+              commands.executeCommand(
+                COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
+                GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
+                90,
+                'day'
+              );
+
               return;
             } catch (err: any) {
               console.log('Error: ', err, err.response.data);
