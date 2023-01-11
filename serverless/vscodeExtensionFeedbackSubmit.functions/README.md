@@ -1,6 +1,6 @@
 ## VSCode Extension Feedback Submission Serverless Function
 
-This function supports the feedback submission form within the HubSpot VSCode Extension ([hubspot-cms-vscode]()). The function takes in a JSON object containing the user's feedback and submits it to a HubDB table.
+This function supports the feedback submission form within the HubSpot VSCode Extension ([hubspot-cms-vscode](https://github.com/HubSpot/hubspot-cms-vscode)). The function takes in a JSON object containing the user's feedback and submits it to a HubDB table.
 
 #### Setup
 
