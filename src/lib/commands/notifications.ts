@@ -18,8 +18,8 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then((selection) => {
             if (selection && selection.title === 'Provide Feedback') {
-              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_REQUEST_ACCEPTED);
               commands.executeCommand(COMMANDS.PANELS.OPEN_FEEDBACK_PANEL);
+              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_REQUEST_ACCEPTED);
             } else {
               // Delay showing the message again for 60 days when dismissed
               commands.executeCommand(
