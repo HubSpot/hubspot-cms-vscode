@@ -9,8 +9,8 @@ import {
 } from 'vscode';
 import axios from 'axios';
 import { getUri } from '../utilities';
-import { getUserIdentificationInformation } from '../tracking';
-import { COMMANDS, GLOBAL_STATE_KEYS } from '../constants';
+import { getUserIdentificationInformation, trackEvent } from '../tracking';
+import { COMMANDS, GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../constants';
 
 // This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
@@ -123,6 +123,8 @@ export class FeedbackPanel {
       'styles.css',
     ]);
     const userIdentificationInformation = getUserIdentificationInformation();
+
+    trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_OPENED);
 
     // Tip: Install the es6-string-html VS Code extension to enable code highlighting below
     return /*html*/ `
@@ -257,10 +259,6 @@ export class FeedbackPanel {
                 data,
               });
 
-              window.showInformationMessage(
-                'Thanks for submitting your feedback!'
-              );
-
               // Delay showing the message again for 90 days when the form has
               // been filled out
               commands.executeCommand(
@@ -270,12 +268,21 @@ export class FeedbackPanel {
                 'day'
               );
 
+              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
+
+              window.showInformationMessage(
+                'Thanks for submitting your feedback!'
+              );
+
               return;
             } catch (err: any) {
               console.log('Error: ', err, err.response.data);
               window.showErrorMessage(
                 'There was an error submitting your feedback. Please try again later.'
               );
+              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_ERROR, {
+                error: err,
+              });
               return;
             }
           case 'submit-error':
