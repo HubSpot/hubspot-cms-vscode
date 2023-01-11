@@ -270,7 +270,7 @@ export class FeedbackPanel {
 
               trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
 
-              window.showInformationMessage('Feedback submitted! Thanks you!');
+              window.showInformationMessage('Feedback submitted! Thank you!');
 
               return;
             } catch (err: any) {
