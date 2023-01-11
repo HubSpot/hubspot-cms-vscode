@@ -368,6 +368,14 @@
                 {
                     "command": "hubspot.config.deleteAccount",
                     "when": "false"
+                },
+                {
+                    "command": "hubspot.notifications.showFeedbackRequest",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.modals.openFeedbackPanel",
+                    "when": "false"
                 }
             ]
         },
