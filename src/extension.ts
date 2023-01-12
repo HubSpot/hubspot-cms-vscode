@@ -33,7 +33,7 @@ export const activate = async (context: ExtensionContext) => {
   initializeGlobalState(context);
   initializeProviders(context);
   initializePanels(context);
-  initializeTerminal(context);
+  initializeTerminal();
   initializeStatusBar(context);
 
   initializeConfig(rootPath);
