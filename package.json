@@ -263,8 +263,7 @@
         "menus": {
             "explorer/context": [
                 {
-                    "submenu": "hubspot.create",
-                    "group": "hubspot.create"
+                    "submenu": "hubspot.create"
                 }
             ],
             "hubspot.create": [
