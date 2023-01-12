@@ -3,7 +3,7 @@
   "useForPages": false,
   "label": "Feedback Form Submissions",
   "allowChildTables": false,
-  "allowPublicApiAccess": true,
+  "allowPublicApiAccess": false,
   "dynamicMetaTags": {},
   "enableChildTablePages": false,
   "columns": [
