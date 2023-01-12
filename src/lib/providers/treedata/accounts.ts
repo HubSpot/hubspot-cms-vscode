@@ -71,16 +71,12 @@ export class AccountTreeItem extends TreeItem {
     public readonly portalData: Portal,
     public readonly options: { isDefault: boolean },
     public readonly collapsibleState: TreeItemCollapsibleState,
-    // TODO: Figure out why this is erroring out
-    // @ts-ignore: Private method access
-    public iconPath: string = new ThemeIcon('account'),
+    public iconPath: ThemeIcon = new ThemeIcon('account'),
     public readonly contextValue: string = 'accountTreeItem'
   ) {
     super(name, collapsibleState);
 
     if (options.isDefault) {
-      // TODO: Figure out why this is erroring out
-      // @ts-ignore: Private method access
       this.iconPath = new ThemeIcon('star-full');
     }
     this.tooltip = `${options.isDefault ? '* Default Account\n' : ''}${
