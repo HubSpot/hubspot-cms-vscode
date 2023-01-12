@@ -1,3 +1,11 @@
+import {
+  commands,
+  workspace,
+  FileCreateEvent,
+  FileWillCreateEvent,
+  Uri,
+  WorkspaceEdit,
+} from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -25,4 +33,95 @@ export const getUniquePathName = (folderPath: string, extension: string) => {
     }
   }
   return uniqueFolderPath;
+};
+
+// returns a listener that deletes the created file and then allows a given callback to run
+// doAfter receives unique filepath with the given extension
+// ex: extension given is "html", user types "example", but "example.html" already exists. doAfter receives "example1.html"
+const buildFileCreateListener = (
+  extension: string,
+  folderPath: string,
+  doAfter: Function,
+  cleanupCallback: Function
+) => {
+  return async (e: FileCreateEvent) => {
+    if (
+      e.files?.length === 1 &&
+      new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
+    ) {
+      cleanupCallback();
+      const uniqueFilePath = getUniquePathName(e.files[0].fsPath, extension);
+      if (e.files[0].fsPath !== uniqueFilePath) {
+        const edit = new WorkspaceEdit();
+        edit.renameFile(e.files[0], Uri.file(uniqueFilePath));
+        await workspace.applyEdit(edit);
+      }
+      await doAfter(uniqueFilePath);
+    }
+  };
+};
+
+// doAfter receives (filepath: string)
+export const onClickCreateFile = (extension: string, doAfter: Function) => {
+  return (clickContext: any) => {
+    if (clickContext.scheme === 'file') {
+      const createFileSubscription = workspace.onDidCreateFiles(
+        buildFileCreateListener(extension, clickContext.fsPath, doAfter, () =>
+          createFileSubscription.dispose()
+        )
+      );
+      commands.executeCommand('explorer.newFile');
+    }
+  };
+};
+
+const buildFolderCreateListener = (
+  extension: string,
+  folderPath: string,
+  doAfter: Function,
+  cleanupCallback: Function
+) => {
+  return (e: FileWillCreateEvent) => {
+    return e.waitUntil(
+      new Promise((resolve, reject) => {
+        try {
+          const edit = new WorkspaceEdit();
+
+          if (
+            e.files?.length === 1 &&
+            new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
+          ) {
+            cleanupCallback();
+            const uniqueFolderPath = getUniquePathName(
+              e.files[0].fsPath,
+              extension
+            );
+
+            edit.renameFile(e.files[0], Uri.file(uniqueFolderPath));
+
+            workspace.applyEdit(edit).then(async () => {
+              await doAfter(uniqueFolderPath);
+              resolve(edit);
+            });
+          }
+          reject(edit);
+        } catch (e: any) {
+          reject(e);
+        }
+      })
+    );
+  };
+};
+
+export const onClickCreateFolder = (extension: string, doAfter: Function) => {
+  return (clickContext: any) => {
+    if (clickContext.scheme === 'file') {
+      const createFileSubscription = workspace.onWillCreateFiles(
+        buildFolderCreateListener(extension, clickContext.fsPath, doAfter, () =>
+          createFileSubscription.dispose()
+        )
+      );
+      commands.executeCommand('explorer.newFolder');
+    }
+  };
 };
