@@ -437,7 +437,6 @@
     },
     "dependencies": {
         "@hubspot/cli-lib": "^4.1.6-beta.0",
-        "axios": "^1.2.2",
         "compare-versions": "^5.0.1",
         "dayjs": "^1.11.7",
         "findup-sync": "^5.0.0",

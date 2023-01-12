@@ -7,7 +7,7 @@ import {
   Webview,
   WebviewPanel,
 } from 'vscode';
-import axios from 'axios';
+import fetch from 'node-fetch';
 import { getUri } from '../utilities';
 import { getUserIdentificationInformation, trackEvent } from '../tracking';
 import { COMMANDS, GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../constants';
@@ -253,11 +253,17 @@ export class FeedbackPanel {
           case 'submit':
             try {
               this._panel.dispose();
-              await axios({
-                method: 'post',
-                url: 'https://23748177.hs-sites.com/_hcms/api/vscode/feedback/submit',
-                data,
-              });
+
+              await fetch(
+                'https://23748177.hs-sites.com/_hcms/api/vscode/feedback/submit',
+                {
+                  method: 'post',
+                  body: JSON.stringify(data),
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              );
 
               // Delay showing the message again for 90 days when the form has
               // been filled out
