@@ -1,0 +1,17 @@
+{
+  "name": "vscode-extension-feedback-submit-handler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "submit.js",
+  "scripts": {
+    "deploy": "hs functions deploy vscodeExtensionFeedbackSubmit.functions --portal=23748177",
+    "hubdb:table:create": "hs hubdb create ../vscode-extension-feedback-hubdb-table.json --portal=23748177",
+    "localserver": "hs functions server ./serverless/vscodeExtensionFeedbackSubmit.functions --log-output --portal=23748177",
+    "upload": "hs upload ../vscodeExtensionFeedbackSubmit.functions vscodeExtensionFeedbackSubmit.functions --portal=23748177",
+    "upload:deploy": "npm run upload && npm run deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

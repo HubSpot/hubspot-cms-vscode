@@ -1,0 +1,15 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "secrets": [
+    "VSCODE_EXTENSION_FEEDBACK_HUBDB_TABLE_NAME",
+    "VSCODE_EXTENSION_FEEDBACK_ACCESS_TOKEN"
+  ],
+  "endpoints": {
+    "vscode/feedback/submit": {
+      "method": ["POST"],
+      "file": "submit.js"
+    }
+  }
+}

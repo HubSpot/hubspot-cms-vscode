@@ -1,0 +1,62 @@
+{
+  "name": "vscode_extension_feedback_form_submissions",
+  "useForPages": false,
+  "label": "Feedback Form Submissions",
+  "allowChildTables": false,
+  "allowPublicApiAccess": false,
+  "dynamicMetaTags": {},
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "name",
+      "label": "Submitter Name",
+      "type": "TEXT"
+    },
+    {
+      "name": "email",
+      "label": "Submitter Email",
+      "type": "TEXT"
+    },
+    {
+      "name": "experience-rating",
+      "label": "Rating",
+      "type": "TEXT"
+    },
+    {
+      "name": "reason-for-rating",
+      "label": "Rating Description",
+      "type": "TEXT"
+    },
+    {
+      "name": "hubspot-extension-version",
+      "label": "Extension Version",
+      "type": "TEXT"
+    },
+    {
+      "name": "vs-code-version",
+      "label": "VSCode Version",
+      "type": "TEXT"
+    },
+    {
+      "name": "machine-id",
+      "label": "MachineId",
+      "type": "TEXT"
+    },
+    {
+      "name": "operating-system",
+      "label": "Operating System",
+      "type": "TEXT"
+    },
+    {
+      "name": "language",
+      "label": "Language",
+      "type": "TEXT"
+    },
+    {
+      "name": "shell",
+      "label": "Shell",
+      "type": "TEXT"
+    }
+  ],
+  "rows": []
+}

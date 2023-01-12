@@ -1,18 +1,26 @@
 import {
+  Command,
   ThemeIcon,
   TreeItem,
   TreeItemCollapsibleState,
   TreeDataProvider,
   Uri,
 } from 'vscode';
-import { Link } from '../types';
+import { instanceOfLink, instanceOfCommand, Link } from '../../types';
+import { COMMANDS } from '../../constants';
 
-export class HelpAndFeedbackProvider implements TreeDataProvider<Link> {
-  getTreeItem(q: Link): TreeItem {
-    return new UrlLinkTreeItem(q.label, Uri.parse(q.url));
+export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
+  getTreeItem(q: any): TreeItem {
+    if (instanceOfCommand(q)) {
+      return new CommandTreeItem(q);
+    } else if (instanceOfLink(q)) {
+      return new UrlLinkTreeItem(q.label, Uri.parse(q.url));
+    } else {
+      throw new Error('Invalid tree item passed to HelpAndFeedbackProvider');
+    }
   }
 
-  getChildren(): Thenable<Link[]> {
+  getChildren(): Thenable<Array<Link | Command>> {
     return Promise.resolve([
       {
         label: 'CLI Documentation',
@@ -30,6 +38,10 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<Link> {
         label: 'About HubSpot VSCode Extension',
         url: 'https://github.com/HubSpot/hubspot-cms-vscode/blob/master/README.md',
       },
+      {
+        title: 'Submit feedback',
+        command: COMMANDS.PANELS.OPEN_FEEDBACK_PANEL,
+      },
     ]);
   }
 }
@@ -45,5 +57,15 @@ export class UrlLinkTreeItem extends TreeItem {
       title: '',
       arguments: [resourceUri],
     };
+  }
+}
+
+export class CommandTreeItem extends TreeItem {
+  constructor(public readonly command: Command) {
+    super(command.title, TreeItemCollapsibleState.None);
+    this.tooltip = `Open ${command.title}`;
+    this.iconPath = new ThemeIcon('file');
+    this.contextValue = 'command-tree-item';
+    this.command = command;
   }
 }

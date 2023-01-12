@@ -26,6 +26,7 @@ export const EXTENSION_CONFIG_KEYS = {
 };
 
 export const GLOBAL_STATE_KEYS = {
+  DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL: 'DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL',
   HAS_SEEN_LINTING_MESSAGE: 'HS_HAS_SEEN_LINTING_MESSAGE',
   HAS_SEEN_TELEMETRY_MESSAGE: 'HS_HAS_SEEN_TELEMETRY_MESSAGE',
 };
@@ -54,9 +55,18 @@ export const COMMANDS = {
     SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
     SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
   },
+  GLOBAL_STATE: {
+    UPDATE_DELAY: 'hubspot.globalState.updateDelay',
+  },
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',
+  },
+  NOTIFICATIONS: {
+    SHOW_FEEDBACK_REQUEST: 'hubspot.notifications.showFeedbackRequest',
+  },
+  PANELS: {
+    OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
   },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
@@ -95,6 +105,14 @@ export const TRACKED_EVENTS = {
     SERVERLESS_FUNCTION_FOLDER: 'createdServerlessFunctionFolder',
   },
   DELETE_ACCOUNT: 'accountDeleted',
+  FEEDBACK: {
+    FEEDBACK_REQUEST_SHOWN: 'feedbackRequestShown',
+    FEEDBACK_REQUEST_DISMISSED: 'feedbackRequestDismissed',
+    FEEDBACK_REQUEST_ACCEPTED: 'feedbackRequestAccepted',
+    FEEDBACK_PANEL_OPENED: 'feedbackPanelOpened',
+    FEEDBACK_PANEL_ERROR: 'feedbackPanelError',
+    FEEDBACK_PANEL_SUBMITTED: 'feedbackPanelSubmitted',
+  },
   LINTING_ENABLED: 'lintingEnabled',
   LINTING_DISABLED: 'lintingDisabled',
   RENAME_ACCOUNT: 'accountRenamed',
