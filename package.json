@@ -264,7 +264,7 @@
             "explorer/context": [
                 {
                     "submenu": "hubspot.create",
-                    "group": "HubSpot"
+                    "group": "hubspot.create"
                 }
             ],
             "hubspot.create": [

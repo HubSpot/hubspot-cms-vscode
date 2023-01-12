@@ -3,6 +3,7 @@ import { registerCommands as registerAccountCommands } from './commands/account'
 import { registerCommands as registerAuthCommands } from './commands/auth';
 import { registerCommands as registerConfigCommands } from './commands/config';
 import { registerCommands as registerGlobalStateCommands } from './commands/globalState';
+import { registerCommands as registerModuleCommands } from './commands/modules';
 import { registerCommands as registerNotificationCommands } from './commands/notifications';
 import { registerCommands as registerServerlessCommands } from './commands/serverless';
 import { registerCommands as registerTemplateCommands } from './commands/templates';
@@ -16,6 +17,7 @@ export const registerCommands = (
   registerAuthCommands(context, rootPath);
   registerConfigCommands(context);
   registerGlobalStateCommands(context);
+  registerModuleCommands(context);
   registerNotificationCommands(context);
   registerServerlessCommands(context);
   registerTemplateCommands(context);
