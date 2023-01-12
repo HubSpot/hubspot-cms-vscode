@@ -5,7 +5,7 @@ import {
   ProviderResult,
   Uri,
 } from 'vscode';
-import * as path from 'path';
+import { resolve } from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
@@ -42,7 +42,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     setConfigPath(configPath);
     await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
-    configPath = path.resolve(rootPath, 'hubspot.config.yml');
+    configPath = resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
     await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });

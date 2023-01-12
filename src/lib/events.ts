@@ -1,5 +1,5 @@
 import { commands, ExtensionContext } from 'vscode';
-import * as fs from 'fs';
+import { watch, FSWatcher } from 'fs';
 import { updateStatusBarItems } from '../lib/statusBar';
 import { COMMANDS, EVENTS } from './constants';
 
@@ -7,7 +7,7 @@ import { getUpdateLintingOnConfigChange, setLintingEnabledState } from './lint';
 import { loadHubspotConfigFile } from './auth';
 
 let configFoundAndLoaded = false;
-let hubspotConfigWatcher: fs.FSWatcher | null;
+let hubspotConfigWatcher: FSWatcher | null;
 
 export const registerEvents = (context: ExtensionContext) => {
   context.subscriptions.push(
@@ -23,7 +23,7 @@ export const registerEvents = (context: ExtensionContext) => {
       if (!hubspotConfigWatcher) {
         console.log(`watching: ${configPath}`);
         // This triggers an in-memory update of the config when the file changes
-        hubspotConfigWatcher = fs.watch(
+        hubspotConfigWatcher = watch(
           configPath,
           // Type should be WatchEventType but isn't present in types
           async (eventType: 'change' | 'rename') => {

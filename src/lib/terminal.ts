@@ -1,7 +1,7 @@
-import { commands, ExtensionContext } from 'vscode';
+import { commands } from 'vscode';
 import { COMMANDS, POLLING_INTERVALS } from './constants';
 
-export const initializeTerminal = (context: ExtensionContext) => {
+export const initializeTerminal = () => {
   const hsInstalled = commands.executeCommand(COMMANDS.VERSION_CHECK.HS);
   commands.executeCommand(COMMANDS.VERSION_CHECK.NPM);
 
