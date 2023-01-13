@@ -9,6 +9,7 @@ import { resolve } from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
 import { loadHubspotConfigFile } from './auth';
+import { showAutoDismissedStatusBarMessage } from './messaging';
 import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
@@ -57,7 +58,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
   commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
-  window.showInformationMessage(
+  showAutoDismissedStatusBarMessage(
     `Successfully added ${accountIdentifier} to the config.`
   );
   window
