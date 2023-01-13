@@ -5,6 +5,7 @@ import { getDisplayedHubspotPortalInfo } from '../helpers';
 import { Portal } from '../types';
 import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
+import { showAutoDismissedStatusBarMessage } from '../messaging';
 
 const { getConfig } = require('@hubspot/cli-lib');
 const {
@@ -26,7 +27,7 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
 
         if (!invalidReason) {
           renameAccount(oldName, newName);
-          window.showInformationMessage(
+          showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
           await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT);
@@ -58,7 +59,7 @@ export const registerCommands = (context: ExtensionContext) => {
         updateDefaultAccount(newDefaultAccount);
         await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
         if (!silenceNotification) {
-          window.showInformationMessage(
+          showAutoDismissedStatusBarMessage(
             `Successfully set default account to ${newDefaultAccount}.`
           );
         }
@@ -96,7 +97,7 @@ export const registerCommands = (context: ExtensionContext) => {
                   selection.portal.name || selection.portal.portalId;
                 await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
-                window.showInformationMessage(
+                showAutoDismissedStatusBarMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
               }
@@ -133,12 +134,12 @@ export const registerCommands = (context: ExtensionContext) => {
             if (answer === 'Yes') {
               if (config && config.portals.length === 1) {
                 deleteConfigFile();
-                window.showInformationMessage(
+                showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
                 );
               } else {
                 deleteAccount(accountIdentifier);
-                window.showInformationMessage(
+                showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}.`
                 );
               }
