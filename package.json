@@ -269,12 +269,12 @@
                 },
                 {
                     "command": "hubspot.create.serverlessFunction",
-                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "when": "hubspot.configPath && explorerResourceIsFolder && resource =~ /^(.*)\\.functions(.*)$/",
                     "group": "navigation@999"
                 },
                 {
                     "command": "hubspot.create.serverlessFunctionFolder",
-                    "when": "hubspot.configPath && explorerResourceIsFolder",
+                    "when": "hubspot.configPath && explorerResourceIsFolder && resource =~ /^(?!.*\\.functions).*$/",
                     "group": "navigation@999"
                 }
             ],
