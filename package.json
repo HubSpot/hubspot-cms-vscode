@@ -194,31 +194,31 @@
         "commands": [
             {
                 "command": "hubspot.create.module",
-                "title": "New module"
+                "title": "New Module..."
             },
             {
                 "command": "hubspot.create.section",
-                "title": "New section"
+                "title": "New Section..."
             },
             {
                 "command": "hubspot.create.template",
-                "title": "New page template"
+                "title": "New Page Template..."
             },
             {
                 "command": "hubspot.create.partial",
-                "title": "New partial"
+                "title": "New Partial..."
             },
             {
                 "command": "hubspot.create.globalPartial",
-                "title": "New global partial"
+                "title": "New Global Partial..."
             },
             {
                 "command": "hubspot.create.serverlessFunction",
-                "title": "New serverless function"
+                "title": "New Serverless Function..."
             },
             {
                 "command": "hubspot.create.serverlessFunctionFolder",
-                "title": "New serverless function folder"
+                "title": "New Serverless Function Folder..."
             },
             {
                 "command": "hubspot.config.selectDefaultAccount",
@@ -252,61 +252,52 @@
         ],
         "submenus": [
             {
-                "id": "hubspot.create",
-                "label": "Create"
-            },
-            {
-                "id": "hubspot.create.templateMenu",
-                "label": "Template"
+                "id": "hubspot.create.template",
+                "label": "New Template..."
             }
         ],
         "menus": {
             "explorer/context": [
                 {
-                    "submenu": "hubspot.create"
-                }
-            ],
-            "hubspot.create": [
-                {
                     "command": "hubspot.create.module",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "navigation@999"
                 },
                 {
-                    "submenu": "hubspot.create.templateMenu",
-                    "group": "HubSpot"
+                    "submenu": "hubspot.create.template",
+                    "group": "navigation@999"
                 },
                 {
                     "command": "hubspot.create.serverlessFunction",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "navigation@999"
                 },
                 {
                     "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "navigation@999"
                 }
             ],
-            "hubspot.create.templateMenu": [
+            "hubspot.create.template": [
                 {
                     "command": "hubspot.create.section",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "hubspot.create.template"
                 },
                 {
                     "command": "hubspot.create.template",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "hubspot.create.template"
                 },
                 {
                     "command": "hubspot.create.partial",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "hubspot.create.template"
                 },
                 {
                     "command": "hubspot.create.globalPartial",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "HubSpot"
+                    "group": "hubspot.create.template"
                 }
             ],
             "view/item/context": [
@@ -374,6 +365,10 @@
                 },
                 {
                     "command": "hubspot.modals.openFeedbackPanel",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "false"
                 }
             ]
