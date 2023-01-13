@@ -303,19 +303,23 @@
             "view/item/context": [
                 {
                     "command": "hubspot.config.setDefaultAccount",
-                    "when": "viewItem == accountTreeItem"
+                    "when": "viewItem == accountTreeItem",
+                    "group": "accountTreeItemRightClick@2"
                 },
                 {
                     "command": "hubspot.config.renameAccount",
-                    "when": "viewItem == accountTreeItem"
+                    "when": "viewItem == accountTreeItem",
+                    "group": "view/item/context@998"
                 },
                 {
                     "command": "hubspot.config.deleteAccount",
-                    "when": "viewItem == accountTreeItem"
+                    "when": "viewItem == accountTreeItem",
+                    "group": "view/item/context@999"
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
-                    "when": "viewItem == accountTreeItem"
+                    "when": "viewItem == accountTreeItem",
+                    "group": "accountTreeItemRightClick@1"
                 }
             ],
             "commandPalette": [
