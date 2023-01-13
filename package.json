@@ -252,7 +252,7 @@
         ],
         "submenus": [
             {
-                "id": "hubspot.create.template",
+                "id": "hubspot.submenus.template",
                 "label": "New Template..."
             }
         ],
@@ -264,7 +264,7 @@
                     "group": "navigation@999"
                 },
                 {
-                    "submenu": "hubspot.create.template",
+                    "submenu": "hubspot.submenus.template",
                     "group": "navigation@999"
                 },
                 {
@@ -278,26 +278,26 @@
                     "group": "navigation@999"
                 }
             ],
-            "hubspot.create.template": [
+            "hubspot.submenus.template": [
                 {
                     "command": "hubspot.create.section",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "hubspot.create.template"
+                    "group": "hubspot.submenus.template"
                 },
                 {
                     "command": "hubspot.create.template",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "hubspot.create.template"
+                    "group": "hubspot.submenus.template"
                 },
                 {
                     "command": "hubspot.create.partial",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "hubspot.create.template"
+                    "group": "hubspot.submenus.template"
                 },
                 {
                     "command": "hubspot.create.globalPartial",
                     "when": "hubspot.configPath && explorerResourceIsFolder",
-                    "group": "hubspot.create.template"
+                    "group": "hubspot.submenus.template"
                 }
             ],
             "view/item/context": [
