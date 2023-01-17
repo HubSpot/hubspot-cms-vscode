@@ -23,10 +23,8 @@ export const registerCommands = (context: ExtensionContext) => {
         }
       }, POLLING_INTERVALS.FAST);
 
-      terminal.sendText("echo 'Installing the HubSpot CLI.'");
-      terminal.sendText('npm i -g @hubspot/cli@latest');
       terminal.sendText(
-        "echo 'Installation complete. You can now close this terminal window.'"
+        "echo 'Installing the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Installation complete. You can now close this terminal window.'"
       );
     })
   );
@@ -52,10 +50,8 @@ export const registerCommands = (context: ExtensionContext) => {
         }
       }, POLLING_INTERVALS.FAST);
 
-      terminal.sendText("echo 'Updating the HubSpot CLI.'");
-      terminal.sendText('npm i -g @hubspot/cli@latest');
       terminal.sendText(
-        "echo 'Update complete. You can now close this terminal window.'"
+        "echo 'Updating the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
       );
     })
   );
