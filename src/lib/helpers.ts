@@ -69,7 +69,7 @@ export const checkTerminalCommandVersion = async (
           const commandVersion = await runTerminalCommand(
             `${terminalCommand} --version`
           );
-          resolve(commandVersion);
+          resolve(commandVersion.trim());
         } catch (e) {
           // Unknown version
           resolve('unknown');
