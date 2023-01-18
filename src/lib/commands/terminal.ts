@@ -64,6 +64,7 @@ export const registerCommands = (context: ExtensionContext) => {
       );
       const latestHsVersion = nodeLatestLine
         .replace(
+          // Remove ANSI color styles https://stackoverflow.com/a/29497680
           /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
           ''
         )
