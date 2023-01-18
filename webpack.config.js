@@ -2,7 +2,15 @@
 
 'use strict';
 
+const { IgnorePlugin } = require('webpack');
 const path = require('path');
+const optionalPlugins = [];
+
+// This prevents an error when compiling on Windows
+// See https://github.com/paulmillr/chokidar/issues/828#issuecomment-854474603
+if (process.platform !== 'darwin') {
+  optionalPlugins.push(new IgnorePlugin({ resourceRegExp: /^fsevents$/ }));
+}
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -41,5 +49,6 @@ const config = {
       },
     ],
   },
+  plugins: [...optionalPlugins],
 };
 module.exports = config;
