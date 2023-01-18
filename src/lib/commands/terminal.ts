@@ -1,5 +1,5 @@
 import { commands, window, ExtensionContext } from 'vscode';
-import { compare } from 'compare-versions';
+import { gt as isVersionUpToDate } from 'semver';
 import { checkTerminalCommandVersion, runTerminalCommand } from '../helpers';
 import { COMMANDS, POLLING_INTERVALS } from '../constants';
 
@@ -59,11 +59,16 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.VERSION_CHECK.HS_LATEST, async () => {
       const hsVersion = (await runTerminalCommand('hs --version')).trim();
-      const latestHsVersion = (
-        await runTerminalCommand(
-          `npm info @hubspot/cli@latest | grep 'latest: ' | sed -n -e 's/^latest: //p'`
+      const nodeLatestLine: string = await runTerminalCommand(
+        `npm info @hubspot/cli@latest | grep 'latest'`
+      );
+      const latestHsVersion = nodeLatestLine
+        .replace(
+          /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+          ''
         )
-      ).trim();
+        .replace('latest: ', '')
+        .trim();
       commands.executeCommand(
         'setContext',
         'hubspot.terminal.versions.latest.hs',
@@ -71,15 +76,17 @@ export const registerCommands = (context: ExtensionContext) => {
       );
       console.log('latestVersion: ', latestHsVersion);
 
-      console.log(
-        'Newer CLI Version Available: ',
-        compare(latestHsVersion, hsVersion, '>')
+      const newerCLIVersionAvailable = isVersionUpToDate(
+        latestHsVersion,
+        hsVersion
       );
+
+      console.log('Newer CLI Version Available: ', newerCLIVersionAvailable);
 
       commands.executeCommand(
         'setContext',
         'hubspot.updateAvailableForCLI',
-        compare(latestHsVersion, hsVersion, '>')
+        newerCLIVersionAvailable
       );
 
       return latestHsVersion;

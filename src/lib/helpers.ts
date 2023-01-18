@@ -52,7 +52,9 @@ export const runTerminalCommand = async (
   });
 };
 
-export const checkTerminalCommandVersion = async (terminalCommand: string) => {
+export const checkTerminalCommandVersion = async (
+  terminalCommand: string
+): Promise<string | undefined> => {
   return new Promise(async (resolve, reject) => {
     try {
       const pathOutputMaybe = await runTerminalCommand(
@@ -60,21 +62,21 @@ export const checkTerminalCommandVersion = async (terminalCommand: string) => {
       );
       if (pathOutputMaybe === `${terminalCommand} not found`) {
         // Command is not installed/found
-        resolve(null);
+        resolve(undefined);
       } else {
         // Terminal command is installed, check version
         try {
           const commandVersion = await runTerminalCommand(
             `${terminalCommand} --version`
           );
-          resolve(commandVersion.trim());
+          resolve(commandVersion);
         } catch (e) {
           // Unknown version
           resolve('unknown');
         }
       }
     } catch (e) {
-      resolve(null);
+      resolve(undefined);
     }
   });
 };
