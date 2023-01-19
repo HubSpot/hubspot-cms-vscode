@@ -68,7 +68,7 @@ export const config: Options.Testrunner = {
         },
       },
       'goog:chromeOptions': {
-        args: ['remote-debugging-port=9222'],
+        args: ['remote-debugging-port=9222', 'headless'],
       },
     },
   ],
