@@ -67,6 +67,9 @@ export const config: Options.Testrunner = {
           'editor.fontSize': 14,
         },
       },
+      'goog:chromeOptions': {
+        args: ['remote-debugging-port=9222'],
+      },
     },
   ],
   //
