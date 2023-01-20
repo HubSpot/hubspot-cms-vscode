@@ -9,7 +9,7 @@
 
 For fast HubSpot CMS Hub development right inside your editor.
 
-The new HubSpot panel in the activity bar provides developers with quick views and commands to manage their connected accounts with HubSpot, extending some of the functionality of the HubSpot command line interface into the editor directly. Additionally, the extension performs features such as syntax formatting and highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl), as well as autocomplete for common HubL tags, filters, and functions.
+The new HubSpot panel in the activity bar provides developers with quick views and commands to manage their connected accounts with HubSpot, extending some of the functionality of the HubSpot command line interface into the editor directly. Additionally, the extension performs features such as language support, syntax highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl), as well as autocomplete for common HubL tags, filters, and functions.
 
 <!-- TODO: Link 'HubSpot Developer Docs' text to CMS Dev Docs url when they are live -->
 To read more about this extension and its features, please see the documentation at the HubSpot Developer Docs. If you're new to CMS Hub, check out [how to get started with local development](https://designers.hubspot.com/docs/tools/local-development).
