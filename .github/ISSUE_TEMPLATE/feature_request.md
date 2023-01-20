@@ -8,4 +8,4 @@ assignees: ''
 
 **Describe the feature** A clear and concise description of the new feature.
 
-**What does this feature accomplish** How does this improve the extension?
+**Benefits** How does this improve the extension?
