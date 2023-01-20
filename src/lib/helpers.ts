@@ -7,7 +7,7 @@ export const getRootPath = () => {
   const workspaceFolders = workspace.workspaceFolders;
 
   if (!workspaceFolders || workspaceFolders.length < 1) {
-    throw new Error('No workspace folder found.');
+    return;
   }
   return workspaceFolders[0].uri.path;
 };

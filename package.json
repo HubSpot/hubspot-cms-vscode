@@ -389,6 +389,11 @@
         "views": {
             "hubspot-explorer": [
                 {
+                    "id": "hubspot.viewsWelcome.noFolderOpened",
+                    "name": "No Folder Opened",
+                    "when": "workbench.explorer.emptyView.active"
+                },
+                {
                     "id": "hubspot.treedata.accounts",
                     "name": "Accounts",
                     "when": "!workbench.explorer.emptyView.active && hubspot.configPath"
@@ -401,13 +406,13 @@
                 {
                     "id": "hubspot.viewsWelcome.tools",
                     "name": "Tools",
-                    "when": "!workbench.explorer.emptyView.active && hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
+                    "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
                 },
                 {
                     "id": "hubspot.treedata.helpAndFeedback",
-                    "name": "Help & Feedback",
-                    "when": "!workbench.explorer.emptyView.active"
+                    "name": "Help & Feedback"
                 }
+
             ]
         },
         "viewsWelcome": [
@@ -430,6 +435,11 @@
                 "view": "hubspot.viewsWelcome.tools",
                 "contents": "An update is available for the [HubSpot CLI](https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli). \n[Update CLI](command:hubspot.hs.update)",
                 "when": "hubspot.updateAvailableForCLI"
+            },
+            {
+                "view": "hubspot.viewsWelcome.noFolderOpened",
+                "contents": "You have not yet opened a folder.\n[Open Folder](command:workbench.action.files.openFileFolder)\nYou can clone a repository locally.\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read out docs](https://code.visualstudio.com/docs/sourcecontrol/overview).",
+                "when": "workbench.explorer.emptyView.active"
             }
         ]
     },

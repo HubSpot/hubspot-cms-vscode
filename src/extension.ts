@@ -16,8 +16,6 @@ import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
 
 export const activate = async (context: ExtensionContext) => {
-  if (!workspace.workspaceFolders) return;
-
   initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
   console.log(
@@ -36,5 +34,8 @@ export const activate = async (context: ExtensionContext) => {
   initializeTerminal();
   initializeStatusBar(context);
 
-  initializeConfig(rootPath);
+  if (rootPath) {
+    initializeConfig(rootPath);
+  }
+  // TODO: Subscribe to config creation/workspace open?
 };

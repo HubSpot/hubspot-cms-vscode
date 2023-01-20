@@ -11,10 +11,12 @@ import { registerCommands as registerTerminalCommands } from './commands/termina
 
 export const registerCommands = (
   context: ExtensionContext,
-  rootPath: string
+  rootPath: string | undefined
 ) => {
+  if (rootPath) {
+    registerAuthCommands(context, rootPath);
+  }
   registerAccountCommands(context);
-  registerAuthCommands(context, rootPath);
   registerConfigCommands(context);
   registerGlobalStateCommands(context);
   registerModuleCommands(context);
