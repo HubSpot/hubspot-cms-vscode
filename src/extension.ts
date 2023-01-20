@@ -37,5 +37,4 @@ export const activate = async (context: ExtensionContext) => {
   if (rootPath) {
     initializeConfig(rootPath);
   }
-  // TODO: Subscribe to config creation/workspace open?
 };
