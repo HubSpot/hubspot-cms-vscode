@@ -9,12 +9,14 @@
 
 For fast HubSpot CMS Hub development right inside your editor.
 
-The new HubSpot panel in the activity bar provides developers access to features such as syntax formatters and highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl), as well as autocomplete for common HubL tags, filters, and functions. Additionally, it provides developers with quick views and commands to manage their connected accounts with HubSpot, extending some of the functionality of the HubSpot command line interface into the editor directly.
+The new HubSpot panel in the activity bar provides developers with quick views and commands to manage their connected accounts with HubSpot, extending some of the functionality of the HubSpot command line interface into the editor directly. Additionally, the extension performs features such as syntax formatting and highlighting for the [HubL templating language](https://designers.hubspot.com/docs/hubl/intro-to-hubl), as well as autocomplete for common HubL tags, filters, and functions.
 
 <!-- TODO: Link 'HubSpot Developer Docs' text to CMS Dev Docs url when they are live -->
 To read more about this extension and its features, please see the documentation at the HubSpot Developer Docs. If you're new to CMS Hub, check out [how to get started with local development](https://designers.hubspot.com/docs/tools/local-development).
 
 ## Settings
+
+We provide developers with the ability to opt in or out of particular functionality within the extension. You can find those settings by going to `Settings > Extensions > HubSpot`.
 
 ### Language Modes
 
@@ -43,18 +45,14 @@ For parameter suggestions, the following should also be added:
 
 `"editor.parameterHints": true`
 
-## Beta Features
-
-To enable beta features, navigate to `HubSpot > Beta` in your VS Code settings and check the box to opt in. Any current beta features are listed below.
-
-### Current list of features available in Beta:
-
-None at this time.
-
 ## Telemetry
 
 HubSpot for VS Code collects user data in order to improve the extension’s experience. You can [review HubSpot’s privacy policy here](https://legal.hubspot.com/privacy-policy). Additionally, you may opt out of data collection by changing the setting for global telemetry in VS Code. To read more about VS Code and telemetry, including disabling telemetry reporting, [please read the official VS Code documentation](https://code.visualstudio.com/docs/getstarted/telemetry).
 
+## Pre-releases
+
+Often times, new versions of our extension will be available to you via a pre-release before official releases are made. You can opt into these pre-releases via the VS Code extension panel. These pre-releases may include beta features that we are currently in development on.
+
 ## Contributing
 
-This extension is open source and we welcome contributions as well as issues for feature requests and bug reports. For more information about contributing, see the [contributing docs](https://github.com/HubSpot/hubspot-cms-vscode/blob/master/CONTRIBUTING.md) to get started.
+This extension is open source and we welcome contributions as well as issues for [feature requests](https://github.com/HubSpot/hubspot-cms-vscode/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) and [bug reports](https://github.com/HubSpot/hubspot-cms-vscode/issues/new?assignees=&labels=bug&template=bug_report.md&title=). For more information about contributing, see the [contributing docs](https://github.com/HubSpot/hubspot-cms-vscode/blob/master/CONTRIBUTING.md) to get started.
