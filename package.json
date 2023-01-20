@@ -438,7 +438,7 @@
             },
             {
                 "view": "hubspot.viewsWelcome.noFolderOpened",
-                "contents": "You have not yet opened a folder.\n[Open Folder](command:workbench.action.files.openFileFolder)\nYou can clone a repository locally.\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read out docs](https://code.visualstudio.com/docs/sourcecontrol/overview).",
+                "contents": "You have not yet opened a folder.\n[Open Folder](command:workbench.action.files.openFileFolder)\nYou can clone a repository locally.\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read our docs](https://code.visualstudio.com/docs/sourcecontrol/overview).",
                 "when": "workbench.explorer.emptyView.active"
             }
         ]
