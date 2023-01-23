@@ -82,7 +82,7 @@ const getTemplateType = (document: TextDocument) => {
     return {
       is_available_for_new_content:
         getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
-      tempalate_type:
+      template_type:
         TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
       template_path: document.uri.path,
     };
