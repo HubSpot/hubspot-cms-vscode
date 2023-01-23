@@ -412,7 +412,6 @@
                     "id": "hubspot.treedata.helpAndFeedback",
                     "name": "Help & Feedback"
                 }
-
             ]
         },
         "viewsWelcome": [
@@ -456,6 +455,7 @@
     "devDependencies": {
         "@types/findup-sync": "^4.0.2",
         "@types/js-yaml": "^4.0.5",
+        "@types/mocha": "^10.0.1",
         "@types/node": "^15.12.4",
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.55.0",
