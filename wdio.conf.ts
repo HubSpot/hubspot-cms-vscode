@@ -67,9 +67,10 @@ export const config: Options.Testrunner = {
           'editor.fontSize': 14,
         },
       },
-      'goog:chromeOptions': {
-        args: ['--remote-debugging-port=9222', '--headless', '--disable-gpu'],
-      },
+      // 'goog:chromeOptions': {
+
+      //   args: ['--headless', '--disable-gpu', '--window-size=1440,735'],
+      // },
     },
   ],
   //
