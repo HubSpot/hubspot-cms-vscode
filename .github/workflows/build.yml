@@ -16,7 +16,7 @@ jobs:
       - name: Lint
         run: |
           npm run lint
-      - name: Setup xvfb
+      - name: Run e2e test suite
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: yarn test:e2e
+          run: npm run test:e2e
