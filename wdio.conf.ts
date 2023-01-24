@@ -67,10 +67,6 @@ export const config: Options.Testrunner = {
           'editor.fontSize': 14,
         },
       },
-      // 'goog:chromeOptions': {
-
-      //   args: ['--headless', '--disable-gpu', '--window-size=1440,735'],
-      // },
     },
   ],
   //

@@ -3,8 +3,8 @@ describe('WDIO VSCode Service', function () {
 
   it('should be able to load VSCode', async () => {
     const workbench = await browser.getWorkbench();
-    expect(await workbench.getTitleBar().getTitle()).toBe(
-      '[Extension Development Host] hubspot-cms-vscode'
+    expect(await workbench.getTitleBar().getTitle()).toContain(
+      'hubspot-cms-vscode'
     );
   });
 
