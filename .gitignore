@@ -114,5 +114,7 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node
 
 .DS_store
-tmp
+
 hubspot.config.yml
+tmp
+.wdio-vscode-service

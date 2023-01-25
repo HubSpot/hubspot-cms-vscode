@@ -1,0 +1,73 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 300;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Light.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 400;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Regular.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 500;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Medium.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 600;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-SemiBold.woff2')
+    format('woff2');
+}
+
+body {
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+.radio-group {
+  margin-top: 10px;
+  width: 500px;
+}
+
+.radio {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-bottom: 15px;
+}
+
+textarea {
+  height: 75px;
+  width: 500px;
+  margin: 0.25em 0 1em 0;
+}
+
+input[type='text'],
+input[type='email'] {
+  height: 25px;
+  width: 500px;
+  margin: 0.25em 0 1em 0;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.form-field.hidden {
+  display: none;
+}
