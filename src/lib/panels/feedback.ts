@@ -147,19 +147,19 @@ export class FeedbackPanel {
           <form id="feedback-form" enctype="multipart/form-data">
             <div class="form-field hidden">
                 <label>Visual Studio Code Version</label><br />
-                <input name="vs-code-version" type="hidden" value="${userIdentificationInformation.vscodeVersion}" readonly>
+                <input name="vsCodeVersion" type="hidden" value="${userIdentificationInformation.vscodeVersion}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>HubSpot Extension Version</label><br />
-                <input name="hubspot-extension-version" type="hidden" value="${userIdentificationInformation.version}" readonly>
+                <input name="extensionVersion" type="hidden" value="${userIdentificationInformation.version}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Machine ID</label><br />
-                <input name="machine-id" type="hidden" value="${userIdentificationInformation.machineId}" readonly>
+                <input name="machineId" type="hidden" value="${userIdentificationInformation.machineId}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>OS</label><br />
-                <input name="operating-system" type="hidden" value="${userIdentificationInformation.os}" readonly>
+                <input name="operatingSystem" type="hidden" value="${userIdentificationInformation.os}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Shell</label><br />
@@ -173,50 +173,50 @@ export class FeedbackPanel {
                 <label>Rate your experience with this developer tool</label>
                 <div class="radio-group" style="display: flex">
                     <div class="radio">
-                        <input name="experience-rating" id="experience-1" value="1" type="radio">
+                        <input name="experienceRating" id="experience-1" value="1" type="radio">
                         <label for="experience-1">1</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-2" value="2" type="radio">
+                        <input name="experienceRating" id="experience-2" value="2" type="radio">
                         <label for="experience-2">2</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-3" value="3" type="radio">
+                        <input name="experienceRating" id="experience-3" value="3" type="radio">
                         <label for="experience-3">3</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-4" value="4" type="radio">
+                        <input name="experienceRating" id="experience-4" value="4" type="radio">
                         <label for="experience-4">4</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-5" value="5" type="radio">
+                        <input name="experienceRating" id="experience-5" value="5" type="radio">
                         <label for="experience-5">5</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-6" value="6" type="radio">
+                        <input name="experienceRating" id="experience-6" value="6" type="radio">
                         <label for="experience-6">6</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-7" value="7" type="radio">
+                        <input name="experienceRating" id="experience-7" value="7" type="radio">
                         <label for="experience-7">7</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-8" value="8" type="radio">
+                        <input name="experienceRating" id="experience-8" value="8" type="radio">
                         <label for="experience-8">8</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-9" value="9" type="radio">
+                        <input name="experienceRating" id="experience-9" value="9" type="radio">
                         <label for="experience-9">9</label>
                     </div>
                     <div class="radio">
-                        <input name="experience-rating" id="experience-10" value="10" type="radio">
+                        <input name="experienceRating" id="experience-10" value="10" type="radio">
                         <label for="experience-10">10</label>
                     </div>
                 </div>
             </div>
             <div class="form-field">
                 <label for="reason-for-rating">Why did you choose this rating?</label><br />
-                <textarea type="textarea" name="reason-for-rating" id="reason" maxlength="10000"></textarea>
+                <textarea type="textarea" name="reasonForRating" id="reason-for-rating" maxlength="10000"></textarea>
             </div>
 
             <div>
@@ -254,8 +254,8 @@ export class FeedbackPanel {
             try {
               this._panel.dispose();
 
-              await fetch(
-                'https://23748177.hs-sites.com/_hcms/api/vscode/feedback/submit',
+              const postResp = await fetch(
+                'https://api.hubspot.com/cms/vs-code-extension-feedback/v1/feedback',
                 {
                   method: 'post',
                   body: JSON.stringify(data),
@@ -265,27 +265,39 @@ export class FeedbackPanel {
                 }
               );
 
-              // Delay showing the message again for 90 days when the form has
-              // been filled out
-              commands.executeCommand(
-                COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
-                GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
-                90,
-                'day'
-              );
+              if (postResp.status === 204) {
+                // Delay showing the message again for 90 days when the form has
+                // been filled out
+                commands.executeCommand(
+                  COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
+                  GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
+                  90,
+                  'day'
+                );
 
-              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
+                trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
 
-              window.showInformationMessage('Feedback submitted! Thank you!');
+                window.showInformationMessage('Feedback submitted! Thank you!');
 
-              return;
-            } catch (err: any) {
-              console.log('Error: ', err, err.response.data);
+                return;
+              }
+
+              console.log('Error: ', postResp.statusText);
               window.showErrorMessage(
                 'There was an error submitting your feedback. Please try again later.'
               );
               trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_ERROR, {
-                error: err,
+                error: postResp.statusText,
+              });
+              return;
+            } catch (err: any) {
+              const errorMessage = err && err.response && err.response.data;
+              console.log('Error: ', errorMessage);
+              window.showErrorMessage(
+                'There was an error submitting your feedback. Please try again later.'
+              );
+              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_ERROR, {
+                error: errorMessage,
               });
               return;
             }
