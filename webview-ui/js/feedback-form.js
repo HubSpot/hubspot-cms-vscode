@@ -9,7 +9,7 @@ function handleSubmitClick(e) {
   const formDataEntries = Object.fromEntries(formData.entries());
 
   if (
-    !Object.prototype.hasOwnProperty.call(formDataEntries, 'experience-rating')
+    !Object.prototype.hasOwnProperty.call(formDataEntries, 'experienceRating')
   ) {
     vscode.postMessage({
       command: 'submit-error',
