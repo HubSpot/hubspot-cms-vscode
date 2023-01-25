@@ -255,7 +255,7 @@ export class FeedbackPanel {
               this._panel.dispose();
 
               await fetch(
-                'https://23748177.hs-sites.com/_hcms/api/vscode/feedback/submit',
+                'https://api.hubspot.com/cms/vs-code-extension-feedback/v1/feedback',
                 {
                   method: 'post',
                   body: JSON.stringify(data),
