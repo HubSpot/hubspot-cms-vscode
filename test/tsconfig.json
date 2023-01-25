@@ -4,11 +4,14 @@
     "module": "commonjs",
     "types": [
       "node",
+      "webdriverio/async",
       "@wdio/globals/types",
       "expect-webdriverio",
       "@wdio/mocha-framework",
-      "wdio-vscode-service"
+      "wdio-vscode-service",
+      "wdio-devtools-service"
     ],
-    "target": "es2019"
+    "target": "es2019",
+    "esModuleInterop": true
   }
 }

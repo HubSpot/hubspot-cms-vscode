@@ -1,4 +1,5 @@
 import type { Options } from '@wdio/types';
+import type { VSCodeCapabilities } from 'wdio-vscode-service/dist/types';
 
 export const config: Options.Testrunner = {
   //
@@ -59,7 +60,7 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       browserName: 'vscode',
-      browserVersion: 'stable',
+      browserVersion: '1.74.3',
       'wdio:vscodeOptions': {
         extensionPath: __dirname,
         workspacePath: __dirname,
@@ -67,7 +68,7 @@ export const config: Options.Testrunner = {
           'editor.fontSize': 14,
         },
       },
-    },
+    } as VSCodeCapabilities,
   ],
   //
   // ===================
