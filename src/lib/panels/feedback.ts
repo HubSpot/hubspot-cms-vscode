@@ -159,7 +159,7 @@ export class FeedbackPanel {
             </div>
             <div class="form-field hidden">
                 <label>OS</label><br />
-                <input name="operating-system" type="hidden" value="${userIdentificationInformation.os}" readonly>
+                <input name="operatingSystem" type="hidden" value="${userIdentificationInformation.os}" readonly>
             </div>
             <div class="form-field hidden">
                 <label>Shell</label><br />
