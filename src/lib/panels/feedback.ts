@@ -254,7 +254,7 @@ export class FeedbackPanel {
             try {
               this._panel.dispose();
 
-              await fetch(
+              const postResp = await fetch(
                 'https://api.hubspot.com/cms/vs-code-extension-feedback/v1/feedback',
                 {
                   method: 'post',
@@ -265,27 +265,39 @@ export class FeedbackPanel {
                 }
               );
 
-              // Delay showing the message again for 90 days when the form has
-              // been filled out
-              commands.executeCommand(
-                COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
-                GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
-                90,
-                'day'
-              );
+              if (postResp.status === 204) {
+                // Delay showing the message again for 90 days when the form has
+                // been filled out
+                commands.executeCommand(
+                  COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
+                  GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
+                  90,
+                  'day'
+                );
 
-              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
+                trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);
 
-              window.showInformationMessage('Feedback submitted! Thank you!');
+                window.showInformationMessage('Feedback submitted! Thank you!');
 
-              return;
-            } catch (err: any) {
-              console.log('Error: ', err, err.response.data);
+                return;
+              }
+
+              console.log('Error: ', postResp.statusText);
               window.showErrorMessage(
                 'There was an error submitting your feedback. Please try again later.'
               );
               trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_ERROR, {
-                error: err,
+                error: postResp.statusText,
+              });
+              return;
+            } catch (err: any) {
+              const errorMessage = err && err.response && err.response.data;
+              console.log('Error: ', errorMessage);
+              window.showErrorMessage(
+                'There was an error submitting your feedback. Please try again later.'
+              );
+              trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_ERROR, {
+                error: errorMessage,
               });
               return;
             }
