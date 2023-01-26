@@ -254,6 +254,8 @@ export class FeedbackPanel {
             try {
               this._panel.dispose();
 
+              console.log(JSON.stringify(data));
+
               const postResp = await fetch(
                 'https://api.hubspot.com/cms/vs-code-extension-feedback/v1/feedback',
                 {
