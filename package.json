@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.55.0"
+        "vscode": "^1.63.0"
     },
     "scripts": {
         "dev": "npm run webpack-dev",
@@ -458,7 +458,7 @@
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/semver": "^7.3.8",
-        "@types/vscode": "1.55.0",
+        "@types/vscode": "1.63.0",
         "@wdio/cli": "^8.0.13",
         "@wdio/local-runner": "^8.0.13",
         "@wdio/mocha-framework": "^8.0.13",
