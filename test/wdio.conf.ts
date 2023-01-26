@@ -2,8 +2,6 @@ import path from 'path';
 import type { Options } from '@wdio/types';
 import type { VSCodeCapabilities } from 'wdio-vscode-service/dist/types';
 
-console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DIRNAME: ', __dirname);
-
 export const config: Options.Testrunner = {
   //
   // ====================
@@ -80,7 +78,7 @@ export const config: Options.Testrunner = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'info',
+  logLevel: 'warn',
   //
   // Set specific log levels per logger
   // loggers:
