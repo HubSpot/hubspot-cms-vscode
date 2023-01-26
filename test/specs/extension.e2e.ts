@@ -4,13 +4,13 @@ describe('WDIO VSCode Service', function () {
     workbench = await browser.getWorkbench();
   });
 
-  it('should be able to load VSCode', async () => {
+  it('should be able to load VSCode development host', async () => {
     expect(await workbench.getTitleBar().getTitle()).toContain(
       '[Extension Development Host]'
     );
   });
 
-  it('extension should appear in sidebar', async () => {
+  it('HubSpot extension should load and appear in sidebar', async () => {
     const hubspotViewControl = await workbench
       .getActivityBar()
       .getViewControl('HubSpot');
