@@ -10,7 +10,6 @@ describe('Auth', function () {
   });
 
   it('loads accounts list from hubspot.config.yml file', async () => {
-    // await browser.pause(10000);
     const sidebarSections = await workbench
       .getSideBar()
       .getContent()
@@ -18,13 +17,7 @@ describe('Auth', function () {
     const visibleItems = await sidebarSections.getVisibleItems();
 
     expect(await Promise.all(visibleItems.map((i) => i.getLabel()))).toEqual([
-      'DesignersDotHubSpot - 327485 ',
-      'InspireQA - 882457564 [QA]',
-      'InspiredPortalQA - 884144367 [QA]',
-      'MikeQA - 101867970 [QA]',
-      'MikeProd - 6597896 ',
-      'VSCodeFeedbackHandler - 23748177 ',
-      'DobbyFreeElf - 882194316 [QA]',
+      'hubspot-cms-vscodeE2ETesting - 23876139 ',
     ]);
   });
 
