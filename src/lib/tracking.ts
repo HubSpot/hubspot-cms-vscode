@@ -33,7 +33,6 @@ const setPrettierPluginVersion = async () => {
     prettierPluginVersion = version;
   } catch (e) {
     console.log(e);
-    prettierPluginVersion = null;
   }
 };
 
