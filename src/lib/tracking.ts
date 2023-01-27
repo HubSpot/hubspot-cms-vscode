@@ -20,7 +20,7 @@ const setPrettierPluginVersion = async () => {
   );
 
   if (!prettierPluginPackageJson.length) {
-    return null;
+    return;
   }
 
   try {
