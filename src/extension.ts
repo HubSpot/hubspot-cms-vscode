@@ -16,7 +16,7 @@ import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
 
 export const activate = async (context: ExtensionContext) => {
-  initializeTracking(context);
+  await initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
   console.log(
     'Activating Extension Version: ',
