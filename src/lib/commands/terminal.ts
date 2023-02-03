@@ -116,7 +116,7 @@ export const registerCommands = (context: ExtensionContext) => {
       return hsVersion;
     })
   );
-  
+
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.VERSION_CHECK.NPM, async () => {
       const npmVersion = await checkTerminalCommandVersion('npm');
