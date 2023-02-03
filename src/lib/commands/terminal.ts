@@ -51,7 +51,7 @@ export const registerCommands = (context: ExtensionContext) => {
       }, POLLING_INTERVALS.FAST);
 
       terminal.sendText(
-        "echo 'Updating the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
+        "echo 'Updating the HubSpot CLI.' && npm remove -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
       );
     })
   );
@@ -116,7 +116,7 @@ export const registerCommands = (context: ExtensionContext) => {
       return hsVersion;
     })
   );
-
+  
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.VERSION_CHECK.NPM, async () => {
       const npmVersion = await checkTerminalCommandVersion('npm');
