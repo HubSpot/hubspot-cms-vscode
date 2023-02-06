@@ -42,7 +42,7 @@ export const registerCommands = (context: ExtensionContext) => {
       ).includes('@hubspot/cms-cli');
       if (hsLegacyInstalled) {
         const selection = await window.showWarningMessage(
-          'The legacy Hubspot CLI (@hubspot/cms-cli) must be removed to update. Continue?',
+          'The legacy Hubspot CLI (@hubspot/cms-cli) will be removed to update. Continue?',
           ...['Okay', 'Cancel']
         );
         if (!selection || selection === 'Cancel') {
