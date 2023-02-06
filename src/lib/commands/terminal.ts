@@ -65,7 +65,7 @@ export const registerCommands = (context: ExtensionContext) => {
       }, POLLING_INTERVALS.FAST);
 
       terminal.sendText(
-        "echo 'Updating the HubSpot CLI.' && npm remove -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
+        "echo 'Updating the HubSpot CLI.' && npm uninstall -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
       );
     })
   );
