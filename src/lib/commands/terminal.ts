@@ -37,6 +37,20 @@ export const registerCommands = (context: ExtensionContext) => {
       );
       terminal.show();
 
+      const hsLegacyInstalled: boolean = (
+        await runTerminalCommand(`npm list -g`)
+      ).includes('@hubspot/cms-cli');
+      if (hsLegacyInstalled) {
+        const selection = await window.showWarningMessage(
+          'The legacy Hubspot CLI (@hubspot/cms-cli) must be removed to update. Continue?',
+          ...['Okay', 'Cancel']
+        );
+        if (!selection || selection === 'Cancel') {
+          terminal.dispose();
+          return;
+        }
+      }
+
       const hubspotUpdatedPoll = setInterval(async () => {
         const hsVersion = await commands.executeCommand(
           COMMANDS.VERSION_CHECK.HS
