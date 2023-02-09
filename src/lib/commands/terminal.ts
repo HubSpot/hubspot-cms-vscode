@@ -37,6 +37,20 @@ export const registerCommands = (context: ExtensionContext) => {
       );
       terminal.show();
 
+      const hsLegacyInstalled: boolean = (
+        await runTerminalCommand(`npm list -g`)
+      ).includes('@hubspot/cms-cli');
+      if (hsLegacyInstalled) {
+        const selection = await window.showWarningMessage(
+          'The legacy Hubspot CLI (@hubspot/cms-cli) will be removed to update. Continue?',
+          ...['Okay', 'Cancel']
+        );
+        if (!selection || selection === 'Cancel') {
+          terminal.dispose();
+          return;
+        }
+      }
+
       const hubspotUpdatedPoll = setInterval(async () => {
         const hsVersion = await commands.executeCommand(
           COMMANDS.VERSION_CHECK.HS
@@ -51,7 +65,7 @@ export const registerCommands = (context: ExtensionContext) => {
       }, POLLING_INTERVALS.FAST);
 
       terminal.sendText(
-        "echo 'Updating the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
+        "echo 'Updating the HubSpot CLI.' && npm uninstall -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
       );
     })
   );
