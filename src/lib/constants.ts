@@ -83,6 +83,7 @@ export const EVENTS = {
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
   HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
+  REMOTE: 'hubspot.treedata.remoteFs',
 };
 
 export const POLLING_INTERVALS = {
