@@ -56,7 +56,8 @@ export interface HubLValidationError {
 
 export interface FileLink {
   label: string;
-  url: string;
+  url?: string;
+  path?: string;
   icon: string;
 }
 

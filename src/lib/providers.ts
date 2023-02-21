@@ -5,7 +5,7 @@ import { COMMANDS, TREE_DATA } from './constants';
 import { AccountsProvider } from './providers/treedata/accounts';
 import { HelpAndFeedbackProvider } from './providers/treedata/helpAndFeedback';
 import { RemoteFileProvider } from './providers/remoteFileProvider';
-import { RemoteFsProvider } from './providers/remoteFs';
+import { RemoteFsProvider } from './providers/remoteFsProvider';
 
 const initializeTreeDataProviders = (context: ExtensionContext) => {
   const accountProvider = new AccountsProvider();
@@ -40,6 +40,12 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
     helpAndFeedbackProvider
   );
   window.registerTreeDataProvider(TREE_DATA.REMOTE, remoteFsProvider)
+  context.subscriptions.push(
+    commands.registerCommand(COMMANDS.REMOTE_FS.REFRESH, () => {
+      console.log(COMMANDS.REMOTE_FS.REFRESH);
+      remoteFsProvider.refresh();
+    })
+  )
 };
 
 export const initializeProviders = (context: ExtensionContext) => {

@@ -248,6 +248,10 @@
                 "command": "hubspot.account.viewPersonalAccessKey",
                 "title": "Show personal access key info",
                 "icon": "$(link-external)"
+            },
+            {
+                "command": "hubspot.remoteFs.refresh",
+                "title": "Refresh"
             }
         ],
         "submenus": [
@@ -320,6 +324,12 @@
                     "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem",
                     "group": "accountTreeItemRightClick@1"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "hubspot.remoteFs.refresh",
+                    "when": "view == hubspot.treedata.remoteFs"
                 }
             ],
             "commandPalette": [
@@ -443,6 +453,10 @@
                 "view": "hubspot.viewsWelcome.noFolderOpened",
                 "contents": "You have not yet opened a folder.\n[Open Folder](command:workbench.action.files.openFileFolder)\nYou can clone a repository locally.\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read our docs](https://code.visualstudio.com/docs/sourcecontrol/overview).",
                 "when": "workbench.explorer.emptyView.active"
+            },
+            {
+                "view": "hubspot.treedata.remoteFs",
+                "contents": "No remote file system contents found. Default portal may not be set, or portal remote file system may be empty."
             }
         ]
     },

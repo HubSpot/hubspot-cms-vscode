@@ -68,6 +68,9 @@ export const COMMANDS = {
   PANELS: {
     OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
   },
+  REMOTE_FS: {
+    REFRESH: 'hubspot.remoteFs.refresh'
+  },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
     HS_LATEST: 'hubspot.versionCheck.hs.latest',
