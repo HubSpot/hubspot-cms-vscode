@@ -7,7 +7,7 @@ import {
   EventEmitter,
   Event,
 } from 'vscode';
-import { FileLink, GetDirectoryContentsByPath } from '../types';
+import { FileLink, RemoteFsDirectory } from '../types';
 
 const {
   getDirectoryContentsByPath,
@@ -51,9 +51,8 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
     const remoteDirectory: string = parent?.path ? parent.path : '/';
-    const directoryContents: GetDirectoryContentsByPath =
+    const directoryContents: RemoteFsDirectory =
       await getDirectoryContentsByPath(getPortalId(), remoteDirectory);
-    //@ts-ignore
     const fileOrFolderList = directoryContents.children.map((f) => {
       return isPathFolder(f)
         ? {

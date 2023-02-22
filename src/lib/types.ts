@@ -61,6 +61,9 @@ export interface FileLink {
   icon: string;
 }
 
-export interface GetDirectoryContentsByPath {
-  any: any;
+export interface RemoteFsDirectory {
+  id: string;
+  name: string;
+  folder: boolean;
+  children: string[];
 }
