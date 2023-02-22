@@ -1,4 +1,10 @@
-import { commands, languages, window, ExtensionContext, workspace } from 'vscode';
+import {
+  commands,
+  languages,
+  window,
+  ExtensionContext,
+  workspace,
+} from 'vscode';
 import { FileCompletionProvider } from './providers/fileCompletion';
 import { COMMANDS, TREE_DATA } from './constants';
 
@@ -22,11 +28,8 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
     })
   );
   context.subscriptions.push(
-    workspace.registerTextDocumentContentProvider(
-      scheme,
-      remoteFileProvider
-    )
-  )
+    workspace.registerTextDocumentContentProvider(scheme, remoteFileProvider)
+  );
 
   languages.registerCompletionItemProvider(
     'html-hubl',
@@ -39,13 +42,13 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
     TREE_DATA.HELP_AND_FEEDBACK,
     helpAndFeedbackProvider
   );
-  window.registerTreeDataProvider(TREE_DATA.REMOTE, remoteFsProvider)
+  window.registerTreeDataProvider(TREE_DATA.REMOTE, remoteFsProvider);
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.REMOTE_FS.REFRESH, () => {
       console.log(COMMANDS.REMOTE_FS.REFRESH);
       remoteFsProvider.refresh();
     })
-  )
+  );
 };
 
 export const initializeProviders = (context: ExtensionContext) => {

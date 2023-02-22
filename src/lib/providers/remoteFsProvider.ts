@@ -5,7 +5,7 @@ import {
   TreeItemCollapsibleState,
   ThemeIcon,
   EventEmitter,
-  Event
+  Event,
 } from 'vscode';
 import { FileLink, GetDirectoryContentsByPath } from '../types';
 
@@ -21,21 +21,32 @@ function isPathFolder(path: string) {
   const splitName = fileOrFolderName.split('.');
 
   return !(
-    splitName.length > 1 &&
-    FOLDER_DOT_EXTENSIONS.indexOf(splitName[1]) === -1
+    splitName.length > 1 && FOLDER_DOT_EXTENSIONS.indexOf(splitName[1]) === -1
   );
 }
 export class RemoteFsProvider implements TreeDataProvider<FileLink> {
-  private _onDidChangeTreeData: EventEmitter<FileLink | undefined | null | void> = new EventEmitter<FileLink | undefined | null | void>();
-  readonly onDidChangeTreeData: Event<void | FileLink | null | undefined> = this._onDidChangeTreeData.event; 
+  private _onDidChangeTreeData: EventEmitter<
+    FileLink | undefined | null | void
+  > = new EventEmitter<FileLink | undefined | null | void>();
+  readonly onDidChangeTreeData: Event<void | FileLink | null | undefined> =
+    this._onDidChangeTreeData.event;
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
   getTreeItem(q: FileLink): TreeItem {
     return q.url
-      ? new RemoteFsTreeItem(q.label, q.icon, TreeItemCollapsibleState.None, Uri.parse(q.url))
-      : new RemoteFsTreeItem(q.label, q.icon, TreeItemCollapsibleState.Collapsed);
+      ? new RemoteFsTreeItem(
+          q.label,
+          q.icon,
+          TreeItemCollapsibleState.None,
+          Uri.parse(q.url)
+        )
+      : new RemoteFsTreeItem(
+          q.label,
+          q.icon,
+          TreeItemCollapsibleState.Collapsed
+        );
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
@@ -46,15 +57,15 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     const fileOrFolderList = directoryContents.children.map((f) => {
       return isPathFolder(f)
         ? {
-          label: f,
-          path: parent ? `${parent.path}/${f}` : f,
-          icon: 'symbol-folder'
-        }
+            label: f,
+            path: parent ? `${parent.path}/${f}` : f,
+            icon: 'symbol-folder',
+          }
         : {
-          label: f,
-          url: parent ? `hubl:${parent.path}/${f}` : `hubl:${f}`,
-          icon: 'file-code'
-        };
+            label: f,
+            url: parent ? `hubl:${parent.path}/${f}` : `hubl:${f}`,
+            icon: 'file-code',
+          };
     });
     return Promise.resolve(fileOrFolderList);
   }
@@ -65,7 +76,7 @@ export class RemoteFsTreeItem extends TreeItem {
     public readonly label: string,
     public readonly icon: string,
     public readonly collapsibleState: TreeItemCollapsibleState,
-    public readonly resourceUri?: Uri,
+    public readonly resourceUri?: Uri
   ) {
     super(label, collapsibleState);
     this.contextValue = 'remoteFsTreeItem';
