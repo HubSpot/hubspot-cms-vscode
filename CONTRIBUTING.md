@@ -6,6 +6,7 @@ _Note_: HubL tags, functions, expression tests and filters are all pulled from t
 
 ### To run this extension locally:
 - `git clone` repo
+- Compile the extension with `npm run dev`
 - Open this project in Visual Studio Code
 - Press `f5` to launch a new VSCode window with the extension installed
 - Press `CMD` + `R` to reload the window after having made any changes
