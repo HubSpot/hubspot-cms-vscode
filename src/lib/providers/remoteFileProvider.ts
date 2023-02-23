@@ -1,15 +1,18 @@
-import * as vscode from 'vscode';
+import {
+  TextDocumentContentProvider,
+  EventEmitter,
+  Uri
+} from 'vscode';
 const { download } = require('@hubspot/cli-lib/api/fileMapper');
 const { getPortalId } = require('@hubspot/cli-lib');
 
-export const RemoteFileProvider = new (class
-  implements vscode.TextDocumentContentProvider
+export const RemoteFileProvider = new (class implements TextDocumentContentProvider
 {
-  onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
+  onDidChangeEmitter = new EventEmitter<Uri>();
   onDidChange = this.onDidChangeEmitter.event;
 
   async provideTextDocumentContent(
-    uri: vscode.Uri
+    uri: Uri
   ): Promise<string | undefined> {
     const filepath = uri.toString().split(':')[1];
     try {
