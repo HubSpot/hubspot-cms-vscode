@@ -34,17 +34,17 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
-  getTreeItem(q: FileLink): TreeItem {
-    return q.url
+  getTreeItem(fileLink: FileLink): TreeItem {
+    return fileLink.url
       ? new RemoteFsTreeItem(
-          q.label,
-          q.icon,
+          fileLink.label,
+          fileLink.icon,
           TreeItemCollapsibleState.None,
-          Uri.parse(q.url)
+          Uri.parse(fileLink.url)
         )
       : new RemoteFsTreeItem(
-          q.label,
-          q.icon,
+          fileLink.label,
+          fileLink.icon,
           TreeItemCollapsibleState.Collapsed
         );
   }
