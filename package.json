@@ -252,6 +252,14 @@
             {
                 "command": "hubspot.remoteFs.refresh",
                 "title": "Refresh"
+            },
+            {
+                "command": "hubspot.remoteFs.preview",
+                "title": "Preview"
+            },
+            {
+                "command": "hubspot.remoteFs.delete",
+                "title": "Delete"
             }
         ],
         "submenus": [
@@ -324,6 +332,14 @@
                     "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem",
                     "group": "accountTreeItemRightClick@1"
+                },
+                {
+                    "command": "hubspot.remoteFs.preview",
+                    "when": "viewItem == remoteFsTreeItem"
+                },
+                {
+                    "command": "hubspot.remoteFs.delete",
+                    "when": "viewItem == remoteFsTreeItem"
                 }
             ],
             "view/title": [

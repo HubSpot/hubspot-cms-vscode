@@ -8,7 +8,7 @@ import { registerCommands as registerNotificationCommands } from './commands/not
 import { registerCommands as registerServerlessCommands } from './commands/serverless';
 import { registerCommands as registerTemplateCommands } from './commands/templates';
 import { registerCommands as registerTerminalCommands } from './commands/terminal';
-
+import { registerCommands as registerRemoteFsCommands } from './commands/remoteFs';
 export const registerCommands = (
   context: ExtensionContext,
   rootPath: string | undefined
@@ -24,4 +24,5 @@ export const registerCommands = (
   registerServerlessCommands(context);
   registerTemplateCommands(context);
   registerTerminalCommands(context);
+  registerRemoteFsCommands(context);
 };

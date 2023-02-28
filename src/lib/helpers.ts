@@ -5,10 +5,11 @@ const { exec } = require('node:child_process');
 
 export const getRootPath = () => {
   const workspaceFolders = workspace.workspaceFolders;
-
   if (!workspaceFolders || workspaceFolders.length < 1) {
     return;
   }
+  console.log(workspaceFolders[0].uri);
+
   return workspaceFolders[0].uri.path;
 };
 

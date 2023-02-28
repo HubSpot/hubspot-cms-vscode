@@ -70,6 +70,8 @@ export const COMMANDS = {
   },
   REMOTE_FS: {
     REFRESH: 'hubspot.remoteFs.refresh',
+    PREVIEW: 'hubspot.remoteFs.preview',
+    DELETE: 'hubspot.remoteFs.delete',
   },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
