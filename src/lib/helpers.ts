@@ -34,21 +34,19 @@ export const runTerminalCommand = async (
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     try {
-      const cmd = process.platform === 'win32'
-        ? `${terminalCommand} & exit`
-        : `${terminalCommand} && exit`;
-      exec(
-        cmd,
-        (error: Error, stdout: string, stderr: string) => {
-          const err = error || stderr;
+      const cmd =
+        process.platform === 'win32'
+          ? `${terminalCommand} & exit`
+          : `${terminalCommand} && exit`;
+      exec(cmd, (error: Error, stdout: string, stderr: string) => {
+        const err = error || stderr;
 
-          if (err) {
-            reject(err);
-          } else {
-            resolve(stdout);
-          }
+        if (err) {
+          reject(err);
+        } else {
+          resolve(stdout);
         }
-      );
+      });
     } catch (e) {
       reject(e);
     }
@@ -60,9 +58,10 @@ export const checkTerminalCommandVersion = async (
 ): Promise<string | undefined> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const cmd = process.platform === 'win32'
-        ? `where ${terminalCommand}`
-        : `which ${terminalCommand}`;
+      const cmd =
+        process.platform === 'win32'
+          ? `where ${terminalCommand}`
+          : `which ${terminalCommand}`;
       const pathOutputMaybe = await runTerminalCommand(cmd);
       if (pathOutputMaybe === `${terminalCommand} not found`) {
         // Command is not installed/found

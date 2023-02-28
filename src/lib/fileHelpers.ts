@@ -45,10 +45,7 @@ const buildFileCreateListener = (
   cleanupCallback: Function
 ) => {
   return async (e: FileCreateEvent) => {
-    if (
-      e.files?.length === 1 &&
-      e.files[0].fsPath.startsWith(folderPath)
-    ) {
+    if (e.files?.length === 1 && e.files[0].fsPath.startsWith(folderPath)) {
       cleanupCallback();
       const uniqueFilePath = getUniquePathName(e.files[0].fsPath, extension);
       if (e.files[0].fsPath !== uniqueFilePath) {

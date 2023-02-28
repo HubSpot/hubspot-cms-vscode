@@ -93,6 +93,8 @@ export const trackEvent = async (action: string, options?: object) => {
     accountId
   ).then(
     (val: any) => {},
-    (err: any) => { console.error(`trackUsage failed: ${err}`) }
+    (err: any) => {
+      console.error(`trackUsage failed: ${err}`);
+    }
   );
 };
