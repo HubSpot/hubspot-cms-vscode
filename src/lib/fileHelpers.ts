@@ -47,7 +47,7 @@ const buildFileCreateListener = (
   return async (e: FileCreateEvent) => {
     if (
       e.files?.length === 1 &&
-      new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
+      e.files[0].fsPath.startsWith(folderPath)
     ) {
       cleanupCallback();
       const uniqueFilePath = getUniquePathName(e.files[0].fsPath, extension);
@@ -89,7 +89,7 @@ const buildFolderCreateListener = (
 
           if (
             e.files?.length === 1 &&
-            new RegExp(`${folderPath}/.*`).test(e.files[0].fsPath)
+            e.files[0].fsPath.startsWith(folderPath)
           ) {
             cleanupCallback();
             const uniqueFolderPath = getUniquePathName(

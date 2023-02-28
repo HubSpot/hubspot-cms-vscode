@@ -9,7 +9,7 @@ export const getRootPath = () => {
   if (!workspaceFolders || workspaceFolders.length < 1) {
     return;
   }
-  return workspaceFolders[0].uri.path;
+  return workspaceFolders[0].uri.fsPath;
 };
 
 export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
@@ -34,8 +34,11 @@ export const runTerminalCommand = async (
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     try {
+      const cmd = process.platform === 'win32'
+        ? `${terminalCommand} & exit`
+        : `${terminalCommand} && exit`;
       exec(
-        `${terminalCommand} && exit`,
+        cmd,
         (error: Error, stdout: string, stderr: string) => {
           const err = error || stderr;
 
@@ -57,9 +60,10 @@ export const checkTerminalCommandVersion = async (
 ): Promise<string | undefined> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const pathOutputMaybe = await runTerminalCommand(
-        `which ${terminalCommand}`
-      );
+      const cmd = process.platform === 'win32'
+        ? `where ${terminalCommand}`
+        : `which ${terminalCommand}`;
+      const pathOutputMaybe = await runTerminalCommand(cmd);
       if (pathOutputMaybe === `${terminalCommand} not found`) {
         // Command is not installed/found
         resolve(undefined);
