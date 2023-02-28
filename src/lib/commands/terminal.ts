@@ -76,7 +76,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(COMMANDS.VERSION_CHECK.HS_LATEST, async () => {
       const hsVersion = (await runTerminalCommand('hs --version')).trim();
       const cmd = process.platform === 'win32'
-        ? `npm info @hubspot/cli@latest | findstr 'latest'`
+        ? `npm info @hubspot/cli@latest | findstr "latest"`
         : `npm info @hubspot/cli@latest | grep 'latest'`;
       const nodeLatestLine: string = await runTerminalCommand(cmd);
       const latestHsVersion = nodeLatestLine
