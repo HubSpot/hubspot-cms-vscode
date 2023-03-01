@@ -2,6 +2,10 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.0.2]
+
+- Fixed issues preventing the extension from function properly on Windows machines.
+
 ## [1.0.1]
 
 - Fixed issue where CLI update flow would break when user had a legacy CLI version installed 
