@@ -23,9 +23,11 @@ export const registerCommands = (context: ExtensionContext) => {
         }
       }, POLLING_INTERVALS.FAST);
 
-      terminal.sendText(
-        "echo 'Installing the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Installation complete. You can now close this terminal window.'"
-      );
+      const cmd =
+        process.platform === 'win32'
+          ? "echo 'Installing the HubSpot CLI.' & npm i -g @hubspot/cli@latest & echo 'Installation complete. You can now close this terminal window.'"
+          : "echo 'Installing the HubSpot CLI.' && npm i -g @hubspot/cli@latest && echo 'Installation complete. You can now close this terminal window.'";
+      terminal.sendText(cmd);
     })
   );
 
@@ -64,18 +66,22 @@ export const registerCommands = (context: ExtensionContext) => {
         }
       }, POLLING_INTERVALS.FAST);
 
-      terminal.sendText(
-        "echo 'Updating the HubSpot CLI.' && npm uninstall -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'"
-      );
+      const cmd =
+        process.platform === 'win32'
+          ? "echo 'Updating the HubSpot CLI.' & npm uninstall -g @hubspot/cms-cli & npm i -g @hubspot/cli@latest & echo 'Update complete. You can now close this terminal window.'"
+          : "echo 'Updating the HubSpot CLI.' && npm uninstall -g @hubspot/cms-cli && npm i -g @hubspot/cli@latest && echo 'Update complete. You can now close this terminal window.'";
+      terminal.sendText(cmd);
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.VERSION_CHECK.HS_LATEST, async () => {
       const hsVersion = (await runTerminalCommand('hs --version')).trim();
-      const nodeLatestLine: string = await runTerminalCommand(
-        `npm info @hubspot/cli@latest | grep 'latest'`
-      );
+      const cmd =
+        process.platform === 'win32'
+          ? `npm info @hubspot/cli@latest | findstr "latest"`
+          : `npm info @hubspot/cli@latest | grep 'latest'`;
+      const nodeLatestLine: string = await runTerminalCommand(cmd);
       const latestHsVersion = nodeLatestLine
         .replace(
           // Remove ANSI color styles https://stackoverflow.com/a/29497680
