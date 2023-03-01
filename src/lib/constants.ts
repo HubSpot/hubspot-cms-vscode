@@ -68,6 +68,9 @@ export const COMMANDS = {
   PANELS: {
     OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
   },
+  REMOTE_FS: {
+    REFRESH: 'hubspot.remoteFs.refresh',
+  },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
     HS_LATEST: 'hubspot.versionCheck.hs.latest',
@@ -83,6 +86,7 @@ export const EVENTS = {
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
   HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
+  REMOTE: 'hubspot.treedata.remoteFs',
 };
 
 export const POLLING_INTERVALS = {
