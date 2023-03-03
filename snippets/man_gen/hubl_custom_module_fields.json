@@ -136,6 +136,7 @@
       "\"required\": false,",
       "\"locked\": false,",
       "\"validation_regex\": \"\",",
+      "\"validation_error_message\": \"\",",
       "\"allow_new_line\": false,",
       "\"show_emoji_picker\": false,",
       "\"type\": \"text\",",
