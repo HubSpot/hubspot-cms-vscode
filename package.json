@@ -254,10 +254,6 @@
                 "title": "Refresh"
             },
             {
-                "command": "hubspot.remoteFs.preview",
-                "title": "Preview"
-            },
-            {
                 "command": "hubspot.remoteFs.delete",
                 "title": "Delete"
             }
@@ -332,10 +328,6 @@
                     "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem",
                     "group": "accountTreeItemRightClick@1"
-                },
-                {
-                    "command": "hubspot.remoteFs.preview",
-                    "when": "viewItem == remoteFsTreeItem"
                 },
                 {
                     "command": "hubspot.remoteFs.delete",

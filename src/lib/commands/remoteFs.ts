@@ -2,15 +2,8 @@ import { ExtensionContext, window, commands } from 'vscode';
 import { COMMANDS } from '../constants';
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
 const { getPortalId } = require('@hubspot/cli-lib');
-const { getThemePreviewUrl } = require('@hubspot/cli-lib/lib/files');
 
 export const registerCommands = (context: ExtensionContext) => {
-    context.subscriptions.push(
-        commands.registerCommand(COMMANDS.REMOTE_FS.PREVIEW, (clickedFileLink) => {
-            console.log(COMMANDS.REMOTE_FS.PREVIEW);
-        
-        })
-    )
     context.subscriptions.push(
         commands.registerCommand(COMMANDS.REMOTE_FS.DELETE, async (clickedFileLink) => {
             console.log(COMMANDS.REMOTE_FS.DELETE);
