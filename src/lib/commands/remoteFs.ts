@@ -1,3 +1,5 @@
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
 import { COMMANDS } from '../constants';
 import { getRootPath } from '../helpers';
@@ -11,7 +13,7 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.REMOTE_FS.FETCH,
       async (clickedFileLink) => {
         const fileLinkIsFolder = clickedFileLink.icon === 'symbol-folder';
-        const filePath = fileLinkIsFolder
+        const remoteFilePath = fileLinkIsFolder
           ? clickedFileLink.path
           : clickedFileLink.url.slice(5);
         // We use showOpenDialog instead of showSaveDialog because the latter has worse support for this use-case
@@ -26,17 +28,29 @@ export const registerCommands = (context: ExtensionContext) => {
             path: getRootPath(),
           }),
         });
-        if (destPath === undefined) {
+        if (destPath === undefined) { // User didn't select anything
           return;
         }
+        const localFilePath = join(destPath[0].fsPath, remoteFilePath.split('/').slice(-1)[0]);
+        if (existsSync(localFilePath)) {
+          const selection = await window.showWarningMessage(
+            `There already exists a file at ${localFilePath}. Overwrite it?`,
+            ...['Okay', 'Cancel']
+          );
+          if (!selection || selection === 'Cancel') {
+            return;
+          }
+        }
         console.log(
-          `Saving remote file ${filePath} to filesystem path ${destPath[0].fsPath}`
+          `Saving remote file ${remoteFilePath} to filesystem path ${destPath[0].fsPath}`
         );
         await downloadFileOrFolder({
           accountId: getPortalId(),
-          src: filePath,
-          dest: destPath[0].fsPath,
-          options: {},
+          src: remoteFilePath,
+          dest: localFilePath,
+          options: {
+            overwrite: true
+          },
         });
       }
     )
