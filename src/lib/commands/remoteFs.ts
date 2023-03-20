@@ -28,10 +28,14 @@ export const registerCommands = (context: ExtensionContext) => {
             path: getRootPath(),
           }),
         });
-        if (destPath === undefined) { // User didn't select anything
+        if (destPath === undefined) {
+          // User didn't select anything
           return;
         }
-        const localFilePath = join(destPath[0].fsPath, remoteFilePath.split('/').slice(-1)[0]);
+        const localFilePath = join(
+          destPath[0].fsPath,
+          remoteFilePath.split('/').slice(-1)[0]
+        );
         if (existsSync(localFilePath)) {
           const selection = await window.showWarningMessage(
             `There already exists a file at ${localFilePath}. Overwrite it?`,
@@ -49,7 +53,7 @@ export const registerCommands = (context: ExtensionContext) => {
           src: remoteFilePath,
           dest: localFilePath,
           options: {
-            overwrite: true
+            overwrite: true,
           },
         });
       }
