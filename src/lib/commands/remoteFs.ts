@@ -42,7 +42,7 @@ export const registerCommands = (context: ExtensionContext) => {
           }
         }
         console.log(
-          `Saving remote file ${remoteFilePath} to filesystem path ${destPath[0].fsPath}`
+          `Saving remote file ${remoteFilePath} to filesystem path ${localFilePath}`
         );
         await downloadFileOrFolder({
           accountId: getPortalId(),
