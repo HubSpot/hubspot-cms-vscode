@@ -42,7 +42,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   invalidateCache(filePath: string): void {
-    console.log(`Invalidating cache for ${filePath}`)
+    console.log(`Invalidating cache for ${filePath}`);
     this.remoteFsCache.delete(filePath);
     this.refresh();
   }
@@ -67,7 +67,10 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {
-      directoryContents = await getDirectoryContentsByPath(getPortalId(), remoteDirectory);
+      directoryContents = await getDirectoryContentsByPath(
+        getPortalId(),
+        remoteDirectory
+      );
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
     const fileOrFolderList = directoryContents.children.map((f: string) => {

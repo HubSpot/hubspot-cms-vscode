@@ -79,10 +79,13 @@ export const registerCommands = (context: ExtensionContext) => {
         deleteFile(getPortalId(), filePath).then(() => {
           window.showInformationMessage(`Successfully deleted ${filePath}`);
           let parentDirectory = dirname(filePath);
-          if (parentDirectory === '.') { 
+          if (parentDirectory === '.') {
             parentDirectory = '/';
           }
-          commands.executeCommand('hubspot.remoteFs.invalidateCache', parentDirectory);
+          commands.executeCommand(
+            'hubspot.remoteFs.invalidateCache',
+            parentDirectory
+          );
           commands.executeCommand('hubspot.remoteFs.refresh');
         });
       }

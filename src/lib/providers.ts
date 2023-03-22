@@ -56,11 +56,14 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
     })
   );
   context.subscriptions.push(
-    commands.registerCommand(COMMANDS.REMOTE_FS.INVALIDATE_CACHE, (filePath) => {
-      console.log(COMMANDS.REMOTE_FS.INVALIDATE_CACHE);
-      remoteFsProvider.invalidateCache(filePath)
-    })
-  )
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.INVALIDATE_CACHE,
+      (filePath) => {
+        console.log(COMMANDS.REMOTE_FS.INVALIDATE_CACHE);
+        remoteFsProvider.invalidateCache(filePath);
+      }
+    )
+  );
 };
 
 export const initializeProviders = (context: ExtensionContext) => {
