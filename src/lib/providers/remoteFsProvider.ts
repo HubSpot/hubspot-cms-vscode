@@ -30,10 +30,23 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   > = new EventEmitter<FileLink | undefined | null | void>();
   readonly onDidChangeTreeData: Event<void | FileLink | null | undefined> =
     this._onDidChangeTreeData.event;
+  private remoteFsCache: Map<string, RemoteFsDirectory> = new Map();
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
+
+  hardRefresh(): void {
+    this.remoteFsCache.clear();
+    this.refresh();
+  }
+
+  invalidateCache(filePath: string): void {
+    console.log(`Invalidating cache for ${filePath}`)
+    this.remoteFsCache.delete(filePath);
+    this.refresh();
+  }
+
   getTreeItem(fileLink: FileLink): TreeItem {
     return fileLink.url
       ? new RemoteFsTreeItem(
@@ -51,9 +64,13 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
     const remoteDirectory: string = parent?.path ? parent.path : '/';
-    const directoryContents: RemoteFsDirectory =
-      await getDirectoryContentsByPath(getPortalId(), remoteDirectory);
-    const fileOrFolderList = directoryContents.children.map((f) => {
+
+    let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
+    if (directoryContents === undefined) {
+      directoryContents = await getDirectoryContentsByPath(getPortalId(), remoteDirectory);
+      this.remoteFsCache.set(remoteDirectory, directoryContents);
+    }
+    const fileOrFolderList = directoryContents.children.map((f: string) => {
       return isPathFolder(f)
         ? {
             label: f,
