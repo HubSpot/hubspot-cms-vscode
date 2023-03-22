@@ -43,7 +43,12 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   invalidateCache(filePath: string): void {
     console.log(`Invalidating cache for ${filePath}`);
-    this.remoteFsCache.delete(filePath);
+    // Invalidate the key itself and all child paths
+    for (const key of this.remoteFsCache.keys()) {
+      if (key.startsWith(filePath)) {
+        this.remoteFsCache.delete(key);
+      }
+    }
     this.refresh();
   }
 
