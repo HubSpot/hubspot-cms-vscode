@@ -254,6 +254,10 @@
                 "title": "Refresh"
             },
             {
+                "command": "hubspot.remoteFs.upload",
+                "title": "Upload"
+            },
+            {
 
                 "command": "hubspot.remoteFs.fetch",
                 "title": "Fetch"
@@ -289,6 +293,10 @@
                     "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "hubspot.configPath && explorerResourceIsFolder && resource =~ /^(?!.*\\.functions).*$/",
                     "group": "navigation@999"
+                },
+                {
+                    "command": "hubspot.remoteFs.upload",
+                    "when": "hubspot.configPath"
                 }
             ],
             "hubspot.submenus.template": [
@@ -346,6 +354,10 @@
             "view/title": [
                 {
                     "command": "hubspot.remoteFs.refresh",
+                    "when": "view == hubspot.treedata.remoteFs"
+                },
+                {
+                    "command": "hubspot.remoteFs.upload",
                     "when": "view == hubspot.treedata.remoteFs"
                 }
             ],

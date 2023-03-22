@@ -72,6 +72,7 @@ export const COMMANDS = {
     REFRESH: 'hubspot.remoteFs.refresh',
     FETCH: 'hubspot.remoteFs.fetch',
     DELETE: 'hubspot.remoteFs.delete',
+    UPLOAD: 'hubspot.remoteFs.upload',
   },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
