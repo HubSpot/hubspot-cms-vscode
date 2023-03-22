@@ -251,16 +251,7 @@
             },
             {
                 "command": "hubspot.remoteFs.refresh",
-                "title": "Refresh"
-            },
-            {
-                "command": "hubspot.remoteFs.upload",
-                "title": "Upload"
-            },
-            {
-
-                "command": "hubspot.remoteFs.fetch",
-                "title": "Cached Fetch"
+                "title": "Cached Refresh"
             },
             {
                 "command": "hubspot.remoteFs.hardRefresh",
@@ -269,6 +260,14 @@
             {
                 "command": "hubspot.remoteFs.invalidateCache",
                 "title": "Invalidate Cache"
+            },
+            {
+                "command": "hubspot.remoteFs.upload",
+                "title": "Upload"
+            },
+            {
+                "command": "hubspot.remoteFs.fetch",
+                "title": "Fetch"
             },
             {
                 "command": "hubspot.remoteFs.delete",
