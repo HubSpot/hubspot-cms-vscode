@@ -1,5 +1,5 @@
 import { existsSync, statSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
 import { COMMANDS } from '../constants';
 import { getRootPath } from '../helpers';
@@ -83,10 +83,16 @@ export const registerCommands = (context: ExtensionContext) => {
           return;
         }
         deleteFile(getPortalId(), filePath).then(() => {
-          console.log(filePath)
+          window.showInformationMessage(`Successfully deleted ${filePath}`);
+          let parentDirectory = dirname(filePath);
+          if (parentDirectory === '.') {
+            parentDirectory = '/';
+          }
+          commands.executeCommand(
+            'hubspot.remoteFs.invalidateCache',
+            parentDirectory
+          );
           commands.executeCommand('hubspot.remoteFs.refresh');
-        }).catch(() => {
-          console.log(`Error deleting remote file: ${filePath}`)
         });
       }
     )
