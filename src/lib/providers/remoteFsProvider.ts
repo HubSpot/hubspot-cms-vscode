@@ -8,7 +8,7 @@ import {
   Event,
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
-
+import { dirname } from 'path';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/cli-lib/api/fileMapper');
@@ -43,6 +43,16 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   invalidateCache(filePath: string): void {
     console.log(`Invalidating cache for ${filePath}`);
+    /* If it's not in the cache, invalidate the parent directory
+       This helps for uploading when the destination folder doesn't exist yet */
+    if (this.remoteFsCache.get(filePath) === undefined && filePath !== '/') {
+      let parentDirectory = dirname(filePath);
+      if (parentDirectory === '.') {
+        parentDirectory = '/';
+      }
+      return this.invalidateCache(parentDirectory);
+    }
+    
     // Invalidate the key itself and all child paths
     for (const key of this.remoteFsCache.keys()) {
       if (key.startsWith(filePath)) {

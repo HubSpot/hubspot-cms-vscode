@@ -94,9 +94,9 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.UPLOAD,
       async (clickedFileLink) => {
-        let srcPath;
+        let srcPath: string;
         if (clickedFileLink === undefined || !(clickedFileLink instanceof Uri)) { // check if Uri, because having a remoteFs tree item selected will show up here too
-          srcPath = await window.showOpenDialog({
+          const srcUri = await window.showOpenDialog({
             canSelectFiles: true,
             canSelectFolders: true,
             canSelectMany: false,
@@ -107,39 +107,39 @@ export const registerCommands = (context: ExtensionContext) => {
               path: getRootPath(),
             }),
           });
-          if (srcPath === undefined) {
+          if (srcUri === undefined) {
             // User didn't select anything
             return; 
           }
-          srcPath = srcPath[0].fsPath; // showOpenDialog returns an array of size one
+          srcPath = srcUri[0].fsPath; // showOpenDialog returns an array of size one
         } else {
           srcPath = clickedFileLink.fsPath;
         }
-        console.log(srcPath);
         const destPath = await window.showInputBox({
           prompt: "Remote Destination"
         })
         if (destPath === undefined) {
           return;
         }
-        console.log(destPath);
         const srcDestIssues = await validateSrcAndDestPaths(
           { isLocal: true, path: srcPath },
           { isHubSpot: true, path: destPath }
         );
         if (srcDestIssues.length) {
           console.log(srcDestIssues)
-          await window.showErrorMessage('Error validating source and destination path during file upload');
+          srcDestIssues.forEach((issue: any) => {
+            window.showErrorMessage(`Error: ${issue.message}`);
+          });
           return;
         }
         const stats = statSync(srcPath);
         if (stats.isFile()) {
           if (!isAllowedExtension(srcPath)) {
-            await window.showErrorMessage('Disallowed extension');
+            await window.showErrorMessage(`The file "${srcPath}" does not have a valid extension`);
             return;
           }
           if (shouldIgnoreFile(srcPath)) {
-            await window.showErrorMessage('Ignored file');
+            await window.showErrorMessage(`The file "${srcPath}" is being ignored via an .hsignore rule`);
             return;
           }
           upload(
@@ -147,10 +147,10 @@ export const registerCommands = (context: ExtensionContext) => {
             srcPath,
             destPath
           ).then(async () => {
-            window.showInformationMessage('Upload succeded');
+            window.showInformationMessage(`Uploading files to "${destPath}" was successful`);
             invalidateParentDirectoryCache(destPath)
           }).catch(async (error: any) => {
-            await window.showErrorMessage(`Upload error: ${error}`);
+            await window.showErrorMessage(`Uploading file "${srcPath}" to "${destPath}" failed: ${error}`);
           })
         } else {
           const filePaths = await getUploadableFileList(srcPath);
@@ -165,13 +165,14 @@ export const registerCommands = (context: ExtensionContext) => {
             filePaths
           ).then(async (results: any) => {
             if (!hasUploadErrors(results)) {
-              window.showInformationMessage('Upload succeeded');
+              window.showInformationMessage(`Uploading files to "${destPath}" was successful`);
               invalidateParentDirectoryCache(destPath)
             } else {
-              window.showErrorMessage('Some files failed');
+              window.showErrorMessage(`One or more files failed to upload to "${destPath}" in the Design Manager`);
+              console.log(`Upload results contains errors: ${JSON.stringify(results, null, 2)}`);
             }
           }).catch(async (error: any) => {
-            window.showErrorMessage('Upload failed');
+            window.showErrorMessage(`Uploading file "${srcPath}" to "${destPath}" failed: ${error}`);
           }).finally(() => {
             commands.executeCommand('hubspot.remoteFs.refresh');
           })
