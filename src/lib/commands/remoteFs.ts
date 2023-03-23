@@ -84,7 +84,7 @@ export const registerCommands = (context: ExtensionContext) => {
         }
         deleteFile(getPortalId(), filePath).then(() => {
           window.showInformationMessage(`Successfully deleted ${filePath}`);
-          invalidateParentDirectoryCache(filePath)
+          invalidateParentDirectoryCache(filePath);
           commands.executeCommand('hubspot.remoteFs.refresh');
         });
       }
@@ -95,7 +95,11 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.REMOTE_FS.UPLOAD,
       async (clickedFileLink) => {
         let srcPath: string;
-        if (clickedFileLink === undefined || !(clickedFileLink instanceof Uri)) { // check if Uri, because having a remoteFs tree item selected will show up here too
+        if (
+          clickedFileLink === undefined ||
+          !(clickedFileLink instanceof Uri)
+        ) {
+          // check if Uri, because having a remoteFs tree item selected will show up here too
           const srcUri = await window.showOpenDialog({
             canSelectFiles: true,
             canSelectFolders: true,
@@ -109,15 +113,15 @@ export const registerCommands = (context: ExtensionContext) => {
           });
           if (srcUri === undefined) {
             // User didn't select anything
-            return; 
+            return;
           }
           srcPath = srcUri[0].fsPath; // showOpenDialog returns an array of size one
         } else {
           srcPath = clickedFileLink.fsPath;
         }
         const destPath = await window.showInputBox({
-          prompt: "Remote Destination"
-        })
+          prompt: 'Remote Destination',
+        });
         if (destPath === undefined) {
           return;
         }
@@ -126,7 +130,6 @@ export const registerCommands = (context: ExtensionContext) => {
           { isHubSpot: true, path: destPath }
         );
         if (srcDestIssues.length) {
-          console.log(srcDestIssues)
           srcDestIssues.forEach((issue: any) => {
             window.showErrorMessage(`Error: ${issue.message}`);
           });
@@ -135,23 +138,29 @@ export const registerCommands = (context: ExtensionContext) => {
         const stats = statSync(srcPath);
         if (stats.isFile()) {
           if (!isAllowedExtension(srcPath)) {
-            await window.showErrorMessage(`The file "${srcPath}" does not have a valid extension`);
+            await window.showErrorMessage(
+              `The file "${srcPath}" does not have a valid extension`
+            );
             return;
           }
           if (shouldIgnoreFile(srcPath)) {
-            await window.showErrorMessage(`The file "${srcPath}" is being ignored via an .hsignore rule`);
+            await window.showErrorMessage(
+              `The file "${srcPath}" is being ignored via an .hsignore rule`
+            );
             return;
           }
-          upload(
-            getPortalId(),
-            srcPath,
-            destPath
-          ).then(async () => {
-            window.showInformationMessage(`Uploading files to "${destPath}" was successful`);
-            invalidateParentDirectoryCache(destPath)
-          }).catch(async (error: any) => {
-            await window.showErrorMessage(`Uploading file "${srcPath}" to "${destPath}" failed: ${error}`);
-          })
+          upload(getPortalId(), srcPath, destPath)
+            .then(async () => {
+              window.showInformationMessage(
+                `Uploading files to "${destPath}" was successful`
+              );
+              invalidateParentDirectoryCache(destPath);
+            })
+            .catch(async (error: any) => {
+              await window.showErrorMessage(
+                `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+              );
+            });
         } else {
           const filePaths = await getUploadableFileList(srcPath);
           uploadFolder(
@@ -159,27 +168,42 @@ export const registerCommands = (context: ExtensionContext) => {
             srcPath,
             destPath,
             {
-              mode: 'publish'
+              mode: 'publish',
             },
             {},
             filePaths
-          ).then(async (results: any) => {
-            if (!hasUploadErrors(results)) {
-              window.showInformationMessage(`Uploading files to "${destPath}" was successful`);
-              invalidateParentDirectoryCache(destPath)
-            } else {
-              window.showErrorMessage(`One or more files failed to upload to "${destPath}" in the Design Manager`);
-              console.log(`Upload results contains errors: ${JSON.stringify(results, null, 2)}`);
-            }
-          }).catch(async (error: any) => {
-            window.showErrorMessage(`Uploading file "${srcPath}" to "${destPath}" failed: ${error}`);
-          }).finally(() => {
-            commands.executeCommand('hubspot.remoteFs.refresh');
-          })
+          )
+            .then(async (results: any) => {
+              if (!hasUploadErrors(results)) {
+                window.showInformationMessage(
+                  `Uploading files to "${destPath}" was successful`
+                );
+                invalidateParentDirectoryCache(destPath);
+              } else {
+                window.showErrorMessage(
+                  `One or more files failed to upload to "${destPath}" in the Design Manager`
+                );
+                console.log(
+                  `Upload results contains errors: ${JSON.stringify(
+                    results,
+                    null,
+                    2
+                  )}`
+                );
+              }
+            })
+            .catch(async (error: any) => {
+              window.showErrorMessage(
+                `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+              );
+            })
+            .finally(() => {
+              commands.executeCommand('hubspot.remoteFs.refresh');
+            });
         }
       }
     )
-  )
+  );
 };
 
 const getUploadableFileList = async (src: any) => {
@@ -188,15 +212,12 @@ const getUploadableFileList = async (src: any) => {
     .filter((file: any) => isAllowedExtension(file))
     .filter(createIgnoreFilter());
   return allowedFiles;
-}
+};
 
 const invalidateParentDirectoryCache = (filePath: string) => {
   let parentDirectory = dirname(filePath);
   if (parentDirectory === '.') {
     parentDirectory = '/';
   }
-  commands.executeCommand(
-    'hubspot.remoteFs.invalidateCache',
-    parentDirectory
-  );
-}
+  commands.executeCommand('hubspot.remoteFs.invalidateCache', parentDirectory);
+};

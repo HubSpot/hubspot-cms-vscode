@@ -35,7 +35,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
-   
+
   hardRefresh(): void {
     this.remoteFsCache.clear();
     this.refresh();
@@ -52,7 +52,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       }
       return this.invalidateCache(parentDirectory);
     }
-    
+
     // Invalidate the key itself and all child paths
     for (const key of this.remoteFsCache.keys()) {
       if (key.startsWith(filePath)) {
