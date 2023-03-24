@@ -138,69 +138,9 @@ export const registerCommands = (context: ExtensionContext) => {
         }
         const stats = statSync(srcPath);
         if (stats.isFile()) {
-          if (!isAllowedExtension(srcPath)) {
-            await window.showErrorMessage(
-              `The file "${srcPath}" does not have a valid extension`
-            );
-            return;
-          }
-          if (shouldIgnoreFile(srcPath)) {
-            await window.showErrorMessage(
-              `The file "${srcPath}" is being ignored via an .hsignore rule`
-            );
-            return;
-          }
-          upload(getPortalId(), srcPath, destPath)
-            .then(async () => {
-              window.showInformationMessage(
-                `Uploading files to "${destPath}" was successful`
-              );
-              invalidateParentDirectoryCache(destPath);
-            })
-            .catch(async (error: any) => {
-              await window.showErrorMessage(
-                `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
-              );
-            });
+          handleFileUpload(srcPath, destPath);
         } else {
-          const filePaths = await getUploadableFileList(srcPath);
-          uploadFolder(
-            getPortalId(),
-            srcPath,
-            destPath,
-            {
-              mode: 'publish',
-            },
-            {},
-            filePaths
-          )
-            .then(async (results: any) => {
-              if (!hasUploadErrors(results)) {
-                window.showInformationMessage(
-                  `Uploading files to "${destPath}" was successful`
-                );
-                invalidateParentDirectoryCache(destPath);
-              } else {
-                window.showErrorMessage(
-                  `One or more files failed to upload to "${destPath}" in the Design Manager`
-                );
-                console.log(
-                  `Upload results contains errors: ${JSON.stringify(
-                    results,
-                    null,
-                    2
-                  )}`
-                );
-              }
-            })
-            .catch(async (error: any) => {
-              window.showErrorMessage(
-                `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
-              );
-            })
-            .finally(() => {
-              commands.executeCommand('hubspot.remoteFs.refresh');
-            });
+          handleFolderUpload(srcPath, destPath);
         }
       }
     )
@@ -222,3 +162,71 @@ const invalidateParentDirectoryCache = (filePath: string) => {
   }
   commands.executeCommand('hubspot.remoteFs.invalidateCache', parentDirectory);
 };
+
+const handleFileUpload = async (srcPath: string, destPath: string) => {
+  if (!isAllowedExtension(srcPath)) {
+    window.showErrorMessage(
+      `The file "${srcPath}" does not have a valid extension`
+    );
+    return;
+  }
+  if (shouldIgnoreFile(srcPath)) {
+    window.showErrorMessage(
+      `The file "${srcPath}" is being ignored via an .hsignore rule`
+    );
+    return;
+  }
+  upload(getPortalId(), srcPath, destPath)
+    .then(() => {
+      window.showInformationMessage(
+        `Uploading files to "${destPath}" was successful`
+      );
+      invalidateParentDirectoryCache(destPath);
+    })
+    .catch((error: any) => {
+      window.showErrorMessage(
+        `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+      );
+    });
+}
+
+const handleFolderUpload = async (srcPath: string, destPath: string) => {
+  const filePaths = await getUploadableFileList(srcPath);
+  uploadFolder(
+    getPortalId(),
+    srcPath,
+    destPath,
+    {
+      mode: 'publish',
+    },
+    {},
+    filePaths
+  )
+    .then(async (results: any) => {
+      if (!hasUploadErrors(results)) {
+        window.showInformationMessage(
+          `Uploading files to "${destPath}" was successful`
+        );
+        invalidateParentDirectoryCache(destPath);
+      } else {
+        window.showErrorMessage(
+          `One or more files failed to upload to "${destPath}" in the Design Manager`
+        );
+        console.log(
+          `Upload results contains errors: ${JSON.stringify(
+            results,
+            null,
+            2
+          )}`
+        );
+      }
+    })
+    .catch(async (error: any) => {
+      window.showErrorMessage(
+        `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+      );
+    })
+    .finally(() => {
+      commands.executeCommand('hubspot.remoteFs.refresh');
+    });
+}
