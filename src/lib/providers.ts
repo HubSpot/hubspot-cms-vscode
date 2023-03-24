@@ -49,6 +49,21 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
       remoteFsProvider.refresh();
     })
   );
+  context.subscriptions.push(
+    commands.registerCommand(COMMANDS.REMOTE_FS.HARD_REFRESH, () => {
+      console.log(COMMANDS.REMOTE_FS.HARD_REFRESH);
+      remoteFsProvider.hardRefresh();
+    })
+  );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.INVALIDATE_CACHE,
+      (filePath) => {
+        console.log(COMMANDS.REMOTE_FS.INVALIDATE_CACHE);
+        remoteFsProvider.invalidateCache(filePath);
+      }
+    )
+  );
 };
 
 export const initializeProviders = (context: ExtensionContext) => {

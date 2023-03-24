@@ -251,7 +251,15 @@
             },
             {
                 "command": "hubspot.remoteFs.refresh",
+                "title": "Cached Refresh"
+            },
+            {
+                "command": "hubspot.remoteFs.hardRefresh",
                 "title": "Refresh"
+            },
+            {
+                "command": "hubspot.remoteFs.invalidateCache",
+                "title": "Invalidate Cache"
             },
             {
 
@@ -345,7 +353,7 @@
             ],
             "view/title": [
                 {
-                    "command": "hubspot.remoteFs.refresh",
+                    "command": "hubspot.remoteFs.hardRefresh",
                     "when": "view == hubspot.treedata.remoteFs"
                 }
             ],
@@ -400,6 +408,14 @@
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.refresh",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.invalidateCache",
                     "when": "false"
                 }
             ]
