@@ -123,7 +123,7 @@ export const registerCommands = (context: ExtensionContext) => {
         const destPath = await window.showInputBox({
           prompt: 'Remote Destination',
         });
-        if (destPath === undefined) {
+        if (destPath === undefined || destPath.length === 0) {
           return;
         }
         const srcDestIssues = await validateSrcAndDestPaths(
