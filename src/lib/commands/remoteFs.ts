@@ -188,7 +188,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
         `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
       );
     });
-}
+};
 
 const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const filePaths = await getUploadableFileList(srcPath);
@@ -213,11 +213,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
           `One or more files failed to upload to "${destPath}" in the Design Manager`
         );
         console.log(
-          `Upload results contains errors: ${JSON.stringify(
-            results,
-            null,
-            2
-          )}`
+          `Upload results contains errors: ${JSON.stringify(results, null, 2)}`
         );
       }
     })
@@ -229,4 +225,4 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     .finally(() => {
       commands.executeCommand('hubspot.remoteFs.refresh');
     });
-}
+};
