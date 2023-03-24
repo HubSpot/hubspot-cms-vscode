@@ -43,6 +43,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   invalidateCache(filePath: string): void {
     console.log(`Invalidating cache for ${filePath}`);
+
     /* If it's not in the cache, invalidate the parent directory
        This helps for uploading when the destination folder doesn't exist yet */
     if (this.remoteFsCache.get(filePath) === undefined && filePath !== '/') {

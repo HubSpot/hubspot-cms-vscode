@@ -3,6 +3,7 @@ import { join, dirname } from 'path';
 import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
 import { COMMANDS } from '../constants';
 import { getRootPath } from '../helpers';
+
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/cli-lib/fileMapper');
 const { getPortalId } = require('@hubspot/cli-lib');
