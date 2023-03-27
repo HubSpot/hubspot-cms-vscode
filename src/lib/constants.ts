@@ -74,6 +74,7 @@ export const COMMANDS = {
     INVALIDATE_CACHE: 'hubspot.remoteFs.invalidateCache',
     FETCH: 'hubspot.remoteFs.fetch',
     DELETE: 'hubspot.remoteFs.delete',
+    UPLOAD: 'hubspot.remoteFs.upload',
   },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
