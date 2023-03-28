@@ -3,6 +3,7 @@ import { join, dirname } from 'path';
 import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
 import { COMMANDS } from '../constants';
 import { getRootPath } from '../helpers';
+import { invalidateParentDirectoryCache } from '../helpers';
 
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/cli-lib/fileMapper');
@@ -199,14 +200,6 @@ const getUploadableFileList = async (src: any) => {
     .filter((file: any) => isAllowedExtension(file))
     .filter(createIgnoreFilter());
   return allowedFiles;
-};
-
-const invalidateParentDirectoryCache = (filePath: string) => {
-  let parentDirectory = dirname(filePath);
-  if (parentDirectory === '.') {
-    parentDirectory = '/';
-  }
-  commands.executeCommand('hubspot.remoteFs.invalidateCache', parentDirectory);
 };
 
 const handleFileUpload = async (srcPath: string, destPath: string) => {

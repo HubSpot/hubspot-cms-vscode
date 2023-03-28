@@ -8,7 +8,8 @@ import {
   Event,
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
-import { dirname } from 'path';
+import { dirname, normalize, relative, join } from 'path';
+import { invalidateParentDirectoryCache } from '../helpers';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/cli-lib/api/fileMapper');
@@ -32,7 +33,8 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   readonly onDidChangeTreeData: Event<void | FileLink | null | undefined> =
     this._onDidChangeTreeData.event;
   private remoteFsCache: Map<string, RemoteFsDirectory> = new Map();
-  private watchedPath: string = '';
+  private watchedSrc: string = '';
+  private watchedDest: string = '';
   private currentWatcher: any = null;
 
   refresh(): void {
@@ -69,12 +71,20 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   endWatch() {
     if (this.currentWatcher) {
       this.currentWatcher.close().then(() => {
-        console.log(`Closed existing watcher on ${this.watchedPath}`);
+        console.log(`Closed existing watcher on ${this.watchedDest}`);
       });
-      this.invalidateCache(this.watchedPath);
-      this.watchedPath = '';
+      this.invalidateCache(this.watchedDest);
+      this.watchedSrc = '';
+      this.watchedDest = '';
       this.currentWatcher = null;
     }
+  }
+
+  equivalentRemotePath(localPath: string) {
+    const normalizedSrc = normalize(this.watchedSrc).replace(/\/$/, '');
+    const normalizedChanged = normalize(localPath).replace(/\/$/, '');
+    const relativePath = relative(normalizedSrc, normalizedChanged);
+    return join(this.watchedDest, relativePath);
   }
 
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
@@ -88,14 +98,20 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         filePaths: filesToUpload,
       });
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
-        this.invalidateCache(destPath);
+        if (event === 'created' || event === 'moved') {
+          const pathToInvalidate = this.equivalentRemotePath(path);
+          invalidateParentDirectoryCache(pathToInvalidate);
+        }
       });
-      this.watchedPath = destPath;
-      console.log(`Set new watcher on ${this.watchedPath}`);
+      this.watchedSrc = srcPath;
+      this.watchedDest = destPath;
+      console.log(
+        `Set new watcher from ${this.watchedSrc} => ${this.watchedDest}`
+      );
     };
     if (this.currentWatcher) {
       this.currentWatcher.close().then(() => {
-        console.log(`Closed existing watcher on ${this.watchedPath}`);
+        console.log(`Closed existing watcher on ${this.watchedDest}`);
         setWatch();
       });
     } else {
@@ -136,7 +152,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           return {
             label: filePath,
             path: path,
-            icon: path === this.watchedPath ? 'sync' : 'symbol-folder',
+            icon: path === this.watchedDest ? 'sync' : 'symbol-folder',
           };
         } else {
           return {
