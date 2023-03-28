@@ -74,14 +74,11 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
     )
   );
   context.subscriptions.push(
-    commands.registerCommand(
-      COMMANDS.REMOTE_FS.END_WATCH,
-      () => {
-        console.log(COMMANDS.REMOTE_FS.END_WATCH);
-        remoteFsProvider.endWatch();
-      }
-    )
-  )
+    commands.registerCommand(COMMANDS.REMOTE_FS.END_WATCH, () => {
+      console.log(COMMANDS.REMOTE_FS.END_WATCH);
+      remoteFsProvider.endWatch();
+    })
+  );
 };
 
 export const initializeProviders = (context: ExtensionContext) => {

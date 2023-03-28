@@ -33,7 +33,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     this._onDidChangeTreeData.event;
   private remoteFsCache: Map<string, RemoteFsDirectory> = new Map();
   private watchedPath: string = '';
-  private currentWatcher: any = null; 
+  private currentWatcher: any = null;
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
@@ -79,25 +79,20 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     const setWatch = () => {
-      this.currentWatcher = watch(
-        getPortalId(),
-        srcPath,
-        destPath,
-        {
-          mode: 'publish',
-          remove: true,
-          disableInitial: false,
-          notify: false,
-          commandOptions: {},
-          filePaths: filesToUpload
-        }
-      );
+      this.currentWatcher = watch(getPortalId(), srcPath, destPath, {
+        mode: 'publish',
+        remove: true,
+        disableInitial: false,
+        notify: false,
+        commandOptions: {},
+        filePaths: filesToUpload,
+      });
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
-        this.invalidateCache(destPath)
+        this.invalidateCache(destPath);
       });
       this.watchedPath = destPath;
       console.log(`Set new watcher on ${this.watchedPath}`);
-    }
+    };
     if (this.currentWatcher) {
       this.currentWatcher.close().then(() => {
         console.log(`Closed existing watcher on ${this.watchedPath}`);
@@ -134,22 +129,26 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       );
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
-    const fileOrFolderList = directoryContents.children.map((filePath: string) => {
-      if (isPathFolder(filePath)) {
-        const path = parent ? `${parent.path}/${filePath}` : filePath;
-        return {
-          label: filePath,
-          path: path,
-          icon: path === this.watchedPath ? 'sync' : 'symbol-folder'
-        };
-      } else {
-        return {
-          label: filePath,
-          url: parent ? `hubl:${parent.path}/${filePath}` : `hubl:${filePath}`,
-          icon: 'file-code'
-        };
+    const fileOrFolderList = directoryContents.children.map(
+      (filePath: string) => {
+        if (isPathFolder(filePath)) {
+          const path = parent ? `${parent.path}/${filePath}` : filePath;
+          return {
+            label: filePath,
+            path: path,
+            icon: path === this.watchedPath ? 'sync' : 'symbol-folder',
+          };
+        } else {
+          return {
+            label: filePath,
+            url: parent
+              ? `hubl:${parent.path}/${filePath}`
+              : `hubl:${filePath}`,
+            icon: 'file-code',
+          };
+        }
       }
-    });
+    );
     return Promise.resolve(fileOrFolderList);
   }
 }

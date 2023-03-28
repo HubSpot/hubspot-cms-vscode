@@ -77,7 +77,7 @@ export const COMMANDS = {
     UPLOAD: 'hubspot.remoteFs.upload',
     WATCH: 'hubspot.remoteFs.watch',
     START_WATCH: 'hubspot.remoteFs.startWatch',
-    END_WATCH: 'hubspot.remoteFs.endWatch'
+    END_WATCH: 'hubspot.remoteFs.endWatch',
   },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',

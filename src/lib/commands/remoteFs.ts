@@ -180,8 +180,13 @@ export const registerCommands = (context: ExtensionContext) => {
         if (destPath === undefined || destPath.length === 0) {
           return;
         }
-        const filesToUpload = await getUploadableFileList(srcPath); 
-        commands.executeCommand(COMMANDS.REMOTE_FS.START_WATCH, srcPath, destPath, filesToUpload)
+        const filesToUpload = await getUploadableFileList(srcPath);
+        commands.executeCommand(
+          COMMANDS.REMOTE_FS.START_WATCH,
+          srcPath,
+          destPath,
+          filesToUpload
+        );
         invalidateParentDirectoryCache(destPath);
       }
     )
