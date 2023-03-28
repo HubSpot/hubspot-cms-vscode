@@ -72,11 +72,10 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     if (this.currentWatcher) {
       this.currentWatcher.close().then(() => {
         console.log(`Closed existing watcher on ${this.watchedDest}`);
+        this.watchedSrc = '';
+        this.watchedDest = '';
+        this.currentWatcher = null;
       });
-      this.invalidateCache(this.watchedDest);
-      this.watchedSrc = '';
-      this.watchedDest = '';
-      this.currentWatcher = null;
     }
   }
 
