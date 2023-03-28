@@ -145,6 +145,47 @@ export const registerCommands = (context: ExtensionContext) => {
       }
     )
   );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.WATCH,
+      async (clickedFileLink) => {
+        let srcPath: string;
+        if (
+          clickedFileLink === undefined ||
+          !(clickedFileLink instanceof Uri)
+        ) {
+          // check if Uri, because having a remoteFs tree item selected will show up here too
+          const srcUri = await window.showOpenDialog({
+            canSelectFiles: false,
+            canSelectFolders: true,
+            canSelectMany: false,
+            openLabel: 'Watch',
+            title: 'Watch',
+            defaultUri: Uri.from({
+              scheme: 'file',
+              path: getRootPath(),
+            }),
+          });
+          if (srcUri === undefined) {
+            // User didn't select anything
+            return;
+          }
+          srcPath = srcUri[0].fsPath; // showOpenDialog returns an array of size one
+        } else {
+          srcPath = clickedFileLink.fsPath;
+        }
+        const destPath = await window.showInputBox({
+          prompt: 'Remote Destination',
+        });
+        if (destPath === undefined || destPath.length === 0) {
+          return;
+        }
+        const filesToUpload = await getUploadableFileList(srcPath); 
+        commands.executeCommand(COMMANDS.REMOTE_FS.START_WATCH, srcPath, destPath, filesToUpload)
+        invalidateParentDirectoryCache(destPath);
+      }
+    )
+  );
 };
 
 const getUploadableFileList = async (src: any) => {

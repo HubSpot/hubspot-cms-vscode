@@ -64,6 +64,24 @@ const initializeTreeDataProviders = (context: ExtensionContext) => {
       }
     )
   );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.START_WATCH,
+      (srcPath, destPath, filesToUpload) => {
+        console.log(COMMANDS.REMOTE_FS.START_WATCH);
+        remoteFsProvider.changeWatch(srcPath, destPath, filesToUpload);
+      }
+    )
+  );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.END_WATCH,
+      () => {
+        console.log(COMMANDS.REMOTE_FS.END_WATCH);
+        remoteFsProvider.endWatch();
+      }
+    )
+  )
 };
 
 export const initializeProviders = (context: ExtensionContext) => {
