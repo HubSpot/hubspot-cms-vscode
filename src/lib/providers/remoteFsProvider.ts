@@ -81,10 +81,12 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   /* If watching /Example/directory -> example/remotefs
-  *  then /Example/directory/hello.html returns example/remotefs/hello.html
-  */
+   *  then /Example/directory/hello.html returns example/remotefs/hello.html
+   */
   equivalentRemotePath(localPath: string) {
-    const posixWatchedSrc = this.watchedSrc.split(path.sep).join(path.posix.sep);
+    const posixWatchedSrc = this.watchedSrc
+      .split(path.sep)
+      .join(path.posix.sep);
     const posixLocalPath = localPath.split(path.sep).join(path.posix.sep);
     const posixRelativePath = path.relative(posixWatchedSrc, posixLocalPath);
     return path.join(this.watchedDest, posixRelativePath);
