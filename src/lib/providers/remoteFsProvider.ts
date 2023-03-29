@@ -8,7 +8,7 @@ import {
   Event,
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
-import { dirname, normalize, relative, join } from 'path';
+import * as path from 'path';
 import { invalidateParentDirectoryCache } from '../helpers';
 const {
   getDirectoryContentsByPath,
@@ -52,7 +52,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     /* If it's not in the cache, invalidate the parent directory
        This helps for uploading when the destination folder doesn't exist yet */
     if (this.remoteFsCache.get(filePath) === undefined && filePath !== '/') {
-      let parentDirectory = dirname(filePath);
+      let parentDirectory = path.dirname(filePath);
       if (parentDirectory === '.') {
         parentDirectory = '/';
       }
@@ -72,6 +72,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     if (this.currentWatcher) {
       this.currentWatcher.close().then(() => {
         console.log(`Closed existing watcher on ${this.watchedDest}`);
+        invalidateParentDirectoryCache(this.watchedDest);
         this.watchedSrc = '';
         this.watchedDest = '';
         this.currentWatcher = null;
@@ -79,11 +80,14 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     }
   }
 
+  /* If watching /Example/directory -> example/remotefs
+  *  then /Example/directory/hello.html returns example/remotefs/hello.html
+  */
   equivalentRemotePath(localPath: string) {
-    const normalizedSrc = normalize(this.watchedSrc).replace(/\/$/, '');
-    const normalizedChanged = normalize(localPath).replace(/\/$/, '');
-    const relativePath = relative(normalizedSrc, normalizedChanged);
-    return join(this.watchedDest, relativePath);
+    const posixWatchedSrc = this.watchedSrc.split(path.sep).join(path.posix.sep);
+    const posixLocalPath = localPath.split(path.sep).join(path.posix.sep);
+    const posixRelativePath = path.relative(posixWatchedSrc, posixLocalPath);
+    return path.join(this.watchedDest, posixRelativePath);
   }
 
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
