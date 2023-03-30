@@ -533,7 +533,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.6",
+        "@hubspot/cli-lib": "^4.1.7",
         "dayjs": "^1.11.7",
         "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
