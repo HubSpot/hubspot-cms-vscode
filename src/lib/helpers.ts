@@ -1,4 +1,6 @@
-import { workspace } from 'vscode';
+import { dirname } from 'path';
+import { commands, workspace } from 'vscode';
+import { COMMANDS } from './constants';
 import { HubspotConfig, Portal } from './types';
 
 const { exec } = require('node:child_process');
@@ -82,4 +84,12 @@ export const checkTerminalCommandVersion = async (
       resolve(undefined);
     }
   });
+};
+
+export const invalidateParentDirectoryCache = (filePath: string) => {
+  let parentDirectory = dirname(filePath);
+  if (parentDirectory === '.') {
+    parentDirectory = '/';
+  }
+  commands.executeCommand(COMMANDS.REMOTE_FS.INVALIDATE_CACHE, parentDirectory);
 };

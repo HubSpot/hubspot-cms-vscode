@@ -262,8 +262,20 @@
                 "title": "Invalidate Cache"
             },
             {
+                "command": "hubspot.remoteFs.startWatch",
+                "title": "Start Watch"
+            },
+            {
+                "command": "hubspot.remoteFs.endWatch",
+                "title": "End Watch"
+            },
+            {
                 "command": "hubspot.remoteFs.upload",
                 "title": "Upload"
+            },
+            {
+                "command": "hubspot.remoteFs.watch",
+                "title": "Watch"
             },
             {
                 "command": "hubspot.remoteFs.fetch",
@@ -304,6 +316,10 @@
                 {
                     "command": "hubspot.remoteFs.upload",
                     "when": "hubspot.configPath"
+                },
+                {
+                    "command": "hubspot.remoteFs.watch",
+                    "when": "hubspot.configPath && explorerResourceIsFolder"
                 }
             ],
             "hubspot.submenus.template": [
@@ -356,6 +372,10 @@
                 {
                     "command": "hubspot.remoteFs.delete",
                     "when": "viewItem == remoteFsTreeItem"
+                },
+                {
+                    "command": "hubspot.remoteFs.endWatch",
+                    "when": "viewItem == syncedRemoteFsTreeItem"
                 }
             ],
             "view/title": [
@@ -365,6 +385,10 @@
                 },
                 {
                     "command": "hubspot.remoteFs.upload",
+                    "when": "view == hubspot.treedata.remoteFs"
+                },
+                {
+                    "command": "hubspot.remoteFs.watch",
                     "when": "view == hubspot.treedata.remoteFs"
                 }
             ],
@@ -427,6 +451,10 @@
                 },
                 {
                     "command": "hubspot.remoteFs.invalidateCache",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.startWatch",
                     "when": "false"
                 }
             ]

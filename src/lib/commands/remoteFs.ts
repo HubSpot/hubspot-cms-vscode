@@ -3,6 +3,7 @@ import { join, dirname } from 'path';
 import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
 import { COMMANDS } from '../constants';
 import { getRootPath } from '../helpers';
+import { invalidateParentDirectoryCache } from '../helpers';
 
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/cli-lib/fileMapper');
@@ -145,6 +146,52 @@ export const registerCommands = (context: ExtensionContext) => {
       }
     )
   );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.REMOTE_FS.WATCH,
+      async (clickedFileLink) => {
+        let srcPath: string;
+        if (
+          clickedFileLink === undefined ||
+          !(clickedFileLink instanceof Uri)
+        ) {
+          // check if Uri, because having a remoteFs tree item selected will show up here too
+          const srcUri = await window.showOpenDialog({
+            canSelectFiles: false,
+            canSelectFolders: true,
+            canSelectMany: false,
+            openLabel: 'Watch',
+            title: 'Watch',
+            defaultUri: Uri.from({
+              scheme: 'file',
+              path: getRootPath(),
+            }),
+          });
+          if (srcUri === undefined) {
+            // User didn't select anything
+            return;
+          }
+          srcPath = srcUri[0].fsPath; // showOpenDialog returns an array of size one
+        } else {
+          srcPath = clickedFileLink.fsPath;
+        }
+        const destPath = await window.showInputBox({
+          prompt: 'Remote Destination',
+        });
+        if (destPath === undefined || destPath.length === 0) {
+          return;
+        }
+        const filesToUpload = await getUploadableFileList(srcPath);
+        commands.executeCommand(
+          COMMANDS.REMOTE_FS.START_WATCH,
+          srcPath,
+          destPath,
+          filesToUpload
+        );
+        invalidateParentDirectoryCache(destPath);
+      }
+    )
+  );
 };
 
 const getUploadableFileList = async (src: any) => {
@@ -153,14 +200,6 @@ const getUploadableFileList = async (src: any) => {
     .filter((file: any) => isAllowedExtension(file))
     .filter(createIgnoreFilter());
   return allowedFiles;
-};
-
-const invalidateParentDirectoryCache = (filePath: string) => {
-  let parentDirectory = dirname(filePath);
-  if (parentDirectory === '.') {
-    parentDirectory = '/';
-  }
-  commands.executeCommand('hubspot.remoteFs.invalidateCache', parentDirectory);
 };
 
 const handleFileUpload = async (srcPath: string, destPath: string) => {

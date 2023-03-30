@@ -8,12 +8,14 @@ import {
   Event,
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
-import { dirname } from 'path';
+import * as path from 'path';
+import { invalidateParentDirectoryCache } from '../helpers';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/cli-lib/api/fileMapper');
 const { getPortalId } = require('@hubspot/cli-lib');
 const { FOLDER_DOT_EXTENSIONS } = require('@hubspot/cli-lib/lib/constants');
+const { watch } = require('@hubspot/cli-lib/lib/watch');
 
 function isPathFolder(path: string) {
   const splitPath = path.split('/');
@@ -31,6 +33,9 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   readonly onDidChangeTreeData: Event<void | FileLink | null | undefined> =
     this._onDidChangeTreeData.event;
   private remoteFsCache: Map<string, RemoteFsDirectory> = new Map();
+  private watchedSrc: string = '';
+  private watchedDest: string = '';
+  private currentWatcher: any = null;
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
@@ -47,7 +52,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     /* If it's not in the cache, invalidate the parent directory
        This helps for uploading when the destination folder doesn't exist yet */
     if (this.remoteFsCache.get(filePath) === undefined && filePath !== '/') {
-      let parentDirectory = dirname(filePath);
+      let parentDirectory = path.dirname(filePath);
       if (parentDirectory === '.') {
         parentDirectory = '/';
       }
@@ -61,6 +66,63 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       }
     }
     this.refresh();
+  }
+
+  endWatch() {
+    if (this.currentWatcher) {
+      this.currentWatcher.close().then(() => {
+        console.log(`Closed existing watcher on ${this.watchedDest}`);
+        invalidateParentDirectoryCache(this.watchedDest);
+        this.watchedSrc = '';
+        this.watchedDest = '';
+        this.currentWatcher = null;
+      });
+    }
+  }
+
+  /* If watching /Example/directory -> example/remotefs
+   *  then /Example/directory/hello.html returns example/remotefs/hello.html
+   */
+  equivalentRemotePath(localPath: string) {
+    const posixWatchedSrc = this.watchedSrc
+      .split(path.sep)
+      .join(path.posix.sep);
+    const posixLocalPath = localPath.split(path.sep).join(path.posix.sep);
+    const posixRelativePath = path.relative(posixWatchedSrc, posixLocalPath);
+    return path.join(this.watchedDest, posixRelativePath);
+  }
+
+  changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
+    const setWatch = () => {
+      this.currentWatcher = watch(getPortalId(), srcPath, destPath, {
+        mode: 'publish',
+        remove: true,
+        disableInitial: false,
+        notify: false,
+        commandOptions: {},
+        filePaths: filesToUpload,
+      });
+      this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
+        if (event === 'created' || event === 'moved') {
+          const pathToInvalidate = this.equivalentRemotePath(path);
+          invalidateParentDirectoryCache(pathToInvalidate);
+        }
+      });
+      this.watchedSrc = srcPath;
+      this.watchedDest = destPath;
+      console.log(
+        `Set new watcher from ${this.watchedSrc} => ${this.watchedDest}`
+      );
+      this.invalidateCache(this.watchedDest);
+    };
+    if (this.currentWatcher) {
+      this.currentWatcher.close().then(() => {
+        console.log(`Closed existing watcher on ${this.watchedDest}`);
+        setWatch();
+      });
+    } else {
+      setWatch();
+    }
   }
 
   getTreeItem(fileLink: FileLink): TreeItem {
@@ -89,19 +151,26 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       );
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
-    const fileOrFolderList = directoryContents.children.map((f: string) => {
-      return isPathFolder(f)
-        ? {
-            label: f,
-            path: parent ? `${parent.path}/${f}` : f,
-            icon: 'symbol-folder',
-          }
-        : {
-            label: f,
-            url: parent ? `hubl:${parent.path}/${f}` : `hubl:${f}`,
+    const fileOrFolderList = directoryContents.children.map(
+      (filePath: string) => {
+        if (isPathFolder(filePath)) {
+          const path = parent ? `${parent.path}/${filePath}` : filePath;
+          return {
+            label: filePath,
+            path: path,
+            icon: path === this.watchedDest ? 'sync' : 'symbol-folder',
+          };
+        } else {
+          return {
+            label: filePath,
+            url: parent
+              ? `hubl:${parent.path}/${filePath}`
+              : `hubl:${filePath}`,
             icon: 'file-code',
           };
-    });
+        }
+      }
+    );
     return Promise.resolve(fileOrFolderList);
   }
 }
@@ -114,7 +183,11 @@ export class RemoteFsTreeItem extends TreeItem {
     public readonly resourceUri?: Uri
   ) {
     super(label, collapsibleState);
-    this.contextValue = 'remoteFsTreeItem';
+    if (icon === 'sync') {
+      this.contextValue = 'syncedRemoteFsTreeItem';
+    } else {
+      this.contextValue = 'remoteFsTreeItem';
+    }
     if (resourceUri) {
       this.tooltip = `Open link: ${resourceUri.toString()}`;
       this.command = {
