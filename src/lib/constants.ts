@@ -127,6 +127,13 @@ export const TRACKED_EVENTS = {
   },
   LINTING_ENABLED: 'lintingEnabled',
   LINTING_DISABLED: 'lintingDisabled',
+  REMOTE_FS: {
+    WATCH: 'remoteFsWatch',
+    UPLOAD_FILE: 'remoteFsUploadFile',
+    UPLOAD_FOLDER: 'remoteFsUploadFolder',
+    DELETE: 'remoteFsDelete',
+    FETCH: 'remoteFsFetch',
+  },
   RENAME_ACCOUNT: 'accountRenamed',
   RENAME_ACCOUNT_ERROR: 'accountRenameError',
   SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',

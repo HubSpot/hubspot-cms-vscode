@@ -1,16 +1,10 @@
 import { existsSync, statSync } from 'fs';
-import { join, dirname } from 'path';
-import {
-  ExtensionContext,
-  window,
-  commands,
-  workspace,
-  Uri,
-  StatusBarAlignment,
-} from 'vscode';
-import { COMMANDS } from '../constants';
+import { join } from 'path';
+import { ExtensionContext, window, commands, Uri } from 'vscode';
+import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { buildUploadingStatusBarItem, getRootPath } from '../helpers';
 import { invalidateParentDirectoryCache } from '../helpers';
+import { trackEvent } from '../tracking';
 
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/cli-lib/fileMapper');
@@ -64,6 +58,7 @@ export const registerCommands = (context: ExtensionContext) => {
         console.log(
           `Saving remote file ${remoteFilePath} to filesystem path ${localFilePath}`
         );
+        trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
         await downloadFileOrFolder({
           accountId: getPortalId(),
           src: remoteFilePath,
@@ -91,10 +86,11 @@ export const registerCommands = (context: ExtensionContext) => {
         if (!selection || selection === 'Cancel') {
           return;
         }
+        trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
         deleteFile(getPortalId(), filePath).then(() => {
           window.showInformationMessage(`Successfully deleted ${filePath}`);
           invalidateParentDirectoryCache(filePath);
-          commands.executeCommand('hubspot.remoteFs.refresh');
+          commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
         });
       }
     )
@@ -222,6 +218,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     );
     return;
   }
+  trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FILE);
   upload(getPortalId(), srcPath, destPath)
     .then(() => {
       window.showInformationMessage(
@@ -241,6 +238,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const uploadingStatus = buildUploadingStatusBarItem();
   uploadingStatus.show();
   window.showInformationMessage('Beginning upload...');
+  trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
   uploadFolder(
     getPortalId(),
     srcPath,
@@ -273,6 +271,6 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     })
     .finally(() => {
       uploadingStatus.dispose();
-      commands.executeCommand('hubspot.remoteFs.refresh');
+      commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
     });
 };

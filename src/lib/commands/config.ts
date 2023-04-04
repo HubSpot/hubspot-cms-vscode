@@ -58,7 +58,7 @@ export const registerCommands = (context: ExtensionContext) => {
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
         await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
-        commands.executeCommand('hubspot.remoteFs.refresh');
+        commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
         if (!silenceNotification) {
           showAutoDismissedStatusBarMessage(
             `Successfully set default account to ${newDefaultAccount}.`
@@ -101,6 +101,7 @@ export const registerCommands = (context: ExtensionContext) => {
                 showAutoDismissedStatusBarMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
+                commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
               }
             });
         }
@@ -145,7 +146,7 @@ export const registerCommands = (context: ExtensionContext) => {
                 );
               }
               await trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
-              commands.executeCommand('hubspot.remoteFs.refresh');
+              commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
               updateStatusBarItems();
             }
           });
