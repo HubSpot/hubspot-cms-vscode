@@ -1,5 +1,5 @@
 import { dirname } from 'path';
-import { commands, workspace } from 'vscode';
+import { window, commands, workspace, StatusBarAlignment } from 'vscode';
 import { COMMANDS } from './constants';
 import { HubspotConfig, Portal } from './types';
 
@@ -92,4 +92,10 @@ export const invalidateParentDirectoryCache = (filePath: string) => {
     parentDirectory = '/';
   }
   commands.executeCommand(COMMANDS.REMOTE_FS.INVALIDATE_CACHE, parentDirectory);
+};
+
+export const buildUploadingStatusBarItem = () => {
+  const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right);
+  statusBarItem.text = 'Uploading...';
+  return statusBarItem;
 };
