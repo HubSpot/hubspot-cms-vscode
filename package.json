@@ -492,7 +492,7 @@
                 },
                 {
                     "id": "hubspot.treedata.remoteFs",
-                    "name": "Remote FS"
+                    "name": "Remote File System"
                 },
                 {
                     "id": "hubspot.treedata.helpAndFeedback",

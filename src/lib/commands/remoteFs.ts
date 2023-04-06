@@ -110,7 +110,7 @@ export const registerCommands = (context: ExtensionContext) => {
             canSelectFolders: true,
             canSelectMany: false,
             openLabel: 'Upload',
-            title: 'Upload to Remote FS',
+            title: 'Upload to Remote File System',
             defaultUri: Uri.from({
               scheme: 'file',
               path: getRootPath(),
