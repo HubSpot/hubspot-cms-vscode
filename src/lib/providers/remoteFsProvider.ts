@@ -14,6 +14,8 @@ import {
   buildUploadingStatusBarItem,
   invalidateParentDirectoryCache,
 } from '../helpers';
+import { trackEvent } from '../tracking';
+import { TRACKED_EVENTS } from '../constants';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/cli-lib/api/fileMapper');
@@ -97,6 +99,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
+    trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
       const uploadingStatus = buildUploadingStatusBarItem();
       uploadingStatus.show();
