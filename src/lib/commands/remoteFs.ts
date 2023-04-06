@@ -1,8 +1,15 @@
 import { existsSync, statSync } from 'fs';
 import { join, dirname } from 'path';
-import { ExtensionContext, window, commands, workspace, Uri } from 'vscode';
+import {
+  ExtensionContext,
+  window,
+  commands,
+  workspace,
+  Uri,
+  StatusBarAlignment,
+} from 'vscode';
 import { COMMANDS } from '../constants';
-import { getRootPath } from '../helpers';
+import { buildUploadingStatusBarItem, getRootPath } from '../helpers';
 import { invalidateParentDirectoryCache } from '../helpers';
 
 const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
@@ -231,6 +238,9 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
 
 const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const filePaths = await getUploadableFileList(srcPath);
+  const uploadingStatus = buildUploadingStatusBarItem();
+  uploadingStatus.show();
+  window.showInformationMessage('Beginning upload...');
   uploadFolder(
     getPortalId(),
     srcPath,
@@ -262,6 +272,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
       );
     })
     .finally(() => {
+      uploadingStatus.dispose();
       commands.executeCommand('hubspot.remoteFs.refresh');
     });
 };

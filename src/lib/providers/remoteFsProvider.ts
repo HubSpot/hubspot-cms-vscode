@@ -6,10 +6,14 @@ import {
   ThemeIcon,
   EventEmitter,
   Event,
+  window,
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
 import * as path from 'path';
-import { invalidateParentDirectoryCache } from '../helpers';
+import {
+  buildUploadingStatusBarItem,
+  invalidateParentDirectoryCache,
+} from '../helpers';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/cli-lib/api/fileMapper');
@@ -94,14 +98,29 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     const setWatch = () => {
-      this.currentWatcher = watch(getPortalId(), srcPath, destPath, {
-        mode: 'publish',
-        remove: true,
-        disableInitial: false,
-        notify: false,
-        commandOptions: {},
-        filePaths: filesToUpload,
-      });
+      const uploadingStatus = buildUploadingStatusBarItem();
+      uploadingStatus.show();
+      window.showInformationMessage('Beginning initial upload...');
+      this.currentWatcher = watch(
+        getPortalId(),
+        srcPath,
+        destPath,
+        {
+          mode: 'publish',
+          remove: true,
+          disableInitial: false,
+          notify: false,
+          commandOptions: {},
+          filePaths: filesToUpload,
+        },
+        () => {
+          uploadingStatus.dispose();
+          window.showInformationMessage(
+            `Initial upload complete! Now watching for changes.`
+          );
+          invalidateParentDirectoryCache(destPath);
+        }
+      );
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
         if (event === 'created' || event === 'moved') {
           const pathToInvalidate = this.equivalentRemotePath(path);
@@ -142,7 +161,6 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
     const remoteDirectory: string = parent?.path ? parent.path : '/';
-
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {
       directoryContents = await getDirectoryContentsByPath(
