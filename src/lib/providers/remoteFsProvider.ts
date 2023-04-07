@@ -10,10 +10,7 @@ import {
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
 import * as path from 'path';
-import {
-  buildUploadingStatusBarItem,
-  invalidateParentDirectoryCache,
-} from '../helpers';
+import { buildStatusBarItem, invalidateParentDirectoryCache } from '../helpers';
 import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
 const {
@@ -101,7 +98,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
-      const uploadingStatus = buildUploadingStatusBarItem();
+      const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
       window.showInformationMessage('Beginning initial upload...');
       this.currentWatcher = watch(
@@ -116,8 +113,16 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           commandOptions: {},
           filePaths: filesToUpload,
         },
-        () => {
+        (results: any) => {
           uploadingStatus.dispose();
+          if (results.length > 0) {
+            results.forEach((result: any) => {
+              console.log(JSON.stringify(result, null, 2));
+              window.showErrorMessage(
+                `Upload error: ${result.error.error.message}`
+              );
+            });
+          }
           window.showInformationMessage(
             `Initial upload complete! Now watching for changes.`
           );

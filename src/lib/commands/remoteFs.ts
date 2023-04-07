@@ -2,7 +2,7 @@ import { existsSync, statSync } from 'fs';
 import { join } from 'path';
 import { ExtensionContext, window, commands, Uri } from 'vscode';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
-import { buildUploadingStatusBarItem, getRootPath } from '../helpers';
+import { buildStatusBarItem, getRootPath } from '../helpers';
 import { invalidateParentDirectoryCache } from '../helpers';
 import { trackEvent } from '../tracking';
 
@@ -58,6 +58,9 @@ export const registerCommands = (context: ExtensionContext) => {
         console.log(
           `Saving remote file ${remoteFilePath} to filesystem path ${localFilePath}`
         );
+        window.showInformationMessage('Beginning download...');
+        const downloadingStatus = buildStatusBarItem('Downloading...');
+        downloadingStatus.show();
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
         await downloadFileOrFolder({
           accountId: getPortalId(),
@@ -67,6 +70,8 @@ export const registerCommands = (context: ExtensionContext) => {
             overwrite: true,
           },
         });
+        window.showInformationMessage('Finished download!');
+        downloadingStatus.dispose();
       }
     )
   );
@@ -87,9 +92,12 @@ export const registerCommands = (context: ExtensionContext) => {
           return;
         }
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
+        const deletingStatus = buildStatusBarItem('Deleting...');
+        deletingStatus.show();
         deleteFile(getPortalId(), filePath).then(() => {
           window.showInformationMessage(`Successfully deleted ${filePath}`);
           invalidateParentDirectoryCache(filePath);
+          deletingStatus.dispose();
           commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
         });
       }
@@ -235,7 +243,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
 
 const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const filePaths = await getUploadableFileList(srcPath);
-  const uploadingStatus = buildUploadingStatusBarItem();
+  const uploadingStatus = buildStatusBarItem('Uploading...');
   uploadingStatus.show();
   window.showInformationMessage('Beginning upload...');
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
