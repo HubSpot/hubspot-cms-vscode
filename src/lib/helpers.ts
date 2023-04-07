@@ -94,8 +94,8 @@ export const invalidateParentDirectoryCache = (filePath: string) => {
   commands.executeCommand(COMMANDS.REMOTE_FS.INVALIDATE_CACHE, parentDirectory);
 };
 
-export const buildUploadingStatusBarItem = () => {
+export const buildStatusBarItem = (text: string) => {
   const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right);
-  statusBarItem.text = 'Uploading...';
+  statusBarItem.text = text;
   return statusBarItem;
 };
