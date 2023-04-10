@@ -26,5 +26,5 @@ export const registerCommands = (context: ExtensionContext) => {
         commands.executeCommand('vscode.open', Uri.parse(designManagerUrl));
       }
     )
-  )
+  );
 };
