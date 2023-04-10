@@ -245,6 +245,10 @@
                 "title": "Open feedback panel"
             },
             {
+                "command": "hubspot.account.openDesignManager",
+                "title": "Open design manager"
+            },
+            {
                 "command": "hubspot.account.viewPersonalAccessKey",
                 "title": "Show personal access key info",
                 "icon": "$(link-external)"
@@ -361,6 +365,11 @@
                     "group": "view/item/context@999"
                 },
                 {
+                    "command": "hubspot.account.openDesignManager",
+                    "when": "viewItem == accountTreeItem",
+                    "group": "accountTreeItemRightClick@1"
+                },
+                {
                     "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem",
                     "group": "accountTreeItemRightClick@1"
@@ -439,6 +448,10 @@
                 },
                 {
                     "command": "hubspot.modals.openFeedbackPanel",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.account.openDesignManager",
                     "when": "false"
                 },
                 {

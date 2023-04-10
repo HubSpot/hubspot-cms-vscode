@@ -36,6 +36,7 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
   ACCOUNT: {
+    OPEN_DESIGN_MANAGER: 'hubspot.account.openDesignManager',
     VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
   },
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',

@@ -15,4 +15,16 @@ export const registerCommands = (context: ExtensionContext) => {
       }
     )
   );
+  context.subscriptions.push(
+    commands.registerCommand(
+      COMMANDS.ACCOUNT.OPEN_DESIGN_MANAGER,
+      async (hubspotAccount: Portal) => {
+        const designManagerUrl = `https://app.hubspot${
+          hubspotAccount.env === 'qa' ? 'qa' : ''
+        }.com/design-manager/${hubspotAccount.portalId}`;
+
+        commands.executeCommand('vscode.open', Uri.parse(designManagerUrl));
+      }
+    )
+  )
 };
