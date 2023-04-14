@@ -166,17 +166,26 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       );
       // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried
       if (remoteDirectory === '/') {
-        directoryContents.children = ['@hubspot', ...directoryContents.children];
+        directoryContents.children = [
+          '@hubspot',
+          ...directoryContents.children,
+        ];
       } else if (remoteDirectory === '@hubspot') {
         // Small QoL to move themes to top and modules to bottom of the display like DMUI does
-        const noModules = directoryContents.children.filter((f: string) => !f.endsWith('.module'));
-        const onlyModules = directoryContents.children.filter((f: string) => f.endsWith('.module'));
+        const noModules = directoryContents.children.filter(
+          (f: string) => !f.endsWith('.module')
+        );
+        const onlyModules = directoryContents.children.filter((f: string) =>
+          f.endsWith('.module')
+        );
         directoryContents.children = [...noModules, ...onlyModules];
       }
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
     const buildFileLinkFromPath = this.curriedFileLinkFromPathBuilder(parent);
-    const fileOrFolderList = directoryContents.children.map(buildFileLinkFromPath);
+    const fileOrFolderList = directoryContents.children.map(
+      buildFileLinkFromPath
+    );
     return Promise.resolve(fileOrFolderList);
   }
 
@@ -189,18 +198,18 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         isDefault: filePath.startsWith('@hubspot'),
         isFolder: isPathFolder(fileName),
         isSynced: this.watchedDest === filePath,
-      }
-    }
+      };
+    };
   }
 }
 
 export class RemoteFsTreeItem extends TreeItem {
-  constructor(
-    public readonly fileLink: FileLink
-  ) {
+  constructor(public readonly fileLink: FileLink) {
     const getCollapsibleState = (fileLink: FileLink) => {
-      return fileLink.isFolder ? TreeItemCollapsibleState.Collapsed : TreeItemCollapsibleState.None;
-    }
+      return fileLink.isFolder
+        ? TreeItemCollapsibleState.Collapsed
+        : TreeItemCollapsibleState.None;
+    };
     super(fileLink.label, getCollapsibleState(fileLink));
     this.contextValue = this.getContextValue(fileLink);
     if (!fileLink.isFolder) {
@@ -215,16 +224,16 @@ export class RemoteFsTreeItem extends TreeItem {
     this.iconPath = new ThemeIcon(this.getIcon(fileLink));
   }
 
-  getContextValue (fileLink: FileLink) {
+  getContextValue(fileLink: FileLink) {
     if (fileLink.isDefault) {
       return 'defaultRemoteFsTreeItem';
     } else if (fileLink.isSynced) {
       return 'syncedRemoteFsTreeItem';
     } else {
-      return 'remoteFsTreeItem'
+      return 'remoteFsTreeItem';
     }
   }
-  getIcon (fileLink: FileLink) {
+  getIcon(fileLink: FileLink) {
     if (fileLink.label === '@hubspot') {
       return 'lock';
     } else if (fileLink.isSynced) {
