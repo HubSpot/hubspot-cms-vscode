@@ -22,10 +22,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.FETCH,
       async (clickedFileLink) => {
-        const fileLinkIsFolder = clickedFileLink.icon === 'symbol-folder';
-        const remoteFilePath = fileLinkIsFolder
-          ? clickedFileLink.path
-          : clickedFileLink.url.slice(5);
+        const remoteFilePath = clickedFileLink.path;
         // We use showOpenDialog instead of showSaveDialog because the latter has worse support for this use-case
         const destPath = await window.showOpenDialog({
           canSelectFiles: false,
@@ -80,10 +77,7 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.REMOTE_FS.DELETE,
       async (clickedFileLink) => {
         console.log(COMMANDS.REMOTE_FS.DELETE);
-        const fileLinkIsFolder = clickedFileLink.icon === 'symbol-folder';
-        const filePath = fileLinkIsFolder
-          ? clickedFileLink.path
-          : clickedFileLink.url.slice(5);
+        const filePath = clickedFileLink.path;
         const selection = await window.showWarningMessage(
           `Are you sure you want to delete ${filePath}? This action cannot be undone.`,
           ...['Okay', 'Cancel']
