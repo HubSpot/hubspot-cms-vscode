@@ -56,9 +56,10 @@ export interface HubLValidationError {
 
 export interface FileLink {
   label: string;
-  url?: string;
-  path?: string;
-  icon: string;
+  path: string;
+  isDefault: boolean;
+  isFolder: boolean;
+  isSynced: boolean;
 }
 
 export interface RemoteFsDirectory {

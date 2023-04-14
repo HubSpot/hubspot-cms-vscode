@@ -153,18 +153,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   getTreeItem(fileLink: FileLink): TreeItem {
-    return fileLink.url
-      ? new RemoteFsTreeItem(
-          fileLink.label,
-          fileLink.icon,
-          TreeItemCollapsibleState.None,
-          Uri.parse(fileLink.url)
-        )
-      : new RemoteFsTreeItem(
-          fileLink.label,
-          fileLink.icon,
-          TreeItemCollapsibleState.Collapsed
-        );
+    return new RemoteFsTreeItem(fileLink);
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
@@ -175,46 +164,42 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         getPortalId(),
         remoteDirectory
       );
+      // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried
+      if (remoteDirectory === '/') {
+        directoryContents.children = ['@hubspot', ...directoryContents.children];
+      }
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
-    const fileOrFolderList = directoryContents.children.map(
-      (filePath: string) => {
-        if (isPathFolder(filePath)) {
-          const path = parent ? `${parent.path}/${filePath}` : filePath;
-          return {
-            label: filePath,
-            path: path,
-            icon: path === this.watchedDest ? 'sync' : 'symbol-folder',
-          };
-        } else {
-          return {
-            label: filePath,
-            url: parent
-              ? `hubl:${parent.path}/${filePath}`
-              : `hubl:${filePath}`,
-            icon: 'file-code',
-          };
-        }
-      }
-    );
+    const buildFileLinkFromPath = this.curriedFileLinkFromPathBuilder(parent);
+    const fileOrFolderList = directoryContents.children.map(buildFileLinkFromPath);
     return Promise.resolve(fileOrFolderList);
+  }
+
+  curriedFileLinkFromPathBuilder(parent?: FileLink) {
+    return (fileName: string): FileLink => {
+      const filePath = parent ? `${parent.path}/${fileName}` : fileName;
+      return {
+        label: fileName,
+        path: filePath,
+        isDefault: filePath.startsWith('@hubspot'),
+        isFolder: isPathFolder(fileName),
+        isSynced: this.watchedDest === filePath,
+      }
+    }
   }
 }
 
 export class RemoteFsTreeItem extends TreeItem {
   constructor(
-    public readonly label: string,
-    public readonly icon: string,
-    public readonly collapsibleState: TreeItemCollapsibleState,
-    public readonly resourceUri?: Uri
+    public readonly fileLink: FileLink
   ) {
-    super(label, collapsibleState);
-    if (icon === 'sync') {
-      this.contextValue = 'syncedRemoteFsTreeItem';
-    } else {
-      this.contextValue = 'remoteFsTreeItem';
+    const getCollapsibleState = (fileLink: FileLink) => {
+      return fileLink.isFolder ? TreeItemCollapsibleState.Collapsed : TreeItemCollapsibleState.None;
     }
-    if (resourceUri) {
+    super(fileLink.label, getCollapsibleState(fileLink));
+    this.contextValue = this.getContextValue(fileLink);
+    if (!fileLink.isFolder) {
+      const resourceUri = Uri.parse(`hubl:${fileLink.path}`);
       this.tooltip = `Open link: ${resourceUri.toString()}`;
       this.command = {
         command: 'vscode.open',
@@ -222,6 +207,27 @@ export class RemoteFsTreeItem extends TreeItem {
         arguments: [resourceUri],
       };
     }
-    this.iconPath = new ThemeIcon(icon);
+    this.iconPath = new ThemeIcon(this.getIcon(fileLink));
+  }
+
+  getContextValue (fileLink: FileLink) {
+    if (fileLink.isDefault) {
+      return 'defaultRemoteFsTreeItem';
+    } else if (fileLink.isSynced) {
+      return 'syncedRemoteFsTreeItem';
+    } else {
+      return 'remoteFsTreeItem'
+    }
+  }
+  getIcon (fileLink: FileLink) {
+    if (fileLink.label === '@hubspot') {
+      return 'lock';
+    } else if (fileLink.isSynced) {
+      return 'sync';
+    } else if (fileLink.isFolder) {
+      return 'symbol-folder';
+    } else {
+      return 'file-code';
+    }
   }
 }

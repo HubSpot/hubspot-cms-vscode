@@ -14,7 +14,7 @@ export const RemoteFileProvider = new (class
       // filepath must be de-encoded since it gets reencoded by download in cli-lib
       const file = await download(
         getPortalId(),
-        `/${decodeURIComponent(filepath)}`
+        decodeURIComponent(filepath)
       );
       return file.source;
     } catch (e) {

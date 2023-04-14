@@ -376,7 +376,7 @@
                 },
                 {
                     "command": "hubspot.remoteFs.fetch",
-                    "when": "viewItem == remoteFsTreeItem"
+                    "when": "viewItem == remoteFsTreeItem || viewItem == defaultRemoteFsTreeItem"
                 },
                 {
                     "command": "hubspot.remoteFs.delete",
