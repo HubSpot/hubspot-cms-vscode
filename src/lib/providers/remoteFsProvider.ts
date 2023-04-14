@@ -167,6 +167,11 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried
       if (remoteDirectory === '/') {
         directoryContents.children = ['@hubspot', ...directoryContents.children];
+      } else if (remoteDirectory === '@hubspot') {
+        // Small QoL to move themes to top and modules to bottom of the display like DMUI does
+        const noModules = directoryContents.children.filter((f: string) => !f.endsWith('.module'));
+        const onlyModules = directoryContents.children.filter((f: string) => f.endsWith('.module'));
+        directoryContents.children = [...noModules, ...onlyModules];
       }
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
