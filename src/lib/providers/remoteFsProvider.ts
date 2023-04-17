@@ -100,7 +100,9 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     const setWatch = () => {
       const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
-      window.showInformationMessage('Beginning initial upload...');
+      window.showInformationMessage(
+        `Beginning initial upload of ${srcPath} to ${destPath}...`
+      );
       this.currentWatcher = watch(
         getPortalId(),
         srcPath,
@@ -124,7 +126,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
             });
           }
           window.showInformationMessage(
-            `Initial upload complete! Now watching for changes.`
+            `Finished initial upload of ${srcPath} to ${destPath}! Now watching for changes.`
           );
           invalidateParentDirectoryCache(destPath);
         }
