@@ -55,7 +55,9 @@ export const registerCommands = (context: ExtensionContext) => {
         console.log(
           `Saving remote file "${remoteFilePath}" to filesystem path "${localFilePath}"`
         );
-        window.showInformationMessage(`Beginning download of "${remoteFilePath}" to "${localFilePath}"...`);
+        window.showInformationMessage(
+          `Beginning download of "${remoteFilePath}" to "${localFilePath}"...`
+        );
         const downloadingStatus = buildStatusBarItem('Downloading...');
         downloadingStatus.show();
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
@@ -67,7 +69,9 @@ export const registerCommands = (context: ExtensionContext) => {
             overwrite: true,
           },
         });
-        window.showInformationMessage(`Finished download of "${remoteFilePath}" to "${localFilePath}"!`);
+        window.showInformationMessage(
+          `Finished download of "${remoteFilePath}" to "${localFilePath}"!`
+        );
         downloadingStatus.dispose();
       }
     )
@@ -239,7 +243,9 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const filePaths = await getUploadableFileList(srcPath);
   const uploadingStatus = buildStatusBarItem('Uploading...');
   uploadingStatus.show();
-  window.showInformationMessage(`Beginning upload of "${srcPath}" to "${destPath}"...`);
+  window.showInformationMessage(
+    `Beginning upload of "${srcPath}" to "${destPath}"...`
+  );
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
   uploadFolder(
     getPortalId(),
