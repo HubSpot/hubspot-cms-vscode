@@ -45,7 +45,7 @@ export const registerCommands = (context: ExtensionContext) => {
         );
         if (existsSync(localFilePath)) {
           const selection = await window.showWarningMessage(
-            `There already exists a file at ${localFilePath}. Overwrite it?`,
+            `There already exists a file at "${localFilePath}". Overwrite it?`,
             ...['Okay', 'Cancel']
           );
           if (!selection || selection === 'Cancel') {
@@ -53,9 +53,9 @@ export const registerCommands = (context: ExtensionContext) => {
           }
         }
         console.log(
-          `Saving remote file ${remoteFilePath} to filesystem path ${localFilePath}`
+          `Saving remote file "${remoteFilePath}" to filesystem path "${localFilePath}"`
         );
-        window.showInformationMessage('Beginning download...');
+        window.showInformationMessage(`Beginning download of "${remoteFilePath}" to "${localFilePath}"...`);
         const downloadingStatus = buildStatusBarItem('Downloading...');
         downloadingStatus.show();
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
@@ -67,7 +67,7 @@ export const registerCommands = (context: ExtensionContext) => {
             overwrite: true,
           },
         });
-        window.showInformationMessage('Finished download!');
+        window.showInformationMessage(`Finished download of "${remoteFilePath}" to "${localFilePath}"!`);
         downloadingStatus.dispose();
       }
     )
@@ -79,17 +79,17 @@ export const registerCommands = (context: ExtensionContext) => {
         console.log(COMMANDS.REMOTE_FS.DELETE);
         const filePath = clickedFileLink.path;
         const selection = await window.showWarningMessage(
-          `Are you sure you want to delete ${filePath}? This action cannot be undone.`,
+          `Are you sure you want to delete "${filePath}"? This action cannot be undone.`,
           ...['Okay', 'Cancel']
         );
         if (!selection || selection === 'Cancel') {
           return;
         }
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
-        const deletingStatus = buildStatusBarItem('Deleting...');
+        const deletingStatus = buildStatusBarItem(`Deleting...`);
         deletingStatus.show();
         deleteFile(getPortalId(), filePath).then(() => {
-          window.showInformationMessage(`Successfully deleted ${filePath}`);
+          window.showInformationMessage(`Successfully deleted "${filePath}"`);
           invalidateParentDirectoryCache(filePath);
           deletingStatus.dispose();
           commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
@@ -239,7 +239,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
   const filePaths = await getUploadableFileList(srcPath);
   const uploadingStatus = buildStatusBarItem('Uploading...');
   uploadingStatus.show();
-  window.showInformationMessage('Beginning upload...');
+  window.showInformationMessage(`Beginning upload of "${srcPath}" to "${destPath}"...`);
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
   uploadFolder(
     getPortalId(),
