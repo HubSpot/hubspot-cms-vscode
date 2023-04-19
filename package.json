@@ -505,7 +505,7 @@
                 },
                 {
                     "id": "hubspot.treedata.remoteFs",
-                    "name": "Remote File System"
+                    "name": "Remote File System (Default Account)"
                 },
                 {
                     "id": "hubspot.treedata.helpAndFeedback",
