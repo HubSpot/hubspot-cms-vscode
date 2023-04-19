@@ -10,10 +10,11 @@ export const RemoteFileProvider = new (class
 
   async provideTextDocumentContent(uri: Uri): Promise<string | undefined> {
     const filepath = uri.toString().split(':')[1];
+    // filepath must be de-encoded since it gets reencoded by download in cli-lib
+    const decodedFilePath = decodeURIComponent(filepath);
     try {
-      // filepath must be de-encoded since it gets reencoded by download in cli-lib
-      const file = await download(getPortalId(), decodeURIComponent(filepath));
-      return file.source;
+      const file = await download(getPortalId(), decodedFilePath);
+      return `[[ READONLY: @remote/${decodedFilePath} ]]\n` + file.source;
     } catch (e) {
       console.log(e);
     }
