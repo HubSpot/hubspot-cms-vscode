@@ -14,7 +14,7 @@ export const RemoteFileProvider = new (class
     const decodedFilePath = decodeURIComponent(filepath);
     try {
       const file = await download(getPortalId(), decodedFilePath);
-      return `[[ @remote/${decodedFilePath} ]]\n` + file.source;
+      return `[[ READONLY: @remote/${decodedFilePath} ]]\n` + file.source;
     } catch (e) {
       console.log(e);
     }
