@@ -95,8 +95,11 @@ export const registerCommands = (context: ExtensionContext) => {
         deleteFile(getPortalId(), filePath).then(() => {
           window.showInformationMessage(`Successfully deleted "${filePath}"`);
           invalidateParentDirectoryCache(filePath);
-          deletingStatus.dispose();
           commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
+        }).catch((err: any) => {
+          window.showErrorMessage(`Error deleting "${filePath}": ${JSON.parse(err.message.slice(5)).message}`)
+        }).finally(() => {
+          deletingStatus.dispose();
         });
       }
     )
