@@ -92,12 +92,22 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
         const deletingStatus = buildStatusBarItem(`Deleting...`);
         deletingStatus.show();
-        deleteFile(getPortalId(), filePath).then(() => {
-          window.showInformationMessage(`Successfully deleted "${filePath}"`);
-          invalidateParentDirectoryCache(filePath);
-          deletingStatus.dispose();
-          commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
-        });
+        deleteFile(getPortalId(), filePath)
+          .then(() => {
+            window.showInformationMessage(`Successfully deleted "${filePath}"`);
+            invalidateParentDirectoryCache(filePath);
+            commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
+          })
+          .catch((err: any) => {
+            window.showErrorMessage(
+              `Error deleting "${filePath}": ${
+                JSON.parse(err.message.slice(5)).message
+              }`
+            );
+          })
+          .finally(() => {
+            deletingStatus.dispose();
+          });
       }
     )
   );
