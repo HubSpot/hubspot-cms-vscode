@@ -2,6 +2,10 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.1.0]
+
+- Adds remote file management features
+
 ## [1.0.2]
 
 - Fixed issues preventing the extension from function properly on Windows machines.
