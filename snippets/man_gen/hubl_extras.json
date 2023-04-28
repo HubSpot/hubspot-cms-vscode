@@ -54,7 +54,7 @@
       "        <meta name=\"author\" content=\"{{ meta_author }}\">",
       "        <meta name=\"description\" content=\"{{ page_meta.meta_description }}\">",
       "        <title>{{ page_meta.html_title }}</title>",
-      "        {% if site_settings.favicon_src %}<link rel=\"shortcut icon\" href=\"{{ site_settings.favicon_src }}\" />{% endif %}",
+      "        {% if brand_settings.primaryFavicon.src %}<link rel=\"shortcut icon\" href=\"{{ brand_settings.primaryFavicon.src }}\" />{% endif %}",
       "        {{ standard_header_includes }}",
       "    </head>",
       "    <body>",
