@@ -2,3 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm run compareEnLyaml
+git add src/lang/en.lyaml
