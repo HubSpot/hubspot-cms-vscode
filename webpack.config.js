@@ -49,10 +49,12 @@ const config = {
       },
       {
         test: /\.lyaml$/,
-        use: [{
-          loader: path.resolve('loaders/jsyamlLoader.js'),
-        }],
-      }
+        use: [
+          {
+            loader: path.resolve('loaders/jsyamlLoader.js'),
+          },
+        ],
+      },
     ],
   },
   plugins: [...optionalPlugins],
