@@ -10,7 +10,6 @@
     "scripts": {
         "prepare": "husky install",
         "dev": "npm run webpack-dev",
-        "compareEnLyaml": "node ./scripts/sanityCheckEnLyaml.js",
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
         "prettier:write": "prettier --write '**/*.{ts,js,json}'",
