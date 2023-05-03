@@ -7,6 +7,7 @@ import { registerCommands } from './lib/commands';
 import { registerEvents } from './lib/events';
 import { registerURIHandler } from './lib/uri';
 
+import { initializeCliLibLang } from './lib/lang';
 import { initializeCliLibLogger } from './lib/logger';
 import { initializeStatusBar } from './lib/statusBar';
 import { initializeProviders } from './lib/providers';
@@ -17,6 +18,7 @@ import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
 
 export const activate = async (context: ExtensionContext) => {
+  initializeCliLibLang();
   initializeCliLibLogger();
   initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
