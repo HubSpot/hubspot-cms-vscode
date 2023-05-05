@@ -12,7 +12,7 @@ console.log('Running precommit check for lang files...');
   const txt = await res.text();
   const localLyaml = fs.readFileSync('./src/lang/en.lyaml', 'utf8');
   if (txt !== localLyaml) {
-    console.error('Local lyaml needs to be updated, replacing...');
+    console.error('Local lyaml needs to be updated because it is out of sync, replacing...');
     fs.writeFileSync('./src/lang/en.lyaml', txt);
   } else {
     console.log(`Local lyaml matches remote for v${cliLibVersion}!`);
