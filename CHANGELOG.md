@@ -2,6 +2,11 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.1.1]
+
+- Minor updates to snippets
+- Fixed a bug preventing language data from fetching properly
+
 ## [1.1.0]
 
 - Adds remote file management features
