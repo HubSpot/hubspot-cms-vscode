@@ -47,6 +47,14 @@ const config = {
         test: /\.node$/,
         loader: 'node-loader',
       },
+      {
+        test: /\.lyaml$/,
+        use: [
+          {
+            loader: path.resolve('loaders/jsyamlLoader.js'),
+          },
+        ],
+      },
     ],
   },
   plugins: [...optionalPlugins],
