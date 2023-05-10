@@ -2,12 +2,13 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.63.0"
     },
     "scripts": {
+        "prepare": "husky install",
         "dev": "npm run webpack-dev",
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
@@ -546,12 +547,11 @@
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.8-beta.0",
+        "@hubspot/cli-lib": "^4.1.8-beta.2",
         "dayjs": "^1.11.7",
         "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
-        "js-yaml": "^4.1.0",
-        "node-fetch": "^3.1.1",
+        "husky": "^7.0.4",
         "semver": "^7.3.8",
         "set-value": ">=4.0.1"
     },
@@ -559,6 +559,7 @@
         "@types/findup-sync": "^4.0.2",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
+        "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.63.0",
         "@wdio/cli": "^8.0.13",
@@ -567,11 +568,14 @@
         "@wdio/spec-reporter": "^8.0.13",
         "chromedriver": "^108.0.0",
         "eslint": "^7.5.0",
+        "js-yaml": "^4.1.0",
+        "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
         "typescript": "^4.3.4",
+        "un-eval": "^1.2.0",
         "wdio-chromedriver-service": "^8.0.1",
         "wdio-vscode-service": "^5.0.0",
         "webpack": "^5.40.0",
