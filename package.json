@@ -53,6 +53,10 @@
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_required_page_template_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
