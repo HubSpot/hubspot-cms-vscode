@@ -1,77 +1,142 @@
 {
-  "standard_footer_includes": {
-    "prefix": "standard_footer_includes",
-    "body": ["{{ standard_footer_includes }}"],
-    "description": "Renders the HubSpot tracking code and any other code included in your Footer HTML in Content Settings or the options of a particular page. This tag should be inserted directly before the closing body tag."
-  },
-  "standard_header_includes": {
-    "prefix": "standard_header_includes",
-    "body": ["{{ standard_header_includes }}"],
-    "description": "Adds jQuery, layout.css, any attached stylesheets, a meta viewport tag, Google Analytics tracking code, other page meta information, and code added to the head tag at the domain/template/page level. This variable should be added to the <head> of HTML templates."
+  "company_domain": {
+    "prefix": "company_domain",
+    "body": ["{{ company_domain }}"],
+    "description": "Prints the company domain from Website > Pages > Branding > Logo Link."
   },
   "content.absolute_url ": {
-    "prefix": "content.absolute_url ",
+    "prefix": "content.absolute_url",
     "body": ["{{ content.absolute_url }}"],
     "description": "Prints the full URL of a page, post, or web page version of an email."
   },
   "content.archived ": {
-    "prefix": "content.archived ",
+    "prefix": "content.archived",
     "body": ["{{ content.archived }}"],
     "description": "This variable evaluates to True, if the page or email was marked as archived by the user."
   },
   "content.author_email ": {
-    "prefix": "content.author_email ",
+    "prefix": "content.author_email",
     "body": ["{{ content.author_email }}"],
     "description": "The email address of the content creator."
   },
   "content.author_name ": {
-    "prefix": "content.author_name ",
+    "prefix": "content.author_name",
     "body": ["{{ content.author_name }}"],
     "description": "The first and last name of the content creator."
   },
   "content.author_username": {
-    "prefix": "content.author_username ",
+    "prefix": "content.author_username",
     "body": ["{{ content.author_username }}"],
     "description": "The HubSpot username of the content creator."
   },
-  "content.name": {
-    "prefix": "content.name ",
-    "body": ["{{ content.name  }}"],
-    "description": "The name of a post, email, or page. For pages and emails this will print the internal content name, while for posts this will print the post title. For blog posts, this is the post title that displays. For other types of content, this is generally an internal name. This variable includes a wrapper so that it is editable via the UI, when included in blog posts. If you want to print the content name without a wrapper, use page_meta.name."
-  },
   "content.campaign": {
-    "prefix": "content.campaign ",
+    "prefix": "content.campaign",
     "body": ["{{ content.campaign }}"],
     "description": "The GUID for the marketing campaign that this page or email is associated with. This unique ID can be found in the URL of a particular campaign in the Campaign's tool."
   },
   "content.campaign_name": {
-    "prefix": "content.campaign_name ",
+    "prefix": "content.campaign_name",
     "body": ["{{ content.campaign_name }}"],
-    "description": "The GUID for the marketing campaign that this page or email is associated with. This unique ID can be found in the URL of a particular campaign in the Campaign's tool."
+    "description": "The name of the marketing campaign that this page, this post, or this email is associated with."
   },
   "content.created": {
-    "prefix": "content.created ",
+    "prefix": "content.created",
     "body": ["{{ content.created }}"],
     "description": "A datetime object for when the content was originally created, in UTC time. This variable can be formatted with the datetime filter."
   },
   "content.meta_description": {
-    "prefix": "content.meta_description ",
+    "prefix": "content.meta_description",
     "body": ["{{ content.meta_description }}"],
-    "description": "Prints the meta description of a page."
+    "description": "Prints the meta description of a page. When pulling the meta description of a page, it is better to use the variable page_meta.meta_description."
+  },
+  "content.name": {
+    "prefix": "content.name",
+    "body": ["{{ content.name }}"],
+    "description": "The name of a post, email, or page. For pages and emails this will print the internal content name, while for posts this will print the post title. For blog posts, this is the post title that displays. For other types of content, this is generally an internal name. This variable includes a wrapper so that it is editable via the UI, when included in blog posts. If you want to print the content name without a wrapper, use page_meta.name."
   },
   "content.publish_date": {
-    "prefix": "content.publish_date ",
+    "prefix": "content.publish_date",
     "body": ["{{ content.publish_date }}"],
     "description": "A datetime object representing when the content was published, in UTC time. This variable can be formatted with the datetime filter."
   },
+  "content.publish_date_localized": {
+    "prefix": "content.publish_date_localized",
+    "body": ["{{ content.publish_date_localized }}"],
+    "description": "A string representing the datetime when the content was published using the time zone defined in the account's default settings. This variable is also subject to the language and  date format settings in Settings > Website > Blog > Date Formats."
+  },
   "content.template_path": {
-    "prefix": "content.template_path ",
+    "prefix": "content.template_path",
     "body": ["{{ content.template_path }}"],
     "description": "The Design Manager file path to your template (ie custom/page/web_page_basic/my_template.html)."
   },
   "content.updated": {
-    "prefix": "content.updated ",
+    "prefix": "content.updated",
     "body": ["{{ content.updated }}"],
     "description": "A datetime object for when the user last updated the content, in UTC time. This variable can be formatted with the datetime filter."
+  },
+  "content_id": {
+    "prefix": "content_id",
+    "body": ["{{ content_id }}"],
+    "description": "Prints the unique ID for a page, post, or email. This ID can be found in the URL of the editor. You can use this variable as an alias for content.id."
+  },
+  "favicon_link": {
+    "prefix": "favicon_link",
+    "body": ["{{ favicon_link }}"],
+    "description": "Prints the source URL of the favicon. This image is set in Settings > Website > Pages > Branding."
+  },
+  "hub_id": {
+    "prefix": "hub_id",
+    "body": ["{{ hub_id }}"],
+    "description": "The portal ID of your HubSpot account."
+  },
+  "hubspot_analytics_tracking_code": {
+    "prefix": "hubspot_analytics_tracking_code",
+    "body": ["{{ hubspot_analytics_tracking_code }}"],
+    "description": "Includes the analytics tracking code. This tag is not necessary, because standard_footer_includes, already renders the tracking code."
+  },
+  "local_dt": {
+    "prefix": "local_dt",
+    "body": ["{{ local_dt }}"],
+    "description": "A datetime object of the current time in the time zone defined in your Report Settings. Usage of this variable will disable page caching in order to return the current time. May hurt page performance. Use JavaScript instead to get current date and time in a cacheable way."
+  },
+  "local_time_zone": {
+    "prefix": "local_time_zone",
+    "body": ["{{ local_time_zone }}"],
+    "description": "The time zone, as configured in your HubSpot Report Settings."
+  },
+  "page_meta.canonical_url": {
+    "prefix": "page_meta.canonical_url",
+    "body": ["{{ page_meta.canonical_url }}"],
+    "description": "The official URL that this page should be accessed at. Usually does not include any query string parameters. Use this for the rel=\"canonical\" tag. HubSpot automatically canonicalizes URLs."
+  },
+  "page_meta.html_title": {
+    "prefix": "page_meta.html_title",
+    "body": ["{{ page_meta.html_title }}"],
+    "description": "The title of the page. This variable should be used in the <title> tag of HTML templates."
+  },
+  "page_meta.meta_description": {
+    "prefix": "page_meta.meta_description",
+    "body": ["{{ page_meta.meta_description }}"],
+    "description": "The meta description of a page. This variable should be used in the \"description\" <meta> tag of HTML templates."
+  },
+  "page_meta.name": {
+    "prefix": "page_meta.name",
+    "body": ["{{ page_meta.name }}"],
+    "description": "An alias for content.name"
+  },
+  "portal_id": {
+    "prefix": "portal_id",
+    "body": ["{{ portal_id }}"],
+    "description": "An alias for hub_id"
+  },
+  "request_contact": {
+    "prefix": "request_contact",
+    "body": ["{{ request_contact }}"],
+    "description": "A dictionary containing data about the requested contact."
+  },
+  "year": {
+    "prefix": "year",
+    "body": ["{{ year }}"],
+    "description": "Prints the current year."
   }
 }
