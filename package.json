@@ -97,6 +97,10 @@
               "path": "./snippets/man_gen/hubl_hubdb_variables.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_menu_node_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/default_modules.json"
             },
