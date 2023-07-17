@@ -4,19 +4,24 @@
     "body": [
       "{{ ${1|blog_author,blog_author.avatar,blog_author.bio,blog_author.display_name,blog_author.email,blog_author.facebook,blog_author.google_plus,blog_author.has_social_profiles,blog_author.linkedin,blog_author.twitter,blog_author.website|} }}"
     ],
-    "description": "Data about blog authors. To be used for blog author listing pages ({% if blog_author %})."
+    "description": "This variable contains blog author information for blog author listing pages. It can be used to create conditional logic to >render markup for blog author listings ({% if blog_author %})."
   },
   "content.blog_post_author": {
     "prefix": "content.blog_post_author",
     "body": [
       "{{ ${1|content.blog_post_author,content.blog_post_author.avatar,content.blog_post_author.bio,content.blog_post_author.display_name,content.blog_post_author.email,content.blog_post_author.facebook,content.blog_post_author.google_plus,content.blog_post_author.has_social_profiles,content.blog_post_author.linkedin,content.blog_post_author.slug,content.blog_post_author.twitter,content.blog_post_author.website|} }}"
     ],
-    "description": "Data about a blog posts author. To be used on blog post/listing templates."
+    "description": "This variable contains individual blog post author information for a given post."
   },
-  "content.blog": {
-    "prefix": "content.blog",
-    "body": ["{{ content.blog }}"],
+  "blog": {
+    "prefix": "blog",
+    "body": ["{{ blog }}"],
     "description": "An alias for group."
+  },
+  "content.comment_count": {
+    "prefix": "content.comment_count",
+    "body": ["{{ content.comment_count }}"],
+    "description": "The number of comments for the current blog post."
   },
   "content.comment_list": {
     "prefix": "content.comment_list",
@@ -43,7 +48,7 @@
   "content.previous_post": {
     "prefix": "content.previous_post",
     "body": [
-      "{{ ${1|content.previous_post_name,content.previous_post_featured_image,content.previous_post_slug|} }}"
+      "{{ ${1|content.previous_post_name,content.previous_post_featured_image,content.previous_post_featured_image_alt_text,content.previous_post_slug|} }}"
     ],
     "description": "Information about the previous post, if one exists."
   },
@@ -55,17 +60,17 @@
   "content.post_list_content": {
     "prefix": "content.post_list_content",
     "body": ["{{ content.post_list_content }}"],
-    "description": "The body blog post content, modified for the listing page. The final output is affected by summary settings in Content Settings > Blog. If featured images are enabled in settings, this varible will remove any images above the read more separator automatically."
+    "description": "The body blog post content, modified for the listing page. The final output is affected by summary settings in Settings > Website > Blog. If featured images are enabled in settings, this variable will remove any images above the read more separator automatically."
   },
   "content.post_summary": {
     "prefix": "content.post_summary",
     "body": ["{{ content.post_summary }}"],
     "description": "The blog post summary. This content is determined by the read more separator in the blog editor."
   },
-  "content.post_list_summary_featured_image ": {
+  "content.post_list_summary_featured_image": {
     "prefix": "content.post_list_summary_featured_image",
     "body": ["{{ content.post_list_summary_featured_image }}"],
-    "description": "The featured image for listing layouts. This variable is affected by the settings in Content Settings > Blog."
+    "description": "The featured image of post summaries to be used in listing templates. This variable is affected by the settings in Settings > Website > Blog."
   },
   "content.publish_date_localized": {
     "prefix": "content.publish_date_localized ",
@@ -87,6 +92,16 @@
     "body": ["{{ next_page_num }}"],
     "description": "The integer index of the next page of blog posts in the view."
   },
+  "simple_list_page": {
+    "prefix": "simple_list_page",
+    "body": ["{{ simple_list_page }}"],
+    "description": "A boolean to indicate whether the requested page is the 'all posts' page containing links to all blog posts."
+  },
+  "content.topic_list": {
+    "prefix": "content.topic_list",
+    "body": ["{{ content.topic_list }}"],
+    "description": "Can be used to render markup for a topic listing by looping through it. {% for topic in content.topic_list %} The items within contain the properties: name and slug."
+  },
   "contents": {
     "prefix": "contents",
     "body": [
@@ -97,8 +112,13 @@
   "group": {
     "prefix": "group",
     "body": [
-      "{{ ${1|group,group.absolute_url,group.description,group.allow_comments,group.header,group.html_title,group.id,group.public_title,group.slug|} }}"
+      "{{ ${1|group,group.absolute_url,group.description,group.allow_comments,group.header,group.html_title,group.id,group.language,group.public_title,group.show_summary_in_listing,group.slug,group.use_featured_image_in_summary|} }}"
     ],
     "description": "The dictionary containing variables that pertain to an entire blog."
+  },
+  "archive_list_page": {
+    "prefix": "archive_list_page",
+    "body": ["{{ archive_list_page }}"],
+    "description": "Returns true if page is a blog archive page. Ex: https://www.example.com/blog/archive/2020/02 would return true."
   }
 }
