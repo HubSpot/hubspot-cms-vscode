@@ -101,6 +101,10 @@
               "path": "./snippets/man_gen/hubl_menu_node_variables.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_in_app_editor_and_preview_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/default_modules.json"
             },
