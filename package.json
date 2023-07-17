@@ -89,6 +89,10 @@
               "path": "./snippets/man_gen/hubl_private_content_email_variables.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_crm_object_dynamic_pages.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/default_modules.json"
             },
