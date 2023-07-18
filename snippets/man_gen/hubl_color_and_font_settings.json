@@ -50,7 +50,7 @@
     "description": "Favorite color 6 setting from Settings > Marketing > Email > Configuration > Color. Prints a HEX value. Replace 6 with 2-6 to modify the tag for other favorite color settings."
   },
   "site_settings.primary_accent_color": {
-    "prefix": " site_settings.primary_accent_color",
+    "prefix": "site_settings.primary_accent_color",
     "body": ["{{ site_settings.primary_accent_color }}"],
     "description": "Primary accent color setting from Settings > Marketing > Email > Configuration > Color. Prints a HEX value."
   },
