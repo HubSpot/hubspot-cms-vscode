@@ -80,7 +80,7 @@
     "description": "Secondary font setting from Settings > Marketing > Email > Configuration > Font. Prints value from dropdown."
   },
   "site_settings.secondary_font_color": {
-    "prefix": " site_settings.secondary_font_color",
+    "prefix": "site_settings.secondary_font_color",
     "body": ["{{ site_settings.secondary_font_color }}"],
     "description": "Secondary font color setting from Settings > Marketing > Email > Configuration > Font Prints a HEX value."
   },
