@@ -4,7 +4,7 @@
     "body": [
       "{{ ${1|blog_author,blog_author.avatar,blog_author.bio,blog_author.display_name,blog_author.email,blog_author.facebook,blog_author.google_plus,blog_author.has_social_profiles,blog_author.linkedin,blog_author.twitter,blog_author.website|} }}"
     ],
-    "description": "This variable contains blog author information for blog author listing pages. It can be used to create conditional logic to >render markup for blog author listings ({% if blog_author %})."
+    "description": "This variable contains blog author information for blog author listing pages. It can be used to create conditional logic to render markup for blog author listings ({% if blog_author %})."
   },
   "content.blog_post_author": {
     "prefix": "content.blog_post_author",
