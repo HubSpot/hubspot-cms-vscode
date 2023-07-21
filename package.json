@@ -139,21 +139,33 @@
                 "aliases": [
                     "HubL"
                 ],
-                "configuration": "./langconfig/hubl-language-configuration.json"
+                "configuration": "./langconfig/hubl-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl.svg",
+                    "dark": "./images/icons/hubl.svg"
+                }
             },
             {
                 "id": "html-hubl",
                 "aliases": [
                     "HTML + HubL"
                 ],
-                "configuration": "./langconfig/hubl-html-language-configuration.json"
+                "configuration": "./langconfig/hubl-html-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl.svg",
+                    "dark": "./images/icons/hubl.svg"
+                }
             },
             {
                 "id": "css-hubl",
                 "aliases": [
                     "CSS + HubL"
                 ],
-                "configuration": "./langconfig/hubl-css-language-configuration.json"
+                "configuration": "./langconfig/hubl-css-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl-css.svg",
+                    "dark": "./images/icons/hubl-css.svg"
+                }
             }
         ],
         "grammars": [
