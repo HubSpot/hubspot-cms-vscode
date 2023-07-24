@@ -1,0 +1,72 @@
+{
+  "is_in_hs_app": {
+    "prefix": "is_in_hs_app",
+    "body": ["{{ is_in_hs_app }}"],
+    "description": "Returns true if content is being rendered within the HubSpot app."
+  },
+  "is_in_editor": {
+    "prefix": "is_in_editor",
+    "body": ["{{ is_in_editor }}"],
+    "description": "Returns true if content is being rendered within any content editor."
+  },
+  "is_in_global_content_editor": {
+    "prefix": "is_in_global_content_editor",
+    "body": ["{{ is_in_global_content_editor }}"],
+    "description": "Returns true if content is being rendered within the global content editor."
+  },
+  "is_in_theme_editor": {
+    "prefix": "is_in_theme_editor",
+    "body": ["{{ is_in_theme_editor }}"],
+    "description": "Returns true if content is being rendered within the theme editor."
+  },
+  "is_in_page_editor": {
+    "prefix": "is_in_page_editor",
+    "body": ["{{ is_in_page_editor }}"],
+    "description": "Returns true if content is being rendered within the page editor."
+  },
+  "is_in_blog_post_editor": {
+    "prefix": "is_in_blog_post_editor",
+    "body": ["{{ is_in_blog_post_editor }}"],
+    "description": "Returns true if content is being rendered within the blog post editor."
+  },
+  "is_in_email_editor": {
+    "prefix": "is_in_email_editor",
+    "body": ["{{ is_in_email_editor }}"],
+    "description": "Returns true if content is being rendered within the email editor."
+  },
+  "is_in_previewer": {
+    "prefix": "is_in_previewer",
+    "body": ["{{ is_in_previewer }}"],
+    "description": "Returns true if content is being rendered within any preview context."
+  },
+  "is_in_theme_previewer": {
+    "prefix": "is_in_theme_previewer",
+    "body": ["{{ is_in_theme_previewer }}"],
+    "description": "Returns true if content is being rendered within the theme previewer."
+  },
+  "is_in_template_previewer": {
+    "prefix": "is_in_template_previewer",
+    "body": ["{{ is_in_template_previewer }}"],
+    "description": "Returns true if content is being rendered within the template previewer."
+  },
+  "is_in_page_previewer": {
+    "prefix": "is_in_page_previewer",
+    "body": ["{{ is_in_page_previewer }}"],
+    "description": "Returns true if content is being rendered within the page previewer."
+  },
+  "is_in_blog_post_previewer": {
+    "prefix": "is_in_blog_post_previewer",
+    "body": ["{{ is_in_blog_post_previewer }}"],
+    "description": "Returns true if content is being rendered within the blog post previewer."
+  },
+  "is_in_email_previewer": {
+    "prefix": "is_in_email_previewer",
+    "body": ["{{ is_in_email_previewer }}"],
+    "description": "Returns true if content is being rendered within the email previewer."
+  },
+  "is_in_module_previewer": {
+    "prefix": "is_in_module_previewer",
+    "body": ["{{ is_in_module_previewer }}"],
+    "description": "Returns true if content is being rendered within the module previewer."
+  }
+}

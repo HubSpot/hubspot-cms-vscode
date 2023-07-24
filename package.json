@@ -53,6 +53,10 @@
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_required_page_template_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
@@ -79,6 +83,26 @@
             {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_private_content_email_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_crm_object_dynamic_pages.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_hubdb_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_menu_node_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_in_app_editor_and_preview_variables.json"
             },
             {
                 "language": "html-hubl",
@@ -139,21 +163,33 @@
                 "aliases": [
                     "HubL"
                 ],
-                "configuration": "./langconfig/hubl-language-configuration.json"
+                "configuration": "./langconfig/hubl-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl.svg",
+                    "dark": "./images/icons/hubl.svg"
+                }
             },
             {
                 "id": "html-hubl",
                 "aliases": [
                     "HTML + HubL"
                 ],
-                "configuration": "./langconfig/hubl-html-language-configuration.json"
+                "configuration": "./langconfig/hubl-html-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl-html-light.svg",
+                    "dark": "./images/icons/hubl-html-dark.svg"
+                }
             },
             {
                 "id": "css-hubl",
                 "aliases": [
                     "CSS + HubL"
                 ],
-                "configuration": "./langconfig/hubl-css-language-configuration.json"
+                "configuration": "./langconfig/hubl-css-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl-css-light.svg",
+                    "dark": "./images/icons/hubl-css-dark.svg"
+                }
             }
         ],
         "grammars": [
