@@ -53,6 +53,10 @@
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_required_page_template_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
@@ -79,6 +83,26 @@
             {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_private_content_email_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_crm_object_dynamic_pages.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_hubdb_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_menu_node_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_in_app_editor_and_preview_variables.json"
             },
             {
                 "language": "html-hubl",
