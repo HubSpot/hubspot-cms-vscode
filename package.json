@@ -152,8 +152,8 @@
                 ],
                 "configuration": "./langconfig/hubl-html-language-configuration.json",
                 "icon": {
-                    "light": "./images/icons/hubl.svg",
-                    "dark": "./images/icons/hubl.svg"
+                    "light": "./images/icons/hubl-html-light.svg",
+                    "dark": "./images/icons/hubl-html-dark.svg"
                 }
             },
             {
@@ -163,8 +163,8 @@
                 ],
                 "configuration": "./langconfig/hubl-css-language-configuration.json",
                 "icon": {
-                    "light": "./images/icons/hubl-css.svg",
-                    "dark": "./images/icons/hubl-css.svg"
+                    "light": "./images/icons/hubl-css-light.svg",
+                    "dark": "./images/icons/hubl-css-dark.svg"
                 }
             }
         ],
