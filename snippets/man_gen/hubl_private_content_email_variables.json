@@ -1,0 +1,32 @@
+{
+  "membership_company_name": {
+    "prefix": "membership_company_name",
+    "body": ["{{ membership_company_name }}"],
+    "description": "This is the company name listed in Private Content > General Settings."
+  },
+  "membership_domain": {
+    "prefix": "membership_domain",
+    "body": ["{{ membership_domain }}"],
+    "description": "This is the domain of the private content website."
+  },
+  "membership_registration_link": {
+    "prefix": "membership_registration_link",
+    "body": ["{{ membership_registration_link }}"],
+    "description": "Link to the registration page for the private content website."
+  },
+  "membership_website_admin": {
+    "prefix": "membership_website_admin",
+    "body": ["{{ membership_website_admin }}"],
+    "description": "This is the website admin listed in Private Content > General Settings."
+  },
+  "membership_password_saved_link": {
+    "prefix": "membership_password_saved_link",
+    "body": ["{{ membership_password_saved_link }}"],
+    "description": "Link to the password saved page. The link will redirect the visitor to a random restricted page that they have access to."
+  },
+  "membership_password_reset_link": {
+    "prefix": "membership_password_reset_link",
+    "body": ["{{ membership_password_reset_link }}"],
+    "description": "Link to the reset password page for the private content website."
+  }
+}
