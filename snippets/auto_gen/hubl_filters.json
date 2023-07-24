@@ -13,6 +13,13 @@
     "description": "adds a number to the existing value\nParameters:\n- addend(number) The number added to the base number",
     "prefix": "|add"
   },
+  "allow_snake_case": {
+    "body": [
+      "|allow_snake_case"
+    ],
+    "description": "Allow keys on the provided camelCase map to be accessed using snake_case",
+    "prefix": "|allow_snake_case"
+  },
   "attr": {
     "body": [
       "|attr('${1:name}')"
@@ -162,9 +169,9 @@
   },
   "escape_jinjava": {
     "body": [
-      "|escape_jinjava"
+      "|escape_jinjava(${1:all_braces})"
     ],
-    "description": "Converts the characters { and } in string s to Jinjava-safe sequences. Use this filter if you need to display text that might contain such characters in Jinjava. Marks return value as markup string.",
+    "description": "Converts the characters { and } in string s to Jinjava-safe sequences. Use this filter if you need to display text that might contain such characters in Jinjava. Marks return value as markup string.\nParameters:\n- all_braces(boolean) Whether to only escape all curly braces or just when there are default expression, tag, or comment marks",
     "prefix": "|escape_jinjava"
   },
   "escapejs": {
@@ -230,6 +237,13 @@
     "description": "Formats a given number as a currency based on the locale and currency code passed in as a parameter. \nParameters:\n- locale(String) Locale in which to format the currency. Any Java locale language tag can be passed as a parameter. The default is the page's locale.Format : ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency_code(String) The ISO 4217 code of the currency. The default is the portal's default currency\n- use_default decimal digits(String) A boolean input that determines if formatter needs to use default decimal digits of the currency code. The default is false.\n- extend_Decimal Digits To Value Precision(String) A boolean input that determines if formatter needs to use the number of decimal digits from the given value. If the number of decimal digits from the input value is greater than the default number of decimal digits of the currency, use the number of decimal digits from the input value. Otherwise use the currency's default. The default is false.",
     "prefix": "|format_currency"
   },
+  "format_currency_value": {
+    "body": [
+      "|format_currency_value('${1:locale}', '${2:currency}', ${3:minDecimalDigits}, ${4:maxDecimalDigits})"
+    ],
+    "description": "Formats a given number as a currency.\nParameters:\n- locale(String) The language tag for the locale to use. Defaults to the page's locale.\nFormat: ISO639LanguageCodeInLowercase-ISO3166CountryCodeInUppercase\n- currency(String) The ISO 4217 code of the currency to use. Defaults to the portal's default currency.\n- minDecimalDigits(integer) The minimum number of decimal digits to use. Defaults to the currency's default number of decimal digits.\n- maxDecimalDigits(integer) The maximum number of decimal digits to use. Defaults to the currency's default number of decimal digits.",
+    "prefix": "|format_currency_value"
+  },
   "format_date": {
     "body": [
       "|format_date('${1:format}', '${2:timeZone}', '${3:locale}')"
@@ -243,6 +257,13 @@
     ],
     "description": "Formats both the date and time components of a date object\nParameters:\n- format(String) The format to use. One of 'short', 'medium', 'long', 'full', or a custom pattern following Unicode LDML\nhttps://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns\n- timeZone(String) Time zone of the output date in IANA TZDB format\nhttps://data.iana.org/time-zones/tzdb/\n- locale(String) The locale to use for locale-aware formats",
     "prefix": "|format_datetime"
+  },
+  "format_number": {
+    "body": [
+      "|format_number('${1:locale}', ${2:max decimal precision})"
+    ],
+    "description": "Formats a given number based on the locale passed in as a parameter.\nParameters:\n- locale(String) Locale in which to format the number. The default is the page's locale.\n- max_decimal precision(number) A number input that determines the decimal precision of the formatted value. If the number of decimal digits from the input value is less than the decimal precision number, use the number of decimal digits from the input value. Otherwise, use the decimal precision number. The default is the number of decimal digits from the input value.",
+    "prefix": "|format_number"
   },
   "format_time": {
     "body": [
@@ -626,7 +647,7 @@
     "body": [
       "|unixtimestamp"
     ],
-    "description": "Gets the UNIX timestamp value (in milliseconds) of a date object",
+    "description": "",
     "prefix": "|unixtimestamp"
   },
   "upper": {
