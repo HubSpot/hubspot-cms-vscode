@@ -36,9 +36,9 @@
   },
   "blog_popular_posts": {
     "body": [
-      "blog_popular_posts(${1:selected_blog}, ${2:limit}, ${3:tag_slug}, ${4:time_frame})"
+      "blog_popular_posts(${1:selected_blog}, ${2:limit}, ${3:tag_slug}, ${4:time_frame}, ${5:logical_operator})"
     ],
-    "description": "Returns a sequence of blog post objects for the specified blog, sorted by most popular first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- limit(number) Specifies the number of posts to add to the sequence up to a limit of 200\n- tag_slug(list) Optional list of tags to filter posts by\n- time_frame(choice) Optional timeframe to filter posts by (must be one of 'popular_all_time', 'popular_past_year', 'popular_past_six_months', 'popular_past_month')",
+    "description": "Returns a sequence of blog post objects for the specified blog, sorted by most popular first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- limit(number) Specifies the number of posts to add to the sequence up to a limit of 200\n- tag_slug(list) Optional list of tags to filter posts by\n- time_frame(choice) Optional timeframe to filter posts by (must be one of 'popular_all_time', 'popular_past_year', 'popular_past_six_months', 'popular_past_month')\n- logical_operator(string) Logical operator which, when tag_slug is a list, specifies how to logically filter on the slugs. Must be one of 'AND', 'OR'",
     "prefix": "~blog_popular_posts"
   },
   "blog_post_archive_url": {
@@ -71,9 +71,9 @@
   },
   "blog_recent_tag_posts": {
     "body": [
-      "blog_recent_tag_posts(${1:selected_blog}, ${2:tag_slug}, ${3:limit})"
+      "blog_recent_tag_posts(${1:selected_blog}, ${2:tag_slug}, ${3:limit}, ${4:logical_operator})"
     ],
-    "description": "Returns a sequence of blog post objects for the specified blog, for the specified tag, sorted by most recent first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- tag_slug(tag slug) Specifies which tag to filter on\n- limit(number) Specifies the number of posts to add to the sequence",
+    "description": "Returns a sequence of blog post objects for the specified blog, for the specified tag, sorted by most recent first\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to use\n- tag_slug(tag slug) Specifies which tag to filter on\n- limit(number) Specifies the number of posts to add to the sequence\n- logical_operator(string) Logical operator which, when tag_slug is a list, specifies how to logically filter on the slugs. Must be one of 'AND', 'OR'",
     "prefix": "~blog_recent_tag_posts"
   },
   "blog_recent_topic_posts": {

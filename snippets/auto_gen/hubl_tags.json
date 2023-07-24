@@ -8,10 +8,17 @@
   },
   "blog_comments": {
     "body": [
-      "{% blog_comments 'my_blog_comments' \n\tselect_blog='${1:select_blog}', \n\tlimit='${2:limit}', \n\tskip_css='${3:skip_css}'%}"
+      "{% blog_comments 'my_blog_comments' \n\tselect_blog='${1:select_blog}', \n\tlimit='${2:limit}', \n\tskip_css='${3:skip_css}', \n\tmessage='${4:message}'%}"
     ],
-    "description": "Renders the blog comments embed tag\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the comments embed\n- limit(number) Sets maximum number of comments\n- skip_css(bool) ",
+    "description": "Renders the blog comments embed tag\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the comments embed\n- limit(number) Sets maximum number of comments\n- skip_css(bool) \n- message(string) This message is displayed when there are no comments. By default, it appears as empty.",
     "prefix": "~blog_comments"
+  },
+  "blog_post_summary_wrapper": {
+    "body": [
+      "{% blog_post_summary_wrapper 'my_blog_post_summary_wrapper' %}"
+    ],
+    "description": "",
+    "prefix": "~blog_post_summary_wrapper"
   },
   "blog_social_sharing": {
     "body": [
@@ -64,9 +71,9 @@
   },
   "cta": {
     "body": [
-      "{% cta 'my_cta' \n\tembed_code='${1:embed_code}', \n\tfull_html='${2:full_html}', \n\timage_src='${3:image_src}', \n\timage_editor='${4:image_editor}', \n\tguid='${5:guid}', \n\timage_html='${6:image_html}', \n\timage_email='${7:image_email}'%}"
+      "{% cta 'my_cta' \n\tembed_code='${1:embed_code}', \n\tfull_html='${2:full_html}', \n\timage_src='${3:image_src}', \n\timage_editor='${4:image_editor}', \n\tguid='${5:guid}', \n\tcta_id='${6:cta_id}', \n\timage_html='${7:image_html}', \n\timage_email='${8:image_email}'%}"
     ],
-    "description": "Renders a CTA module\nParameters:\n- embed_code(String) The embed code for the CTA\n- full_html(String) The embed code for the CTA. Same as embed_code\n- image_src(String) Image src url that defines the preview image in the content editor\n- image_editor(String) Markup for the image editor preview\n- guid(String) The unique ID number of the default CTA\n- image_html(String) CTA image HTML without the CTA script\n- image_email(String) Email-friendly version of the CTA code",
+    "description": "Renders a CTA module\nParameters:\n- embed_code(String) The embed code for the CTA\n- full_html(String) The embed code for the CTA. Same as embed_code\n- image_src(String) Image src url that defines the preview image in the content editor\n- image_editor(String) Markup for the image editor preview\n- guid(String) The unique ID number of the default CTA\n- cta_id(String) The id or guid of an embedded cta\n- image_html(String) CTA image HTML without the CTA script\n- image_email(String) Email-friendly version of the CTA code",
     "prefix": "~cta"
   },
   "custom_widget": {
@@ -106,23 +113,23 @@
   },
   "email_simple_subscription": {
     "body": [
-      "{% email_simple_subscription 'my_email_simple_subscription' \n\theader='${1:header}', \n\tsubheader='${2:subheader}', \n\theader_heading_level='${3:header_heading_level}', \n\tsubheader_heading_level='${4:subheader_heading_level}', \n\tinput_help_text='${5:input_help_text}', \n\tbutton_text='${6:button_text}', \n\tinput_placeholder='${7:input_placeholder}'%}"
+      "{% email_simple_subscription 'my_email_simple_subscription' \n\theader='${1:header}', \n\tsubheader='${2:subheader}', \n\theader_heading_level='${3:header_heading_level}', \n\tsubheader_heading_level='${4:subheader_heading_level}', \n\tinput_help_text='${5:input_help_text}', \n\tbutton_text='${6:button_text}', \n\tinput_placeholder='${7:input_placeholder}', \n\terror_info_text='${8:error_info_text}'%}"
     ],
-    "description": "Simple email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader(String) Renders text in an h2 tag above the unsubscribe form below the h1\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- input_help_text(String) Renders help text in an h3 tag above your email unsubscribe form field\n- button_text(String) Changes the text of the unsubscribe form submit button\n- input_placeholder(String) Adds placeholder text within the email address form field",
+    "description": "Simple email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader(String) Renders text in an h2 tag above the unsubscribe form below the h1\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- input_help_text(String) Renders help text in an h3 tag above your email unsubscribe form field\n- button_text(String) Changes the text of the unsubscribe form submit button\n- input_placeholder(String) Adds placeholder text within the email address form field\n- error_info_text(String) Renders error text in an h3 tag",
     "prefix": "~email_simple_subscription"
   },
   "email_subscriptions": {
     "body": [
-      "{% email_subscriptions 'my_email_subscriptions' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\tsubheader_heading_level='${4:subheader_heading_level}', \n\tunsubscribe_single_text='${5:unsubscribe_single_text}', \n\tunsubscribe_all_text='${6:unsubscribe_all_text}', \n\tunsubscribe_all_unsubbed_text='${7:unsubscribe_all_unsubbed_text}', \n\tunsubscribe_all_option='${8:unsubscribe_all_option}', \n\tbutton_text='${9:button_text}', \n\tresubscribe_button_text='${10:resubscribe_button_text}'%}"
+      "{% email_subscriptions 'my_email_subscriptions' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\temail_heading_level='${4:email_heading_level}', \n\tlanguage_select_label_text='${5:language_select_label_text}', \n\tunsubscribe_single_text='${6:unsubscribe_single_text}', \n\tunsubscribe_all_text='${7:unsubscribe_all_text}', \n\tunsubscribe_all_unsubbed_text='${8:unsubscribe_all_unsubbed_text}', \n\tunsubscribe_all_option='${9:unsubscribe_all_option}', \n\tbutton_text='${10:button_text}', \n\tresubscribe_button_text='${11:resubscribe_button_text}'%}"
     ],
-    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- resubscribe_button_text(String) Sets the text of the submit button for when contacts are resubscribing",
+    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- resubscribe_button_text(String) Sets the text of the submit button for when contacts are resubscribing",
     "prefix": "~email_subscriptions"
   },
   "email_subscriptions_confirmation": {
     "body": [
-      "{% email_subscriptions_confirmation 'my_email_subscriptions_confirmation' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\tsubheader_heading_level='${4:subheader_heading_level}', \n\tunsubscribe_all_success='${5:unsubscribe_all_success}', \n\tsubscription_update_success='${6:subscription_update_success}'%}"
+      "{% email_subscriptions_confirmation 'my_email_subscriptions_confirmation' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\temail_heading_level='${4:email_heading_level}', \n\tunsubscribe_all_success='${5:unsubscribe_all_success}', \n\tsubscription_update_success='${6:subscription_update_success}'%}"
     ],
-    "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
+    "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
     "prefix": "~email_subscriptions_confirmation"
   },
   "extends": {
@@ -155,9 +162,9 @@
   },
   "form": {
     "body": [
-      "{% form 'my_form' \n\tform_key='${1:form_key}', \n\tform_to_use='${2:form_to_use}', \n\ttitle='${3:title}', \n\tno_title='${4:no_title}', \n\tform_follow_ups_follow_up_type='${5:form_follow_ups_follow_up_type}', \n\tsimple_email_for_live_id='${6:simple_email_for_live_id}', \n\tsimple_email_for_buffer_id='${7:simple_email_for_buffer_id}', \n\tfollow_up_type_simple='${8:follow_up_type_simple}', \n\tfollow_up_type_automation='${9:follow_up_type_automation}', \n\tsimple_email_campaign_id='${10:simple_email_campaign_id}', \n\tform_follow_ups_workflow_id='${11:form_follow_ups_workflow_id}', \n\tresponse_redirect_url='${12:response_redirect_url}', \n\tresponse_redirect_id='${13:response_redirect_id}', \n\tresponse_response_type='${14:response_response_type}', \n\tresponse_message='${15:response_message}', \n\tnotifications_are_overridden='${16:notifications_are_overridden}', \n\tnotifications_override_guid_buffer='${17:notifications_override_guid_buffer}', \n\tnotifications_override_guid='${18:notifications_override_guid}', \n\tnotifications_override_email_addresses='${19:notifications_override_email_addresses}', \n\tnotifications_override_user_ids='${20:notifications_override_user_ids}', \n\tgotowebinar_webinar_key='${21:gotowebinar_webinar_key}', \n\tsfdc_campaign='${22:sfdc_campaign}', \n\toverride_styles='${23:override_styles}'%}"
+      "{% form 'my_form' \n\tform_key='${1:form_key}', \n\tform_to_use='${2:form_to_use}', \n\ttitle='${3:title}', \n\tno_title='${4:no_title}', \n\tform_follow_ups_follow_up_type='${5:form_follow_ups_follow_up_type}', \n\tsimple_email_for_live_id='${6:simple_email_for_live_id}', \n\tsimple_email_for_buffer_id='${7:simple_email_for_buffer_id}', \n\tfollow_up_type_simple='${8:follow_up_type_simple}', \n\tfollow_up_type_automation='${9:follow_up_type_automation}', \n\tsimple_email_campaign_id='${10:simple_email_campaign_id}', \n\tform_follow_ups_workflow_id='${11:form_follow_ups_workflow_id}', \n\tresponse_redirect_url='${12:response_redirect_url}', \n\tresponse_redirect_id='${13:response_redirect_id}', \n\tresponse_response_type='${14:response_response_type}', \n\tresponse_message='${15:response_message}', \n\tnotifications_are_overridden='${16:notifications_are_overridden}', \n\tnotifications_override_guid_buffer='${17:notifications_override_guid_buffer}', \n\tnotifications_override_guid='${18:notifications_override_guid}', \n\tnotifications_override_email_addresses='${19:notifications_override_email_addresses}', \n\tnotifications_override_user_ids='${20:notifications_override_user_ids}', \n\tgotowebinar_webinar_key='${21:gotowebinar_webinar_key}', \n\tsfdc_campaign='${22:sfdc_campaign}', \n\toverride_styles='${23:override_styles}', \n\ttitle_heading_level='${24:title_heading_level}', \n\tis_survey='${25:is_survey}'%}"
     ],
-    "description": "Insert one of the forms created in the Form Manager\nParameters:\n- form_key(String) A unique id to target this form instance on the page\n- form_to_use(String) The form ID of the form to render by default\n- title(String) Populates an h3 header tag above the form\n- no_title(boolean) If True, the h3 tag above the title is removed.\n- form_follow_ups_follow_up_type(enum no_action|simple|automation) Specifies follow up action\n- simple_email_for_live_id(number) Specifies the ID of the simple follow-up email for the live page\n- simple_email_for_buffer_id(number) Specifies the ID of the simple follow-up email for the auto-save version of a page\n- follow_up_type_simple(boolean) If true, enables a simple follow-up email\n- follow_up_type_automation(boolean) If true, enrolls submissions in a workflow\n- simple_email_campaign_id(number) Specifies the ID of the simple follow-up email\n- form_follow_ups_workflow_id(number) Specifies the ID of the follow-up workflow\n- response_redirect_url(String) If redirecting to an external page, this parameter specifies the URL to redirect to\n- response_redirect_id(number) If redirecting to HubSpot hosted page, this parameter specifies the page ID of that page\n- response_response_type(enum inline|redirect) Determines whether to redirect to another page or to display an inline thank you message on submission\n- response_message(String) Sets an inline thank you message\n- notifications_are_overridden(boolean) If True, the form will send notifications to specified addresses selected in the notifications_override_email_addresses\n- notifications_override_guid_buffer(String) ID of override settings in auto-save version of page\n- notifications_override_guid(String) ID of override settings in live version of page\n- notifications_override_email_addresses(JSON list) (Deprecated) These email addresses will override  the email notification settings set in the form\n- notifications_override_user_ids(JSON list) The user IDs to override email addresses for the email notification settings set in the form\n- gotowebinar_webinar_key(String) Specifies the GoToWebinar webinar to enroll contacts who submit the form into\n- sfdc_campaign(String) Specifies the Salesforce campaign to enroll contacts who submit the form into\n- override_styles(json object) Override config for forms styles",
+    "description": "Insert one of the forms created in the Form Manager\nParameters:\n- form_key(String) A unique id to target this form instance on the page\n- form_to_use(String) The form ID of the form to render by default\n- title(String) Populates an h3 header tag above the form\n- no_title(boolean) If True, the h3 tag above the title is removed.\n- form_follow_ups_follow_up_type(enum no_action|simple|automation) Specifies follow up action\n- simple_email_for_live_id(number) Specifies the ID of the simple follow-up email for the live page\n- simple_email_for_buffer_id(number) Specifies the ID of the simple follow-up email for the auto-save version of a page\n- follow_up_type_simple(boolean) If true, enables a simple follow-up email\n- follow_up_type_automation(boolean) If true, enrolls submissions in a workflow\n- simple_email_campaign_id(number) Specifies the ID of the simple follow-up email\n- form_follow_ups_workflow_id(number) Specifies the ID of the follow-up workflow\n- response_redirect_url(String) If redirecting to an external page, this parameter specifies the URL to redirect to\n- response_redirect_id(number) If redirecting to HubSpot hosted page, this parameter specifies the page ID of that page\n- response_response_type(enum inline|redirect) Determines whether to redirect to another page or to display an inline thank you message on submission\n- response_message(String) Sets an inline thank you message\n- notifications_are_overridden(boolean) If True, the form will send notifications to specified addresses selected in the notifications_override_email_addresses\n- notifications_override_guid_buffer(String) ID of override settings in auto-save version of page\n- notifications_override_guid(String) ID of override settings in live version of page\n- notifications_override_email_addresses(JSON list) (Deprecated) These email addresses will override  the email notification settings set in the form\n- notifications_override_user_ids(JSON list) The user IDs to override email addresses for the email notification settings set in the form\n- gotowebinar_webinar_key(String) Specifies the GoToWebinar webinar to enroll contacts who submit the form into\n- sfdc_campaign(String) Specifies the Salesforce campaign to enroll contacts who submit the form into\n- override_styles(json object) Override config for forms styles\n- title_heading_level(String) Defines the heading level of the title\n- is_survey(boolean) ",
     "prefix": "~form"
   },
   "from": {
@@ -258,6 +265,13 @@
     "description": "",
     "prefix": "~include_dnd_partial"
   },
+  "inline_image_field": {
+    "body": [
+      "{% inline_image_field 'my_inline_image_field' \n\talt='${1:alt}', \n\twidth='${2:width}', \n\theight='${3:height}', \n\talign='${4:align}', \n\thspace='${5:hspace}', \n\tstyle='${6:style}', \n\tsrc='${7:src}', \n\tloading='${8:loading}'%}"
+    ],
+    "description": "Renders an image tag that can be edited inline inside modules\nParameters:\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
+    "prefix": "~inline_image_field"
+  },
   "inline_rich_text": {
     "body": [
       "{% inline_rich_text 'my_inline_rich_text' \n\tvalue='${1:value}', \n\tfield='${2:field}'%}"
@@ -265,12 +279,26 @@
     "description": "A rich text area that can be edited inline inside modules\nParameters:\n- value(String) Sets the default content of the rich text module\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_rich_text"
   },
+  "inline_richtext_field": {
+    "body": [
+      "{% inline_richtext_field 'my_inline_richtext_field' \n\tfield='${1:field}'%}"
+    ],
+    "description": "A single line of text that can be edited inline inside modules\nParameters:\n- field(String) Required name of the module field to which this text is associated",
+    "prefix": "~inline_richtext_field"
+  },
   "inline_text": {
     "body": [
       "{% inline_text 'my_inline_text' \n\tvalue='${1:value}', \n\tfield='${2:field}'%}"
     ],
     "description": "A single line of text with no formatting that can be edited inline inside modules\nParameters:\n- value(String) The default text of the single line text field\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_text"
+  },
+  "inline_text_field": {
+    "body": [
+      "{% inline_text_field 'my_inline_text_field' \n\tfield='${1:field}'%}"
+    ],
+    "description": "A single line of text with no formatting that can be edited inline inside modules\nParameters:\n- field(String) Required name of the module field to which this text is associated",
+    "prefix": "~inline_text_field"
   },
   "js_module": {
     "body": [
