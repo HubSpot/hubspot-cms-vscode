@@ -588,7 +588,7 @@
         "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
         "husky": "^7.0.4",
-        "semver": "^7.3.8",
+        "semver": "^7.5.2",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
