@@ -2,12 +2,13 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.0.0",
+    "version": "1.1.2",
     "publisher": "HubSpot",
     "engines": {
-        "vscode": "^1.55.0"
+        "vscode": "^1.63.0"
     },
     "scripts": {
+        "prepare": "husky install",
         "dev": "npm run webpack-dev",
         "generate": "node ./scripts/generate.js",
         "lint": "eslint . && prettier --list-different '**/*.{ts,js,json}'",
@@ -52,6 +53,10 @@
                 "path": "./snippets/auto_gen/hubl_expTests.json"
             },
             {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_required_page_template_variables.json"
+            },
+            {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_extras.json"
             },
@@ -78,6 +83,26 @@
             {
                 "language": "html-hubl",
                 "path": "./snippets/man_gen/hubl_required_email_template_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_private_content_email_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_crm_object_dynamic_pages.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_hubdb_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_menu_node_variables.json"
+            },
+            {
+              "language": "html-hubl",
+              "path": "./snippets/man_gen/hubl_in_app_editor_and_preview_variables.json"
             },
             {
                 "language": "html-hubl",
@@ -138,21 +163,33 @@
                 "aliases": [
                     "HubL"
                 ],
-                "configuration": "./langconfig/hubl-language-configuration.json"
+                "configuration": "./langconfig/hubl-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl.svg",
+                    "dark": "./images/icons/hubl.svg"
+                }
             },
             {
                 "id": "html-hubl",
                 "aliases": [
                     "HTML + HubL"
                 ],
-                "configuration": "./langconfig/hubl-html-language-configuration.json"
+                "configuration": "./langconfig/hubl-html-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl-html-light.svg",
+                    "dark": "./images/icons/hubl-html-dark.svg"
+                }
             },
             {
                 "id": "css-hubl",
                 "aliases": [
                     "CSS + HubL"
                 ],
-                "configuration": "./langconfig/hubl-css-language-configuration.json"
+                "configuration": "./langconfig/hubl-css-language-configuration.json",
+                "icon": {
+                    "light": "./images/icons/hubl-css-light.svg",
+                    "dark": "./images/icons/hubl-css-dark.svg"
+                }
             }
         ],
         "grammars": [
@@ -245,9 +282,49 @@
                 "title": "Open feedback panel"
             },
             {
+                "command": "hubspot.account.openDesignManager",
+                "title": "Open design manager"
+            },
+            {
                 "command": "hubspot.account.viewPersonalAccessKey",
                 "title": "Show personal access key info",
                 "icon": "$(link-external)"
+            },
+            {
+                "command": "hubspot.remoteFs.refresh",
+                "title": "Cached Refresh"
+            },
+            {
+                "command": "hubspot.remoteFs.hardRefresh",
+                "title": "Refresh"
+            },
+            {
+                "command": "hubspot.remoteFs.invalidateCache",
+                "title": "Invalidate Cache"
+            },
+            {
+                "command": "hubspot.remoteFs.startWatch",
+                "title": "Start Watch"
+            },
+            {
+                "command": "hubspot.remoteFs.endWatch",
+                "title": "End Watch"
+            },
+            {
+                "command": "hubspot.remoteFs.upload",
+                "title": "Upload"
+            },
+            {
+                "command": "hubspot.remoteFs.watch",
+                "title": "Watch"
+            },
+            {
+                "command": "hubspot.remoteFs.fetch",
+                "title": "Fetch"
+            },
+            {
+                "command": "hubspot.remoteFs.delete",
+                "title": "Delete"
             }
         ],
         "submenus": [
@@ -276,6 +353,14 @@
                     "command": "hubspot.create.serverlessFunctionFolder",
                     "when": "hubspot.configPath && explorerResourceIsFolder && resource =~ /^(?!.*\\.functions).*$/",
                     "group": "navigation@999"
+                },
+                {
+                    "command": "hubspot.remoteFs.upload",
+                    "when": "hubspot.configPath"
+                },
+                {
+                    "command": "hubspot.remoteFs.watch",
+                    "when": "hubspot.configPath && explorerResourceIsFolder"
                 }
             ],
             "hubspot.submenus.template": [
@@ -317,9 +402,40 @@
                     "group": "view/item/context@999"
                 },
                 {
+                    "command": "hubspot.account.openDesignManager",
+                    "when": "viewItem == accountTreeItem",
+                    "group": "accountTreeItemRightClick@1"
+                },
+                {
                     "command": "hubspot.account.viewPersonalAccessKey",
                     "when": "viewItem == accountTreeItem",
                     "group": "accountTreeItemRightClick@1"
+                },
+                {
+                    "command": "hubspot.remoteFs.fetch",
+                    "when": "viewItem == remoteFsTreeItem || viewItem == defaultRemoteFsTreeItem"
+                },
+                {
+                    "command": "hubspot.remoteFs.delete",
+                    "when": "viewItem == remoteFsTreeItem"
+                },
+                {
+                    "command": "hubspot.remoteFs.endWatch",
+                    "when": "viewItem == syncedRemoteFsTreeItem"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "hubspot.remoteFs.hardRefresh",
+                    "when": "view == hubspot.treedata.remoteFs"
+                },
+                {
+                    "command": "hubspot.remoteFs.upload",
+                    "when": "view == hubspot.treedata.remoteFs"
+                },
+                {
+                    "command": "hubspot.remoteFs.watch",
+                    "when": "view == hubspot.treedata.remoteFs"
                 }
             ],
             "commandPalette": [
@@ -372,7 +488,23 @@
                     "when": "false"
                 },
                 {
+                    "command": "hubspot.account.openDesignManager",
+                    "when": "false"
+                },
+                {
                     "command": "hubspot.account.viewPersonalAccessKey",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.refresh",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.invalidateCache",
+                    "when": "false"
+                },
+                {
+                    "command": "hubspot.remoteFs.startWatch",
                     "when": "false"
                 }
             ]
@@ -409,10 +541,13 @@
                     "when": "hubspot.versionChecksComplete && hubspot.terminal.versions.installed.npm && !hubspot.terminal.versions.installed.hs || hubspot.updateAvailableForCLI"
                 },
                 {
+                    "id": "hubspot.treedata.remoteFs",
+                    "name": "Remote File System (Default Account)"
+                },
+                {
                     "id": "hubspot.treedata.helpAndFeedback",
                     "name": "Help & Feedback"
                 }
-
             ]
         },
         "viewsWelcome": [
@@ -440,39 +575,46 @@
                 "view": "hubspot.viewsWelcome.noFolderOpened",
                 "contents": "You have not yet opened a folder.\n[Open Folder](command:workbench.action.files.openFileFolder)\nYou can clone a repository locally.\n[Clone Repository](command:git.clone)\nTo learn more about how to use git and source control in VS Code [read our docs](https://code.visualstudio.com/docs/sourcecontrol/overview).",
                 "when": "workbench.explorer.emptyView.active"
+            },
+            {
+                "view": "hubspot.treedata.remoteFs",
+                "contents": "No remote file system contents found. Default portal may not be set, or portal remote file system may be empty."
             }
         ]
     },
     "dependencies": {
-        "@hubspot/cli-lib": "^4.1.6",
+        "@hubspot/cli-lib": "^4.1.8-beta.2",
         "dayjs": "^1.11.7",
         "findup-sync": "^5.0.0",
         "fs-extra": "^9.0.1",
-        "js-yaml": "^4.1.0",
-        "node-fetch": "^3.1.1",
-        "semver": "^7.3.8",
+        "husky": "^7.0.4",
+        "semver": "^7.5.2",
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
         "@types/findup-sync": "^4.0.2",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
+        "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
-        "@types/vscode": "1.55.0",
+        "@types/vscode": "1.63.0",
         "@wdio/cli": "^8.0.13",
         "@wdio/local-runner": "^8.0.13",
         "@wdio/mocha-framework": "^8.0.13",
         "@wdio/spec-reporter": "^8.0.13",
         "chromedriver": "^108.0.0",
         "eslint": "^7.5.0",
+        "js-yaml": "^4.1.0",
+        "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
         "typescript": "^4.3.4",
+        "un-eval": "^1.2.0",
         "wdio-chromedriver-service": "^8.0.1",
         "wdio-vscode-service": "^5.0.0",
-        "webpack": "^5.40.0",
+        "webpack": "^5.76.0",
         "webpack-cli": "^4.7.2",
         "webpack-node-externals": "^3.0.0"
     }

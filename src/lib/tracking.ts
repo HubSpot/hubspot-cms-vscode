@@ -108,7 +108,7 @@ export const trackEvent = async (action: string, options?: object) => {
   }
   const accountId = getAccountId();
 
-  await trackUsage(
+  trackUsage(
     'vscode-extension-interaction',
     'INTERACTION',
     {
@@ -117,5 +117,10 @@ export const trackEvent = async (action: string, options?: object) => {
       action,
     },
     accountId
+  ).then(
+    (val: any) => {},
+    (err: any) => {
+      console.error(`trackUsage failed: ${err}`);
+    }
   );
 };

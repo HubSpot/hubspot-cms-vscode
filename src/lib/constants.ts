@@ -36,6 +36,7 @@ export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
 
 export const COMMANDS = {
   ACCOUNT: {
+    OPEN_DESIGN_MANAGER: 'hubspot.account.openDesignManager',
     VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
   },
   ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
@@ -68,6 +69,17 @@ export const COMMANDS = {
   PANELS: {
     OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
   },
+  REMOTE_FS: {
+    REFRESH: 'hubspot.remoteFs.refresh',
+    HARD_REFRESH: 'hubspot.remoteFs.hardRefresh',
+    INVALIDATE_CACHE: 'hubspot.remoteFs.invalidateCache',
+    FETCH: 'hubspot.remoteFs.fetch',
+    DELETE: 'hubspot.remoteFs.delete',
+    UPLOAD: 'hubspot.remoteFs.upload',
+    WATCH: 'hubspot.remoteFs.watch',
+    START_WATCH: 'hubspot.remoteFs.startWatch',
+    END_WATCH: 'hubspot.remoteFs.endWatch',
+  },
   VERSION_CHECK: {
     HS: 'hubspot.versionCheck.hs',
     HS_LATEST: 'hubspot.versionCheck.hs.latest',
@@ -83,6 +95,7 @@ export const EVENTS = {
 export const TREE_DATA = {
   ACCOUNTS: 'hubspot.treedata.accounts',
   HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
+  REMOTE: 'hubspot.treedata.remoteFs',
 };
 
 export const POLLING_INTERVALS = {
@@ -115,6 +128,13 @@ export const TRACKED_EVENTS = {
   },
   LINTING_ENABLED: 'lintingEnabled',
   LINTING_DISABLED: 'lintingDisabled',
+  REMOTE_FS: {
+    WATCH: 'remoteFsWatch',
+    UPLOAD_FILE: 'remoteFsUploadFile',
+    UPLOAD_FOLDER: 'remoteFsUploadFolder',
+    DELETE: 'remoteFsDelete',
+    FETCH: 'remoteFsFetch',
+  },
   RENAME_ACCOUNT: 'accountRenamed',
   RENAME_ACCOUNT_ERROR: 'accountRenameError',
   SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',

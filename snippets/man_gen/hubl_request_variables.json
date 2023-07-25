@@ -12,7 +12,7 @@
   "request.full_url": {
     "prefix": "request.full_url",
     "body": ["{{ request.full_url }}"],
-    "description": "The URL used to access this page, with the query string."
+    "description": "The URL used to access this page."
   },
   "request.path": {
     "prefix": "request.path",
@@ -32,7 +32,7 @@
   "request.query_dict": {
     "prefix": "request.query_dict",
     "body": ["{{ request.query_dict }}"],
-    "description": "The query string coverted into a name->value dictionary."
+    "description": "The query string converted into a name -> value dictionary."
   },
   "request.referrer": {
     "prefix": "request.referrer",

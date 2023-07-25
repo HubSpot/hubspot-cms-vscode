@@ -53,3 +53,18 @@ export interface HubLValidationError {
   };
   category: string;
 }
+
+export interface FileLink {
+  label: string;
+  path: string;
+  isDefault: boolean;
+  isFolder: boolean;
+  isSynced: boolean;
+}
+
+export interface RemoteFsDirectory {
+  id: string;
+  name: string;
+  folder: boolean;
+  children: string[];
+}

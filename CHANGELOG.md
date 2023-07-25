@@ -2,11 +2,28 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
-## [Unreleased]
+## [1.1.1]
 
-- Adds authorization flow for HubSpot accounts
-- Converts files to TypeScript
-- Bumps dependency version of `cli-lib` to 4.1.2
+- Minor updates to snippets
+- Fixed a bug preventing language data from fetching properly
+
+## [1.1.0]
+
+- Adds remote file management features
+
+## [1.0.2]
+
+- Fixed issues preventing the extension from function properly on Windows machines.
+
+## [1.0.1]
+
+- Fixed issue where CLI update flow would break when user had a legacy CLI version installed 
+
+## [1.0.0]
+
+- Adds UI that supports HubSpot account authentication, account management, and CLI updates
+- Improved scaffolding of new templates, modules, and serverless functions
+- Improved HubL language support with autocomplete and linting
 
 ## [0.10.0]
 

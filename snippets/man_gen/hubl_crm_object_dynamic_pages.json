@@ -1,0 +1,12 @@
+{
+  "dynamic_page_crm_object": {
+    "prefix": "dynamic_page_crm_object",
+    "body": ["{{ dynamic_page_crm_object }}"],
+    "description": "The CRM object of the dynamic page that matches with the page request path. If the request is to the listing page, this value will be null."
+  },
+  "dynamic_page_crm_object_type_fqn": {
+    "prefix": "dynamic_page_crm_object_type_fqn",
+    "body": ["{{ dynamic_page_crm_object_type_fqn }}"],
+    "description": "The fully qualified name (FQN) of the crm object. The FQN is an assigned unique ID for the object, including portal ID and object name. The fqn can be used in the crm_objects function."
+  }
+}
