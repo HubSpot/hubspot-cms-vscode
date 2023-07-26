@@ -1,4 +1,4 @@
-import { ExtensionContext, languages } from 'vscode';
+import { ExtensionContext } from 'vscode';
 
 import { getRootPath } from './lib/helpers';
 import { TRACKED_EVENTS } from './lib/constants';
