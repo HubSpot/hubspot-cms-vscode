@@ -1,9 +1,6 @@
 import { ExtensionContext, workspace, window, languages } from 'vscode';
+import { FileAssociations } from './types';
 const { extname } = require('path');
-
-interface FileAssociations {
-  [key: string]: string;
-}
 
 export const initializeHubLAutoDetect = (context: ExtensionContext) => {
   languages.setLanguageConfiguration('hubl', {
