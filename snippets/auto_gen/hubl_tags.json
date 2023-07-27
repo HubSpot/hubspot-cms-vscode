@@ -1,14 +1,14 @@
 {
   "block": {
     "body": [
-      "{% block 'my_block' \n\tblock_name='${1:block_name}'%}\n\n{% endblock %}"
+      "{% block ${1:name} %}\n$0\n{% endblock $1 %}"
     ],
     "description": "Blocks are regions in a template which can be overridden by child templates\nParameters:\n- block_name(String) A unique name for the block that should be used in both the parent and child template",
     "prefix": "~block"
   },
   "blog_comments": {
     "body": [
-      "{% blog_comments 'my_blog_comments' \n\tselect_blog='${1:select_blog}', \n\tlimit='${2:limit}', \n\tskip_css='${3:skip_css}', \n\tmessage='${4:message}'%}"
+      "{% blog_comments select_blog=\"${1:select_blog}\" limit=\"${2:limit}\" skip_css=\"${3:skip_css}\" message=\"${4:message}\" %}"
     ],
     "description": "Renders the blog comments embed tag\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the comments embed\n- limit(number) Sets maximum number of comments\n- skip_css(bool) \n- message(string) This message is displayed when there are no comments. By default, it appears as empty.",
     "prefix": "~blog_comments"
@@ -22,238 +22,238 @@
   },
   "blog_social_sharing": {
     "body": [
-      "{% blog_social_sharing 'my_blog_social_sharing' \n\tselect_blog='${1:select_blog}', \n\tdowngrade_shared_url='${2:downgrade_shared_url}'%}"
+      "{% blog_social_sharing select_blog=\"${1:select_blog}\" downgrade_shared_url=\"${2:downgrade_shared_url}\" %}"
     ],
     "description": "Blog social sharing module\nParameters:\n- select_blog('default' or blog id) Species which blog is connected to the share counters\n- downgrade_shared_url(boolean) Use http in the url sent to the social media networks. Used to preserve counts when upgrading domains to https only.",
     "prefix": "~blog_social_sharing"
   },
   "blog_subscribe": {
     "body": [
-      "{% blog_subscribe 'my_blog_subscribe' \n\tselect_blog='${1:select_blog}', \n\ttitle='${2:title}', \n\tno_title='${3:no_title}', \n\tresponse_message='${4:response_message}', \n\theading_level='${5:heading_level}', \n\tedit_form_link='${6:edit_form_link}'%}"
+      "{% blog_subscribe select_blog=\"${1:select_blog}\" title=\"${2:title}\" no_title=\"${3:no_title}\" response_message=\"${4:response_message}\" heading_level=\"${5:heading_level}\" edit_form_link=\"${6:edit_form_link}\" %}"
     ],
     "description": "Blog subscription module\nParameters:\n- select_blog('default' or blog id) Selects which blog subscription form to render\n- title(String) Defines text in a <heading_level> tag title above the subscribe form\n- no_title(boolean)  If True, the <heading_level> tag above the title is removed\n- response_message(String) Defines the inline thank-you message that is rendered when a user submits a form\n- heading_level(String) Defines the heading level of the title\n- edit_form_link(String) Generates a link that allows users to click through to the corresponding Form editor screen",
     "prefix": "~blog_subscribe"
   },
   "boolean": {
     "body": [
-      "{% boolean 'my_boolean' \n\tvalue='${1:value}'%}"
+      "{% boolean value=\"${1:value}\" %}"
     ],
     "description": "A boolean option\nParameters:\n- value(boolean) Determines whether the checkbox is checked or unchecked",
     "prefix": "~boolean"
   },
   "call": {
     "body": [
-      "{% call 'my_call' %}\n\n{% endcall %}"
+      "{% call ${1:macro_name}(${2:argument_names}) %}\n$0\n{% endcall %}"
     ],
     "description": "In some cases it can be useful to pass a macro to another macro. For this purpose you can use the special call block.",
     "prefix": "~call"
   },
   "choice": {
     "body": [
-      "{% choice 'my_choice' \n\tchoices='${1:choices}', \n\tvalue='${2:value}'%}"
+      "{% choice choices=\"${1:choices}\" value=\"${2:value}\" %}"
     ],
     "description": "A list of options\nParameters:\n- choices(String) Comma-separated list of values, or list of value-label pairs\n- value(String) The default field value for the dropdown",
     "prefix": "~choice"
   },
   "color": {
     "body": [
-      "{% color 'my_color' \n\tcolor='${1:color}'%}"
+      "{% color color=\"${1:color}\" %}"
     ],
     "description": "A color picker module\nParameters:\n- color(String) A default HEX color value for the color picker module",
     "prefix": "~color"
   },
   "content_attribute": {
     "body": [
-      "{% content_attribute 'my_content_attribute' %}\n\n{% end_content_attribute %}"
+      "{% content_attribute %}\n{% end_content_attribute %}"
     ],
     "description": "Sets default content in an attribute of the content object, such as content.email_body",
     "prefix": "~content_attribute"
   },
   "cta": {
     "body": [
-      "{% cta 'my_cta' \n\tembed_code='${1:embed_code}', \n\tfull_html='${2:full_html}', \n\timage_src='${3:image_src}', \n\timage_editor='${4:image_editor}', \n\tguid='${5:guid}', \n\tcta_id='${6:cta_id}', \n\timage_html='${7:image_html}', \n\timage_email='${8:image_email}'%}"
+      "{% cta embed_code=\"${1:embed_code}\" full_html=\"${2:full_html}\" image_src=\"${3:image_src}\" image_editor=\"${4:image_editor}\" guid=\"${5:guid}\" cta_id=\"${6:cta_id}\" image_html=\"${7:image_html}\" image_email=\"${8:image_email}\" %}"
     ],
     "description": "Renders a CTA module\nParameters:\n- embed_code(String) The embed code for the CTA\n- full_html(String) The embed code for the CTA. Same as embed_code\n- image_src(String) Image src url that defines the preview image in the content editor\n- image_editor(String) Markup for the image editor preview\n- guid(String) The unique ID number of the default CTA\n- cta_id(String) The id or guid of an embedded cta\n- image_html(String) CTA image HTML without the CTA script\n- image_email(String) Email-friendly version of the CTA code",
     "prefix": "~cta"
   },
   "custom_widget": {
     "body": [
-      "{% custom_widget 'my_custom_widget' \n\twidget_definition='${1:widget_definition}', \n\twidget_name='${2:widget_name}'%}"
+      "{% custom_widget widget_definition=\"${1:widget_definition}\" widget_name=\"${2:widget_name}\" %}"
     ],
     "description": "A custom module\nParameters:\n- widget_definition(json object) \n- widget_name(String) Specifies the internal Design Manager name of the custom module that you would like to render",
     "prefix": "~custom_widget"
   },
   "cycle": {
     "body": [
-      "{% cycle 'my_cycle' \n\tstring_to_print='${1:string_to_print}'%}"
+      "{% cycle '${1:string_to_print}' %}"
     ],
     "description": "The cycle tag can be used within a for loop to cycle through a series of string values and print them with each iteration\nParameters:\n- string_to_print(String) A comma separated list of strings to print with each interation. The list will repeat if there are more iterations than string parameter values.",
     "prefix": "~cycle"
   },
   "do": {
     "body": [
-      "{% do list.append('value 2') %}"
+      "{% do ${1:expr} %}"
     ],
     "description": "Evaluates expression without printing out result.",
     "prefix": "~do"
   },
   "email_each": {
     "body": [
-      "{% email_each 'my_email_each' \n\tlist='${1:list}', \n\titem='${2:item}'%}\n\n{% endemail_each %}"
+      "{% email_each list=\"${1:list}\" item=\"${2:item}\" %}\n{% endemail_each %}"
     ],
     "description": "Allows looping over a list value in an email where a for loop would not work. Use \"item.\" to access the current element of the list.\nParameters:\n- list(String) \n- item(String) ",
     "prefix": "~email_each"
   },
   "email_flex_area": {
     "body": [
-      "{% email_flex_area 'my_email_flex_area' \n\tname='${1:name}', \n\tno_wrapper='${2:no_wrapper}', \n\textra_classes='${3:extra_classes}'%}"
+      "{% email_flex_area name=\"${1:name}\" no_wrapper=\"${2:no_wrapper}\" extra_classes=\"${3:extra_classes}\" %}"
     ],
     "description": "An email flexible area tag is a widget container which renders its contained widgets in a box grid, \nwith an email friendly table-based layout.\n\nThe layout schema is defined in a JSON structure at the content level; these tags are always empty\nin their declaring templates.\nParameters:\n- name(String) \n- no_wrapper(boolean) \n- extra_classes(String) ",
     "prefix": "~email_flex_area"
   },
   "email_simple_subscription": {
     "body": [
-      "{% email_simple_subscription 'my_email_simple_subscription' \n\theader='${1:header}', \n\tsubheader='${2:subheader}', \n\theader_heading_level='${3:header_heading_level}', \n\tsubheader_heading_level='${4:subheader_heading_level}', \n\tinput_help_text='${5:input_help_text}', \n\tbutton_text='${6:button_text}', \n\tinput_placeholder='${7:input_placeholder}', \n\terror_info_text='${8:error_info_text}'%}"
+      "{% email_simple_subscription header=\"${1:header}\" subheader=\"${2:subheader}\" header_heading_level=\"${3:header_heading_level}\" subheader_heading_level=\"${4:subheader_heading_level}\" input_help_text=\"${5:input_help_text}\" button_text=\"${6:button_text}\" input_placeholder=\"${7:input_placeholder}\" error_info_text=\"${8:error_info_text}\" %}"
     ],
     "description": "Simple email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader(String) Renders text in an h2 tag above the unsubscribe form below the h1\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- input_help_text(String) Renders help text in an h3 tag above your email unsubscribe form field\n- button_text(String) Changes the text of the unsubscribe form submit button\n- input_placeholder(String) Adds placeholder text within the email address form field\n- error_info_text(String) Renders error text in an h3 tag",
     "prefix": "~email_simple_subscription"
   },
   "email_subscriptions": {
     "body": [
-      "{% email_subscriptions 'my_email_subscriptions' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\temail_heading_level='${4:email_heading_level}', \n\tlanguage_select_label_text='${5:language_select_label_text}', \n\tunsubscribe_single_text='${6:unsubscribe_single_text}', \n\tunsubscribe_all_text='${7:unsubscribe_all_text}', \n\tunsubscribe_all_unsubbed_text='${8:unsubscribe_all_unsubbed_text}', \n\tunsubscribe_all_option='${9:unsubscribe_all_option}', \n\tbutton_text='${10:button_text}', \n\tresubscribe_button_text='${11:resubscribe_button_text}'%}"
+      "{% email_subscriptions header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" language_select_label_text=\"${5:language_select_label_text}\" unsubscribe_single_text=\"${6:unsubscribe_single_text}\" unsubscribe_all_text=\"${7:unsubscribe_all_text}\" unsubscribe_all_unsubbed_text=\"${8:unsubscribe_all_unsubbed_text}\" unsubscribe_all_option=\"${9:unsubscribe_all_option}\" button_text=\"${10:button_text}\" resubscribe_button_text=\"${11:resubscribe_button_text}\" %}"
     ],
     "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- resubscribe_button_text(String) Sets the text of the submit button for when contacts are resubscribing",
     "prefix": "~email_subscriptions"
   },
   "email_subscriptions_confirmation": {
     "body": [
-      "{% email_subscriptions_confirmation 'my_email_subscriptions_confirmation' \n\theader='${1:header}', \n\tsubheader_text='${2:subheader_text}', \n\theader_heading_level='${3:header_heading_level}', \n\temail_heading_level='${4:email_heading_level}', \n\tunsubscribe_all_success='${5:unsubscribe_all_success}', \n\tsubscription_update_success='${6:subscription_update_success}'%}"
+      "{% email_subscriptions_confirmation header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" unsubscribe_all_success=\"${5:unsubscribe_all_success}\" subscription_update_success=\"${6:subscription_update_success}\" %}"
     ],
     "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
     "prefix": "~email_subscriptions_confirmation"
   },
   "extends": {
     "body": [
-      "{% extends 'my_extends' \n\tpath='${1:path}'%}"
+      "{% extends '${1:path}' %}"
     ],
     "description": "Template inheritance allows you to build a base “skeleton” template that contains all the common elements of your site and defines blocks that child templates can override.\nParameters:\n- path(String) Design Manager file path to parent template",
     "prefix": "~extends"
   },
   "flip": {
     "body": [
-      "{% flip val_true %}\nworld\n{% with %}\nhello\n{% endflip %}"
+      "{% flip %}\n{% endflip %}"
     ],
     "description": "Outputs the first and second block in specified or reverse order depending on the evaluation of the condition",
     "prefix": "~flip"
   },
   "follow_me": {
     "body": [
-      "{% follow_me 'my_follow_me' \n\ttitle='${1:title}', \n\tmodule_title_tag='${2:module_title_tag}'%}"
+      "{% follow_me title=\"${1:title}\" module_title_tag=\"${2:module_title_tag}\" %}"
     ],
     "description": "Deprecated: Use follow me default module instead.\nParameters:\n- title(String) Prints an h3 heading tag above the follow me module\n- module_title_tag(String) Specifies a heading tag h1-h6 to use for the module title",
     "prefix": "~follow_me"
   },
   "for": {
     "body": [
-      "{% for item in items %}\n    {{ item }}\n{% endfor %}"
+      "{% for ${1:items} in ${2:list} %}\n$0\n{% endfor %}"
     ],
     "description": "Outputs the inner content for each item in the given iterable\nParameters:\n- items_to_iterate(String) Specifies the name of a single item in the sequence or dict.",
     "prefix": "~for"
   },
   "form": {
     "body": [
-      "{% form 'my_form' \n\tform_key='${1:form_key}', \n\tform_to_use='${2:form_to_use}', \n\ttitle='${3:title}', \n\tno_title='${4:no_title}', \n\tform_follow_ups_follow_up_type='${5:form_follow_ups_follow_up_type}', \n\tsimple_email_for_live_id='${6:simple_email_for_live_id}', \n\tsimple_email_for_buffer_id='${7:simple_email_for_buffer_id}', \n\tfollow_up_type_simple='${8:follow_up_type_simple}', \n\tfollow_up_type_automation='${9:follow_up_type_automation}', \n\tsimple_email_campaign_id='${10:simple_email_campaign_id}', \n\tform_follow_ups_workflow_id='${11:form_follow_ups_workflow_id}', \n\tresponse_redirect_url='${12:response_redirect_url}', \n\tresponse_redirect_id='${13:response_redirect_id}', \n\tresponse_response_type='${14:response_response_type}', \n\tresponse_message='${15:response_message}', \n\tnotifications_are_overridden='${16:notifications_are_overridden}', \n\tnotifications_override_guid_buffer='${17:notifications_override_guid_buffer}', \n\tnotifications_override_guid='${18:notifications_override_guid}', \n\tnotifications_override_email_addresses='${19:notifications_override_email_addresses}', \n\tnotifications_override_user_ids='${20:notifications_override_user_ids}', \n\tgotowebinar_webinar_key='${21:gotowebinar_webinar_key}', \n\tsfdc_campaign='${22:sfdc_campaign}', \n\toverride_styles='${23:override_styles}', \n\ttitle_heading_level='${24:title_heading_level}', \n\tis_survey='${25:is_survey}'%}"
+      "{% form form_key=\"${1:form_key}\" form_to_use=\"${2:form_to_use}\" title=\"${3:title}\" no_title=\"${4:no_title}\" form_follow_ups_follow_up_type=\"${5:form_follow_ups_follow_up_type}\" simple_email_for_live_id=\"${6:simple_email_for_live_id}\" simple_email_for_buffer_id=\"${7:simple_email_for_buffer_id}\" follow_up_type_simple=\"${8:follow_up_type_simple}\" follow_up_type_automation=\"${9:follow_up_type_automation}\" simple_email_campaign_id=\"${10:simple_email_campaign_id}\" form_follow_ups_workflow_id=\"${11:form_follow_ups_workflow_id}\" response_redirect_url=\"${12:response_redirect_url}\" response_redirect_id=\"${13:response_redirect_id}\" response_response_type=\"${14:response_response_type}\" response_message=\"${15:response_message}\" notifications_are_overridden=\"${16:notifications_are_overridden}\" notifications_override_guid_buffer=\"${17:notifications_override_guid_buffer}\" notifications_override_guid=\"${18:notifications_override_guid}\" notifications_override_email_addresses=\"${19:notifications_override_email_addresses}\" notifications_override_user_ids=\"${20:notifications_override_user_ids}\" gotowebinar_webinar_key=\"${21:gotowebinar_webinar_key}\" sfdc_campaign=\"${22:sfdc_campaign}\" override_styles=\"${23:override_styles}\" title_heading_level=\"${24:title_heading_level}\" is_survey=\"${25:is_survey}\" %}"
     ],
     "description": "Insert one of the forms created in the Form Manager\nParameters:\n- form_key(String) A unique id to target this form instance on the page\n- form_to_use(String) The form ID of the form to render by default\n- title(String) Populates an h3 header tag above the form\n- no_title(boolean) If True, the h3 tag above the title is removed.\n- form_follow_ups_follow_up_type(enum no_action|simple|automation) Specifies follow up action\n- simple_email_for_live_id(number) Specifies the ID of the simple follow-up email for the live page\n- simple_email_for_buffer_id(number) Specifies the ID of the simple follow-up email for the auto-save version of a page\n- follow_up_type_simple(boolean) If true, enables a simple follow-up email\n- follow_up_type_automation(boolean) If true, enrolls submissions in a workflow\n- simple_email_campaign_id(number) Specifies the ID of the simple follow-up email\n- form_follow_ups_workflow_id(number) Specifies the ID of the follow-up workflow\n- response_redirect_url(String) If redirecting to an external page, this parameter specifies the URL to redirect to\n- response_redirect_id(number) If redirecting to HubSpot hosted page, this parameter specifies the page ID of that page\n- response_response_type(enum inline|redirect) Determines whether to redirect to another page or to display an inline thank you message on submission\n- response_message(String) Sets an inline thank you message\n- notifications_are_overridden(boolean) If True, the form will send notifications to specified addresses selected in the notifications_override_email_addresses\n- notifications_override_guid_buffer(String) ID of override settings in auto-save version of page\n- notifications_override_guid(String) ID of override settings in live version of page\n- notifications_override_email_addresses(JSON list) (Deprecated) These email addresses will override  the email notification settings set in the form\n- notifications_override_user_ids(JSON list) The user IDs to override email addresses for the email notification settings set in the form\n- gotowebinar_webinar_key(String) Specifies the GoToWebinar webinar to enroll contacts who submit the form into\n- sfdc_campaign(String) Specifies the Salesforce campaign to enroll contacts who submit the form into\n- override_styles(json object) Override config for forms styles\n- title_heading_level(String) Defines the heading level of the title\n- is_survey(boolean) ",
     "prefix": "~form"
   },
   "from": {
     "body": [
-      "{% macro header(tag, title_text) %}\n    <header> <{{ tag }}>{{ title_text }} </{{tag}}> </header>\n{% endmacro %}\n{% macro footer(tag, footer_text) %}\n    <footer> <{{ tag }}>{{ footer_text }} </{{tag}}> </footer>\n{% endmacro %}"
+      "{% from '${1:path}' import ${2:macro_name} %}"
     ],
     "description": "Alternative to the import tag that lets you import and use specific macros from one template to another\nParameters:\n- path(String) Design Manager path to file to import from\n- macro_name(String) Name of macro or comma separated macros to import (import macro_name)",
     "prefix": "~from"
   },
   "gallery": {
     "body": [
-      "{% gallery 'my_gallery' \n\tslides='${1:slides}', \n\tloop_slides='${2:loop_slides}', \n\tnum_seconds='${3:num_seconds}', \n\tshow_pagination='${4:show_pagination}', \n\tsizing='${5:sizing}', \n\tauto_advance='${6:auto_advance}', \n\ttransition='${7:transition}', \n\tcaption_position='${8:caption_position}', \n\tdisplay_mode='${9:display_mode}', \n\tlightboxRows='${10:lightboxRows}'%}"
+      "{% gallery slides=\"${1:slides}\" loop_slides=\"${2:loop_slides}\" num_seconds=\"${3:num_seconds}\" show_pagination=\"${4:show_pagination}\" sizing=\"${5:sizing}\" auto_advance=\"${6:auto_advance}\" transition=\"${7:transition}\" caption_position=\"${8:caption_position}\" display_mode=\"${9:display_mode}\" lightboxRows=\"${10:lightboxRows}\" %}"
     ],
     "description": "Gallery\nParameters:\n- slides(json list) A JSON list of the default caption, the link url, the alt text, the image src, and whether to open in a new tab\n- loop_slides(boolean) When True, continuously loop through slides\n- num_seconds(number) Time in seconds to pause between slides\n- show_pagination(boolean) Provide buttons below slider to randomly navigate among slides\n- sizing(enum static|resize) Determines whether the slider changes sizes, based on the height of the slides\n- auto_advance(boolean) Automatically advance slides after the time set in num_seconds\n- transition(enum slide|) Sets the type of slide transition\n- caption_position(enum below|superimpose) Affects positioning of caption on or below the slide\n- display_mode(enum standard|thumbnail|lightbox) Determines which mode the slider will display\n- lightboxRows(number) Rows in lightbox mode",
     "prefix": "~gallery"
   },
   "global_module": {
     "body": [
-      "{% global_module 'my_global_module' %}"
+      "{% global_module %}"
     ],
     "description": "",
     "prefix": "~global_module"
   },
   "global_widget": {
     "body": [
-      "{% global_widget 'my_global_widget' \n\tglobal_widget_name='${1:global_widget_name}'%}"
+      "{% global_widget global_widget_name=\"${1:global_widget_name}\" %}"
     ],
     "description": "A global widget is one which can be shared across templates\nParameters:\n- global_widget_name(String) Global module name",
     "prefix": "~global_widget"
   },
   "google_search": {
     "body": [
-      "{% google_search 'my_google_search' \n\tprefill_input_with_pathname='${1:prefill_input_with_pathname}', \n\tsearch_field_label='${2:search_field_label}', \n\tsearch_button_text='${3:search_button_text}'%}"
+      "{% google_search prefill_input_with_pathname=\"${1:prefill_input_with_pathname}\" search_field_label=\"${2:search_field_label}\" search_button_text=\"${3:search_button_text}\" %}"
     ],
     "description": "Allow visitors to search your site on Google\nParameters:\n- prefill_input_with_pathname(boolean) Uses the end part of the URL to fill the search query field\n- search_field_label(String) Populates the label text in the <label> above the search input\n- search_button_text(String) Populates the text of the search submit button <a>",
     "prefix": "~google_search"
   },
   "header": {
     "body": [
-      "{% header 'my_header' \n\theader_tag='${1:header_tag}', \n\tvalue='${2:value}'%}"
+      "{% header header_tag=\"${1:header_tag}\" value=\"${2:value}\" %}"
     ],
     "description": "One line of text to be displayed in a large font size\nParameters:\n- header_tag(String) Select which heading tag to render (h1-h6)\n- value(String) Renders default text within the heading module",
     "prefix": "~header"
   },
   "icon": {
     "body": [
-      "{% icon 'my_icon' \n\tname='${1:name}', \n\ticon_set='${2:icon_set}', \n\tstyle='${3:style}', \n\tformat='${4:format}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\tpurpose='${7:purpose}', \n\ttitle='${8:title}', \n\tfill='${9:fill}'%}"
+      "{% icon name=\"${1:name}\" icon_set=\"${2:icon_set}\" style=\"${3:style}\" format=\"${4:format}\" width=\"${5:width}\" height=\"${6:height}\" purpose=\"${7:purpose}\" title=\"${8:title}\" fill=\"${9:fill}\" %}"
     ],
     "description": "Render an icon from the HubSpot icon library\nParameters:\n- name(String) The icon name\n- icon_set(String) The icon set name. Currently defined sets: fontawesome-5 (see https://fontawesome.com/icons)\n- style(String) The icon style. Regular, solid, or light\n- format(String) The output format. svg or unicode\n- width(String) The output image width. For svg format only\n- height(String) The output image height. For svg format only\n- purpose(String) The role of the icon in its context. Either 'semantic' or 'decorative'\n- title(String) A descriptive title for the icon\n- fill(String) Sets the fill parameter on the SVG output",
     "prefix": "~icon"
   },
   "if": {
     "body": [
-      "{% if condition %}\nIf the condition is true print this to template.\n{% endif %}"
+      "{% if '${1:condition}' %}\n\n{% endif %}"
     ],
     "description": "Outputs inner content if expression evaluates to true, otherwise evaluates any elif blocks, finally outputting content of any else block present\nParameters:\n- condition(conditional expression) An expression that evaluates to either true or false",
     "prefix": "~if"
   },
   "image": {
     "body": [
-      "{% image 'my_image' \n\talt='${1:alt}', \n\twidth='${2:width}', \n\theight='${3:height}', \n\talign='${4:align}', \n\thspace='${5:hspace}', \n\tstyle='${6:style}', \n\tsrc='${7:src}', \n\tloading='${8:loading}'%}"
+      "{% image alt=\"${1:alt}\" width=\"${2:width}\" height=\"${3:height}\" align=\"${4:align}\" hspace=\"${5:hspace}\" style=\"${6:style}\" src=\"${7:src}\" loading=\"${8:loading}\" %}"
     ],
     "description": "Renders an image tag\nParameters:\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
     "prefix": "~image"
   },
   "image_slider": {
     "body": [
-      "{% image_slider 'my_image_slider' \n\tslides='${1:slides}', \n\tloop_slides='${2:loop_slides}', \n\tnum_seconds='${3:num_seconds}', \n\tshow_pagination='${4:show_pagination}', \n\tsizing='${5:sizing}', \n\tauto_advance='${6:auto_advance}', \n\ttransition='${7:transition}', \n\tcaption_position='${8:caption_position}', \n\tlightbox='${9:lightbox}', \n\tonly_thumbnails='${10:only_thumbnails}', \n\twith_thumbnail_nav='${11:with_thumbnail_nav}', \n\tdisplay_mode='${12:display_mode}', \n\tversion='${13:version}', \n\tlightboxRows='${14:lightboxRows}'%}"
+      "{% image_slider slides=\"${1:slides}\" loop_slides=\"${2:loop_slides}\" num_seconds=\"${3:num_seconds}\" show_pagination=\"${4:show_pagination}\" sizing=\"${5:sizing}\" auto_advance=\"${6:auto_advance}\" transition=\"${7:transition}\" caption_position=\"${8:caption_position}\" lightbox=\"${9:lightbox}\" only_thumbnails=\"${10:only_thumbnails}\" with_thumbnail_nav=\"${11:with_thumbnail_nav}\" display_mode=\"${12:display_mode}\" version=\"${13:version}\" lightboxRows=\"${14:lightboxRows}\" %}"
     ],
     "description": "Image slider\nParameters:\n- slides(json list) A JSON list of the default caption, the link url, the alt text, the image src, and whether to open in a new tab\n- loop_slides(boolean) When True, continuously loop through slides\n- num_seconds(number) Time in seconds to pause between slides\n- show_pagination(boolean) Provide buttons below slider to randomly navigate among slides\n- sizing(enum static|resize) Determines whether the slider changes sizes, based on the height of the slides\n- auto_advance(boolean) Automatically advance slides after the time set in num_seconds\n- transition(enum slide|) Sets the type of slide transition\n- caption_position(enum below|superimpose) Affects positioning of caption on or below the slide\n- lightbox(boolean) Displays thumbnail image in lightbox, when clicked\n- only_thumbnails(boolean) Display images as thumbnails instead of a slider\n- with_thumbnail_nav(boolean) Include thumbnails below slider for navigation\n- display_mode(enum standard|thumbnail|lightbox) Determines which mode the slider will display\n- version(string) Gallery Version Number\n- lightboxRows(number) Rows in lightbox mode",
     "prefix": "~image_slider"
   },
   "image_src": {
     "body": [
-      "{% image_src 'my_image_src' \n\tsrc='${1:src}'%}"
+      "{% image_src src=\"${1:src}\" %}"
     ],
     "description": "Prints the src attribute value of an image\nParameters:\n- src(String) Specifies the default URL image src",
     "prefix": "~image_src"
   },
   "import": {
     "body": [
-      "{% macro header(tag, title_text) %}\n<header> <{{ tag }}>{{ title_text }} </{{tag}}> </header>\n{% endmacro %}\n{% macro footer(tag, footer_text) %}\n<footer> <{{ tag }}>{{ footer_text }} </{{tag}}> </footer>\n{% endmacro %}"
+      "{% import '${1:path}' ${2: as ${3:import_name}} %}"
     ],
     "description": "Allows you to access and use macros from a different template\nParameters:\n- path(String) Design Manager path to file to import\n- import_name(String) Give a name to the imported file to access macros from",
     "prefix": "~import"
   },
   "include": {
     "body": [
-      "{% include \"custom/page/web_page_basic/my_footer.html\" %}"
+      "{% include '${1:path}' %}"
     ],
     "description": "includes multiple files in one template or stylesheet\nParameters:\n- path(String) Design Manager path to the file that you would like to include",
     "prefix": "~include"
@@ -267,35 +267,35 @@
   },
   "inline_image_field": {
     "body": [
-      "{% inline_image_field 'my_inline_image_field' \n\talt='${1:alt}', \n\twidth='${2:width}', \n\theight='${3:height}', \n\talign='${4:align}', \n\thspace='${5:hspace}', \n\tstyle='${6:style}', \n\tsrc='${7:src}', \n\tloading='${8:loading}'%}"
+      "{% inline_image_field alt=\"${1:alt}\" width=\"${2:width}\" height=\"${3:height}\" align=\"${4:align}\" hspace=\"${5:hspace}\" style=\"${6:style}\" src=\"${7:src}\" loading=\"${8:loading}\" %}"
     ],
     "description": "Renders an image tag that can be edited inline inside modules\nParameters:\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
     "prefix": "~inline_image_field"
   },
   "inline_rich_text": {
     "body": [
-      "{% inline_rich_text 'my_inline_rich_text' \n\tvalue='${1:value}', \n\tfield='${2:field}'%}"
+      "{% inline_rich_text value=\"${1:value}\" field=\"${2:field}\" %}"
     ],
     "description": "A rich text area that can be edited inline inside modules\nParameters:\n- value(String) Sets the default content of the rich text module\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_rich_text"
   },
   "inline_richtext_field": {
     "body": [
-      "{% inline_richtext_field 'my_inline_richtext_field' \n\tfield='${1:field}'%}"
+      "{% inline_richtext_field field=\"${1:field}\" %}"
     ],
     "description": "A single line of text that can be edited inline inside modules\nParameters:\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_richtext_field"
   },
   "inline_text": {
     "body": [
-      "{% inline_text 'my_inline_text' \n\tvalue='${1:value}', \n\tfield='${2:field}'%}"
+      "{% inline_text value=\"${1:value}\" field=\"${2:field}\" %}"
     ],
     "description": "A single line of text with no formatting that can be edited inline inside modules\nParameters:\n- value(String) The default text of the single line text field\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_text"
   },
   "inline_text_field": {
     "body": [
-      "{% inline_text_field 'my_inline_text_field' \n\tfield='${1:field}'%}"
+      "{% inline_text_field field=\"${1:field}\" %}"
     ],
     "description": "A single line of text with no formatting that can be edited inline inside modules\nParameters:\n- field(String) Required name of the module field to which this text is associated",
     "prefix": "~inline_text_field"
@@ -316,280 +316,280 @@
   },
   "language_switcher": {
     "body": [
-      "{% language_switcher 'my_language_switcher' \n\tdisplay_mode='${1:display_mode}'%}"
+      "{% language_switcher display_mode=\"${1:display_mode}\" %}"
     ],
     "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.",
     "prefix": "~language_switcher"
   },
   "linked_image": {
     "body": [
-      "{% linked_image 'my_linked_image' \n\topen_in_new_tab='${1:open_in_new_tab}', \n\ttarget='${2:target}', \n\tlink='${3:link}', \n\talt='${4:alt}', \n\twidth='${5:width}', \n\theight='${6:height}', \n\talign='${7:align}', \n\thspace='${8:hspace}', \n\tstyle='${9:style}', \n\tsrc='${10:src}', \n\tloading='${11:loading}'%}"
+      "{% linked_image open_in_new_tab=\"${1:open_in_new_tab}\" target=\"${2:target}\" link=\"${3:link}\" alt=\"${4:alt}\" width=\"${5:width}\" height=\"${6:height}\" align=\"${7:align}\" hspace=\"${8:hspace}\" style=\"${9:style}\" src=\"${10:src}\" loading=\"${11:loading}\" %}"
     ],
     "description": "Insert a linked image from File Manager.\nParameters:\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- target(String) Sets the target attr of link tag\n- link(String) Sets the destination URL of the link that wraps the img tag\n- alt(String) Sets the default alt text for the image\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- src(String) Populates the src attribute of the img tag\n- loading(String) Sets the loading attribute of the img tag",
     "prefix": "~linked_image"
   },
   "logo": {
     "body": [
-      "{% logo 'my_logo' \n\tsuppress_company_name='${1:suppress_company_name}', \n\toverride_inherited_src='${2:override_inherited_src}', \n\tsrc='${3:src}', \n\talt='${4:alt}', \n\tlink='${5:link}', \n\twidth='${6:width}', \n\theight='${7:height}', \n\talign='${8:align}', \n\thspace='${9:hspace}', \n\tstyle='${10:style}', \n\topen_in_new_tab='${11:open_in_new_tab}', \n\theading_level='${12:heading_level}'%}"
+      "{% logo suppress_company_name=\"${1:suppress_company_name}\" override_inherited_src=\"${2:override_inherited_src}\" src=\"${3:src}\" alt=\"${4:alt}\" link=\"${5:link}\" width=\"${6:width}\" height=\"${7:height}\" align=\"${8:align}\" hspace=\"${9:hspace}\" style=\"${10:style}\" open_in_new_tab=\"${11:open_in_new_tab}\" heading_level=\"${12:heading_level}\" %}"
     ],
     "description": "Logo image\nParameters:\n- suppress_company_name(boolean) Hides company name if an image logo isn't set\n- override_inherited_src(boolean) If true, use src from logo widget rather than src inherited from settings or template.\n- src(String) Populates the src attribute of the img tag\n- alt(String) Sets the default alt text for the image\n- link(String) Sets the destination URL of the link that wraps the img tag\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- heading_level(String) Sets the link heading level. Can be one of h1, h2, h3, h4, h5, or h6",
     "prefix": "~logo"
   },
   "macro": {
     "body": [
-      "{% macro 'my_macro' \n\tmacro_name='${1:macro_name}', \n\targument_names='${2:argument_names}'%}\n\n{% endmacro %}"
+      "{% macro ${1:name}(${2:values) %}\n\t$0\n{% endmacro %}"
     ],
     "description": "Macros allow you to print multiple statements with a dynamic value or values\nParameters:\n- macro_name(String) The name given to a macro\n- argument_names(String) Named arguments that are dynamically, when the macro is run",
     "prefix": "~macro"
   },
   "member_login": {
     "body": [
-      "{% member_login 'my_member_login' \n\temail_label='${1:email_label}', \n\tpassword_label='${2:password_label}', \n\tremember_me_label='${3:remember_me_label}', \n\tsubmit_button_text='${4:submit_button_text}', \n\treset_password_text='${5:reset_password_text}', \n\treset_password_link='${6:reset_password_link}', \n\tshow_password='${7:show_password}', \n\trate_limit_error='${8:rate_limit_error}'%}"
+      "{% member_login email_label=\"${1:email_label}\" password_label=\"${2:password_label}\" remember_me_label=\"${3:remember_me_label}\" submit_button_text=\"${4:submit_button_text}\" reset_password_text=\"${5:reset_password_text}\" reset_password_link=\"${6:reset_password_link}\" show_password=\"${7:show_password}\" rate_limit_error=\"${8:rate_limit_error}\" %}"
     ],
     "description": "Render a login form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- remember_me_label(String) Label for Remember Me checkbox\n- submit_button_text(String) Label for form submit button\n- reset_password_text(String) Label for password reset link\n- reset_password_link(String) Link to password reset request page\n- show_password(String) Label for Show password buttons\n- rate_limit_error(String) Error message shown when login rate limit is exceeded.",
     "prefix": "~member_login"
   },
   "member_register": {
     "body": [
-      "{% member_register 'my_member_register' \n\temail_label='${1:email_label}', \n\tpassword_label='${2:password_label}', \n\tpassword_confirm_label='${3:password_confirm_label}', \n\tsubmit_button_text='${4:submit_button_text}', \n\tshow_password='${5:show_password}', \n\tpassword_requirements='${6:password_requirements}'%}"
+      "{% member_register email_label=\"${1:email_label}\" password_label=\"${2:password_label}\" password_confirm_label=\"${3:password_confirm_label}\" submit_button_text=\"${4:submit_button_text}\" show_password=\"${5:show_password}\" password_requirements=\"${6:password_requirements}\" %}"
     ],
     "description": "Render a registration form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label for password confirm input field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n- password_requirements(String) Label describing Password Requirements",
     "prefix": "~member_register"
   },
   "menu": {
     "body": [
-      "{% menu 'my_menu' \n\tflow='${1:flow}', \n\troot_type='${2:root_type}', \n\troot_key='${3:root_key}', \n\tmax_levels='${4:max_levels}', \n\tflyouts='${5:flyouts}', \n\tsite_map_name='${6:site_map_name}', \n\tid='${7:id}'%}"
+      "{% menu flow=\"${1:flow}\" root_type=\"${2:root_type}\" root_key=\"${3:root_key}\" max_levels=\"${4:max_levels}\" flyouts=\"${5:flyouts}\" site_map_name=\"${6:site_map_name}\" id=\"${7:id}\" %}"
     ],
     "description": "Advanced menu module\nParameters:\n- flow(enum horizontal|vertical)  This adds classes to the menu tree so that they can be styled accordingly\n- root_type(enum site_root|top_parent|parent|page_id|page_name|breadcrumb) Specifies the type of advanced menu\n- root_key(String) Used to find the menu root. When root_type is set to page_id or page_name, this param should be the page ID or the label of the page, respectively\n- max_levels(number) Determines how many levels of nested menus render in the markup\n- flyouts(boolean) When true, a class is added to the menu tree that can be styled to allow child menu items will appear when you hover over the parent\n- site_map_name(String) Name of menu tree from Advanced Menus\n- id(String) The menu id from Advanced Menus",
     "prefix": "~menu"
   },
   "module": {
     "body": [
-      "{% module 'my_module' \n\tmodule_id='${1:module_id}', \n\tpath='${2:path}'%}"
+      "{% module module_id=\"${1:module_id}\" 'path=\"${2:path}\"' %}"
     ],
     "description": "A module\nParameters:\n- module_id(String) The id of the module to render\n- path(String) The path of the module to render. Include leading slash for absolute path, otherwise path is relative to template. Reference HubSpot default modules with paths corresponding to their HubL tags such as @hubspot/rich_text, @hubspot/linked_image, etc.",
     "prefix": "~module"
   },
   "module_attribute": {
     "body": [
-      "{% module_block rich_text \"my_text_block\" overrideable=True, label=\"Right Column\" %}\n   {% module_attribute \"html\" %}\n       <h2>Something Powerful</h2>\n       <p>Some paragraph content...</p>\n   {% end_module_attribute %}\n{% end_module_block %}"
+      "{% module_attribute %}\n{% end_module_attribute %}"
     ],
     "description": "Defines a rich attribute for a module. Only valid within a module_block tag",
     "prefix": "~module_attribute"
   },
   "page_footer": {
     "body": [
-      "{% page_footer 'my_page_footer' %}"
+      "{% page_footer %}"
     ],
     "description": "Company copyright information footer",
     "prefix": "~page_footer"
   },
   "password_prompt": {
     "body": [
-      "{% password_prompt 'my_password_prompt' \n\tsubmit_button_text='${1:submit_button_text}', \n\tpassword_placeholder='${2:password_placeholder}', \n\tbad_password_message='${3:bad_password_message}'%}"
+      "{% password_prompt submit_button_text=\"${1:submit_button_text}\" password_placeholder=\"${2:password_placeholder}\" bad_password_message=\"${3:bad_password_message}\" %}"
     ],
     "description": "Requests a password to access a landing page.\nParameters:\n- submit_button_text(String) Label for button below password entry field\n- password_placeholder(String) Placeholder text for the password field\n- bad_password_message(String) Text to display if an incorrect password is entered",
     "prefix": "~password_prompt"
   },
   "password_reset": {
     "body": [
-      "{% password_reset 'my_password_reset' \n\tpassword_label='${1:password_label}', \n\tpassword_confirm_label='${2:password_confirm_label}', \n\tsubmit_button_text='${3:submit_button_text}', \n\tshow_password='${4:show_password}', \n\tpassword_requirements='${5:password_requirements}'%}"
+      "{% password_reset password_label=\"${1:password_label}\" password_confirm_label=\"${2:password_confirm_label}\" submit_button_text=\"${3:submit_button_text}\" show_password=\"${4:show_password}\" password_requirements=\"${5:password_requirements}\" %}"
     ],
     "description": "Render a password reset form.\nParameters:\n- password_label(String) Label for password input field\n- password_confirm_label(String) Label from password confirm field\n- submit_button_text(String) Label for form submit button\n- show_password(String) Label for Show password buttons\n- password_requirements(String) Label describing Password Requirements",
     "prefix": "~password_reset"
   },
   "password_reset_request": {
     "body": [
-      "{% password_reset_request 'my_password_reset_request' \n\temail_label='${1:email_label}', \n\tsubmit_button_text='${2:submit_button_text}', \n\tpassword_reset_message='${3:password_reset_message}'%}"
+      "{% password_reset_request email_label=\"${1:email_label}\" submit_button_text=\"${2:submit_button_text}\" password_reset_message=\"${3:password_reset_message}\" %}"
     ],
     "description": "Render a password reset request form.\nParameters:\n- email_label(String) Label for email input field\n- submit_button_text(String) Label for form submit button\n- password_reset_message(String) Message displayed after requesting a password reset email",
     "prefix": "~password_reset_request"
   },
   "post_filter": {
     "body": [
-      "{% post_filter 'my_post_filter' \n\tselect_blog='${1:select_blog}', \n\texpand_link_text='${2:expand_link_text}', \n\ttitle_tag='${3:title_tag}', \n\tlist_tag='${4:list_tag}', \n\tlist_title='${5:list_title}', \n\tmax_links='${6:max_links}', \n\tfilter_type='${7:filter_type}'%}"
+      "{% post_filter select_blog=\"${1:select_blog}\" expand_link_text=\"${2:expand_link_text}\" title_tag=\"${3:title_tag}\" list_tag=\"${4:list_tag}\" list_title=\"${5:list_title}\" max_links=\"${6:max_links}\" filter_type=\"${7:filter_type}\" %}"
     ],
     "description": "Include a list of links to filter blog posts. Filter posts by tag, month, or author. \nThis module can only be used in templates for: Blog Post\nParameters:\n- select_blog('default' or blog id) Selects the HubSpot blog to use for the listing\n- expand_link_text(String) Text link to display if more posts than max_links number available\n- title_tag(String) Sets the tag used for the list title \n- list_tag(String) Sets the tag used for the list\n- list_title(String) List title to display\n- max_links(number) Sets maximum number of links\n- filter_type(enum author|month|tag) Selects the type of filter",
     "prefix": "~post_filter"
   },
   "post_listing": {
     "body": [
-      "{% post_listing 'my_post_listing' \n\tselect_blog='${1:select_blog}', \n\ttitle_tag='${2:title_tag}', \n\tlist_tag='${3:list_tag}', \n\tlist_title='${4:list_title}', \n\tinclude_featured_image='${5:include_featured_image}', \n\tlisting_type='${6:listing_type}', \n\tmax_links='${7:max_links}'%}"
+      "{% post_listing select_blog=\"${1:select_blog}\" title_tag=\"${2:title_tag}\" list_tag=\"${3:list_tag}\" list_title=\"${4:list_title}\" include_featured_image=\"${5:include_featured_image}\" listing_type=\"${6:listing_type}\" max_links=\"${7:max_links}\" %}"
     ],
     "description": "Include a listing of links to blog posts. Order posts by date or popularity.\nThis module can only be used in templates for: Blog Post\nParameters:\n- select_blog('default' or blog id) Selects the HubSpot blog to use for the listing\n- title_tag(String) Sets the tag used for the list title\n- list_tag(String) Sets the tag used for the list\n- list_title(String) List title to display\n- include_featured_image(boolean) Display featured image along with post link\n- listing_type(enum recent|popular_all_time|popular_past_year|popular_past_six_months|popular_past_month) Selects the type of listing to render\n- max_links(number) Sets maximum number of links",
     "prefix": "~post_listing"
   },
   "print": {
     "body": [
-      "{% print 'my_print' \n\texpr='${1:expr}'%}"
+      "{% print expr=\"${1:expr}\" %}"
     ],
     "description": "Echos the result of the expression\nParameters:\n- expr(expression) Expression to print",
     "prefix": "~print"
   },
   "raw": {
     "body": [
-      "{% raw 'my_raw' %}\n\n{% endraw %}"
+      "{% raw %}\n{% endraw %}"
     ],
     "description": "Process all inner expressions as plain text",
     "prefix": "~raw"
   },
   "raw_html": {
     "body": [
-      "{% raw_html 'my_raw_html' \n\tvalue='${1:value}'%}"
+      "{% raw_html value=\"${1:value}\" %}"
     ],
     "description": "Insert custom HTML module\nParameters:\n- value(String) Sets the default content HTML of the module",
     "prefix": "~raw_html"
   },
   "related_blog_posts": {
     "body": [
-      "{% related_blog_posts 'my_related_blog_posts' \n\tblog_ids='${1:blog_ids}', \n\tblog_post_ids='${2:blog_post_ids}', \n\tblog_post_override='${3:blog_post_override}', \n\tlimit='${4:limit}', \n\ttags='${5:tags}', \n\tstart_date='${6:start_date}', \n\tend_date='${7:end_date}', \n\tblog_authors='${8:blog_authors}', \n\tpath_prefixes='${9:path_prefixes}', \n\tpost_formatter='${10:post_formatter}', \n\tfeatured_image_resize_options='${11:featured_image_resize_options}', \n\tallow_any_language='${12:allow_any_language}', \n\ttag_boost='${13:tag_boost}'%}"
+      "{% related_blog_posts blog_ids=\"${1:blog_ids}\" blog_post_ids=\"${2:blog_post_ids}\" blog_post_override=\"${3:blog_post_override}\" limit=\"${4:limit}\" tags=\"${5:tags}\" start_date=\"${6:start_date}\" end_date=\"${7:end_date}\" blog_authors=\"${8:blog_authors}\" path_prefixes=\"${9:path_prefixes}\" post_formatter=\"${10:post_formatter}\" featured_image_resize_options=\"${11:featured_image_resize_options}\" allow_any_language=\"${12:allow_any_language}\" tag_boost=\"${13:tag_boost}\" %}"
     ],
     "description": "Returns a list of related blog post objects for the specified blog, sorted by relevance for the given parameters\nParameters:\n- blog_ids(comma separated blog ids) Limit results to these blog(s)\n- blog_post_ids(comma separated blog post ids) Blog posts to use in similarity search\n- blog_post_override(comma separated blog post ids) Blog posts that must be included in results\n- limit(number) Max number of posts to return\n- tags(comma separated tag names) The tag name(s) to filter with\n- start_date(date (yyyy-mm-dd)) Earliest published date\n- end_date(date (yyyy-mm-dd)) Latest published date\n- blog_authors(comma separated blog author names) Limit results to these author name(s)\n- path_prefixes(comma separated path prefixes) The path prefixes\n- post_formatter(string) Name of macro to render a blog post\n- featured_image_resize_options(object) options for resizing blog post featured image urls before passing them into the post_formatter. supports the same arguments as rewrite_image_url.\n- allow_any_language(boolean) Bypass filtering posts to be the same language as the current blog post. Defaults to false.\n- tag_boost(number) Boost for how much weight is given to relating posts with matching tags",
     "prefix": "~related_blog_posts"
   },
   "require_css": {
     "body": [
-      "{% require_css 'my_require_css' %}"
+      "{% require_css %}\n{% end_require_css %}"
     ],
     "description": "Enqueue an inline stylesheet",
     "prefix": "~require_css"
   },
   "require_head": {
     "body": [
-      "{% require_head 'my_require_head' %}"
+      "{% require_head %}\n{% end_require_head %}"
     ],
     "description": "Enqueue a head element",
     "prefix": "~require_head"
   },
   "require_js": {
     "body": [
-      "{% require_js 'my_require_js' \n\tposition='${1:position}'%}"
+      "{% require_js position=\"${1:position}\" %}\n{% end_require_js %}"
     ],
     "description": "Enqueue an inline script\nParameters:\n- position(String) ",
     "prefix": "~require_js"
   },
   "rich_text": {
     "body": [
-      "{% rich_text 'my_rich_text' \n\thtml='${1:html}'%}"
+      "{% rich_text html=\"${1:html}\" %}"
     ],
     "description": "A block of text and content that can be styled with the editor.\nParameters:\n- html(String) Sets the default content of the rich text module",
     "prefix": "~rich_text"
   },
   "rss_listing": {
     "body": [
-      "{% rss_listing 'my_rss_listing' \n\tshow_title='${1:show_title}', \n\tshow_date='${2:show_date}', \n\tshow_author='${3:show_author}', \n\tshow_detail='${4:show_detail}', \n\ttitle='${5:title}', \n\tlimit_to_chars='${6:limit_to_chars}', \n\tpublish_date_format='${7:publish_date_format}', \n\tattribution_text='${8:attribution_text}', \n\tclick_through_text='${9:click_through_text}', \n\tpublish_date_text='${10:publish_date_text}', \n\tinclude_featured_image='${11:include_featured_image}', \n\titem_title_tag='${12:item_title_tag}', \n\tis_external='${13:is_external}', \n\tnumber_of_items='${14:number_of_items}', \n\tpublish_date_language='${15:publish_date_language}', \n\trss_url='${16:rss_url}', \n\tcontent_group_id='${17:content_group_id}', \n\ttag_id='${18:tag_id}', \n\tselect_blog='${19:select_blog}', \n\tfeed_source='${20:feed_source}'%}"
+      "{% rss_listing show_title=\"${1:show_title}\" show_date=\"${2:show_date}\" show_author=\"${3:show_author}\" show_detail=\"${4:show_detail}\" title=\"${5:title}\" limit_to_chars=\"${6:limit_to_chars}\" publish_date_format=\"${7:publish_date_format}\" attribution_text=\"${8:attribution_text}\" click_through_text=\"${9:click_through_text}\" publish_date_text=\"${10:publish_date_text}\" include_featured_image=\"${11:include_featured_image}\" item_title_tag=\"${12:item_title_tag}\" is_external=\"${13:is_external}\" number_of_items=\"${14:number_of_items}\" publish_date_language=\"${15:publish_date_language}\" rss_url=\"${16:rss_url}\" content_group_id=\"${17:content_group_id}\" tag_id=\"${18:tag_id}\" select_blog=\"${19:select_blog}\" feed_source=\"${20:feed_source}\" %}"
     ],
     "description": "RSS Listing\nParameters:\n- show_title(boolean) Shows or hides RSS feed title\n- show_date(boolean) Displays post date\n- show_author(boolean) Displays author name\n- show_detail(boolean) Display post summary up to number of characters set by limit_to_chars parameter\n- title(String) Populates a heading above the RSS feed listing\n- limit_to_chars(number) Maximum number of characters to display in summary\n- publish_date_format(String)  Format for the publish date. Possible values include 'short', 'medium', 'long', or custom (MMMM d, yyyy)\n- attribution_text(String) The text which attributes an author to a post\n- click_through_text(String) The text which will be displayed for the click through link at the end of a post summary\n- publish_date_text(String) The text which indicates when a post was published\n- include_featured_image(boolean) Displays featured image with post link for HubSpot generated RSS feeds\n- item_title_tag(String) Specifies HTML tag of each post title\n- is_external(boolean) RSS feed is from an external blog\n- number_of_items(number) Maximum number of posts to display\n- publish_date_language(String) Specifies the language of the publish date (for external feeds)\n- rss_url(string) The URL where the RSS feed is located\n- content_group_id(number) ID for blog when feed source is internal blog\n- tag_id(number) ID for tag when feed source is internal blog\n- select_blog('default' or blog id) Can be used to select an internal HubSpot blog feed\n- feed_source(String) Set source for RSS feed (contains is_external, rss_url, and/or content_group_id",
     "prefix": "~rss_listing"
   },
   "section_header": {
     "body": [
-      "{% section_header 'my_section_header' \n\theader='${1:header}', \n\tsubheader='${2:subheader}', \n\theading_level='${3:heading_level}'%}"
+      "{% section_header header=\"${1:header}\" subheader=\"${2:subheader}\" heading_level=\"${3:heading_level}\" %}"
     ],
     "description": "An extra large, centered, header to denote an entire section\nParameters:\n- header(String) Text to display in header\n- subheader(String) Text to display in subheader\n- heading_level(String) Sets the section heading level. Can be one of h1, h2, h3, h4, h5, or h6",
     "prefix": "~section_header"
   },
   "set": {
     "body": [
-      "{% set primaryColor = \"#F7761F\" %}\n{{ primaryColor }}\n"
+      "{% set ${1:var} = ${2:expr} %}"
     ],
     "description": "Assigns the value or result of a statement to a variable\nParameters:\n- var(variable identifier) The name of the variable\n- expr(expression) The value stored in the variable (string, number, boolean, or sequence",
     "prefix": "~set"
   },
   "simple_menu": {
     "body": [
-      "{% simple_menu 'my_simple_menu' \n\torientation='${1:orientation}', \n\tmenu_tree='${2:menu_tree}'%}"
+      "{% simple_menu orientation=\"${1:orientation}\" menu_tree=\"${2:menu_tree}\" %}"
     ],
     "description": "Simple menu, uses static link structure\nParameters:\n- orientation(enum horizontal|vertical) Defines classes of menu markup to allow to style the orientation of menu items on the page\n- menu_tree(json list) Menu structure including page link names and target URLs",
     "prefix": "~simple_menu"
   },
   "social_sharing": {
     "body": [
-      "{% social_sharing 'my_social_sharing' \n\tuse_page_url='${1:use_page_url}', \n\tlink='${2:link}', \n\tpinterest='${3:pinterest}', \n\ttwitter='${4:twitter}', \n\tlinked_in='${5:linked_in}', \n\tfacebook='${6:facebook}', \n\temail='${7:email}'%}"
+      "{% social_sharing use_page_url=\"${1:use_page_url}\" link=\"${2:link}\" pinterest=\"${3:pinterest}\" twitter=\"${4:twitter}\" linked_in=\"${5:linked_in}\" facebook=\"${6:facebook}\" email=\"${7:email}\" %}"
     ],
     "description": "Allow visitors to share your page on social networks\nParameters:\n- use_page_url(boolean) If true, the module shares the URL of the page by default\n- link(String) Specifies a different URL to share\n- pinterest(JSON) Parameters for Pinterest link format and icon image source\n- twitter(JSON) Parameters for Twitter link format and icon image source\n- linked_in(JSON) Parameters for LinkedIn link format and icon image source\n- facebook(JSON) Parameters for Facebook link format and icon image source\n- email(JSON) Parameters for email sharing link format and icon image source ",
     "prefix": "~social_sharing"
   },
   "space": {
     "body": [
-      "{% space 'my_space' %}"
+      "{% space %}"
     ],
     "description": "Used to add an empty module for spacing to the left or right of another module in a row",
     "prefix": "~space"
   },
   "style_settings": {
     "body": [
-      "{% style_settings 'my_style_settings' %}"
+      "{% style_settings %}\n{% end_style_settings %}"
     ],
     "description": "Provides style context from a template that will be used when a style is not defined on the content object",
     "prefix": "~style_settings"
   },
   "targeted_module_attribute": {
     "body": [
-      "{% targeted_module_attribute 'my_targeted_module_attribute' \n\tcriterion_id='${1:criterion_id}', \n\torder='${2:order}', \n\ttarget_type='${3:target_type}'%}\n\n{% end_module_block %}"
+      "{% targeted_module_attribute criterion_id=\"${1:criterion_id}\" order=\"${2:order}\" target_type=\"${3:target_type}\" %}\n{% end_targeted_module_attribute %}"
     ],
     "description": "Defines a smart object parameter for a module. Only valid within a module_block tag definition.\nParameters:\n- criterion_id(number) The smart rule ID number (set up in Template Builder and clone to file)\n- order(String) Zero indexed order of smart rules\n- target_type(String) Type of smart module",
     "prefix": "~targeted_module_attribute"
   },
   "targeted_widget_attribute": {
     "body": [
-      "{% targeted_widget_attribute 'my_targeted_widget_attribute' \n\tcriterion_id='${1:criterion_id}', \n\torder='${2:order}', \n\ttarget_type='${3:target_type}'%}\n\n{% end_widget_block %}"
+      "{% targeted_widget_attribute criterion_id=\"${1:criterion_id}\" order=\"${2:order}\" target_type=\"${3:target_type}\" %}\n{% end_targeted_widget_attribute %}"
     ],
     "description": "Defines a smart object parameter for a widget. Only valid within a widget_block tag definition.\nParameters:\n- criterion_id(number) The smart rule ID number (set up in Template Builder and clone to file)\n- order(String) Zero indexed order of smart rules\n- target_type(String) Type of smart module",
     "prefix": "~targeted_widget_attribute"
   },
   "text": {
     "body": [
-      "{% text 'my_text' \n\tvalue='${1:value}'%}"
+      "{% text value=\"${1:value}\" %}"
     ],
     "description": "A single line of text with no formatting\nParameters:\n- value(String) Sets the default text of the single line text field",
     "prefix": "~text"
   },
   "textarea": {
     "body": [
-      "{% textarea 'my_textarea' \n\tvalue='${1:value}'%}"
+      "{% textarea value=\"${1:value}\" %}"
     ],
     "description": "Creates an editable plaintext text area\nParameters:\n- value(String) Sets the default text of the textarea",
     "prefix": "~textarea"
   },
   "unless": {
     "body": [
-      "{% unless 'my_unless' \n\texpr='${1:expr}'%}\n\n{% endunless %}"
+      "{% unless ${1:condition} %}\n\t$0\n{% endunless %}"
     ],
     "description": "Unless is a conditional just like 'if' but works on the inverse logic.\nParameters:\n- expr(expression) Condition to evaluate",
     "prefix": "~unless"
   },
   "video_player": {
     "body": [
-      "{% video_player 'my_video_player' \n\tplayer_id='${1:player_id}', \n\ttype='${2:type}', \n\twidth='${3:width}', \n\theight='${4:height}', \n\thide_playlist='${5:hide_playlist}', \n\tviral_sharing='${6:viral_sharing}', \n\tembed_button='${7:embed_button}', \n\tcolor='${8:color}', \n\tplaylist_color='${9:playlist_color}', \n\tplay_button_color='${10:play_button_color}', \n\tstyle='${11:style}', \n\tconversion_asset='${12:conversion_asset}', \n\tplaceholder_alt_text='${13:placeholder_alt_text}', \n\tautoplay='${14:autoplay}', \n\tloop='${15:loop}', \n\tmuted='${16:muted}', \n\thidden_controls='${17:hidden_controls}', \n\tfull_width='${18:full_width}'%}"
+      "{% video_player player_id=\"${1:player_id}\" type=\"${2:type}\" width=\"${3:width}\" height=\"${4:height}\" hide_playlist=\"${5:hide_playlist}\" viral_sharing=\"${6:viral_sharing}\" embed_button=\"${7:embed_button}\" color=\"${8:color}\" playlist_color=\"${9:playlist_color}\" play_button_color=\"${10:play_button_color}\" style=\"${11:style}\" conversion_asset=\"${12:conversion_asset}\" placeholder_alt_text=\"${13:placeholder_alt_text}\" autoplay=\"${14:autoplay}\" loop=\"${15:loop}\" muted=\"${16:muted}\" hidden_controls=\"${17:hidden_controls}\" full_width=\"${18:full_width}\" %}"
     ],
     "description": "A video player\nParameters:\n- player_id(number) Id of the video player\n- type(String) Type of the player embed code. The value can be iframe, script, or scriptv4\n- width(number) Set the width attribute of the video player\n- height(number) Set the height attribute of the video player\n- hide_playlist(boolean) Hide the playlist if set to true\n- viral_sharing(boolean) Display the social networks sharing button on the player if set to true\n- embed_button(boolean) Display embed button on the player if set to true\n- color(String) Player color\n- playlist_color(String) Playlist color\n- play_button_color(String) Player play button color\n- style(String) Additional style for player\n- conversion_asset(String) Event setting for player\n- placeholder_alt_text(String) Alt text for video placeholder image\n- autoplay(boolean) Plays the video on page load if set to true\n- loop(boolean) Loops the video if set to true\n- muted(boolean) Mute the player on load if set to true\n- hidden_controls(boolean) Hide controls on the player if set to true\n- full_width(boolean) Make player fit it's container by width",
     "prefix": "~video_player"
   },
   "widget_attribute": {
     "body": [
-      "{% widget_attribute 'my_widget_attribute' %}\n\n{% end_widget_block %}"
+      "{% widget_attribute %}\n{% end_widget_attribute %}"
     ],
     "description": "Defines a rich attribute for a widget. Only valid within a widget_block tag",
     "prefix": "~widget_attribute"
   },
   "widget_block": {
     "body": [
-      "{% widget_block 'my_widget_block' \n\twidgetType='${1:widgetType}'%}\n\n{% end_widget_block %}"
+      "{% widget_block widgetType=\"${1:widgetType}\" %}\n{% end_widget_block %}"
     ],
     "description": "A widget block can be used to define widget attribute values with rich content, using widget_attribute tags\nParameters:\n- widgetType(valid HubL module type) ",
     "prefix": "~widget_block"
   },
   "widget_container": {
     "body": [
-      "{% widget_container 'my_widget_container' %}\n\n{% end_widget_container %}"
+      "{% widget_container %}\n{% end_widget_container %}"
     ],
     "description": "Flexible column",
     "prefix": "~widget_container"
   },
   "widget_wrapper": {
     "body": [
-      "{% widget_wrapper 'my_widget_wrapper' %}\n\n{% end_widget_wrapper %}"
+      "{% widget_wrapper %}\n{% end_widget_wrapper %}"
     ],
     "description": "Used to compile an inline widget_wrapper from code",
     "prefix": "~widget_wrapper"

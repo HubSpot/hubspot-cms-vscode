@@ -1,6 +1,9 @@
 const fetch = require('node-fetch');
 const fs = require('fs-extra');
 const path = require('path');
+const chalk = require('chalk');
+
+const SNIPPET_TYPES = ['expTests', 'filters', 'functions', 'tags'];
 
 const PREFIX = {
   expTests: '',
@@ -8,19 +11,6 @@ const PREFIX = {
   functions: '~',
   tags: '~',
 };
-
-// Skip snippet generation if format is incompatible
-const SKIP_SNIPPET_GENERATION = [
-  'set',
-  'for',
-  'if',
-  'flip',
-  'import',
-  'include',
-  'from',
-  'do',
-  'module_attribute',
-];
 
 const OMIT_SNIPPET = [
   'dnd_area',
@@ -30,11 +20,15 @@ const OMIT_SNIPPET = [
   'dnd_module',
 ];
 
-const fetchHubldocs = async () => {
-  const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
-  const response = await fetch(HUBLDOC_ENDPOINT);
+const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
 
-  return response.json();
+const fetchHubldocs = async () => {
+  try {
+    const res = await fetch(HUBLDOC_ENDPOINT);
+    return await res.json();
+  } catch (err) {
+    console.error(chalk.red(`Error: ${err.message}`));
+  }
 };
 
 const buildSnippetBody = (
@@ -101,34 +95,35 @@ const buildSnippetDescription = (docEntry) => {
   return description;
 };
 
-const getFirstDefaultSnippet = (docEntry) => {
-  return docEntry.snippets.shift().code;
-};
-
-const createSnippet = (docEntry, type) => {
+const createSnippet = (docEntry, type, existingSnippet) => {
   if (OMIT_SNIPPET.includes(docEntry.name)) {
     return;
   }
 
-  let snippetEntry = {
+  return {
     body: [
-      SKIP_SNIPPET_GENERATION.includes(docEntry.name)
-        ? getFirstDefaultSnippet(docEntry)
-        : buildSnippetBody(docEntry, type),
+      existingSnippet ? existingSnippet : buildSnippetBody(docEntry, type),
     ],
     description: buildSnippetDescription(docEntry, type),
     prefix: PREFIX[type] + docEntry.name,
   };
-
-  return snippetEntry;
 };
 
 const createFile = async (data, type) => {
-  const docEntries = Object.values(data);
+  const snippetData = data[type];
+  const docEntries = Object.values(snippetData);
 
   let snippets = {};
   for (let entry of docEntries) {
-    snippets[entry['name']] = createSnippet(entry, type);
+    if (type === 'tags' && data.codeSnippets[entry['name']]) {
+      snippets[entry['name']] = createSnippet(
+        entry,
+        type,
+        data.codeSnippets[entry['name']]
+      );
+    } else {
+      snippets[entry['name']] = createSnippet(entry, type);
+    }
   }
 
   try {
@@ -142,17 +137,16 @@ const createFile = async (data, type) => {
     });
 
     console.log(`Wrote ${filepath} with ${snippetCount} snippets`);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error(chalk.red(`Error: ${err.message}`));
   }
 };
 
 const createSnippetFiles = async () => {
   const data = await fetchHubldocs();
-  const snippetTypes = Object.keys(data);
 
-  for (let type of snippetTypes) {
-    createFile(data[type], type);
+  for (let type of SNIPPET_TYPES) {
+    createFile(data, type);
   }
 };
 

@@ -597,6 +597,7 @@
         "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.63.0",
+        "chalk": "4.1.2",
         "eslint": "^7.5.0",
         "js-yaml": "^4.1.0",
         "node-fetch": "^2.6.9",
