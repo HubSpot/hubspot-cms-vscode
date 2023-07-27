@@ -19,11 +19,15 @@ const OMIT_SNIPPET = [
   'dnd_module',
 ];
 
-const fetchHubldocs = async () => {
-  const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
-  const response = await fetch(HUBLDOC_ENDPOINT);
+const HUBLDOC_ENDPOINT = 'https://api.hubspot.com/cos-rendering/v1/hubldoc';
 
-  return response.json();
+const fetchHubldocs = async () => {
+  try {
+    const res = await fetch(HUBLDOC_ENDPOINT);
+    return await res.json();
+  } catch (err) {
+    console.error(chalk.red(`Error: ${err.message}`));
+  }
 };
 
 const buildSnippetBody = (
