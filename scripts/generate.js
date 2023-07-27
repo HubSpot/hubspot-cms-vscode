@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs-extra');
 const path = require('path');
+const chalk = require('chalk');
 
 const SNIPPET_TYPES = ['expTests', 'filters', 'functions', 'tags'];
 
