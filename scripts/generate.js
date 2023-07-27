@@ -136,8 +136,8 @@ const createFile = async (data, type) => {
     });
 
     console.log(`Wrote ${filepath} with ${snippetCount} snippets`);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error(chalk.red(`Error: ${err.message}`));
   }
 };
 
