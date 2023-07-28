@@ -3,7 +3,6 @@ import {
   workspace,
   window,
   ConfigurationTarget,
-  WorkspaceConfiguration,
 } from 'vscode';
 import { FileAssociations } from './types';
 const { extname } = require('path');
@@ -22,6 +21,10 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
   ) {
     return;
   }
+  initHubLAutoDetector(context);
+};
+
+const initHubLAutoDetector = (context: ExtensionContext) => {
   const showHublDetectedMessage = () => {
     const hublDetectedMessage = `It looks like this file contains HubL code. Would you like to use HubL for this project?`;
     const hublDetectedYesButton = `Use HubL`;
@@ -39,9 +42,11 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
         switch (selection) {
           case hublDetectedYesButton: {
             updateWorkspaceFileAssociation();
+            break;
           }
           case hublDetectedNoButton: {
             context.workspaceState.update('DO_NOT_USE_HUBL', true);
+            break;
           }
           case hublDetectedNeverAgainButton: {
             workspace
@@ -51,10 +56,10 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
                 true,
                 ConfigurationTarget.Global
               );
+            break;
           }
           default: // User closed the dialogue
         }
-        handleTextDocumentOpen.dispose();
       });
   };
 
@@ -69,11 +74,12 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
     }
 
     let n = 1;
-    const limit = textDocument.lineCount;
-    while (n < 50 && n <= limit) {
+    const limit = Math.min(50, textDocument.lineCount);
+    while (n <= limit) {
       const lineWithHubl = textDocument.lineAt(n).text.match(/{{.*}}|{%.*%}/g);
       if (lineWithHubl) {
         showHublDetectedMessage();
+        handleTextDocumentOpen.dispose();
         break;
       }
       n++;
