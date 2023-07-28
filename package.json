@@ -202,10 +202,10 @@
                     "default": true,
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
                 },
-                "hubspot.neverUseHubL": {
+                "hubspot.neverUseHubl": {
                     "type": "boolean",
                     "default": false,
-                    "markdownDescription": "Disables HubL auto-detect for any document."
+                    "markdownDescription": "Disables HubL auto-detect."
                 }
             }
         },

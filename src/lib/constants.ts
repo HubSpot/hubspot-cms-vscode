@@ -25,6 +25,7 @@ export const HUBL_CSS_ID = 'css-hubl';
 export const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
+  NEVER_USE_HUBL: 'neverUseHubl',
 };
 
 export const GLOBAL_STATE_KEYS = {
