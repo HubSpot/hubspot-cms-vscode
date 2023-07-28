@@ -59,6 +59,7 @@ const initHubLAutoDetector = (context: ExtensionContext) => {
             break;
           }
           default: // User closed the dialogue
+            break;
         }
       });
   };
