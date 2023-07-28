@@ -19,6 +19,8 @@ export const VSCODE_SEVERITY = {
 };
 
 export const EXTENSION_CONFIG_NAME = 'hubspot';
+export const HUBL_HTML_ID = 'html-hubl';
+export const HUBL_CSS_ID = 'css-hubl';
 
 export const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',

@@ -16,7 +16,7 @@ import { initializeTerminal } from './lib/terminal';
 import { initializePanels } from './lib/panels';
 import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
-import { initializeHubLAutoDetect } from './lib/autodetect';
+import { initializeHubLAutoDetect } from './lib/autoDetect';
 
 export const activate = async (context: ExtensionContext) => {
   initializeCliLibLang();
