@@ -16,54 +16,11 @@ import {
 export const initializeHubLAutoDetect = (context: ExtensionContext) => {
   if (
     hasHubLAssociations() ||
-    checkGlobalState() ||
+    optedOutGlobally() ||
     !!context.workspaceState.get('DO_NOT_USE_HUBL')
   ) {
     return;
   }
-  initHubLAutoDetector(context);
-};
-
-const initHubLAutoDetector = (context: ExtensionContext) => {
-  const showHublDetectedMessage = () => {
-    const hublDetectedMessage = `It looks like this file contains HubL code. Would you like to use HubL for this project?`;
-    const hublDetectedYesButton = `Use HubL`;
-    const hublDetectedNoButton = 'No';
-    const hublDetectedNeverAgainButton = 'Never ask again';
-
-    window
-      .showInformationMessage(
-        hublDetectedMessage,
-        hublDetectedYesButton,
-        hublDetectedNoButton,
-        hublDetectedNeverAgainButton
-      )
-      .then((selection) => {
-        switch (selection) {
-          case hublDetectedYesButton: {
-            updateWorkspaceFileAssociation();
-            break;
-          }
-          case hublDetectedNoButton: {
-            context.workspaceState.update('DO_NOT_USE_HUBL', true);
-            break;
-          }
-          case hublDetectedNeverAgainButton: {
-            workspace
-              .getConfiguration(EXTENSION_CONFIG_NAME)
-              .update(
-                EXTENSION_CONFIG_KEYS.NEVER_USE_HUBL,
-                true,
-                ConfigurationTarget.Global
-              );
-            break;
-          }
-          default: // User closed the dialogue
-            break;
-        }
-      });
-  };
-
   const handleTextDocumentOpen = workspace.onDidOpenTextDocument(() => {
     const textDocument = window.activeTextEditor?.document;
     if (!textDocument) {
@@ -79,13 +36,52 @@ const initHubLAutoDetector = (context: ExtensionContext) => {
     while (n <= limit) {
       const lineWithHubl = textDocument.lineAt(n).text.match(/{{.*}}|{%.*%}/g);
       if (lineWithHubl) {
-        showHublDetectedMessage();
+        showHublDetectedMessage(context);
         handleTextDocumentOpen.dispose();
         break;
       }
       n++;
     }
   });
+};
+
+const showHublDetectedMessage = (context: ExtensionContext) => {
+  const hublDetectedMessage = `It looks like this file contains HubL code. Would you like to use HubL for this project?`;
+  const hublDetectedYesButton = `Use HubL`;
+  const hublDetectedNoButton = 'No';
+  const hublDetectedNeverAgainButton = 'Never ask again';
+
+  window
+    .showInformationMessage(
+      hublDetectedMessage,
+      hublDetectedYesButton,
+      hublDetectedNoButton,
+      hublDetectedNeverAgainButton
+    )
+    .then((selection) => {
+      switch (selection) {
+        case hublDetectedYesButton: {
+          updateWorkspaceFileAssociation();
+          break;
+        }
+        case hublDetectedNoButton: {
+          context.workspaceState.update('DO_NOT_USE_HUBL', true);
+          break;
+        }
+        case hublDetectedNeverAgainButton: {
+          workspace
+            .getConfiguration(EXTENSION_CONFIG_NAME)
+            .update(
+              EXTENSION_CONFIG_KEYS.NEVER_USE_HUBL,
+              true,
+              ConfigurationTarget.Global
+            );
+          break;
+        }
+        default: // User closed the dialogue
+          break;
+      }
+    });
 };
 
 const updateWorkspaceFileAssociation = () => {
@@ -106,7 +102,7 @@ function hasHubLAssociations() {
   );
 }
 
-function checkGlobalState() {
+function optedOutGlobally() {
   return !!workspace
     .getConfiguration(EXTENSION_CONFIG_NAME)
     .get(EXTENSION_CONFIG_KEYS.NEVER_USE_HUBL);
