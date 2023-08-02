@@ -46,10 +46,18 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
 };
 
 const showHublDetectedMessage = (context: ExtensionContext) => {
-  const hublDetectedMessage = `It looks like this file contains HubL code. Would you like to use HubL for this project?`;
-  const hublDetectedYesButton = `Use HubL`;
+  const hublDetectedMessage =
+    'It looks like this file contains HubL code. Would you like to use HubL for this project?';
+  const hublDetectedYesButton = 'Use HubL';
   const hublDetectedNoButton = 'No';
   const hublDetectedNeverAgainButton = 'Never ask again';
+
+  const hubLAssociatedMessage =
+    'File associations were successfully updated. HubL will now be used for all HTML and CSS files in this workspace.';
+  const noAssociationsMessage =
+    'If you would to update your file associations in the future to use the HubL language mode, see the [HubSpot VSCode documentation](https://github.com/HubSpot/hubspot-cms-vscode/tree/master#language-modes).';
+  const neverAssociationsMessage =
+    "We will no longer ask you if you'd like to use HubL on any files in VSCode. If you'd like to turn back on HubL language auto-detection, you can toggle the 'Never Use Hubl' option in your settings. To manually update file associations, see the [HubSpot VSCode documentation].";
 
   window
     .showInformationMessage(
@@ -62,10 +70,12 @@ const showHublDetectedMessage = (context: ExtensionContext) => {
       switch (selection) {
         case hublDetectedYesButton: {
           updateWorkspaceFileAssociation();
+          window.showInformationMessage(hubLAssociatedMessage);
           break;
         }
         case hublDetectedNoButton: {
           context.workspaceState.update('DO_NOT_USE_HUBL', true);
+          window.showInformationMessage(noAssociationsMessage);
           break;
         }
         case hublDetectedNeverAgainButton: {
@@ -76,6 +86,7 @@ const showHublDetectedMessage = (context: ExtensionContext) => {
               true,
               ConfigurationTarget.Global
             );
+          window.showInformationMessage(neverAssociationsMessage);
           break;
         }
         default: // User closed the dialogue
