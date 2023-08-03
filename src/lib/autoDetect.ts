@@ -11,7 +11,9 @@ import {
   EXTENSION_CONFIG_KEYS,
   HUBL_HTML_ID,
   HUBL_CSS_ID,
+  TRACKED_EVENTS,
 } from './constants';
+import { trackEvent } from './tracking';
 
 export const initializeHubLAutoDetect = (context: ExtensionContext) => {
   if (
@@ -37,6 +39,7 @@ export const initializeHubLAutoDetect = (context: ExtensionContext) => {
       const lineWithHubl = textDocument.lineAt(n).text.match(/{{.*}}|{%.*%}/g);
       if (lineWithHubl) {
         showHublDetectedMessage(context);
+        trackEvent(TRACKED_EVENTS.AUTO_DETECT.DETECTED);
         handleTextDocumentOpen.dispose();
         break;
       }
@@ -71,11 +74,13 @@ const showHublDetectedMessage = (context: ExtensionContext) => {
         case hublDetectedYesButton: {
           updateWorkspaceFileAssociation();
           window.showInformationMessage(hubLAssociatedMessage);
+          trackEvent(TRACKED_EVENTS.AUTO_DETECT.YES);
           break;
         }
         case hublDetectedNoButton: {
           context.workspaceState.update('DO_NOT_USE_HUBL', true);
           window.showInformationMessage(noAssociationsMessage);
+          trackEvent(TRACKED_EVENTS.AUTO_DETECT.NO);
           break;
         }
         case hublDetectedNeverAgainButton: {
@@ -87,6 +92,7 @@ const showHublDetectedMessage = (context: ExtensionContext) => {
               ConfigurationTarget.Global
             );
           window.showInformationMessage(neverAssociationsMessage);
+          trackEvent(TRACKED_EVENTS.AUTO_DETECT.NEVER);
           break;
         }
         default: // User closed the dialogue

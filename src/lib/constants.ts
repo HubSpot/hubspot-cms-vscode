@@ -143,6 +143,12 @@ export const TRACKED_EVENTS = {
   SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
   SET_DEFAULT_ACCOUNT: 'setDefaultAccountClicked',
   UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
+  AUTO_DETECT: {
+    DETECTED: 'hublDetected',
+    YES: 'useHubl',
+    NO: 'doNotUseHubl',
+    NEVER: 'neverUseHubl',
+  },
 };
 
 export const TEMPLATE_NAMES = {
