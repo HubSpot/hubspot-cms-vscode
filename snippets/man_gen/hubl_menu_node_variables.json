@@ -1,0 +1,62 @@
+{
+  "node.label": {
+    "prefix": "node.label",
+    "body": ["{{ node.label }}"],
+    "description": "The menu label of the page."
+  },
+  "node.url": {
+    "prefix": "node.url",
+    "body": ["{{ node.url }}"],
+    "description": "URL of the page."
+  },
+  "node.pageId": {
+    "prefix": "node.pageId",
+    "body": ["{{ node.pageId }}"],
+    "description": "ID of the page if within HubSpot."
+  },
+  "node.contentGroupId": {
+    "prefix": "node.contentGroupId",
+    "body": ["{{ node.contentGroupId }}"],
+    "description": "Blog ID of the page if it is a HubSpot blog post."
+  },
+  "node.parentNode": {
+    "prefix": "node.parentNode",
+    "body": ["{{ node.parentNode }}"],
+    "description": "The parent node of the current node. The parent node will have the current node in its children property."
+  },
+  "node.children": {
+    "prefix": "node.children",
+    "body": ["{{ node.children }}"],
+    "description": "The list of child nodes for the current node."
+  },
+  "node.activeBranch": {
+    "prefix": "node.activeBranch",
+    "body": ["{{ node.activeBranch }}"],
+    "description": "True if the node is in the top-level branch that the current page is in."
+  },
+  "node.activeNode": {
+    "prefix": "node.activeNode",
+    "body": ["{{ node.activeNode }}"],
+    "description": "True if the node is the current page."
+  },
+  "node.level": {
+    "prefix": "node.level",
+    "body": ["{{ node.level }}"],
+    "description": "The number of levels deep the current node is from the top-level nodes."
+  },
+  "node.pageTitle": {
+    "prefix": "node.pageTitle",
+    "body": ["{{ node.pageTitle }}"],
+    "description": "Name of the content page if within HubSpot."
+  },
+  "node.slug": {
+    "prefix": "node.slug",
+    "body": ["{{ node.slug }}"],
+    "description": "Path slug of the page."
+  },
+  "node.linkTarget": {
+    "prefix": "node.linkTarget",
+    "body": ["{{ node.linkTarget }}"],
+    "description": "Link target of the page."
+  }
+}

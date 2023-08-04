@@ -1,0 +1,42 @@
+{
+  "dynamic_page_hubdb_table_id": {
+    "prefix": "dynamic_page_hubdb_table_id",
+    "body": ["{{ dynamic_page_hubdb_table_id }}"],
+    "description": "The ID of the table selected in the 'Advanced Settings` tab of the page editor."
+  },
+  "dynamic_page_hubdb_row": {
+    "prefix": "dynamic_page_hubdb_row",
+    "body": ["{{ dynamic_page_hubdb_row }}"],
+    "description": "The HubDB row of the dynamic page that matches with the page request path. If the request is to the listing page, this value will be null."
+  },
+  "row.hs_id": {
+    "prefix": "row.hs_id",
+    "body": ["{{ row.hs_id }}"],
+    "description": "The internal ID of a HubDB row."
+  },
+  "row.hs_name": {
+    "prefix": "row.hs_name",
+    "body": ["{{ row.hs_name }}"],
+    "description": "The name of the HubDB row."
+  },
+  "row.hs_path": {
+    "prefix": "row.hs_path",
+    "body": ["{{ row.hs_path }}"],
+    "description": "The path of the HubDB row. Used to resolve a request to one row in the table specified by dynamic_page_hubdb_table_id."
+  },
+  "row.hs_child_table_id": {
+    "prefix": "row.hs_child_table_id",
+    "body": ["{{ row.hs_child_table_id }}"],
+    "description": "The child table ID of the HubDB row. Can be used to build nested templates."
+  },
+  "row.hs_parent_row": {
+    "prefix": "row.hs_parent_row",
+    "body": ["{{ row.hs_parent_row }}"],
+    "description": "The parent row of the HubDB row. Can only be used when using child tables for nested templates."
+  },
+  "dynamic_page_route_level": {
+    "prefix": "dynamic_page_route_level",
+    "body": ["{{ dynamic_page_route_level }}"],
+    "description": "Current depth of a page in a multi-level dynamic template. The value starts at 0 and increments with each additional table layer."
+  }
+}

@@ -12,8 +12,31 @@ const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';
 let extensionVersion: string;
+let prettierPluginVersion: string | null = null;
 
-export const initializeTracking = (context: ExtensionContext) => {
+const setPrettierPluginVersion = async () => {
+  const prettierPluginPackageJson = await workspace.findFiles(
+    '**/node_modules/@hubspot/prettier-plugin-hubl/package.json'
+  );
+
+  if (!prettierPluginPackageJson.length) {
+    return;
+  }
+
+  try {
+    const fileContents = await workspace.fs.readFile(
+      prettierPluginPackageJson[0]
+    );
+    const { version } = JSON.parse(fileContents.toString());
+
+    console.log(`Found HubL Prettier Plugin version: ${version}`);
+    prettierPluginVersion = version;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const initializeTracking = async (context: ExtensionContext) => {
   extensionVersion = context.extension.packageJSON.version;
   if (
     context.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE) ===
@@ -25,6 +48,8 @@ export const initializeTracking = (context: ExtensionContext) => {
     );
     showTelemetryPrompt();
   }
+
+  await setPrettierPluginVersion();
 };
 
 const showTelemetryPrompt = async () => {
@@ -73,6 +98,7 @@ export const getUserIdentificationInformation = (accountId?: string) => {
     version: extensionVersion,
     vscodeVersion: version,
     authType: getAuthType(accountId),
+    prettierPluginVersion,
   };
 };
 
