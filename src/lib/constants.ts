@@ -19,10 +19,13 @@ export const VSCODE_SEVERITY = {
 };
 
 export const EXTENSION_CONFIG_NAME = 'hubspot';
+export const HUBL_HTML_ID = 'html-hubl';
+export const HUBL_CSS_ID = 'css-hubl';
 
 export const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
+  NEVER_USE_HUBL: 'neverUseHubl',
 };
 
 export const GLOBAL_STATE_KEYS = {
@@ -140,6 +143,12 @@ export const TRACKED_EVENTS = {
   SELECT_DEFAULT_ACCOUNT: 'selectedDefaultAccount',
   SET_DEFAULT_ACCOUNT: 'setDefaultAccountClicked',
   UPDATE_DEFAULT_ACCOUNT: 'defaultAccountUpdated',
+  AUTO_DETECT: {
+    DETECTED: 'hublDetected',
+    YES: 'useHubl',
+    NO: 'doNotUseHubl',
+    NEVER: 'neverUseHubl',
+  },
 };
 
 export const TEMPLATE_NAMES = {

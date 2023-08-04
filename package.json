@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.1.2",
+    "version": "1.2.1",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.63.0"
@@ -224,6 +224,11 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "Enables code linting for HTML+HUBL and CSS+HUBL languages.\n\n*Requires a valid `hubspot.config.yml` file*"
+                },
+                "hubspot.neverUseHubl": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Disables HubL language auto-detection globally. If this is enabled, you will never be prompted to add HTML+HubL and CSS+HubL file associations to your workspace settings. For more info see the [HubSpot VSCode documentation](https://github.com/HubSpot/hubspot-cms-vscode/tree/master#language-modes)"
                 }
             }
         },

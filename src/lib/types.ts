@@ -68,3 +68,7 @@ export interface RemoteFsDirectory {
   folder: boolean;
   children: string[];
 }
+
+export interface FileAssociations {
+  [key: string]: string;
+}

@@ -1,4 +1,4 @@
-import { ExtensionContext, workspace } from 'vscode';
+import { ExtensionContext } from 'vscode';
 
 import { getRootPath } from './lib/helpers';
 import { TRACKED_EVENTS } from './lib/constants';
@@ -16,6 +16,7 @@ import { initializeTerminal } from './lib/terminal';
 import { initializePanels } from './lib/panels';
 import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
+import { initializeHubLAutoDetect } from './lib/autoDetect';
 
 export const activate = async (context: ExtensionContext) => {
   initializeCliLibLang();
@@ -37,6 +38,7 @@ export const activate = async (context: ExtensionContext) => {
   initializePanels(context);
   initializeTerminal();
   initializeStatusBar(context);
+  initializeHubLAutoDetect(context);
 
   if (rootPath) {
     initializeConfig(rootPath);
