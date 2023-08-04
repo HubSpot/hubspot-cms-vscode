@@ -2,6 +2,9 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.2.1]
+- Adds HubL auto-detect. Will now prompt to switch project language when HubL is detected.
+
 ## [1.1.1]
 
 - Minor updates to snippets
@@ -17,7 +20,7 @@ All notable changes to the HubSpot VS Code extension will be documented in this 
 
 ## [1.0.1]
 
-- Fixed issue where CLI update flow would break when user had a legacy CLI version installed 
+- Fixed issue where CLI update flow would break when user had a legacy CLI version installed
 
 ## [1.0.0]
 
