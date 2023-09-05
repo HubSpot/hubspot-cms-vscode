@@ -196,13 +196,6 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   curriedFileLinkFromPathBuilder(parent?: FileLink) {
     return (fileName: string): FileLink => {
       const filePath = parent ? `${parent.path}/${fileName}` : fileName;
-      console.log({
-        label: fileName,
-        path: filePath,
-        isDefault: filePath.startsWith('@hubspot'),
-        isFolder: isPathFolder(fileName),
-        isSynced: this.watchedDest === filePath,
-      });
       return {
         label: fileName,
         path: filePath,
