@@ -182,7 +182,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           .sort();
         directoryContents.children = [...noModules, ...onlyModules];
       } else {
-        directoryContents.children.sort()
+        directoryContents.children.sort();
       }
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
@@ -202,7 +202,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         isDefault: filePath.startsWith('@hubspot'),
         isFolder: isPathFolder(fileName),
         isSynced: this.watchedDest === filePath,
-      })
+      });
       return {
         label: fileName,
         path: filePath,
