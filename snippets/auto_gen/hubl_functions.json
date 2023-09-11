@@ -559,6 +559,13 @@
     "description": "",
     "prefix": "~type"
   },
+  "unique_string": {
+    "body": [
+      "unique_string(${1:string})"
+    ],
+    "description": "Creates a distinctive string based on the input string\nParameters:\n- string(string) value used to produce a unique string",
+    "prefix": "~unique_string"
+  },
   "unixtimestamp": {
     "body": [
       "unixtimestamp(${1:var})"

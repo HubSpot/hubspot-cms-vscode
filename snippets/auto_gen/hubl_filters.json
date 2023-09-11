@@ -647,7 +647,7 @@
     "body": [
       "|unixtimestamp"
     ],
-    "description": "Gets the UNIX timestamp value (in milliseconds) of a date object",
+    "description": "",
     "prefix": "|unixtimestamp"
   },
   "upper": {
