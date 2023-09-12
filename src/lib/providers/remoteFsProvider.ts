@@ -170,7 +170,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
       if (remoteDirectory === '/') {
         directoryContents.children = [
           '@hubspot',
-          ...directoryContents.children,
+          ...directoryContents.children.sort(),
         ];
       } else if (remoteDirectory === '@hubspot') {
         // Small QoL to move themes to top and modules to bottom of the display like DMUI does
@@ -181,6 +181,8 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           .filter((f: string) => f.endsWith('.module'))
           .sort();
         directoryContents.children = [...noModules, ...onlyModules];
+      } else {
+        directoryContents.children.sort();
       }
       this.remoteFsCache.set(remoteDirectory, directoryContents);
     }
