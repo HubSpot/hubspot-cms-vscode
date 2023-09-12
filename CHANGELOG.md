@@ -2,6 +2,9 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.2.2]
+- Remote directory contents now properly sort alphabetically
+
 ## [1.2.1]
 - Adds HubL auto-detect. Will now prompt to switch project language when HubL is detected.
 
