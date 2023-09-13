@@ -647,7 +647,7 @@
     "body": [
       "|unixtimestamp"
     ],
-    "description": "",
+    "description": "This filter converts a datetime object into a unix timestamp.",
     "prefix": "|unixtimestamp"
   },
   "upper": {
