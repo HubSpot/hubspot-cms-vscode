@@ -167,12 +167,40 @@
     "description": "Converts the characters &, <, >, ‘, and ” in string s to HTML-safe sequences. Use this filter if you need to display text that might contain such characters in HTML. Marks return value as markup string.",
     "prefix": "|escape"
   },
+  "escape_attr": {
+    "body": [
+      "|escape_attr"
+    ],
+    "description": "Escapes the content of an HTML attribute input",
+    "prefix": "|escape_attr"
+  },
+  "escape_html": {
+    "body": [
+      "|escape_html"
+    ],
+    "description": "Escapes the content of an HTML input",
+    "prefix": "|escape_html"
+  },
   "escape_jinjava": {
     "body": [
       "|escape_jinjava(${1:all_braces})"
     ],
     "description": "Converts the characters { and } in string s to Jinjava-safe sequences. Use this filter if you need to display text that might contain such characters in Jinjava. Marks return value as markup string.\nParameters:\n- all_braces(boolean) Whether to only escape all curly braces or just when there are default expression, tag, or comment marks",
     "prefix": "|escape_jinjava"
+  },
+  "escape_js": {
+    "body": [
+      "|escape_js"
+    ],
+    "description": "Escapes the content of an string input so it can be safely inserted into JavaScript",
+    "prefix": "|escape_js"
+  },
+  "escape_url": {
+    "body": [
+      "|escape_url"
+    ],
+    "description": "Escapes the content of a URL input",
+    "prefix": "|escape_url"
   },
   "escapejs": {
     "body": [
@@ -496,6 +524,13 @@
     "description": "Mark the value as safe, which means that in an environment with automatic escaping enabled this variable will not be escaped.",
     "prefix": "|safe"
   },
+  "sanitize_html": {
+    "body": [
+      "|sanitize_html"
+    ],
+    "description": "Sanitizes the content of an HTML input",
+    "prefix": "|sanitize_html"
+  },
   "select": {
     "body": [
       "|select(${1:exp_test})"
@@ -647,7 +682,7 @@
     "body": [
       "|unixtimestamp"
     ],
-    "description": "This filter converts a datetime object into a unix timestamp.",
+    "description": "",
     "prefix": "|unixtimestamp"
   },
   "upper": {

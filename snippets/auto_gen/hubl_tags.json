@@ -132,6 +132,13 @@
     "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
     "prefix": "~email_subscriptions_confirmation"
   },
+  "embed": {
+    "body": [
+      "{% embed 'my_embed' %}"
+    ],
+    "description": "",
+    "prefix": "~embed"
+  },
   "extends": {
     "body": [
       "{% extends '${1:path}' %}"
@@ -344,9 +351,9 @@
   },
   "member_login": {
     "body": [
-      "{% member_login email_label=\"${1:email_label}\" password_label=\"${2:password_label}\" remember_me_label=\"${3:remember_me_label}\" submit_button_text=\"${4:submit_button_text}\" reset_password_text=\"${5:reset_password_text}\" reset_password_link=\"${6:reset_password_link}\" show_password=\"${7:show_password}\" rate_limit_error=\"${8:rate_limit_error}\" %}"
+      "{% member_login email_label=\"${1:email_label}\" password_label=\"${2:password_label}\" remember_me_label=\"${3:remember_me_label}\" submit_button_text=\"${4:submit_button_text}\" reset_password_text=\"${5:reset_password_text}\" reset_password_link=\"${6:reset_password_link}\" show_password=\"${7:show_password}\" rate_limit_error=\"${8:rate_limit_error}\" membership_passwordless_auth_text=\"${9:membership_passwordless_auth_text}\" %}"
     ],
-    "description": "Render a login form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- remember_me_label(String) Label for Remember Me checkbox\n- submit_button_text(String) Label for form submit button\n- reset_password_text(String) Label for password reset link\n- reset_password_link(String) Link to password reset request page\n- show_password(String) Label for Show password buttons\n- rate_limit_error(String) Error message shown when login rate limit is exceeded.",
+    "description": "Render a login form.\nParameters:\n- email_label(String) Label for email input field\n- password_label(String) Label for password input field\n- remember_me_label(String) Label for Remember Me checkbox\n- submit_button_text(String) Label for form submit button\n- reset_password_text(String) Label for password reset link\n- reset_password_link(String) Link to password reset request page\n- show_password(String) Label for Show password buttons\n- rate_limit_error(String) Error message shown when login rate limit is exceeded.\n- membership_passwordless_auth_text(String) Label for OTP form submit button",
     "prefix": "~member_login"
   },
   "member_register": {

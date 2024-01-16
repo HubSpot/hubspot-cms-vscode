@@ -209,6 +209,13 @@
     "description": "Returns the metadata of a file by ID\nParameters:\n- file_id(id) The ID of the file to look up",
     "prefix": "~file_by_id"
   },
+  "flag_content_for_access_check": {
+    "body": [
+      "flag_content_for_access_check(${1:id})"
+    ],
+    "description": "Marks content id for later access check and creates field hs-member-content-access\nParameters:\n- id(id) The id of the content to check access for the logged in member",
+    "prefix": "~flag_content_for_access_check"
+  },
   "follow_me_links": {
     "body": [
       "follow_me_links()"
@@ -306,6 +313,13 @@
     ],
     "description": "Returns a URL for a specified RSS listing\nParameters:\n- attributes(dict) Dictionary of parameters corresponding to most parameters of the rss listing tag. Supports 'show_date'(true/false), 'show_author'(true/false), 'show_detail'(true/false), 'limit_to_chars'(Number), 'publish_date_format'('short'/'medium'/'long' or a custom format such as \"MMMM d, yyyy 'at' h:mm a\"), 'click_through_text'(String), 'include_featured_image'(true/false), 'is_external'(true/false), 'number_of_items'(Number), 'publish_date_language'(String), 'rss_url'(String), 'content_group_id (Number)', 'select_blog'(String), and 'tag_id'(Number)",
     "prefix": "~get_rss_url"
+  },
+  "get_theme_breakpoint_styles": {
+    "body": [
+      "get_theme_breakpoint_styles()"
+    ],
+    "description": "Generates mapping between breakpoint names to an object with media query and breakpoint styles",
+    "prefix": "~get_theme_breakpoint_styles"
   },
   "head_css": {
     "body": [
@@ -503,6 +517,13 @@
     "description": "Set the respond code as the specified code. 404 is the only supported code for now.\nParameters:\n- code(integer) The http response code",
     "prefix": "~set_response_code"
   },
+  "sign_postlisting_url": {
+    "body": [
+      "sign_postlisting_url(${1:blog_id}, ${2:list_type}, ${3:max_links})"
+    ],
+    "description": "Returns a signed URL for the provided URL\nParameters:\n- blog_id(number or default) The id of the blog or default blog for the postlisting.\n- list_type(string) The type of the postlisting.\n- max_links(number) The max links in the postlisting.",
+    "prefix": "~sign_postlisting_url"
+  },
   "strtodate": {
     "body": [
       "strtodate(${1:dateString}, ${2:dateFormat})"
@@ -568,9 +589,9 @@
   },
   "unixtimestamp": {
     "body": [
-      "unixtimestamp(${1:var})"
+      "unixtimestamp()"
     ],
-    "description": "gets the unix timestamp milliseconds value of a datetime\nParameters:\n- var(date) ",
+    "description": "",
     "prefix": "~unixtimestamp"
   },
   "video_metadata_by_player_id": {
