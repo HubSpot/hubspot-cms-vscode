@@ -37,7 +37,7 @@ To enable Emmet on your `html-hubl` files, you can map `html-hubl` to `html` in 
 
 ### IntelliSense Suggestions
 
-If you are would like to get IntelliSense suggestions when in snippet placeholders, you will need to add the following to your user settings:
+If you would like to get IntelliSense suggestions when in snippet placeholders, you will need to add the following to your user settings:
 
 `"editor.suggest.snippetsPreventQuickSuggestions": false`
 
