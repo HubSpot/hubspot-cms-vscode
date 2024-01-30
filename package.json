@@ -156,6 +156,14 @@
                 "path": "./snippets/man_gen/hubl_custom_module_fields.json"
             }
         ],
+        "jsonValidation": [
+            {
+                "fileMatch": [
+                    "fields.json"
+                ],
+                "url": "./schemas/fields.schema.json"
+            }
+        ],
         "languages": [
             {
                 "id": "hubl",
