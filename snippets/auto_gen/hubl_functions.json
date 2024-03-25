@@ -111,6 +111,13 @@
     "description": "Returns the total number of published posts in the specified blog\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to count",
     "prefix": "~blog_total_post_count"
   },
+  "color_contrast": {
+    "body": [
+      "color_contrast(${1:string}, ${2:string}, ${3:string})"
+    ],
+    "description": "Returns true or false based on wheater or not given color combination passes the WCAG standard provided\nParameters:\n- string(string) color code in a hex or rgb format\n- string(string) color code in a hex or rgb format\n- string(string) WCAG rating ('AA' or 'AAA') for A11y",
+    "prefix": "~color_contrast"
+  },
   "color_variant": {
     "body": [
       "color_variant(${1:base_color}, ${2:brightness_offset})"
@@ -519,9 +526,9 @@
   },
   "sign_postlisting_url": {
     "body": [
-      "sign_postlisting_url(${1:blog_id}, ${2:list_type}, ${3:max_links})"
+      "sign_postlisting_url(${1:blog_id}, ${2:list_type}, ${3:max_links}, ${4:tag_name})"
     ],
-    "description": "Returns a signed URL for the provided URL\nParameters:\n- blog_id(number or default) The id of the blog or default blog for the postlisting.\n- list_type(string) The type of the postlisting.\n- max_links(number) The max links in the postlisting.",
+    "description": "Returns a signed URL for the provided URL\nParameters:\n- blog_id(number or default) The id of the blog or default blog for the postlisting.\n- list_type(string) The type of the postlisting.\n- max_links(number) The max links in the postlisting.\n- tag_name(string) The name of a tag on which to filter results",
     "prefix": "~sign_postlisting_url"
   },
   "strtodate": {
