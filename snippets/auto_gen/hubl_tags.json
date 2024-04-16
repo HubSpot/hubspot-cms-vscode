@@ -132,13 +132,6 @@
     "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
     "prefix": "~email_subscriptions_confirmation"
   },
-  "embed": {
-    "body": [
-      "{% embed 'my_embed' %}"
-    ],
-    "description": "",
-    "prefix": "~embed"
-  },
   "extends": {
     "body": [
       "{% extends '${1:path}' %}"
