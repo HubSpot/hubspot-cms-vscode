@@ -5,18 +5,18 @@ import {
   TextDocument,
   DiagnosticCollection,
 } from 'vscode';
-import { HubspotConfig, HubLValidationError } from './types';
+import { HubspotConfig } from './types';
+import { HubLValidationError } from '@hubspot/local-dev-lib/types/HublValidation';
 
-const { validateHubl } = require('@hubspot/cli-lib/api/validate');
-const { getPortalId } = require('@hubspot/cli-lib');
-
-const { TEMPLATE_TYPES } = require('@hubspot/cli-lib/lib/constants');
+const { validateHubl } = require('@hubspot/local-dev-lib/api/validateHubl');
+const { getAccountId } = require('@hubspot/local-dev-lib/config');
 const {
   isCodedFile,
   getAnnotationsFromSource,
   ANNOTATION_KEYS,
-} = require('@hubspot/cli-lib/templates');
-const { isModuleHTMLFile } = require('@hubspot/cli-lib/modules');
+  TEMPLATE_TYPES
+} = require('@hubspot/local-dev-lib/cms/templates');
+const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
 const {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -66,7 +66,7 @@ const clearValidation = (
 const getRenderingErrors = async (source: string, context: object) => {
   try {
     const { renderingErrors } = await validateHubl(
-      getPortalId(),
+      getAccountId(),
       source,
       context
     );

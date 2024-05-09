@@ -13,12 +13,13 @@ import { showAutoDismissedStatusBarMessage } from './messaging';
 import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
-  updateConfigWithPersonalAccessKey,
-} = require('@hubspot/cli-lib/personalAccessKey');
+  updateConfigWithAccessToken,
+  getAccessToken
+} = require('@hubspot/local-dev-lib/personalAccessKey');
 const {
   createEmptyConfigFile,
   setConfigPath,
-} = require('@hubspot/cli-lib/lib/config');
+} = require('@hubspot/local-dev-lib/config');
 
 const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
@@ -48,12 +49,18 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     await createEmptyConfigFile({ path: configPath });
     await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
-
-  const updatedConfig = await updateConfigWithPersonalAccessKey({
+  let token;
+  try {
+    token = await getAccessToken(personalAccessKey, env);
+  } catch (err) {
+    throw err;
+  }
+  const updatedConfig = await updateConfigWithAccessToken(
+    token,
     personalAccessKey,
-    name,
     env,
-  });
+    name
+  );
 
   commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 

@@ -4,7 +4,7 @@ import { onClickCreateFile } from '../fileHelpers';
 import { basename, dirname } from 'path';
 import { trackEvent } from '../tracking';
 
-const { createTemplate } = require('@hubspot/cli-lib/templates');
+const { createTemplate } = require('@hubspot/local-dev-lib/cms/templates');
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(

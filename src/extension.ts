@@ -7,7 +7,6 @@ import { registerCommands } from './lib/commands';
 import { registerEvents } from './lib/events';
 import { registerURIHandler } from './lib/uri';
 
-import { initializeCliLibLang } from './lib/lang';
 import { initializeCliLibLogger } from './lib/logger';
 import { initializeStatusBar } from './lib/statusBar';
 import { initializeProviders } from './lib/providers';
@@ -19,7 +18,6 @@ import { initializeGlobalState } from './lib/globalState';
 import { initializeHubLAutoDetect } from './lib/autoDetect';
 
 export const activate = async (context: ExtensionContext) => {
-  initializeCliLibLang();
   initializeCliLibLogger();
   await initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
@@ -27,7 +25,7 @@ export const activate = async (context: ExtensionContext) => {
     'Activating Extension Version: ',
     context.extension.packageJSON.version
   );
-  const rootPath = getRootPath();
+  const rootPath = getRootPath();5
 
   registerCommands(context, rootPath);
   registerEvents(context);

@@ -1,6 +1,6 @@
 import { TextDocumentContentProvider, EventEmitter, Uri } from 'vscode';
-const { download } = require('@hubspot/cli-lib/api/fileMapper');
-const { getPortalId } = require('@hubspot/cli-lib');
+const { download } = require('@hubspot/local-dev-lib/api/fileMapper');
+const { getAccountId } = require('@hubspot/local-dev-lib/config');
 
 export const RemoteFileProvider = new (class
   implements TextDocumentContentProvider
@@ -13,7 +13,7 @@ export const RemoteFileProvider = new (class
     // filepath must be de-encoded since it gets reencoded by download in cli-lib
     const decodedFilePath = decodeURIComponent(filepath);
     try {
-      const file = await download(getPortalId(), decodedFilePath);
+      const file = await download(getAccountId(), decodedFilePath);
       return `[[ READONLY: @remote/${decodedFilePath} ]]\n` + file.source;
     } catch (e) {
       console.log(e);

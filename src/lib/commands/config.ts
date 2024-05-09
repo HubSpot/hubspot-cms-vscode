@@ -7,13 +7,13 @@ import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
 import { showAutoDismissedStatusBarMessage } from '../messaging';
 
-const { getConfig } = require('@hubspot/cli-lib');
+const { getConfig } = require('@hubspot/local-dev-lib/config');
 const {
   deleteAccount,
   deleteConfigFile,
   renameAccount,
   updateDefaultAccount,
-} = require('@hubspot/cli-lib/lib/config');
+} = require('@hubspot/local-dev-lib/config');
 
 const showRenameAccountPrompt = (accountToRename: Portal) => {
   window

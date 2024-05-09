@@ -42,18 +42,6 @@ export function instanceOfCommand(object: any): object is Command {
   return 'title' in object && 'command' in object;
 }
 
-export interface HubLValidationError {
-  reason: string;
-  message: string;
-  lineno: number;
-  startPosition: number;
-  categoryErrors: {
-    fullName?: string;
-    path?: string;
-  };
-  category: string;
-}
-
 export interface FileLink {
   label: string;
   path: string;

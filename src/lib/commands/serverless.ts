@@ -5,7 +5,7 @@ import { basename, dirname, join, parse } from 'path';
 import { trackEvent } from '../tracking';
 
 const findup = require('findup-sync');
-const { createFunction } = require('@hubspot/cli-lib/functions');
+const { createFunction } = require('@hubspot/local-dev-lib/cms/functions');
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
