@@ -14,7 +14,7 @@ const {
   isCodedFile,
   getAnnotationsFromSource,
   ANNOTATION_KEYS,
-  TEMPLATE_TYPES
+  TEMPLATE_TYPES,
 } = require('@hubspot/local-dev-lib/cms/templates');
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
 const {

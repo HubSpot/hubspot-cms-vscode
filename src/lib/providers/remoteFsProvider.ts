@@ -17,7 +17,9 @@ const {
   getDirectoryContentsByPath,
 } = require('@hubspot/local-dev-lib/api/fileMapper');
 const { getAccountId } = require('@hubspot/local-dev-lib/config');
-const { FOLDER_DOT_EXTENSIONS } = require('@hubspot/local-dev-lib/constants/extensions');
+const {
+  FOLDER_DOT_EXTENSIONS,
+} = require('@hubspot/local-dev-lib/constants/extensions');
 const { watch } = require('@hubspot/local-dev-lib/cms/watch');
 
 function isPathFolder(path: string) {

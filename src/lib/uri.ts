@@ -14,7 +14,7 @@ import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
   updateConfigWithAccessToken,
-  getAccessToken
+  getAccessToken,
 } = require('@hubspot/local-dev-lib/personalAccessKey');
 const {
   createEmptyConfigFile,

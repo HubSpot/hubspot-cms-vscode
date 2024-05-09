@@ -25,7 +25,8 @@ export const activate = async (context: ExtensionContext) => {
     'Activating Extension Version: ',
     context.extension.packageJSON.version
   );
-  const rootPath = getRootPath();5
+  const rootPath = getRootPath();
+  5;
 
   registerCommands(context, rootPath);
   registerEvents(context);

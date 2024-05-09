@@ -1,7 +1,13 @@
 import { commands } from 'vscode';
 import { COMMANDS, EVENTS } from './constants';
 
-const { findConfig, loadConfig, validateConfig, setConfig, setConfigPath } = require('@hubspot/local-dev-lib/config');
+const {
+  findConfig,
+  loadConfig,
+  validateConfig,
+  setConfig,
+  setConfigPath,
+} = require('@hubspot/local-dev-lib/config');
 
 const onLoadPath = (configPath: string) => {
   commands.executeCommand('setContext', 'hubspot.configPath', configPath);

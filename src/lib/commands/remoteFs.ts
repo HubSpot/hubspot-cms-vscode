@@ -9,11 +9,16 @@ import { trackEvent } from '../tracking';
 const { deleteFile, upload } = require('@hubspot/local-dev-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/local-dev-lib/fileMapper');
 const { getAccountId } = require('@hubspot/local-dev-lib/config');
-const { validateSrcAndDestPaths } = require('@hubspot/local-dev-lib/cms/modules');
+const {
+  validateSrcAndDestPaths,
+} = require('@hubspot/local-dev-lib/cms/modules');
 const { shouldIgnoreFile } = require('@hubspot/local-dev-lib/ignoreRules');
 const { isAllowedExtension } = require('@hubspot/local-dev-lib/path');
 const { createIgnoreFilter } = require('@hubspot/local-dev-lib/ignoreRules');
-const { uploadFolder, hasUploadErrors } = require('@hubspot/local-dev-lib/cms/uploadFolder');
+const {
+  uploadFolder,
+  hasUploadErrors,
+} = require('@hubspot/local-dev-lib/cms/uploadFolder');
 const { walk } = require('@hubspot/local-dev-lib/fs');
 
 export const registerCommands = (context: ExtensionContext) => {
