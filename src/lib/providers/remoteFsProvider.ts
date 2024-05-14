@@ -117,6 +117,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           commandOptions: {},
           filePaths: filesToUpload,
         },
+        // postInitialUploadCallback
         (results: any) => {
           uploadingStatus.dispose();
           if (results.length > 0) {
@@ -131,6 +132,18 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
             `Finished initial upload of ${srcPath} to ${destPath}! Now watching for changes.`
           );
           invalidateParentDirectoryCache(destPath);
+        },
+        // onUploadFolderError
+        (error: any) => {
+          uploadingStatus.dispose();
+          window.showErrorMessage(`Upload folder error: ${error}`);
+        },
+        // onQueueAddError
+        null,
+        // onUploadFileError
+        (error: any) => {
+          uploadingStatus.dispose();
+          window.showErrorMessage(`Upload file error: ${error}`);
         }
       );
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
