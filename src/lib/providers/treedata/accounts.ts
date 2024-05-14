@@ -9,7 +9,7 @@ import {
 import { getDisplayedHubspotPortalInfo } from '../../helpers';
 import { HubspotConfig, Portal } from '../../types';
 
-const { getConfig } = require('@hubspot/cli-lib');
+const { getConfig } = require('@hubspot/local-dev-lib/config');
 
 const isDefaultPortal = (portal: Portal, config: HubspotConfig) => {
   return (

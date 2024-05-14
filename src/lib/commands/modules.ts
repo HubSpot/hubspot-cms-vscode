@@ -3,7 +3,7 @@ import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { onClickCreateFolder } from '../fileHelpers';
 import { trackEvent } from '../tracking';
 
-const { createModule } = require('@hubspot/cli-lib/modules');
+const { createModule } = require('@hubspot/local-dev-lib/cms/modules');
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(

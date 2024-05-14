@@ -6,16 +6,20 @@ import { buildStatusBarItem, getRootPath } from '../helpers';
 import { invalidateParentDirectoryCache } from '../helpers';
 import { trackEvent } from '../tracking';
 
-const { deleteFile } = require('@hubspot/cli-lib/api/fileMapper');
-const { downloadFileOrFolder } = require('@hubspot/cli-lib/fileMapper');
-const { getPortalId } = require('@hubspot/cli-lib');
-const { validateSrcAndDestPaths } = require('@hubspot/cli-lib/modules');
-const { shouldIgnoreFile } = require('@hubspot/cli-lib/ignoreRules');
-const { isAllowedExtension } = require('@hubspot/cli-lib/path');
-const { upload } = require('@hubspot/cli-lib/api/fileMapper');
-const { createIgnoreFilter } = require('@hubspot/cli-lib/ignoreRules');
-const { uploadFolder, hasUploadErrors } = require('@hubspot/cli-lib');
-const { walk } = require('@hubspot/cli-lib/lib/walk');
+const { deleteFile, upload } = require('@hubspot/local-dev-lib/api/fileMapper');
+const { downloadFileOrFolder } = require('@hubspot/local-dev-lib/fileMapper');
+const { getAccountId } = require('@hubspot/local-dev-lib/config');
+const {
+  validateSrcAndDestPaths,
+} = require('@hubspot/local-dev-lib/cms/modules');
+const { shouldIgnoreFile } = require('@hubspot/local-dev-lib/ignoreRules');
+const { isAllowedExtension } = require('@hubspot/local-dev-lib/path');
+const { createIgnoreFilter } = require('@hubspot/local-dev-lib/ignoreRules');
+const {
+  uploadFolder,
+  hasUploadErrors,
+} = require('@hubspot/local-dev-lib/cms/uploadFolder');
+const { walk } = require('@hubspot/local-dev-lib/fs');
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
@@ -62,7 +66,7 @@ export const registerCommands = (context: ExtensionContext) => {
         downloadingStatus.show();
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
         await downloadFileOrFolder({
-          accountId: getPortalId(),
+          accountId: getAccountId(),
           src: remoteFilePath,
           dest: localFilePath,
           options: {
@@ -92,7 +96,7 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
         const deletingStatus = buildStatusBarItem(`Deleting...`);
         deletingStatus.show();
-        deleteFile(getPortalId(), filePath)
+        deleteFile(getAccountId(), filePath)
           .then(() => {
             window.showInformationMessage(`Successfully deleted "${filePath}"`);
             invalidateParentDirectoryCache(filePath);
@@ -235,7 +239,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     return;
   }
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FILE);
-  upload(getPortalId(), srcPath, destPath)
+  upload(getAccountId(), srcPath, destPath)
     .then(() => {
       window.showInformationMessage(
         `Uploading files to "${destPath}" was successful`
@@ -258,7 +262,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
   );
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
   uploadFolder(
-    getPortalId(),
+    getAccountId(),
     srcPath,
     destPath,
     {

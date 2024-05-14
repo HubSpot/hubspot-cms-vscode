@@ -7,7 +7,7 @@ import {
 } from 'vscode';
 import { COMMANDS } from './constants';
 
-const { getConfig } = require('@hubspot/cli-lib');
+const { getConfig } = require('@hubspot/local-dev-lib/config');
 
 let hsStatusBar: StatusBarItem;
 

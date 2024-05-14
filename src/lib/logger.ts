@@ -1,6 +1,6 @@
 import { window } from 'vscode';
 
-const { setLogger } = require('@hubspot/cli-lib/logger');
+const { setLogger } = require('@hubspot/local-dev-lib/logger');
 
 class Logger {
   error(...args: any[]) {

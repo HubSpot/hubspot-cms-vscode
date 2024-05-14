@@ -6,8 +6,8 @@ const {
   getAccountId,
   isTrackingAllowed,
   getAccountConfig,
-} = require('@hubspot/cli-lib');
-const { trackUsage } = require('@hubspot/cli-lib/api/fileMapper');
+} = require('@hubspot/local-dev-lib/config');
+const { trackUsage } = require('@hubspot/local-dev-lib/trackUsage');
 
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';

@@ -15,10 +15,12 @@ import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
 const {
   getDirectoryContentsByPath,
-} = require('@hubspot/cli-lib/api/fileMapper');
-const { getPortalId } = require('@hubspot/cli-lib');
-const { FOLDER_DOT_EXTENSIONS } = require('@hubspot/cli-lib/lib/constants');
-const { watch } = require('@hubspot/cli-lib/lib/watch');
+} = require('@hubspot/local-dev-lib/api/fileMapper');
+const { getAccountId } = require('@hubspot/local-dev-lib/config');
+const {
+  FOLDER_DOT_EXTENSIONS,
+} = require('@hubspot/local-dev-lib/constants/extensions');
+const { watch } = require('@hubspot/local-dev-lib/cms/watch');
 
 function isPathFolder(path: string) {
   const splitPath = path.split('/');
@@ -104,7 +106,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         `Beginning initial upload of ${srcPath} to ${destPath}...`
       );
       this.currentWatcher = watch(
-        getPortalId(),
+        getAccountId(),
         srcPath,
         destPath,
         {
@@ -115,6 +117,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
           commandOptions: {},
           filePaths: filesToUpload,
         },
+        // postInitialUploadCallback
         (results: any) => {
           uploadingStatus.dispose();
           if (results.length > 0) {
@@ -129,6 +132,18 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
             `Finished initial upload of ${srcPath} to ${destPath}! Now watching for changes.`
           );
           invalidateParentDirectoryCache(destPath);
+        },
+        // onUploadFolderError
+        (error: any) => {
+          uploadingStatus.dispose();
+          window.showErrorMessage(`Upload folder error: ${error}`);
+        },
+        // onQueueAddError
+        null,
+        // onUploadFileError
+        (error: any) => {
+          uploadingStatus.dispose();
+          window.showErrorMessage(`Upload file error: ${error}`);
         }
       );
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
@@ -163,7 +178,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {
       directoryContents = await getDirectoryContentsByPath(
-        getPortalId(),
+        getAccountId(),
         remoteDirectory
       );
       // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried
