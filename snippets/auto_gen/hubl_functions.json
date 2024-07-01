@@ -111,6 +111,13 @@
     "description": "Returns the total number of published posts in the specified blog\nParameters:\n- selected_blog(blog id or 'default') Specifies which blog to count",
     "prefix": "~blog_total_post_count"
   },
+  "color_contrast": {
+    "body": [
+      "color_contrast(${1:string}, ${2:string}, ${3:string})"
+    ],
+    "description": "Returns true or false based on wheater or not given color combination passes the WCAG standard provided\nParameters:\n- string(string) color code in a hex or rgb format\n- string(string) color code in a hex or rgb format\n- string(string) WCAG rating ('AA' or 'AAA') for A11y",
+    "prefix": "~color_contrast"
+  },
   "color_variant": {
     "body": [
       "color_variant(${1:base_color}, ${2:brightness_offset})"
@@ -208,6 +215,13 @@
     ],
     "description": "Returns the metadata of a file by ID\nParameters:\n- file_id(id) The ID of the file to look up",
     "prefix": "~file_by_id"
+  },
+  "files_by_ids": {
+    "body": [
+      "files_by_ids(${1:file_ids})"
+    ],
+    "description": "Returns the metadata of a list of files by ID\nParameters:\n- file_ids(list) The list of file ids to look up.",
+    "prefix": "~files_by_ids"
   },
   "flag_content_for_access_check": {
     "body": [
@@ -470,9 +484,9 @@
   },
   "product_recommendations": {
     "body": [
-      "product_recommendations(${1:store_id}, ${2:limit}, ${3:currency}, ${4:min_price}, ${5:max_price})"
+      "product_recommendations(${1:store_id}, ${2:limit}, ${3:currency}, ${4:min_price}, ${5:max_price}, ${6:enable_price_formatting})"
     ],
-    "description": "Returns a list of products of most popular products in a portal based on their appearance in deals \nParameters:\n- store_id(string) The ID of the ecommerce store or 'all' or 'HS'\n- limit(number) The max number of products to fetch\n- currency(string) The optional currency\n- min_price(number) The optional min price\n- max_price(number) The optional max price",
+    "description": "Returns a list of products of most popular products in a portal based on their appearance in deals \nParameters:\n- store_id(string) The ID of the ecommerce store or 'all' or 'HS'\n- limit(number) The max number of products to fetch\n- currency(string) The optional currency\n- min_price(number) The optional min price\n- max_price(number) The optional max price\n- enable_price_formatting(boolean) The optional flag to enable price formatting. Default to true.",
     "prefix": "~product_recommendations"
   },
   "range": {
@@ -519,9 +533,9 @@
   },
   "sign_postlisting_url": {
     "body": [
-      "sign_postlisting_url(${1:blog_id}, ${2:list_type}, ${3:max_links})"
+      "sign_postlisting_url(${1:blog_id}, ${2:list_type}, ${3:max_links}, ${4:tag_name})"
     ],
-    "description": "Returns a signed URL for the provided URL\nParameters:\n- blog_id(number or default) The id of the blog or default blog for the postlisting.\n- list_type(string) The type of the postlisting.\n- max_links(number) The max links in the postlisting.",
+    "description": "Returns a signed URL for the provided URL\nParameters:\n- blog_id(number or default) The id of the blog or default blog for the postlisting.\n- list_type(string) The type of the postlisting.\n- max_links(number) The max links in the postlisting.\n- tag_name(string) The name of a tag on which to filter results",
     "prefix": "~sign_postlisting_url"
   },
   "strtodate": {
