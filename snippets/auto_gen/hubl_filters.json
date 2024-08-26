@@ -556,7 +556,7 @@
     "body": [
       "|slice(${1:slices}, ${2:fillWith})"
     ],
-    "description": "Slice an iterator and return a list of lists containing those items.\nParameters:\n- slices(number) Specifies how many items will be sliced\n- fillWith(object) Specifies which object to use to fill missing values on final iteration",
+    "description": "Slice an iterator and return a list of lists containing those items.\nParameters:\n- slices(number) Specifies how many items will be sliced. Maximum value is 1000. \n- fillWith(object) Specifies which object to use to fill missing values on final iteration",
     "prefix": "|slice"
   },
   "sort": {
