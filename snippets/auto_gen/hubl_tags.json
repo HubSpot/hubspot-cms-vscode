@@ -132,13 +132,6 @@
     "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
     "prefix": "~email_subscriptions_confirmation"
   },
-  "embed": {
-    "body": [
-      "{% embed 'my_embed' %}"
-    ],
-    "description": "",
-    "prefix": "~embed"
-  },
   "extends": {
     "body": [
       "{% extends '${1:path}' %}"
@@ -337,9 +330,9 @@
   },
   "logo": {
     "body": [
-      "{% logo suppress_company_name=\"${1:suppress_company_name}\" override_inherited_src=\"${2:override_inherited_src}\" src=\"${3:src}\" alt=\"${4:alt}\" link=\"${5:link}\" width=\"${6:width}\" height=\"${7:height}\" align=\"${8:align}\" hspace=\"${9:hspace}\" style=\"${10:style}\" open_in_new_tab=\"${11:open_in_new_tab}\" heading_level=\"${12:heading_level}\" %}"
+      "{% logo suppress_company_name=\"${1:suppress_company_name}\" use_account_default=\"${2:use_account_default}\" override_inherited_src=\"${3:override_inherited_src}\" src=\"${4:src}\" alt=\"${5:alt}\" link=\"${6:link}\" width=\"${7:width}\" height=\"${8:height}\" align=\"${9:align}\" hspace=\"${10:hspace}\" style=\"${11:style}\" open_in_new_tab=\"${12:open_in_new_tab}\" heading_level=\"${13:heading_level}\" %}"
     ],
-    "description": "Logo image\nParameters:\n- suppress_company_name(boolean) Hides company name if an image logo isn't set\n- override_inherited_src(boolean) If true, use src from logo widget rather than src inherited from settings or template.\n- src(String) Populates the src attribute of the img tag\n- alt(String) Sets the default alt text for the image\n- link(String) Sets the destination URL of the link that wraps the img tag\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- heading_level(String) Sets the link heading level. Can be one of h1, h2, h3, h4, h5, or h6",
+    "description": "Logo image\nParameters:\n- suppress_company_name(boolean) Hides company name if an image logo isn't set\n- use_account_default(boolean) User can opt in to fetch company name from Accounts default\n- override_inherited_src(boolean) If true, use src from logo widget rather than src inherited from settings or template.\n- src(String) Populates the src attribute of the img tag\n- alt(String) Sets the default alt text for the image\n- link(String) Sets the destination URL of the link that wraps the img tag\n- width(number) Sets the width attribute of the img tag\n- height(number) Sets a min-height in a style attribute of the img tag for email templates only\n- align(String) Sets the align attribute of the img tag (right, left, center)\n- hspace(number) Sets the hspace attribute of the img tag\n- style(String) Adds inline CSS declarations to the img tag\n- open_in_new_tab(boolean) Selects whether or not to open the destination URL in another tab\n- heading_level(String) Sets the link heading level. Can be one of h1, h2, h3, h4, h5, or h6",
     "prefix": "~logo"
   },
   "macro": {
