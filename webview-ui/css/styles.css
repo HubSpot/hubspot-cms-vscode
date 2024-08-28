@@ -37,12 +37,14 @@ body {
 .radio-group {
   margin-top: 10px;
   width: 500px;
+  display: flex;
 }
 
 .radio {
-  flex: 1 0 auto;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
+  margin-right: 10px;
   align-items: center;
 }
 

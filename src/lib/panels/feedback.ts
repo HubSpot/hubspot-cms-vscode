@@ -171,7 +171,7 @@ export class FeedbackPanel {
             </div>
             <div class="form-field">
                 <label>Rate your experience with this developer tool</label>
-                <div class="radio-group" style="display: flex">
+                <div class="radio-group">
                     <div class="radio">
                         <input name="experienceRating" id="experience-1" value="1" type="radio">
                         <label for="experience-1">1</label>
