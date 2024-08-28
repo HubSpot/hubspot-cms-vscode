@@ -192,26 +192,6 @@ export class FeedbackPanel {
                         <input name="experienceRating" id="experience-5" value="5" type="radio">
                         <label for="experience-5">5</label>
                     </div>
-                    <div class="radio">
-                        <input name="experienceRating" id="experience-6" value="6" type="radio">
-                        <label for="experience-6">6</label>
-                    </div>
-                    <div class="radio">
-                        <input name="experienceRating" id="experience-7" value="7" type="radio">
-                        <label for="experience-7">7</label>
-                    </div>
-                    <div class="radio">
-                        <input name="experienceRating" id="experience-8" value="8" type="radio">
-                        <label for="experience-8">8</label>
-                    </div>
-                    <div class="radio">
-                        <input name="experienceRating" id="experience-9" value="9" type="radio">
-                        <label for="experience-9">9</label>
-                    </div>
-                    <div class="radio">
-                        <input name="experienceRating" id="experience-10" value="10" type="radio">
-                        <label for="experience-10">10</label>
-                    </div>
                 </div>
             </div>
             <div class="form-field">
