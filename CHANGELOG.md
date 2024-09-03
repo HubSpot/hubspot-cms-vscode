@@ -2,6 +2,12 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.3.0]
+- Fix `is not` token in highlighting
+- Minor updates to feedback form
+- Updated HubL snippets
+- Migrates from using HubSpot `cli-lib` to `local-dev-lib`
+
 ## [1.2.2]
 - Remote directory contents now properly sort alphabetically
 
