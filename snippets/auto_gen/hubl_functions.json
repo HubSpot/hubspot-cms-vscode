@@ -307,6 +307,13 @@
     "description": "",
     "prefix": "~get_asset_version"
   },
+  "get_module_breakpoint_styles": {
+    "body": [
+      "get_module_breakpoint_styles()"
+    ],
+    "description": "Generates mapping between breakpoint names to an object with media query and breakpoint styles",
+    "prefix": "~get_module_breakpoint_styles"
+  },
   "get_public_template_url": {
     "body": [
       "get_public_template_url()"
