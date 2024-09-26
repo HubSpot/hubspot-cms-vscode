@@ -65,14 +65,21 @@ export const registerCommands = (context: ExtensionContext) => {
         const downloadingStatus = buildStatusBarItem('Downloading...');
         downloadingStatus.show();
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
-        await downloadFileOrFolder({
-          accountId: getAccountId(),
-          src: remoteFilePath,
-          dest: localFilePath,
-          options: {
-            overwrite: true,
-          },
-        });
+        try {
+          await downloadFileOrFolder(
+            getAccountId(),
+            remoteFilePath,
+            localFilePath,
+            undefined,
+            {
+              overwrite: true,
+            }
+          );
+        } catch (error) {
+          window.showErrorMessage(
+            `Failed to fetch ${remoteFilePath}: ${error}`
+          );
+        }
         window.showInformationMessage(
           `Finished download of "${remoteFilePath}" to "${localFilePath}"!`
         );
