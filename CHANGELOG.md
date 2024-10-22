@@ -2,6 +2,9 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.3.2]
+- Fix to telemetry
+
 ## [1.3.1]
 - Minor bug fixes to module creation and fetch
 
