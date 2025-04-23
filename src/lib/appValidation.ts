@@ -11,6 +11,7 @@ import { join } from 'path';
 import axios from 'axios';
 import Ajv, { ErrorObject, Ajv as AjvInstance } from 'ajv';
 import addFormats from 'ajv-formats';
+import { getConfig } from '@hubspot/local-dev-lib/config';
 
 interface HsProjectConfig {
   platformVersion: string;
@@ -26,11 +27,17 @@ interface ValidationResult {
   }>;
 }
 
+interface MetaFile {
+  type: string;
+  [key: string]: any;
+}
+
 export class AppValidator {
   private diagnosticCollection =
     languages.createDiagnosticCollection('hubspot-app');
   private static instance: AppValidator;
   private ajv: AjvInstance;
+  private readonly PORTAL_ID = 'ENTER PORTAL ID HERE';
 
   private constructor() {
     this.ajv = new Ajv({
@@ -52,24 +59,24 @@ export class AppValidator {
 
   private initialize() {
     workspace.onDidSaveTextDocument((document) => {
-      if (document.fileName.endsWith('app.json')) {
-        this.validateAppFile(document.uri);
+      if (document.fileName.endsWith('-hsmeta.json')) {
+        this.validateMetaFile(document.uri);
       }
     });
 
-    workspace.findFiles('**/app.json', '**/node_modules/**').then(
+    workspace.findFiles('**/*-hsmeta.json', '**/node_modules/**').then(
       (uris) => {
         uris.forEach((uri) => {
-          this.validateAppFile(uri);
+          this.validateMetaFile(uri);
         });
       },
       (error: Error) => {
-        console.error('Error finding app.json files:', error);
+        console.error('Error finding meta files:', error);
       }
     );
   }
 
-  private async validateAppFile(uri: Uri): Promise<void> {
+  private async validateMetaFile(uri: Uri): Promise<void> {
     try {
       const filePath = uri.fsPath;
       const projectRoot = this.findProjectRoot(filePath);
@@ -89,7 +96,7 @@ export class AppValidator {
       );
       this.updateDiagnostics(uri, validationResult);
     } catch (error) {
-      console.error('Error in validateAppFile:', error);
+      console.error('Error in validateMetaFile:', error);
     }
   }
 
@@ -118,20 +125,46 @@ export class AppValidator {
     }
   }
 
+  private getAccessToken() {
+    try {
+      const config = getConfig();
+      // @ts-expect-error
+      return config.portals[0].auth.tokenInfo.accessToken;
+    } catch (error) {
+      console.error('Error getting access token:', error);
+      throw new Error('Failed to get HubSpot access token from config');
+    }
+  }
+
   private async validateAgainstSchema(
     filePath: string,
     projectVersion: string
   ): Promise<ValidationResult> {
     try {
-      const appJson = JSON.parse(readFileSync(filePath, 'utf-8'));
+      const metaFile: MetaFile = JSON.parse(readFileSync(filePath, 'utf-8'));
+
+      // Only validate files with type "app" for the purposes of this POC
+      if (metaFile.type !== 'app') {
+        return { isValid: true };
+      }
+
+      const accessToken = this.getAccessToken();
       const response = await axios.get(
-        `https://api.hubspotqa.com/project-schemas/${projectVersion}/app`
+        `https://api.hubspot.com/project-components-external/project-schemas/v3/2025.2`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      const schema = response.data;
+
+      const schema = response.data.APPLICATION;
       delete schema.$schema;
 
       const validate = this.ajv.compile(schema);
-      const isValid = validate(appJson);
+      const isValid = validate(metaFile);
 
       if (!isValid) {
         return {
@@ -145,12 +178,15 @@ export class AppValidator {
 
       return { isValid: true };
     } catch (error) {
-      console.error('Error validating app.json:', error);
+      console.error('Error validating meta file:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('API Error:', error.response?.data);
+      }
       return {
         isValid: false,
         errors: [
           {
-            message: 'Failed to validate app.json against schema',
+            message: 'Failed to validate meta file against schema',
             path: '',
           },
         ],
