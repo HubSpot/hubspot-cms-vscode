@@ -16,7 +16,7 @@ import { initializePanels } from './lib/panels';
 import { initializeTracking, trackEvent } from './lib/tracking';
 import { initializeGlobalState } from './lib/globalState';
 import { initializeHubLAutoDetect } from './lib/autoDetect';
-import { initializeAppValidation } from './lib/appValidation';
+import { initializeProjectConfigValidation } from './lib/projectConfigValidation';
 
 export const activate = async (context: ExtensionContext) => {
   initializeCliLibLogger();
@@ -38,7 +38,7 @@ export const activate = async (context: ExtensionContext) => {
   initializeTerminal();
   initializeStatusBar(context);
   initializeHubLAutoDetect(context);
-  initializeAppValidation(context);
+  initializeProjectConfigValidation(context);
 
   if (rootPath) {
     initializeConfig(rootPath);

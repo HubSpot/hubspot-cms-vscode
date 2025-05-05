@@ -24,6 +24,7 @@ import { getAccountId } from '@hubspot/local-dev-lib/config';
 import { dirname } from 'path';
 import * as jsonc from 'jsonc-parser';
 import { debounce } from 'debounce';
+import { doesFileExist } from './fileHelpers';
 
 const hsProjectJsonFilename = 'hsproject.json';
 const VALIDATION_DEBOUNCE_TIME = 250;
@@ -71,9 +72,12 @@ let diagnosticsCollection: DiagnosticCollection;
 let ajv: Ajv;
 let schemaCache: SchemaCache = {};
 
-export function initializeAppValidation(context: ExtensionContext): void {
-  diagnosticsCollection =
-    languages.createDiagnosticCollection('hubspot-app-schema');
+export function initializeProjectConfigValidation(
+  context: ExtensionContext
+): void {
+  diagnosticsCollection = languages.createDiagnosticCollection(
+    'hubspot-project-config-schema'
+  );
   context.subscriptions.push(diagnosticsCollection);
 
   ajv = createAjvInstance();
@@ -407,16 +411,14 @@ async function findProjectRoot(start: Uri): Promise<Uri | null> {
   let currentDir = vscodeDirname(start);
   while (true) {
     const current = Uri.joinPath(currentDir, hsProjectJsonFilename);
-    try {
-      await workspace.fs.stat(current);
+    if (await doesFileExist(current)) {
       return current;
-    } catch (err) {
-      const parent = vscodeDirname(currentDir);
-      if (parent.fsPath === currentDir.fsPath) {
-        return null;
-      }
-      currentDir = parent;
     }
+    const parent = vscodeDirname(currentDir);
+    if (parent.fsPath === currentDir.fsPath) {
+      return null;
+    }
+    currentDir = parent;
   }
 }
 
