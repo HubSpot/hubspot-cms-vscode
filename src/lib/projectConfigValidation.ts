@@ -14,7 +14,13 @@ import {
   mapToInternalType,
   createAjvInstance,
   validateUid,
-  errorMessages,
+  getInvalidJsonError,
+  getMissingTypeError,
+  getMissingConfigError,
+  getMissingAccountIdError,
+  getMissingRequiredFieldError,
+  getFailedToFetchSchemasError,
+  getUnsupportedTypeError,
   Ajv,
   ValidateFunction,
   AnySchema,
@@ -121,7 +127,7 @@ async function validateDocumentDiagnostics(
     return [
       new Diagnostic(
         new Range(0, 0, 0, 0),
-        errorMessages.validation.invalidJson,
+        getInvalidJsonError(),
         DiagnosticSeverity.Error
       ),
     ];
@@ -132,7 +138,7 @@ async function validateDocumentDiagnostics(
     return [
       new Diagnostic(
         new Range(0, 0, 0, 0),
-        errorMessages.validation.invalidJson,
+        getInvalidJsonError(),
         DiagnosticSeverity.Error
       ),
     ];
@@ -141,7 +147,7 @@ async function validateDocumentDiagnostics(
     return [
       new Diagnostic(
         new Range(0, 0, 0, 0),
-        errorMessages.validation.missingType,
+        getMissingTypeError(),
         DiagnosticSeverity.Error
       ),
     ];
@@ -166,7 +172,7 @@ async function validateDocumentDiagnostics(
     return [
       new Diagnostic(
         new Range(0, 0, 0, 0),
-        errorMessages.validation.missingConfig,
+        getMissingConfigError(),
         DiagnosticSeverity.Error
       ),
     ];
@@ -176,7 +182,7 @@ async function validateDocumentDiagnostics(
     return [
       new Diagnostic(
         new Range(0, 0, 0, 0),
-        `${errorMessages.api.accountIdIsRequiredToFetchSchemas}. Authenticate account with the HubSpot CLI`,
+        `${getMissingAccountIdError()}. Authenticate account with the HubSpot CLI`,
         DiagnosticSeverity.Error
       ),
     ];
@@ -311,9 +317,7 @@ function customizeAjvError(error: ErrorObject): {
       break;
     case AjvErrorKeyword.Required:
       onlyKeyNode = true;
-      message = errorMessages.validation.missingRequiredField(
-        error.params.missingProperty
-      );
+      message = getMissingRequiredFieldError(error.params.missingProperty);
       break;
     case AjvErrorKeyword.Type:
       message = `Incorrect type: ${error.message}`;
@@ -363,7 +367,7 @@ async function getCachedSchemasForAllTypes(
     schemaCache[platformVersion] = result;
     return result;
   } catch (error) {
-    const message = `${errorMessages.api.failedToFetchSchemas}. Reload your window to try again`;
+    const message = `${getFailedToFetchSchemasError()}. Reload your window to try again`;
     console.error(message, error);
     const result = {
       error: message,
@@ -389,7 +393,7 @@ async function getCachedValidatorForExternalType(
   }
   const internalType = mapToInternalType(externalType);
   if (!(internalType in cachedSchemas.byType)) {
-    return { error: errorMessages.validation.unsupportedType(externalType) };
+    return { error: getUnsupportedTypeError(externalType) };
   }
   const schemaAndValidator = cachedSchemas.byType[internalType];
   let validator = schemaAndValidator.validator;
