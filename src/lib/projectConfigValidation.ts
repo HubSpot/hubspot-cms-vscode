@@ -203,11 +203,13 @@ async function validateDocumentDiagnostics(
       if (!message) {
         continue;
       }
+      const deduplicationKey = diagnosticDeduplicationKey(
+        nodePath,
+        error.keyword,
+        error.params
+      );
       // This is a duplicate error, skip it
-      if (
-        diagnosticDeduplicationKey(nodePath, error.keyword, error.params) in
-        diagnostics
-      ) {
+      if (deduplicationKey in diagnostics) {
         continue;
       }
       let node = jsonc.findNodeAtLocation(root, nodePath);
@@ -217,9 +219,7 @@ async function validateDocumentDiagnostics(
       }
       if (!node) {
         // If we couldn't find the exact location, create a generic error
-        diagnostics[
-          diagnosticDeduplicationKey(nodePath, error.keyword, error.params)
-        ] = new Diagnostic(
+        diagnostics[deduplicationKey] = new Diagnostic(
           new Range(0, 0, 0, 0),
           message,
           DiagnosticSeverity.Error
@@ -228,9 +228,7 @@ async function validateDocumentDiagnostics(
       }
       const startPos = document.positionAt(node.offset);
       const endPos = document.positionAt(node.offset + node.length);
-      diagnostics[
-        diagnosticDeduplicationKey(nodePath, error.keyword, error.params)
-      ] = new Diagnostic(
+      diagnostics[deduplicationKey] = new Diagnostic(
         new Range(startPos, endPos),
         message,
         DiagnosticSeverity.Error
