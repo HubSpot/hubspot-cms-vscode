@@ -21,7 +21,6 @@ import {
   getMissingRequiredFieldError,
   getFailedToFetchSchemasError,
   getUnsupportedTypeError,
-  Ajv,
   AjvErrorKeyword,
   ValidateFunction,
   ErrorObject,
@@ -42,7 +41,7 @@ import {
 
 type ProjectConfigValidationState = {
   diagnosticsCollection: DiagnosticCollection;
-  ajv: Ajv;
+  ajv: ReturnType<typeof createAjvInstance>;
   schemaCache: PlatformVersionSchemaCache;
 };
 
