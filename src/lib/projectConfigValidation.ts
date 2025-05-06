@@ -22,227 +22,170 @@ import {
   getFailedToFetchSchemasError,
   getUnsupportedTypeError,
   Ajv,
+  AjvErrorKeyword,
   ValidateFunction,
-  AnySchema,
   ErrorObject,
+  metafileExtension,
+  Components,
+  hsProjectJsonFilename,
 } from '@hubspot/project-parsing-lib';
 import { getAccountId } from '@hubspot/local-dev-lib/config';
-import { dirname } from 'path';
 import * as jsonc from 'jsonc-parser';
 import { debounce } from 'debounce';
-import { doesFileExist } from './fileHelpers';
+import { doesFileExist, dirname } from './fileHelpers';
+import { VALIDATION_DEBOUNCE_TIME } from './constants';
+import {
+  PlatformVersionSchemaCache,
+  SchemaAndValidator,
+  SchemaCacheEntry,
+} from './types';
 
-const hsProjectJsonFilename = 'hsproject.json';
-const VALIDATION_DEBOUNCE_TIME = 250;
-
-const AjvErrorKeyword = {
-  AdditionalItems: 'additionalItems',
-  AdditionalProperties: 'additionalProperties',
-  Dependencies: 'dependencies',
-  Enum: 'enum',
-  ExclusiveMaximum: 'exclusiveMaximum',
-  ExclusiveMinimum: 'exclusiveMinimum',
-  Maximum: 'maximum',
-  MaxItems: 'maxItems',
-  MaxLength: 'maxLength',
-  MaxProperties: 'maxProperties',
-  Minimum: 'minimum',
-  MinItems: 'minItems',
-  MinLength: 'minLength',
-  MinProperties: 'minProperties',
-  MultipleOf: 'multipleOf',
-  OneOf: 'oneOf',
-  Pattern: 'pattern',
-  Required: 'required',
-  Type: 'type',
+type ProjectConfigValidationState = {
+  diagnosticsCollection: DiagnosticCollection;
+  ajv: Ajv;
+  schemaCache: PlatformVersionSchemaCache;
 };
-
-type SchemaAndValidator = { schema: AnySchema; validator?: ValidateFunction };
-type SchemaCacheEntry =
-  | {
-      byType: Record<
-        string, // internal type
-        SchemaAndValidator
-      >;
-    }
-  | { error: string };
-
-// A schema cache maps a platform version to a set of schemas and validators indexed by the internal type.
-// Validators are compiled on demand and then cached.
-type SchemaCache = Record<
-  string, // platform version
-  SchemaCacheEntry
->;
-
-let diagnosticsCollection: DiagnosticCollection;
-let ajv: Ajv;
-let schemaCache: SchemaCache = {};
 
 export function initializeProjectConfigValidation(
   context: ExtensionContext
 ): void {
-  diagnosticsCollection = languages.createDiagnosticCollection(
-    'hubspot-project-config-schema'
-  );
-  context.subscriptions.push(diagnosticsCollection);
+  const state: ProjectConfigValidationState = {
+    diagnosticsCollection: languages.createDiagnosticCollection(
+      'hubspot-project-config-schema'
+    ),
+    ajv: createAjvInstance(),
+    schemaCache: {},
+  };
+  context.subscriptions.push(state.diagnosticsCollection);
 
-  ajv = createAjvInstance();
-
-  workspace.onDidOpenTextDocument(validateDocument);
+  workspace.onDidOpenTextDocument((doc) => validateDocument(state, doc));
   workspace.onDidChangeTextDocument(
     debounce(
-      (event) => validateDocument(event.document),
+      (event) => validateDocument(state, event.document),
       VALIDATION_DEBOUNCE_TIME
     )
   );
-  workspace.onDidSaveTextDocument(validateDocument);
+  workspace.onDidSaveTextDocument((doc) => validateDocument(state, doc));
   workspace.onDidCloseTextDocument((doc) =>
-    diagnosticsCollection.delete(doc.uri)
+    state.diagnosticsCollection.delete(doc.uri)
   );
-  workspace.textDocuments.forEach(validateDocument);
+  workspace.textDocuments.forEach((doc) => validateDocument(state, doc));
 }
 
-async function validateDocument(document: TextDocument): Promise<void> {
+async function validateDocument(
+  state: ProjectConfigValidationState,
+  document: TextDocument
+): Promise<void> {
   try {
-    const diagnostics = await validateDocumentDiagnostics(document);
-    diagnosticsCollection.set(document.uri, diagnostics);
+    const diagnostics = await validateDocumentDiagnostics(state, document);
+    state.diagnosticsCollection.set(document.uri, diagnostics);
   } catch (error) {
     console.error('Error validating document:', error);
   }
 }
 
 async function validateDocumentDiagnostics(
+  state: ProjectConfigValidationState,
   document: TextDocument
 ): Promise<Diagnostic[]> {
-  if (!document.fileName.endsWith('-hsmeta.json')) return [];
-  const projectRoot = await findProjectRoot(document.uri);
-  if (!projectRoot) return [];
-  const projectVersion = await getProjectVersion(projectRoot);
-  if (!projectVersion) return [];
+  if (!document.fileName.endsWith(metafileExtension)) {
+    return [];
+  }
+  const hsProjectFile = await findHsProjectFile(document.uri);
+  if (!hsProjectFile) {
+    return [];
+  }
+  const projectVersion = await getProjectVersion(hsProjectFile);
+  if (!projectVersion) {
+    return [];
+  }
   // Any file that fails the above checks is one that we don't handle
-  let metaFile: any; // The type is whatever JSON the user provided us with
+  let metaFile: Partial<Components>;
   try {
     metaFile = JSON.parse(document.getText());
   } catch (error) {
-    return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        getInvalidJsonError(),
-        DiagnosticSeverity.Error
-      ),
-    ];
+    return [newErrorDiagnostic(getInvalidJsonError())];
   }
   const root = jsonc.parseTree(document.getText());
   if (!root) {
     // Should not happen, we've already parsed it above without jsonc
-    return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        getInvalidJsonError(),
-        DiagnosticSeverity.Error
-      ),
-    ];
+    return [newErrorDiagnostic(getInvalidJsonError())];
   }
-  if (!('type' in metaFile)) {
-    return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        getMissingTypeError(),
-        DiagnosticSeverity.Error
-      ),
-    ];
+  if (!metaFile.type) {
+    return [newErrorDiagnostic(getMissingTypeError())];
   }
-  const uidError = validateUid(metaFile.uid);
+  const uidError = validateUid(metaFile.uid || '');
   if (uidError) {
     const uidNode = jsonc.findNodeAtLocation(root, ['uid']);
     return [
-      new Diagnostic(
+      newErrorDiagnostic(
+        uidError,
         uidNode
           ? new Range(
               document.positionAt(uidNode.offset),
               document.positionAt(uidNode.offset + uidNode.length)
             )
-          : new Range(0, 0, 0, 0),
-        uidError,
-        DiagnosticSeverity.Error
+          : undefined
       ),
     ];
   }
-  if (!('config' in metaFile)) {
-    return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        getMissingConfigError(),
-        DiagnosticSeverity.Error
-      ),
-    ];
+  if (!metaFile.config) {
+    return [newErrorDiagnostic(getMissingConfigError())];
   }
   const accountId = getAccountId();
   if (!accountId) {
     return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        `${getMissingAccountIdError()}. Authenticate account with the HubSpot CLI`,
-        DiagnosticSeverity.Error
+      newErrorDiagnostic(
+        `${getMissingAccountIdError()}. Authenticate account with the HubSpot CLI`
       ),
     ];
   }
-  const validator = await getCachedValidatorForExternalType(
-    projectRoot,
+  const cachedValidator = await getCachedValidatorForExternalType(
+    state,
+    hsProjectFile,
     projectVersion,
     accountId,
     metaFile.type
   );
-  if ('error' in validator) {
-    return [
-      new Diagnostic(
-        new Range(0, 0, 0, 0),
-        validator.error,
-        DiagnosticSeverity.Error
-      ),
-    ];
+  if (cachedValidator.type === 'error') {
+    return [newErrorDiagnostic(cachedValidator.error)];
   }
-  if (!validator(metaFile['config'])) {
-    let diagnostics: Record<string, Diagnostic> = {};
-    for (const error of validator.errors || []) {
-      const { message, nodePath, onlyKeyNode } = customizeAjvError(error);
-      if (!message) {
-        continue;
-      }
-      const deduplicationKey = diagnosticDeduplicationKey(
-        nodePath,
-        error.keyword,
-        error.params
-      );
-      // This is a duplicate error, skip it
-      if (deduplicationKey in diagnostics) {
-        continue;
-      }
-      let node = jsonc.findNodeAtLocation(root, nodePath);
-      if (node && onlyKeyNode) {
-        // Sometimes we want to highlight the key that corresponds to a node
-        node = getKeyNode(node);
-      }
-      if (!node) {
-        // If we couldn't find the exact location, create a generic error
-        diagnostics[deduplicationKey] = new Diagnostic(
-          new Range(0, 0, 0, 0),
-          message,
-          DiagnosticSeverity.Error
-        );
-        continue;
-      }
-      const startPos = document.positionAt(node.offset);
-      const endPos = document.positionAt(node.offset + node.length);
-      diagnostics[deduplicationKey] = new Diagnostic(
-        new Range(startPos, endPos),
-        message,
-        DiagnosticSeverity.Error
-      );
+  if (cachedValidator.validator(metaFile['config'])) {
+    return [];
+  }
+  let diagnostics: Record<string, Diagnostic> = {};
+  (cachedValidator.validator.errors || []).forEach((error) => {
+    const { message, nodePath, onlyKeyNode } = customizeAjvError(error);
+    if (!message) {
+      return;
     }
-    return Object.values(diagnostics);
-  }
-  return [];
+    const deduplicationKey = diagnosticDeduplicationKey(
+      nodePath,
+      error.keyword,
+      error.params
+    );
+    // This is a duplicate error, skip it
+    if (deduplicationKey in diagnostics) {
+      return;
+    }
+    let node = jsonc.findNodeAtLocation(root, nodePath);
+    if (node && onlyKeyNode) {
+      // Sometimes we want to highlight the key that corresponds to a node
+      node = getKeyNode(node);
+    }
+    if (!node) {
+      // If we couldn't find the exact location, create a generic error
+      diagnostics[deduplicationKey] = newErrorDiagnostic(message);
+      return;
+    }
+    const startPos = document.positionAt(node.offset);
+    const endPos = document.positionAt(node.offset + node.length);
+    diagnostics[deduplicationKey] = newErrorDiagnostic(
+      message,
+      new Range(startPos, endPos)
+    );
+  });
+  return Object.values(diagnostics);
 }
 
 function customizeAjvError(error: ErrorObject): {
@@ -257,6 +200,10 @@ function customizeAjvError(error: ErrorObject): {
       .slice(1)
       .map((p) => (p.match(/\d+/) ? parseInt(p) : p)),
   ];
+  // For some errors, we only want to highlight the key
+  // that corresponds to the error, not the value that caused
+  // the error. For example, if there's an unknown field, we
+  // don't want to highlight the entire value to report this.
   let onlyKeyNode = false;
   let message = error.message;
   switch (error.keyword) {
@@ -328,6 +275,14 @@ function customizeAjvError(error: ErrorObject): {
   return { message, nodePath, onlyKeyNode };
 }
 
+function newErrorDiagnostic(error: string, range?: Range): Diagnostic {
+  return new Diagnostic(
+    range || new Range(0, 0, 0, 0),
+    error,
+    DiagnosticSeverity.Error
+  );
+}
+
 function diagnosticDeduplicationKey(
   nodePath: (string | number)[],
   keyword: string,
@@ -340,83 +295,82 @@ function getKeyNode(node: jsonc.Node): jsonc.Node | undefined {
   return node.parent?.type === 'property' ? node.parent.children?.[0] : node;
 }
 
-async function getCachedSchemasForAllTypes(
-  projectRoot: Uri,
+async function getSchemasForAllTypes(
+  state: ProjectConfigValidationState,
+  hsProjectFile: Uri,
   platformVersion: string,
   accountId: number
 ): Promise<SchemaCacheEntry> {
   // If schema cache has a schema for this version, return it
   // If there is an error, we're going to return that too
-  if (schemaCache[platformVersion]) {
-    return schemaCache[platformVersion];
+  if (state.schemaCache[platformVersion]) {
+    return state.schemaCache[platformVersion];
   }
-  let response: Record<string, AnySchema>;
   try {
-    response = await getIntermediateRepresentationSchema({
-      projectSourceDir: projectRoot.fsPath,
+    const response = await getIntermediateRepresentationSchema({
+      projectSourceDir: hsProjectFile.fsPath,
       platformVersion,
       accountId,
     });
-    let byType: Record<string, SchemaAndValidator> = {};
+    const schemasByType: Record<string, SchemaAndValidator> = {};
     for (const [key, schema] of Object.entries(response)) {
-      byType[key] = { schema };
+      schemasByType[key] = { schema };
     }
-    const result = {
-      byType,
+    state.schemaCache[platformVersion] = {
+      type: 'schema',
+      schemasByType,
     };
-    schemaCache[platformVersion] = result;
-    return result;
   } catch (error) {
-    const message = `${getFailedToFetchSchemasError()}. Reload your window to try again`;
+    const message = `${getFailedToFetchSchemasError()}. Reload your window or restart to try again`;
     console.error(message, error);
-    const result = {
+    state.schemaCache[platformVersion] = {
+      type: 'error',
       error: message,
     };
-    schemaCache[platformVersion] = result;
-    return result;
   }
+  return state.schemaCache[platformVersion];
 }
 
 async function getCachedValidatorForExternalType(
-  projectRoot: Uri,
+  state: ProjectConfigValidationState,
+  hsProjectFile: Uri,
   platformVersion: string,
   accountId: number,
   externalType: string
-): Promise<ValidateFunction | { error: string }> {
-  const cachedSchemas = await getCachedSchemasForAllTypes(
-    projectRoot,
+): Promise<
+  | { type: 'validator'; validator: ValidateFunction }
+  | { type: 'error'; error: string }
+> {
+  const cachedSchemas = await getSchemasForAllTypes(
+    state,
+    hsProjectFile,
     platformVersion,
     accountId
   );
-  if ('error' in cachedSchemas) {
+  if (cachedSchemas.type === 'error') {
     return cachedSchemas;
   }
   const internalType = mapToInternalType(externalType);
-  if (!(internalType in cachedSchemas.byType)) {
-    return { error: getUnsupportedTypeError(externalType) };
+  if (!(internalType in cachedSchemas.schemasByType)) {
+    return { type: 'error', error: getUnsupportedTypeError(externalType) };
   }
-  const schemaAndValidator = cachedSchemas.byType[internalType];
+  const schemaAndValidator = cachedSchemas.schemasByType[internalType];
   let validator = schemaAndValidator.validator;
   if (!validator) {
-    validator = ajv.compile(schemaAndValidator.schema);
+    validator = state.ajv.compile(schemaAndValidator.schema);
     schemaAndValidator.validator = validator;
   }
-  return validator;
+  return { type: 'validator', validator };
 }
 
-// VSCode doesn't provide a dirname function, that's in the github:/microsoft/vscode-uri package
-function vscodeDirname(uri: Uri): Uri {
-  return uri.with({ path: dirname(uri.path) });
-}
-
-async function findProjectRoot(start: Uri): Promise<Uri | null> {
-  let currentDir = vscodeDirname(start);
+async function findHsProjectFile(start: Uri): Promise<Uri | null> {
+  let currentDir = dirname(start);
   while (true) {
     const current = Uri.joinPath(currentDir, hsProjectJsonFilename);
     if (await doesFileExist(current)) {
       return current;
     }
-    const parent = vscodeDirname(currentDir);
+    const parent = dirname(currentDir);
     if (parent.fsPath === currentDir.fsPath) {
       return null;
     }
@@ -424,16 +378,15 @@ async function findProjectRoot(start: Uri): Promise<Uri | null> {
   }
 }
 
-async function getProjectVersion(projectRoot: Uri): Promise<string | null> {
+async function getProjectVersion(hsProjectFile: Uri): Promise<string | null> {
   try {
-    const fileContents = await workspace.fs.readFile(projectRoot);
+    const fileContents = await workspace.fs.readFile(hsProjectFile);
     const config = JSON.parse(fileContents.toString());
     if ('platformVersion' in config) {
       return config.platformVersion;
     }
-    return null;
   } catch (error) {
     console.error(`Error reading ${hsProjectJsonFilename}:`, error);
-    return null;
   }
+  return null;
 }

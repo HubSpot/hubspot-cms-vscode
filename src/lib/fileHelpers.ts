@@ -131,3 +131,8 @@ export async function doesFileExist(uri: Uri): Promise<boolean> {
     return false;
   }
 }
+
+// VSCode doesn't provide a dirname function, that's in the github:/microsoft/vscode-uri package
+export function dirname(uri: Uri): Uri {
+  return uri.with({ path: path.dirname(uri.path) });
+}

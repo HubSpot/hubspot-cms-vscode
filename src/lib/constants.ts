@@ -157,3 +157,5 @@ export const TEMPLATE_NAMES = {
   PARTIAL: 'partial',
   GLOBAL_PARTIAL: 'global-partial',
 };
+
+export const VALIDATION_DEBOUNCE_TIME = 250;
