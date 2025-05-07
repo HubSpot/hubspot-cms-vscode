@@ -6,14 +6,13 @@ import { Portal } from '../types';
 import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
 import { showAutoDismissedStatusBarMessage } from '../messaging';
-
-const { getConfig } = require('@hubspot/local-dev-lib/config');
-const {
+import {
+  getConfig,
   deleteAccount,
   deleteConfigFile,
   renameAccount,
   updateDefaultAccount,
-} = require('@hubspot/local-dev-lib/config');
+} from '@hubspot/local-dev-lib/config';
 
 const showRenameAccountPrompt = (accountToRename: Portal) => {
   window
@@ -23,7 +22,12 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     .then(async (newName: string | undefined) => {
       if (newName) {
         const oldName = accountToRename.name || accountToRename.portalId;
-        const invalidReason = portalNameInvalid(newName, getConfig());
+        const config = getConfig();
+        let invalidReason = '';
+        if (config) {
+          // @ts-expect-error TODO: Fix this when updating local-dev-lib
+          invalidReason = portalNameInvalid(newName, config);
+        }
 
         if (!invalidReason) {
           renameAccount(oldName, newName);
@@ -73,14 +77,18 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
         const config = getConfig();
+        // @ts-expect-error TODO: Fix this when updating local-dev-lib
         if (config && config.portals) {
           window
             .showQuickPick(
+              // @ts-expect-error TODO: Fix this when updating local-dev-lib
               config.portals.map((p: Portal) => {
                 return {
                   label: getDisplayedHubspotPortalInfo(p),
                   description:
+                    // @ts-expect-error TODO: Fix this when updating local-dev-lib
                     config.defaultPortal === p.portalId ||
+                    // @ts-expect-error TODO: Fix this when updating local-dev-lib
                     config.defaultPortal === p.name
                       ? '(default)'
                       : '',
@@ -134,6 +142,7 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
+              // @ts-expect-error TODO: Fix this when updating local-dev-lib
               if (config && config.portals.length === 1) {
                 deleteConfigFile();
                 showAutoDismissedStatusBarMessage(

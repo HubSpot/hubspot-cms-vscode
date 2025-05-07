@@ -6,8 +6,7 @@ import {
   ThemeColor,
 } from 'vscode';
 import { COMMANDS } from './constants';
-
-const { getConfig } = require('@hubspot/local-dev-lib/config');
+import { getConfig } from '@hubspot/local-dev-lib/config';
 
 let hsStatusBar: StatusBarItem;
 
@@ -15,6 +14,7 @@ export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
 
   const config = getConfig();
+  // @ts-expect-error Need to update to use new global config
   const defaultAccount = config && config.defaultPortal;
 
   if (defaultAccount) {

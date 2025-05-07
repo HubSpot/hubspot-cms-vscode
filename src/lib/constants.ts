@@ -16,7 +16,7 @@ export const VSCODE_SEVERITY = {
   EXCEPTION: 'Error',
   MISSING: 'Warning',
   OTHER: 'Information',
-};
+} as const;
 
 export const EXTENSION_CONFIG_NAME = 'hubspot';
 export const HUBL_HTML_ID = 'html-hubl';
@@ -156,4 +156,6 @@ export const TEMPLATE_NAMES = {
   TEMPLATE: 'page-template',
   PARTIAL: 'partial',
   GLOBAL_PARTIAL: 'global-partial',
-};
+} as const;
+
+export const VALIDATION_DEBOUNCE_TIME = 250;

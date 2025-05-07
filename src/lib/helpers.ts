@@ -1,5 +1,7 @@
 import { dirname } from 'path';
 import { window, commands, workspace, StatusBarAlignment } from 'vscode';
+import { getAccountId } from '@hubspot/local-dev-lib/config';
+
 import { COMMANDS } from './constants';
 import { HubspotConfig, Portal } from './types';
 
@@ -99,3 +101,13 @@ export const buildStatusBarItem = (text: string) => {
   statusBarItem.text = text;
   return statusBarItem;
 };
+
+export function showMissingAccountError() {
+  const accountId = getAccountId();
+  if (!accountId) {
+    window.showErrorMessage(
+      'No account selected; Authorize an account with the HubSpot CLI'
+    );
+    return;
+  }
+}
