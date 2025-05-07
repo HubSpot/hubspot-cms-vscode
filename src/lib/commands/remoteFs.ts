@@ -2,8 +2,12 @@ import { existsSync, statSync } from 'fs';
 import { join } from 'path';
 import { ExtensionContext, window, commands, Uri } from 'vscode';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
-import { buildStatusBarItem, getRootPath } from '../helpers';
-import { invalidateParentDirectoryCache } from '../helpers';
+import {
+  buildStatusBarItem,
+  getRootPath,
+  invalidateParentDirectoryCache,
+  showMissingAccountError,
+} from '../helpers';
 import { trackEvent } from '../tracking';
 
 const { deleteFile, upload } = require('@hubspot/local-dev-lib/api/fileMapper');
@@ -26,6 +30,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.FETCH,
       async (clickedFileLink) => {
+        showMissingAccountError();
         const remoteFilePath = clickedFileLink.path;
         // We use showOpenDialog instead of showSaveDialog because the latter has worse support for this use-case
         const destPath = await window.showOpenDialog({
@@ -67,7 +72,7 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
         try {
           await downloadFileOrFolder(
-            getAccountId(),
+            getAccountId()!,
             remoteFilePath,
             localFilePath,
             undefined,
@@ -91,6 +96,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.DELETE,
       async (clickedFileLink) => {
+        showMissingAccountError();
         console.log(COMMANDS.REMOTE_FS.DELETE);
         const filePath = clickedFileLink.path;
         const selection = await window.showWarningMessage(
@@ -103,7 +109,7 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
         const deletingStatus = buildStatusBarItem(`Deleting...`);
         deletingStatus.show();
-        deleteFile(getAccountId(), filePath)
+        deleteFile(getAccountId()!, filePath)
           .then(() => {
             window.showInformationMessage(`Successfully deleted "${filePath}"`);
             invalidateParentDirectoryCache(filePath);
@@ -126,6 +132,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.UPLOAD,
       async (clickedFileLink) => {
+        showMissingAccountError();
         let srcPath: string;
         if (
           clickedFileLink === undefined ||
@@ -246,7 +253,8 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     return;
   }
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FILE);
-  upload(getAccountId(), srcPath, destPath)
+  showMissingAccountError();
+  upload(getAccountId()!, srcPath, destPath)
     .then(() => {
       window.showInformationMessage(
         `Uploading files to "${destPath}" was successful`
@@ -268,16 +276,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     `Beginning upload of "${srcPath}" to "${destPath}"...`
   );
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
-  uploadFolder(
-    getAccountId(),
-    srcPath,
-    destPath,
-    {
-      mode: 'publish',
-    },
-    {},
-    filePaths
-  )
+  uploadFolder(getAccountId()!, srcPath, destPath, {}, {}, filePaths, 'publish')
     .then(async (results: any) => {
       if (!hasUploadErrors(results)) {
         window.showInformationMessage(

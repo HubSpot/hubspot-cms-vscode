@@ -9,7 +9,7 @@ import {
 import { getDisplayedHubspotPortalInfo } from '../../helpers';
 import { HubspotConfig, Portal } from '../../types';
 
-const { getConfig } = require('@hubspot/local-dev-lib/config');
+import { getConfig } from '@hubspot/local-dev-lib/config';
 
 const isDefaultPortal = (portal: Portal, config: HubspotConfig) => {
   return (
@@ -29,8 +29,9 @@ const getAccountIdentifiers = (portal: Portal) => {
 };
 
 export class AccountsProvider implements TreeDataProvider<Portal> {
-  private config: HubspotConfig;
+  private config: HubspotConfig | null;
   constructor() {
+    // @ts-expect-error TODO: Fix this when updating local-dev-lib
     this.config = getConfig();
   }
 
@@ -48,6 +49,7 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
     return new AccountTreeItem(
       name,
       p,
+      // @ts-expect-error TODO: Fix this when updating local-dev-lib
       { isDefault: isDefaultPortal(p, this.config) },
       TreeItemCollapsibleState.None
     );
@@ -55,6 +57,7 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
 
   getChildren(): Thenable<Portal[] | undefined> {
     console.log('AccountsProvider:getChildren');
+    // @ts-expect-error TODO: Fix this when updating local-dev-lib
     this.config = getConfig();
 
     if (this.config && this.config.portals) {

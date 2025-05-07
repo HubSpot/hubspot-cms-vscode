@@ -16,10 +16,17 @@ const {
   updateConfigWithAccessToken,
   getAccessToken,
 } = require('@hubspot/local-dev-lib/personalAccessKey');
-const {
+import {
   createEmptyConfigFile,
   setConfigPath,
-} = require('@hubspot/local-dev-lib/config');
+} from '@hubspot/local-dev-lib/config';
+
+// TODO: Remove these once we've updated local-dev-lib
+const ENVIRONMENTS = {
+  PROD: 'prod',
+  QA: 'qa',
+} as const;
+type ValueOf<T> = T[keyof T];
 
 const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
@@ -27,8 +34,10 @@ const getQueryObject = (uri: Uri) => {
 
 const handleAuthRequest = async (authParams: URLSearchParams) => {
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
-  const env = authParams.get('env') || 'prod';
-  const name = authParams.get('name');
+  const envParam = authParams.get('env');
+  const env: ValueOf<typeof ENVIRONMENTS> =
+    envParam === ENVIRONMENTS.QA ? ENVIRONMENTS.QA : ENVIRONMENTS.PROD;
+  const name = authParams.get('name') || undefined;
   const portalId = authParams.get('portalId');
   const { key: personalAccessKey } = JSON.parse(personalAccessKeyResp);
   const accountIdentifier = name || portalId;
