@@ -106,12 +106,9 @@ export const buildStatusBarItem = (text: string) => {
   return statusBarItem;
 };
 
-export function showMissingAccountError() {
+export function requireAccountId() {
   const accountId = getAccountId();
   if (!accountId) {
-    window.showErrorMessage(
-      'No account selected; Authorize an account with the HubSpot CLI'
-    );
     return;
   }
 }

@@ -19,7 +19,7 @@ const {
   TEMPLATE_TYPES,
 } = require('@hubspot/local-dev-lib/cms/templates');
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
-import { showMissingAccountError } from './helpers';
+import { requireAccountId } from './helpers';
 import {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -68,7 +68,7 @@ const clearValidation = (
 
 const getRenderingErrors = async (source: string, context: object) => {
   try {
-    showMissingAccountError();
+    requireAccountId();
     const {
       data: { renderingErrors },
     } = await validateHubl(getAccountId()!, source, context);

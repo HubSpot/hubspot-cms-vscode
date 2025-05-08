@@ -13,7 +13,7 @@ import * as path from 'path';
 import {
   buildStatusBarItem,
   invalidateParentDirectoryCache,
-  showMissingAccountError,
+  requireAccountId,
 } from '../helpers';
 import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
@@ -104,7 +104,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
-      showMissingAccountError();
+      requireAccountId();
       const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
       window.showInformationMessage(
@@ -180,7 +180,7 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
-    showMissingAccountError();
+    requireAccountId();
     const remoteDirectory: string = parent?.path ? parent.path : '/';
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {

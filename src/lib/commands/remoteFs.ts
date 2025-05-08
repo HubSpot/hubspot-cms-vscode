@@ -6,7 +6,7 @@ import {
   buildStatusBarItem,
   getRootPath,
   invalidateParentDirectoryCache,
-  showMissingAccountError,
+  requireAccountId,
 } from '../helpers';
 import { trackEvent } from '../tracking';
 
@@ -30,7 +30,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.FETCH,
       async (clickedFileLink) => {
-        showMissingAccountError();
+        requireAccountId();
         const remoteFilePath = clickedFileLink.path;
         // We use showOpenDialog instead of showSaveDialog because the latter has worse support for this use-case
         const destPath = await window.showOpenDialog({
@@ -96,7 +96,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.DELETE,
       async (clickedFileLink) => {
-        showMissingAccountError();
+        requireAccountId();
         console.log(COMMANDS.REMOTE_FS.DELETE);
         const filePath = clickedFileLink.path;
         const selection = await window.showWarningMessage(
@@ -132,7 +132,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.UPLOAD,
       async (clickedFileLink) => {
-        showMissingAccountError();
+        requireAccountId();
         let srcPath: string;
         if (
           clickedFileLink === undefined ||
@@ -253,7 +253,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     return;
   }
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FILE);
-  showMissingAccountError();
+  requireAccountId();
   upload(getAccountId()!, srcPath, destPath)
     .then(() => {
       window.showInformationMessage(

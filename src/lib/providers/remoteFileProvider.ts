@@ -1,7 +1,7 @@
 import { TextDocumentContentProvider, EventEmitter, Uri } from 'vscode';
 import { download } from '@hubspot/local-dev-lib/api/fileMapper';
 import { getAccountId } from '@hubspot/local-dev-lib/config';
-import { showMissingAccountError } from '../helpers';
+import { requireAccountId } from '../helpers';
 
 export const RemoteFileProvider = new (class
   implements TextDocumentContentProvider
@@ -10,7 +10,7 @@ export const RemoteFileProvider = new (class
   onDidChange = this.onDidChangeEmitter.event;
 
   async provideTextDocumentContent(uri: Uri): Promise<string | undefined> {
-    showMissingAccountError();
+    requireAccountId();
     const filepath = uri.toString().split(':')[1];
     // filepath must be de-encoded since it gets reencoded by download in cli-lib
     const decodedFilePath = decodeURIComponent(filepath);
