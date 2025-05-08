@@ -80,9 +80,11 @@ export const registerCommands = (context: ExtensionContext) => {
               overwrite: true,
             }
           );
-        } catch (error) {
+        } catch (error: unknown) {
           window.showErrorMessage(
-            `Failed to fetch ${remoteFilePath}: ${error}`
+            `Failed to fetch ${remoteFilePath}: ${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`
           );
         }
         window.showInformationMessage(
@@ -118,7 +120,7 @@ export const registerCommands = (context: ExtensionContext) => {
           .catch((err: any) => {
             window.showErrorMessage(
               `Error deleting "${filePath}": ${
-                JSON.parse(err.message.slice(5)).message
+                err instanceof Error ? err.message : 'Unknown error'
               }`
             );
           })
@@ -263,7 +265,9 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     })
     .catch((error: any) => {
       window.showErrorMessage(
-        `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+        `Uploading file "${srcPath}" to "${destPath}" failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
       );
     });
 };
@@ -294,7 +298,9 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     })
     .catch(async (error: any) => {
       window.showErrorMessage(
-        `Uploading file "${srcPath}" to "${destPath}" failed: ${error}`
+        `Uploading file "${srcPath}" to "${destPath}" failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
       );
     })
     .finally(() => {

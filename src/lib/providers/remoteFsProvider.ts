@@ -141,14 +141,22 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         // onUploadFolderError
         (error: any) => {
           uploadingStatus.dispose();
-          window.showErrorMessage(`Upload folder error: ${error}`);
+          window.showErrorMessage(
+            `Upload folder error: ${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`
+          );
         },
         // onQueueAddError
         undefined,
         // onUploadFileError
         (file: string, dest: string, accountId: number) => (error: any) => {
           uploadingStatus.dispose();
-          window.showErrorMessage(`Upload file error: ${error}`);
+          window.showErrorMessage(
+            `Upload file error: ${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`
+          );
         }
       );
       this.currentWatcher = watcher;
