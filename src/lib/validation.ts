@@ -7,7 +7,8 @@ import {
   Diagnostic,
   Range,
 } from 'vscode';
-import { HubspotConfig } from './types';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { HubLValidationError } from '@hubspot/local-dev-lib/types/HublValidation';
 import { validateHubl } from '@hubspot/local-dev-lib/api/validateHubl';
 import { getAccountId } from '@hubspot/local-dev-lib/config';
@@ -174,7 +175,7 @@ export const triggerValidate = (
 
 export const portalNameInvalid = (
   portalName: string,
-  config: HubspotConfig
+  config: CLIConfig | null
 ) => {
   if (typeof portalName !== 'string') {
     return 'Portal name must be a string';
@@ -184,9 +185,10 @@ export const portalNameInvalid = (
     return 'Portal name cannot contain spaces';
   }
   return config &&
+    'portals' in config &&
     (config.portals || [])
-      .map((p) => p.name)
-      .find((name) => name === portalName)
+      .map((p: CLIAccount) => p.name)
+      .find((name: string | undefined) => name === portalName)
     ? `${portalName} already exists in config.`
-    : false;
+    : '';
 };

@@ -20,13 +20,8 @@ import {
   createEmptyConfigFile,
   setConfigPath,
 } from '@hubspot/local-dev-lib/config';
-
-// TODO: Remove these once we've updated local-dev-lib
-const ENVIRONMENTS = {
-  PROD: 'prod',
-  QA: 'qa',
-} as const;
-type ValueOf<T> = T[keyof T];
+import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
+import { Environment } from '@hubspot/local-dev-lib/types/Config';
 
 const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
@@ -35,7 +30,7 @@ const getQueryObject = (uri: Uri) => {
 const handleAuthRequest = async (authParams: URLSearchParams) => {
   const personalAccessKeyResp = authParams.get('personalAccessKeyResp') || '';
   const envParam = authParams.get('env');
-  const env: ValueOf<typeof ENVIRONMENTS> =
+  const env: Environment =
     envParam === ENVIRONMENTS.QA ? ENVIRONMENTS.QA : ENVIRONMENTS.PROD;
   const name = authParams.get('name') || undefined;
   const portalId = authParams.get('portalId');

@@ -2,7 +2,6 @@ import { commands, window, ExtensionContext } from 'vscode';
 import { updateStatusBarItems } from '../statusBar';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
-import { Portal } from '../types';
 import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
 import { showAutoDismissedStatusBarMessage } from '../messaging';
@@ -13,8 +12,10 @@ import {
   renameAccount,
   updateDefaultAccount,
 } from '@hubspot/local-dev-lib/config';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
 
-const showRenameAccountPrompt = (accountToRename: Portal) => {
+const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
   window
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
@@ -22,15 +23,20 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     .then(async (newName: string | undefined) => {
       if (newName) {
         const oldName = accountToRename.name || accountToRename.portalId;
-        const config = getConfig();
+        const config: CLIConfig | null = getConfig();
         let invalidReason = '';
         if (config) {
-          // @ts-expect-error TODO: Fix this when updating local-dev-lib
           invalidReason = portalNameInvalid(newName, config);
         }
 
         if (!invalidReason) {
-          renameAccount(oldName, newName);
+          if (!oldName) {
+            window.showErrorMessage(
+              'Could not determine account name to rename'
+            );
+            return;
+          }
+          renameAccount(String(oldName), newName);
           showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
@@ -76,19 +82,16 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
-        const config = getConfig();
-        // @ts-expect-error TODO: Fix this when updating local-dev-lib
-        if (config && config.portals) {
+        const config: CLIConfig | null = getConfig();
+
+        if (config && 'portals' in config && config.portals) {
           window
             .showQuickPick(
-              // @ts-expect-error TODO: Fix this when updating local-dev-lib
-              config.portals.map((p: Portal) => {
+              config.portals.map((p: CLIAccount_DEPRECATED) => {
                 return {
                   label: getDisplayedHubspotPortalInfo(p),
                   description:
-                    // @ts-expect-error TODO: Fix this when updating local-dev-lib
                     config.defaultPortal === p.portalId ||
-                    // @ts-expect-error TODO: Fix this when updating local-dev-lib
                     config.defaultPortal === p.name
                       ? '(default)'
                       : '',
@@ -102,8 +105,13 @@ export const registerCommands = (context: ExtensionContext) => {
             .then(async (selection) => {
               if (selection) {
                 const newDefaultAccount =
-                  // @ts-ignore selection is an object
                   selection.portal.name || selection.portal.portalId;
+                if (!newDefaultAccount) {
+                  window.showErrorMessage(
+                    'No account selected; Choose an account to set as default'
+                  );
+                  return;
+                }
                 await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
                 showAutoDismissedStatusBarMessage(
@@ -142,8 +150,11 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
-              // @ts-expect-error TODO: Fix this when updating local-dev-lib
-              if (config && config.portals.length === 1) {
+              if (
+                config &&
+                'portals' in config &&
+                config.portals.length === 1
+              ) {
                 deleteConfigFile();
                 showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`

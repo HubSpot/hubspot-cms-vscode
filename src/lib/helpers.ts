@@ -3,7 +3,8 @@ import { window, commands, workspace, StatusBarAlignment } from 'vscode';
 import { getAccountId } from '@hubspot/local-dev-lib/config';
 
 import { COMMANDS } from './constants';
-import { HubspotConfig, Portal } from './types';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
 
 const { exec } = require('node:child_process');
 
@@ -16,18 +17,21 @@ export const getRootPath = () => {
   return workspaceFolders[0].uri.fsPath;
 };
 
-export const getDefaultPortalFromConfig = (config: HubspotConfig) => {
+export const getDefaultPortalFromConfig = (config: CLIConfig) => {
   return (
     config &&
+    'portals' in config &&
     config.portals &&
     config.portals.find(
-      (p: Portal) =>
+      (p: CLIAccount_DEPRECATED) =>
         p.portalId === config.defaultPortal || p.name === config.defaultPortal
     )
   );
 };
 
-export const getDisplayedHubspotPortalInfo = (portalData: Portal) => {
+export const getDisplayedHubspotPortalInfo = (
+  portalData: CLIAccount_DEPRECATED
+) => {
   return portalData.name
     ? `${portalData.name} - ${portalData.portalId}`
     : `${portalData.portalId}`;
