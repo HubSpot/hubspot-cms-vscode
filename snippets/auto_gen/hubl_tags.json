@@ -41,6 +41,13 @@
     "description": "A boolean option\nParameters:\n- value(boolean) Determines whether the checkbox is checked or unchecked",
     "prefix": "~boolean"
   },
+  "break": {
+    "body": [
+      "{% for item in [1, 2, 3, 4] %}{% if item > 2 == 0 %}{% break %}{% endif %}{{ item }}{% endfor %}"
+    ],
+    "description": "Stops executing the current for loop, including any further iterations",
+    "prefix": "~break"
+  },
   "call": {
     "body": [
       "{% call ${1:macro_name}(${2:argument_names}) %}\n$0\n{% endcall %}"
@@ -68,6 +75,13 @@
     ],
     "description": "Sets default content in an attribute of the content object, such as content.email_body",
     "prefix": "~content_attribute"
+  },
+  "continue": {
+    "body": [
+      "{% for item in [1, 2, 3, 4] %}{% if item % 2 == 0 %}{% continue %}{% endif %}{{ item }}{% endfor %}"
+    ],
+    "description": "Stops executing the current iteration of the current for loop",
+    "prefix": "~continue"
   },
   "cta": {
     "body": [
@@ -316,9 +330,9 @@
   },
   "language_switcher": {
     "body": [
-      "{% language_switcher display_mode=\"${1:display_mode}\" %}"
+      "{% language_switcher display_mode=\"${1:display_mode}\" order=\"${2:order}\" %}"
     ],
-    "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.",
+    "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.\n- order(enum default|natural) Determines the display order of languages. The 'default' order places the selected language at the top of the sorted list, while the 'natural' order maintains a fixed sequence and adds the 'lang_switcher_selected' class to the selected language.",
     "prefix": "~language_switcher"
   },
   "linked_image": {
@@ -439,6 +453,13 @@
     ],
     "description": "Insert custom HTML module\nParameters:\n- value(String) Sets the default content HTML of the module",
     "prefix": "~raw_html"
+  },
+  "react_partial": {
+    "body": [
+      "{% react_partial 'my_react_partial' %}"
+    ],
+    "description": "",
+    "prefix": "~react_partial"
   },
   "related_blog_posts": {
     "body": [
