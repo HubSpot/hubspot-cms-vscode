@@ -11,6 +11,8 @@ import {
   deleteConfigFile,
   renameAccount,
   updateDefaultAccount,
+  getConfigDefaultAccount,
+  getConfigAccounts,
 } from '@hubspot/local-dev-lib/config';
 import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
 import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
@@ -82,17 +84,18 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
-        const config: CLIConfig | null = getConfig();
+        const defaultAccount: string | number | null | undefined =
+          getConfigDefaultAccount();
+        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
 
-        if (config && 'portals' in config && config.portals) {
+        if (portals && portals.length !== 0) {
           window
             .showQuickPick(
-              config.portals.map((p: CLIAccount_DEPRECATED) => {
+              portals.map((p: CLIAccount_DEPRECATED) => {
                 return {
                   label: getDisplayedHubspotPortalInfo(p),
                   description:
-                    config.defaultPortal === p.portalId ||
-                    config.defaultPortal === p.name
+                    defaultAccount === p.portalId || defaultAccount === p.name
                       ? '(default)'
                       : '',
                   portal: p,
@@ -138,7 +141,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
-        const config = getConfig();
+        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
         const accountIdentifier =
           accountToDelete.name || accountToDelete.portalId;
 
@@ -150,11 +153,7 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
-              if (
-                config &&
-                'portals' in config &&
-                config.portals.length === 1
-              ) {
+              if (portals && portals.length === 1) {
                 deleteConfigFile();
                 showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
