@@ -84,8 +84,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
-        const defaultAccount: string | number | null | undefined =
-          getConfigDefaultAccount();
+        const defaultAccount = getConfigDefaultAccount();
         const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
 
         if (portals && portals.length !== 0) {
