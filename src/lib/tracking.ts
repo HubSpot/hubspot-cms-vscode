@@ -1,12 +1,11 @@
 import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
 import { GLOBAL_STATE_KEYS } from './constants';
-
-const {
+import {
   getAccountId,
   isTrackingAllowed,
   getAccountConfig,
-} = require('@hubspot/local-dev-lib/config');
+} from '@hubspot/local-dev-lib/config';
 const { trackUsage } = require('@hubspot/local-dev-lib/trackUsage');
 
 const vscodeTelemetryDocsUrl =
@@ -74,7 +73,7 @@ const getAuthType = (accountId?: string) => {
   let authType = 'unknown';
 
   if (accountId) {
-    const accountConfig = getAccountConfig(accountId);
+    const accountConfig = getAccountConfig(Number(accountId));
     authType =
       accountConfig && accountConfig.authType
         ? accountConfig.authType
@@ -113,7 +112,7 @@ export const trackEvent = async (action: string, options?: object) => {
     'INTERACTION',
     {
       ...options,
-      ...getUserIdentificationInformation(accountId),
+      ...getUserIdentificationInformation(accountId?.toString()),
       action,
     },
     accountId

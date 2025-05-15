@@ -7,18 +7,24 @@ import {
   TreeItemCollapsibleState,
 } from 'vscode';
 import { getDisplayedHubspotPortalInfo } from '../../helpers';
-import { HubspotConfig, Portal } from '../../types';
 
-const { getConfig } = require('@hubspot/local-dev-lib/config');
+import { getConfig } from '@hubspot/local-dev-lib/config';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
 
-const isDefaultPortal = (portal: Portal, config: HubspotConfig) => {
+const isDefaultPortal = (
+  portal: CLIAccount_DEPRECATED,
+  config: CLIConfig | null
+) => {
   return (
-    config.defaultPortal === portal.portalId ||
-    config.defaultPortal === portal.name
+    config &&
+    'defaultPortal' in config &&
+    (config.defaultPortal === portal.portalId ||
+      config.defaultPortal === portal.name)
   );
 };
 
-const getAccountIdentifiers = (portal: Portal) => {
+const getAccountIdentifiers = (portal: CLIAccount_DEPRECATED) => {
   let accountIdentifiers = '';
 
   if (portal.env === 'qa') {
@@ -28,8 +34,10 @@ const getAccountIdentifiers = (portal: Portal) => {
   return accountIdentifiers;
 };
 
-export class AccountsProvider implements TreeDataProvider<Portal> {
-  private config: HubspotConfig;
+export class AccountsProvider
+  implements TreeDataProvider<CLIAccount_DEPRECATED>
+{
+  private config: CLIConfig | null;
   constructor() {
     this.config = getConfig();
   }
@@ -42,22 +50,22 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
     this._onDidChangeTreeData.fire(undefined);
   }
 
-  getTreeItem(p: Portal): TreeItem {
+  getTreeItem(p: CLIAccount_DEPRECATED): TreeItem {
     const identifiers = getAccountIdentifiers(p);
     const name = `${getDisplayedHubspotPortalInfo(p)} ${identifiers}`;
     return new AccountTreeItem(
       name,
       p,
-      { isDefault: isDefaultPortal(p, this.config) },
+      { isDefault: isDefaultPortal(p, this.config) ?? false },
       TreeItemCollapsibleState.None
     );
   }
 
-  getChildren(): Thenable<Portal[] | undefined> {
+  getChildren(): Thenable<CLIAccount_DEPRECATED[] | undefined> {
     console.log('AccountsProvider:getChildren');
     this.config = getConfig();
 
-    if (this.config && this.config.portals) {
+    if (this.config && 'portals' in this.config && this.config.portals) {
       return Promise.resolve(this.config.portals);
     }
 
@@ -68,7 +76,7 @@ export class AccountsProvider implements TreeDataProvider<Portal> {
 export class AccountTreeItem extends TreeItem {
   constructor(
     public readonly name: string,
-    public readonly portalData: Portal,
+    public readonly portalData: CLIAccount_DEPRECATED,
     public readonly options: { isDefault: boolean },
     public readonly collapsibleState: TreeItemCollapsibleState,
     public iconPath: ThemeIcon = new ThemeIcon('account'),
