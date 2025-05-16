@@ -4,24 +4,27 @@ import {
   Position,
   TextDocument,
   DiagnosticCollection,
+  Diagnostic,
+  Range,
 } from 'vscode';
-import { HubspotConfig } from './types';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { HubLValidationError } from '@hubspot/local-dev-lib/types/HublValidation';
-
-const { validateHubl } = require('@hubspot/local-dev-lib/api/validateHubl');
-const { getAccountId } = require('@hubspot/local-dev-lib/config');
+import { validateHubl } from '@hubspot/local-dev-lib/api/validateHubl';
+import { getAccountId } from '@hubspot/local-dev-lib/config';
 const {
   isCodedFile,
-  getAnnotationsFromSource,
+  getAnnotationValue,
   ANNOTATION_KEYS,
   TEMPLATE_TYPES,
 } = require('@hubspot/local-dev-lib/cms/templates');
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
-const {
+import { requireAccountId } from './helpers';
+import {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
   HUBL_TAG_DEFINITION_REGEX,
-} = require('./constants');
+} from './constants';
 const fs = require('fs');
 const path = require('path');
 
@@ -65,25 +68,33 @@ const clearValidation = (
 
 const getRenderingErrors = async (source: string, context: object) => {
   try {
-    const { renderingErrors } = await validateHubl(
-      getAccountId(),
-      source,
-      context
-    );
+    requireAccountId();
+    const {
+      data: { renderingErrors },
+    } = await validateHubl(getAccountId()!, source, context);
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
   }
 };
 
+const getTemplateTypeValue = (type: string | null): number => {
+  if (!type || !(type in TEMPLATE_TYPES)) {
+    return TEMPLATE_TYPES.unmapped;
+  }
+  return TEMPLATE_TYPES[type as keyof typeof TEMPLATE_TYPES];
+};
+
 const getTemplateType = (document: TextDocument) => {
   if (isCodedFile(document.fileName)) {
-    const getAnnotationValue = getAnnotationsFromSource(document.getText());
+    const source = document.getText();
     return {
       is_available_for_new_content:
-        getAnnotationValue(ANNOTATION_KEYS.isAvailableForNewContent) != 'false',
-      template_type:
-        TEMPLATE_TYPES[getAnnotationValue(ANNOTATION_KEYS.templateType)],
+        getAnnotationValue(source, ANNOTATION_KEYS.isAvailableForNewContent) !=
+        'false',
+      template_type: getTemplateTypeValue(
+        getAnnotationValue(source, ANNOTATION_KEYS.templateType)
+      ),
       template_path: document.uri.path,
     };
   }
@@ -91,6 +102,12 @@ const getTemplateType = (document: TextDocument) => {
     return { context: { module: {} }, module_path: document.fileName };
   }
   return {};
+};
+
+const isValidTemplateError = (
+  reason: string
+): reason is keyof typeof TEMPLATE_ERRORS_TYPES => {
+  return Object.values(TEMPLATE_ERRORS_TYPES).includes(reason);
 };
 
 const updateValidation = async (
@@ -123,13 +140,16 @@ const updateValidation = async (
     }
   );
 
-  const templateErrors = resolvedRenderingErrors.map(
+  const templateErrors: Diagnostic[] = resolvedRenderingErrors.map(
     (error: HubLValidationError) => {
+      const severity = isValidTemplateError(error.reason)
+        ? DiagnosticSeverity[VSCODE_SEVERITY[error.reason]]
+        : DiagnosticSeverity.Error;
       return {
         code: '',
         message: error.message,
-        range: getRange(document, error),
-        severity: DiagnosticSeverity[VSCODE_SEVERITY[error.reason]],
+        range: getRange(document, error) || new Range(0, 0, 0, 0),
+        severity,
       };
     }
   );
@@ -155,7 +175,7 @@ export const triggerValidate = (
 
 export const portalNameInvalid = (
   portalName: string,
-  config: HubspotConfig
+  config: CLIConfig | null
 ) => {
   if (typeof portalName !== 'string') {
     return 'Portal name must be a string';
@@ -165,9 +185,10 @@ export const portalNameInvalid = (
     return 'Portal name cannot contain spaces';
   }
   return config &&
+    'portals' in config &&
     (config.portals || [])
-      .map((p) => p.name)
-      .find((name) => name === portalName)
+      .map((p: CLIAccount) => p.name)
+      .find((name: string | undefined) => name === portalName)
     ? `${portalName} already exists in config.`
-    : false;
+    : '';
 };

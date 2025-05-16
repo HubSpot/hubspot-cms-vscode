@@ -10,7 +10,11 @@ import {
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
 import * as path from 'path';
-import { buildStatusBarItem, invalidateParentDirectoryCache } from '../helpers';
+import {
+  buildStatusBarItem,
+  invalidateParentDirectoryCache,
+  requireAccountId,
+} from '../helpers';
 import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
 const {
@@ -100,20 +104,21 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
+      requireAccountId();
       const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
       window.showInformationMessage(
         `Beginning initial upload of ${srcPath} to ${destPath}...`
       );
-      this.currentWatcher = watch(
-        getAccountId(),
+      let { data: watcher } = watch(
+        getAccountId()!,
         srcPath,
         destPath,
         {
-          mode: 'publish',
+          cmsPublishMode: 'publish',
           remove: true,
           disableInitial: false,
-          notify: false,
+          notify: 'none',
           commandOptions: {},
           filePaths: filesToUpload,
         },
@@ -136,16 +141,25 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
         // onUploadFolderError
         (error: any) => {
           uploadingStatus.dispose();
-          window.showErrorMessage(`Upload folder error: ${error}`);
+          window.showErrorMessage(
+            `Upload folder error: ${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`
+          );
         },
         // onQueueAddError
-        null,
+        undefined,
         // onUploadFileError
-        (error: any) => {
+        (file: string, dest: string, accountId: number) => (error: any) => {
           uploadingStatus.dispose();
-          window.showErrorMessage(`Upload file error: ${error}`);
+          window.showErrorMessage(
+            `Upload file error: ${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`
+          );
         }
       );
+      this.currentWatcher = watcher;
       this.currentWatcher.on('raw', (event: any, path: any, details: any) => {
         if (event === 'created' || event === 'moved') {
           const pathToInvalidate = this.equivalentRemotePath(path);
@@ -174,13 +188,14 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
+    requireAccountId();
     const remoteDirectory: string = parent?.path ? parent.path : '/';
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {
-      directoryContents = await getDirectoryContentsByPath(
+      ({ data: directoryContents } = await getDirectoryContentsByPath(
         getAccountId(),
         remoteDirectory
-      );
+      ));
       // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried
       if (remoteDirectory === '/') {
         directoryContents.children = [

@@ -2,20 +2,22 @@ import { commands, window, ExtensionContext } from 'vscode';
 import { updateStatusBarItems } from '../statusBar';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
-import { Portal } from '../types';
 import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
 import { showAutoDismissedStatusBarMessage } from '../messaging';
-
-const { getConfig } = require('@hubspot/local-dev-lib/config');
-const {
+import {
+  getConfig,
   deleteAccount,
   deleteConfigFile,
   renameAccount,
   updateDefaultAccount,
-} = require('@hubspot/local-dev-lib/config');
+  getConfigDefaultAccount,
+  getConfigAccounts,
+} from '@hubspot/local-dev-lib/config';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
 
-const showRenameAccountPrompt = (accountToRename: Portal) => {
+const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
   window
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
@@ -23,10 +25,20 @@ const showRenameAccountPrompt = (accountToRename: Portal) => {
     .then(async (newName: string | undefined) => {
       if (newName) {
         const oldName = accountToRename.name || accountToRename.portalId;
-        const invalidReason = portalNameInvalid(newName, getConfig());
+        const config: CLIConfig | null = getConfig();
+        let invalidReason = '';
+        if (config) {
+          invalidReason = portalNameInvalid(newName, config);
+        }
 
         if (!invalidReason) {
-          renameAccount(oldName, newName);
+          if (!oldName) {
+            window.showErrorMessage(
+              'Could not determine account name to rename'
+            );
+            return;
+          }
+          renameAccount(String(oldName), newName);
           showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
@@ -72,16 +84,17 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
-        const config = getConfig();
-        if (config && config.portals) {
+        const defaultAccount = getConfigDefaultAccount();
+        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
+
+        if (portals && portals.length !== 0) {
           window
             .showQuickPick(
-              config.portals.map((p: Portal) => {
+              portals.map((p: CLIAccount_DEPRECATED) => {
                 return {
                   label: getDisplayedHubspotPortalInfo(p),
                   description:
-                    config.defaultPortal === p.portalId ||
-                    config.defaultPortal === p.name
+                    defaultAccount === p.portalId || defaultAccount === p.name
                       ? '(default)'
                       : '',
                   portal: p,
@@ -94,8 +107,13 @@ export const registerCommands = (context: ExtensionContext) => {
             .then(async (selection) => {
               if (selection) {
                 const newDefaultAccount =
-                  // @ts-ignore selection is an object
                   selection.portal.name || selection.portal.portalId;
+                if (!newDefaultAccount) {
+                  window.showErrorMessage(
+                    'No account selected; Choose an account to set as default'
+                  );
+                  return;
+                }
                 await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
                 showAutoDismissedStatusBarMessage(
@@ -122,7 +140,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
-        const config = getConfig();
+        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
         const accountIdentifier =
           accountToDelete.name || accountToDelete.portalId;
 
@@ -134,7 +152,7 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
-              if (config && config.portals.length === 1) {
+              if (portals && portals.length === 1) {
                 deleteConfigFile();
                 showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`

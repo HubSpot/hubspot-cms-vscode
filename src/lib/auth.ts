@@ -1,19 +1,18 @@
 import { commands } from 'vscode';
 import { COMMANDS, EVENTS } from './constants';
-
-const {
+import {
   findConfig,
   loadConfig,
   validateConfig,
   setConfig,
   setConfigPath,
-} = require('@hubspot/local-dev-lib/config');
+} from '@hubspot/local-dev-lib/config';
 
 const onLoadPath = (configPath: string) => {
   commands.executeCommand('setContext', 'hubspot.configPath', configPath);
   if (!configPath) {
     commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, null);
-    setConfig(null);
+    setConfig(undefined);
     setConfigPath(null);
   }
 };
@@ -26,13 +25,13 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   console.log(`rootPath: ${rootPath}`);
 
   const path = findConfig(rootPath);
-  onLoadPath(path);
 
   console.log(`path: ${path}`);
 
   if (!path) {
     return;
   }
+  onLoadPath(path);
 
   loadConfig(path);
 
