@@ -122,3 +122,17 @@ export const onClickCreateFolder = (extension: string, doAfter: Function) => {
     }
   };
 };
+
+export async function doesFileExist(uri: Uri): Promise<boolean> {
+  try {
+    await workspace.fs.stat(uri);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+// VSCode doesn't provide a dirname function, that's in the github:/microsoft/vscode-uri package
+export function dirname(uri: Uri): Uri {
+  return uri.with({ path: path.dirname(uri.path) });
+}
