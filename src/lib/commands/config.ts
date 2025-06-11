@@ -1,10 +1,4 @@
 import { commands, window, ExtensionContext } from 'vscode';
-import { updateStatusBarItems } from '../statusBar';
-import { COMMANDS, TRACKED_EVENTS } from '../constants';
-import { getDisplayedHubspotPortalInfo } from '../helpers';
-import { portalNameInvalid } from '../validation';
-import { trackEvent } from '../tracking';
-import { showAutoDismissedStatusBarMessage } from '../messaging';
 import {
   getConfig,
   deleteAccount,
@@ -15,7 +9,17 @@ import {
   getConfigAccounts,
 } from '@hubspot/local-dev-lib/config';
 import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
-import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
+import {
+  CLIAccount,
+  CLIAccount_DEPRECATED,
+} from '@hubspot/local-dev-lib/types/Accounts';
+import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
+import { updateStatusBarItems } from '../statusBar';
+import { COMMANDS, TRACKED_EVENTS } from '../constants';
+import { getDisplayedHubspotPortalInfo } from '../helpers';
+import { portalNameInvalid } from '../validation';
+import { trackEvent } from '../tracking';
+import { showAutoDismissedStatusBarMessage } from '../messaging';
 
 const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
   window
@@ -24,7 +28,8 @@ const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
     })
     .then(async (newName: string | undefined) => {
       if (newName) {
-        const oldName = accountToRename.name || accountToRename.portalId;
+        const oldName =
+          accountToRename.name || getAccountIdentifier(accountToRename);
         const config: CLIConfig | null = getConfig();
         let invalidReason = '';
         if (config) {
@@ -39,6 +44,7 @@ const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
             return;
           }
           renameAccount(String(oldName), newName);
+          commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
           showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
@@ -66,7 +72,7 @@ export const registerCommands = (context: ExtensionContext) => {
           typeof defaultAccount === 'string' ||
           typeof defaultAccount === 'number'
             ? defaultAccount
-            : defaultAccount.name || defaultAccount.portalId;
+            : defaultAccount.name || getAccountIdentifier(defaultAccount);
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
         await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
@@ -85,19 +91,20 @@ export const registerCommands = (context: ExtensionContext) => {
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
         const defaultAccount = getConfigDefaultAccount();
-        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
+        const accounts: CLIAccount[] = getConfigAccounts() || [];
 
-        if (portals && portals.length !== 0) {
+        if (accounts && accounts.length !== 0) {
           window
             .showQuickPick(
-              portals.map((p: CLIAccount_DEPRECATED) => {
+              accounts.map((a: CLIAccount) => {
                 return {
-                  label: getDisplayedHubspotPortalInfo(p),
+                  label: getDisplayedHubspotPortalInfo(a),
                   description:
-                    defaultAccount === p.portalId || defaultAccount === p.name
+                    defaultAccount === getAccountIdentifier(a) ||
+                    defaultAccount === a.name
                       ? '(default)'
                       : '',
-                  portal: p,
+                  account: a,
                 };
               }),
               {
@@ -107,7 +114,8 @@ export const registerCommands = (context: ExtensionContext) => {
             .then(async (selection) => {
               if (selection) {
                 const newDefaultAccount =
-                  selection.portal.name || selection.portal.portalId;
+                  selection.account.name ||
+                  getAccountIdentifier(selection.account);
                 if (!newDefaultAccount) {
                   window.showErrorMessage(
                     'No account selected; Choose an account to set as default'
@@ -140,9 +148,9 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
-        const portals: CLIAccount_DEPRECATED[] = getConfigAccounts() || [];
+        const accounts: CLIAccount[] = getConfigAccounts() || [];
         const accountIdentifier =
-          accountToDelete.name || accountToDelete.portalId;
+          accountToDelete.name || getAccountIdentifier(accountToDelete);
 
         await window
           .showInformationMessage(
@@ -152,7 +160,7 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
-              if (portals && portals.length === 1) {
+              if (accounts && accounts.length === 1) {
                 deleteConfigFile();
                 showAutoDismissedStatusBarMessage(
                   `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
@@ -165,6 +173,7 @@ export const registerCommands = (context: ExtensionContext) => {
               }
               await trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
               commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
+              commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
               updateStatusBarItems();
             }
           });

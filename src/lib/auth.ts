@@ -6,6 +6,8 @@ import {
   validateConfig,
   setConfig,
   setConfigPath,
+  configFileExists,
+  getConfigPath,
 } from '@hubspot/local-dev-lib/config';
 
 const onLoadPath = (configPath: string) => {
@@ -23,14 +25,19 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   }
 
   console.log(`rootPath: ${rootPath}`);
+  let path = findConfig(rootPath);
 
-  const path = findConfig(rootPath);
+  // No legacy config found, try the global path
+  if (!path) {
+    path = getConfigPath(undefined, true);
+  }
 
   console.log(`path: ${path}`);
 
   if (!path) {
     return;
   }
+
   onLoadPath(path);
 
   loadConfig(path);

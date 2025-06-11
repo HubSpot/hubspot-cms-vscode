@@ -81,7 +81,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
         await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
-        console.log(`Updating defaultPortal to ${accountIdentifier}.`);
+        console.log(`Updating defaultAccount to ${accountIdentifier}.`);
         commands.executeCommand(
           COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,
           accountIdentifier
