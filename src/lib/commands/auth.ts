@@ -15,8 +15,6 @@ export const registerCommands = (
 
       const authUrl = `https://app.hubspot.com/l/personal-access-key?vsCodeExtensionRootPath=${rootPath}&source=${ideParam}`;
 
-      console.log('authUrl', authUrl);
-
       const callableUri = await env.asExternalUri(Uri.parse(authUrl));
       await env.openExternal(callableUri);
     })
