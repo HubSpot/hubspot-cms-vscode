@@ -41,6 +41,13 @@
     "description": "A boolean option\nParameters:\n- value(boolean) Determines whether the checkbox is checked or unchecked",
     "prefix": "~boolean"
   },
+  "break": {
+    "body": [
+      "{% for item in [1, 2, 3, 4] %}{% if item > 2 == 0 %}{% break %}{% endif %}{{ item }}{% endfor %}"
+    ],
+    "description": "Stops executing the current for loop, including any further iterations",
+    "prefix": "~break"
+  },
   "call": {
     "body": [
       "{% call ${1:macro_name}(${2:argument_names}) %}\n$0\n{% endcall %}"
@@ -68,6 +75,13 @@
     ],
     "description": "Sets default content in an attribute of the content object, such as content.email_body",
     "prefix": "~content_attribute"
+  },
+  "continue": {
+    "body": [
+      "{% for item in [1, 2, 3, 4] %}{% if item % 2 == 0 %}{% continue %}{% endif %}{{ item }}{% endfor %}"
+    ],
+    "description": "Stops executing the current iteration of the current for loop",
+    "prefix": "~continue"
   },
   "cta": {
     "body": [
@@ -120,16 +134,16 @@
   },
   "email_subscriptions": {
     "body": [
-      "{% email_subscriptions header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" language_select_label_text=\"${5:language_select_label_text}\" unsubscribe_single_text=\"${6:unsubscribe_single_text}\" unsubscribe_all_text=\"${7:unsubscribe_all_text}\" unsubscribe_all_unsubbed_text=\"${8:unsubscribe_all_unsubbed_text}\" unsubscribe_all_option=\"${9:unsubscribe_all_option}\" button_text=\"${10:button_text}\" resubscribe_button_text=\"${11:resubscribe_button_text}\" %}"
+      "{% email_subscriptions header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" language_select_label_text=\"${5:language_select_label_text}\" unsubscribe_single_text=\"${6:unsubscribe_single_text}\" unsubscribe_all_text=\"${7:unsubscribe_all_text}\" unsubscribe_all_unsubbed_text=\"${8:unsubscribe_all_unsubbed_text}\" unsubscribe_all_option=\"${9:unsubscribe_all_option}\" button_text=\"${10:button_text}\" %}"
     ],
-    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- resubscribe_button_text(String) Sets the text of the submit button for when contacts are resubscribing",
+    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences",
     "prefix": "~email_subscriptions"
   },
   "email_subscriptions_confirmation": {
     "body": [
-      "{% email_subscriptions_confirmation header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" unsubscribe_all_success=\"${5:unsubscribe_all_success}\" subscription_update_success=\"${6:subscription_update_success}\" %}"
+      "{% email_subscriptions_confirmation header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" unsubscribe_all_success=\"${5:unsubscribe_all_success}\" subscription_update_success=\"${6:subscription_update_success}\" manage_preferences_button=\"${7:manage_preferences_button}\" manage_preferences_return_disclaimer=\"${8:manage_preferences_return_disclaimer}\" %}"
     ],
-    "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences",
+    "description": "Email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader_text(String) Populates text above the confirmation message\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- unsubscribe_all_success(String) Sets the text that will display when someone unsubscribes from all email communications\n- subscription_update_success(String) Sets the text when a recipient updates his or her subscription preferences\n- manage_preferences_button(String) Button label for the return to preferences page button\n- manage_preferences_return_disclaimer(String) Populates the text above the return to preferences button",
     "prefix": "~email_subscriptions_confirmation"
   },
   "extends": {
@@ -316,9 +330,9 @@
   },
   "language_switcher": {
     "body": [
-      "{% language_switcher display_mode=\"${1:display_mode}\" %}"
+      "{% language_switcher display_mode=\"${1:display_mode}\" order=\"${2:order}\" %}"
     ],
-    "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.",
+    "description": "Language switcher\nParameters:\n- display_mode(enum localized|pagelang|hybrid) The language of the text in the language switcher. Pagelang means the names of languages will display in the language of the page the switcher is on. Localized means the name of each language will display in that language. Hybrid is a combination of the two.\n- order(enum default|natural) Determines the display order of languages. The 'default' order places the selected language at the top of the sorted list, while the 'natural' order maintains a fixed sequence and adds the 'lang_switcher_selected' class to the selected language.",
     "prefix": "~language_switcher"
   },
   "linked_image": {
@@ -439,6 +453,13 @@
     ],
     "description": "Insert custom HTML module\nParameters:\n- value(String) Sets the default content HTML of the module",
     "prefix": "~raw_html"
+  },
+  "react_partial": {
+    "body": [
+      "{% react_partial 'my_react_partial' %}"
+    ],
+    "description": "",
+    "prefix": "~react_partial"
   },
   "related_blog_posts": {
     "body": [
