@@ -475,6 +475,13 @@
     "description": "Returns a landing or website page by id\nParameters:\n- page_id(id) The id of the page to look up",
     "prefix": "~page_by_id"
   },
+  "personalization_api_url": {
+    "body": [
+      "personalization_api_url(${1:contact_properties}, ${2:company_properties})"
+    ],
+    "description": "Generates a signed URL path and query string to the Content Personalization API, specific to the hubid and provided properties parameters. Any changes to the 'contactProperties' or 'companyProperties' parameters will require generating a new signed URL with an updated 'sig' parameter. Note that no signature is required if no company or contact properties will be requested.\nParameters:\n- contact_properties(comma-delimited string) The list of contact properties to request. Additionally, a contact's list (CLS) memberships and ILS memberships can be requested as 'listMemberships' and 'ilsMemberships' respectively.\n- company_properties(comma-delimited string) The list of company properties to request.",
+    "prefix": "~personalization_api_url"
+  },
   "personalization_token": {
     "body": [
       "personalization_token(${1:expression}, ${2:default})"

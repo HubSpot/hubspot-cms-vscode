@@ -159,3 +159,8 @@ export const TEMPLATE_NAMES = {
 } as const;
 
 export const VALIDATION_DEBOUNCE_TIME = 250;
+
+export const IDE_NAMES = {
+  CURSOR: 'cursor',
+  VSCODE: 'vscode',
+} as const;
