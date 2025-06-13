@@ -6,7 +6,10 @@ import {
   ThemeColor,
 } from 'vscode';
 import { COMMANDS } from './constants';
-import { getConfig } from '@hubspot/local-dev-lib/config';
+import {
+  getConfig,
+  getConfigDefaultAccount,
+} from '@hubspot/local-dev-lib/config';
 
 let hsStatusBar: StatusBarItem;
 
@@ -14,8 +17,8 @@ export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
 
   const config = getConfig();
-  // @ts-expect-error Need to update to use new global config
-  const defaultAccount = config && config.defaultPortal;
+
+  const defaultAccount = config && getConfigDefaultAccount();
 
   if (defaultAccount) {
     hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
@@ -25,7 +28,7 @@ export const updateStatusBarItems = () => {
   } else {
     hsStatusBar.text = `$(extensions-warning-message) No Default HubSpot Account`;
     hsStatusBar.tooltip =
-      'There is currently no default HubSpot account set within the config. Click here to select a defaultPortal.';
+      'There is currently no default HubSpot account set within the config. Click here to select a defaultAccount.';
     hsStatusBar.backgroundColor = new ThemeColor(
       'statusBarItem.warningBackground'
     );

@@ -1,5 +1,6 @@
 import { commands, ExtensionContext, Uri } from 'vscode';
 import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
+import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
 import { COMMANDS } from '../constants';
 
 export const registerCommands = (context: ExtensionContext) => {
@@ -9,7 +10,7 @@ export const registerCommands = (context: ExtensionContext) => {
       async (hubspotAccount: CLIAccount_DEPRECATED) => {
         const pakUrl = `https://app.hubspot${
           hubspotAccount.env === 'qa' ? 'qa' : ''
-        }.com/personal-access-key/${hubspotAccount.portalId}`;
+        }.com/personal-access-key/${getAccountIdentifier(hubspotAccount)}`;
 
         commands.executeCommand('vscode.open', Uri.parse(pakUrl));
       }
@@ -21,7 +22,7 @@ export const registerCommands = (context: ExtensionContext) => {
       async (hubspotAccount: CLIAccount_DEPRECATED) => {
         const designManagerUrl = `https://app.hubspot${
           hubspotAccount.env === 'qa' ? 'qa' : ''
-        }.com/design-manager/${hubspotAccount.portalId}`;
+        }.com/design-manager/${getAccountIdentifier(hubspotAccount)}`;
 
         commands.executeCommand('vscode.open', Uri.parse(designManagerUrl));
       }
