@@ -6,21 +6,27 @@ import {
   TreeItem,
   TreeItemCollapsibleState,
 } from 'vscode';
+import {
+  getConfig,
+  getConfigAccounts,
+  getConfigDefaultAccount,
+} from '@hubspot/local-dev-lib/config';
+import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
+import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import {
+  CLIAccount,
+  CLIAccount_DEPRECATED,
+} from '@hubspot/local-dev-lib/types/Accounts';
 import { getDisplayedHubspotPortalInfo } from '../../helpers';
 
-import { getConfig } from '@hubspot/local-dev-lib/config';
-import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
-import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
-
-const isDefaultPortal = (
-  portal: CLIAccount_DEPRECATED,
-  config: CLIConfig | null
-) => {
+const isDefaultAccount = (account: CLIAccount, config: CLIConfig | null) => {
+  if (!config) {
+    return false;
+  }
+  const accountIdentifier = getAccountIdentifier(account);
+  const defaultAccount = getConfigDefaultAccount();
   return (
-    config &&
-    'defaultPortal' in config &&
-    (config.defaultPortal === portal.portalId ||
-      config.defaultPortal === portal.name)
+    accountIdentifier === defaultAccount || account.name === defaultAccount
   );
 };
 
@@ -56,7 +62,7 @@ export class AccountsProvider
     return new AccountTreeItem(
       name,
       p,
-      { isDefault: isDefaultPortal(p, this.config) ?? false },
+      { isDefault: isDefaultAccount(p, this.config) ?? false },
       TreeItemCollapsibleState.None
     );
   }
@@ -64,9 +70,10 @@ export class AccountsProvider
   getChildren(): Thenable<CLIAccount_DEPRECATED[] | undefined> {
     console.log('AccountsProvider:getChildren');
     this.config = getConfig();
+    const accounts = getConfigAccounts();
 
-    if (this.config && 'portals' in this.config && this.config.portals) {
-      return Promise.resolve(this.config.portals);
+    if (accounts) {
+      return Promise.resolve(accounts);
     }
 
     return Promise.resolve([]);
@@ -89,7 +96,7 @@ export class AccountTreeItem extends TreeItem {
     }
     this.tooltip = `${options.isDefault ? '* Default Account\n' : ''}${
       portalData.name ? `Name: ${portalData.name}\n` : ''
-    }ID: ${portalData.portalId}\n${
+    }ID: ${getAccountIdentifier(portalData)}\n${
       portalData.env ? `Environment: ${portalData.env}\n` : ''
     }${
       portalData.sandboxAccountType
