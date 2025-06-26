@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "publisher": "HubSpot",
     "engines": {
         "vscode": "^1.63.0"
@@ -16,7 +16,9 @@
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
-        "test-compile": "tsc -p ./"
+        "test-compile": "tsc -p ./",
+        "vsce:package": "vsce package",
+        "vsce:prerelease": "vsce package --pre-release"
     },
     "repository": {
         "type": "git",
