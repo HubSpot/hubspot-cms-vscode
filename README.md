@@ -43,7 +43,7 @@ If you would like to get IntelliSense suggestions when in snippet placeholders, 
 
 For parameter suggestions, the following should also be added:
 
-`"editor.parameterHints": true`
+`"editor.parameterHints.enabled": true`
 
 ## Telemetry
 
