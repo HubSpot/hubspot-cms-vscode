@@ -4,3 +4,4 @@ package.json
 .vscode
 dist
 tmp
+schemas/
