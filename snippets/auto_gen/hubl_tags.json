@@ -104,6 +104,13 @@
     "description": "The cycle tag can be used within a for loop to cycle through a series of string values and print them with each iteration\nParameters:\n- string_to_print(String) A comma separated list of strings to print with each interation. The list will repeat if there are more iterations than string parameter values.",
     "prefix": "~cycle"
   },
+  "dnd_grid_area": {
+    "body": [
+      "{% dnd_grid_area name=\"${1:name}\" label=\"${2:label}\" %}\n{% end_dnd_grid_area %}"
+    ],
+    "description": "Creates container that supports grids based drag-and-drop in content editors.\nParameters:\n- name(string) Identifier when storing data for a grid based drag-and-drop area in the editors. Must be unique for all grid based drag-and-drop areas in a template.\n- label(string) Label used in the editor for the grid based drag-and-drop area.",
+    "prefix": "~dnd_grid_area"
+  },
   "do": {
     "body": [
       "{% do ${1:expr} %}"
@@ -127,9 +134,9 @@
   },
   "email_simple_subscription": {
     "body": [
-      "{% email_simple_subscription header=\"${1:header}\" subheader=\"${2:subheader}\" header_heading_level=\"${3:header_heading_level}\" subheader_heading_level=\"${4:subheader_heading_level}\" input_help_text=\"${5:input_help_text}\" button_text=\"${6:button_text}\" input_placeholder=\"${7:input_placeholder}\" error_info_text=\"${8:error_info_text}\" %}"
+      "{% email_simple_subscription header=\"${1:header}\" subheader=\"${2:subheader}\" header_heading_level=\"${3:header_heading_level}\" subheader_heading_level=\"${4:subheader_heading_level}\" error_info_text=\"${5:error_info_text}\" %}"
     ],
-    "description": "Simple email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader(String) Renders text in an h2 tag above the unsubscribe form below the h1\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- input_help_text(String) Renders help text in an h3 tag above your email unsubscribe form field\n- button_text(String) Changes the text of the unsubscribe form submit button\n- input_placeholder(String) Adds placeholder text within the email address form field\n- error_info_text(String) Renders error text in an h3 tag",
+    "description": "Simple email unsubscribe form\nParameters:\n- header(String) Renders text in an h1 tag above the unsubscribe form\n- subheader(String) Renders text in an h2 tag above the unsubscribe form below the h1\n- header_heading_level(String) Defines the heading level of the header\n- subheader_heading_level(String) Defines the heading level of the subheader\n- error_info_text(String) Renders error text in an h3 tag",
     "prefix": "~email_simple_subscription"
   },
   "email_subscriptions": {
@@ -488,6 +495,13 @@
     ],
     "description": "Enqueue an inline script\nParameters:\n- position(String) ",
     "prefix": "~require_js"
+  },
+  "require_personalization_properties": {
+    "body": [
+      "{% require_personalization_properties contact_properties=\"${1:contact_properties}\" company_properties=\"${2:company_properties}\" %}"
+    ],
+    "description": "Includes a personalization API URL script in the page footer\nParameters:\n- contact_properties(list) List of contact property names to include in the personalization API URL\n- company_properties(list) List of company property names to include in the personalization API URL",
+    "prefix": "~require_personalization_properties"
   },
   "rich_text": {
     "body": [
