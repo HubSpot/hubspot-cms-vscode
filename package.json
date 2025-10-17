@@ -280,10 +280,6 @@
                 "title": "Rename account"
             },
             {
-                "command": "hubspot.notifications.showFeedbackRequest",
-                "title": "Show feedback request"
-            },
-            {
                 "command": "hubspot.modals.openFeedbackPanel",
                 "title": "Open feedback panel"
             },
@@ -302,7 +298,7 @@
             },
             {
                 "command": "hubspot.remoteFs.hardRefresh",
-                "title": "Refresh"
+                "title": "test: Refresh"
             },
             {
                 "command": "hubspot.remoteFs.invalidateCache",
@@ -486,10 +482,6 @@
                     "when": "false"
                 },
                 {
-                    "command": "hubspot.notifications.showFeedbackRequest",
-                    "when": "false"
-                },
-                {
                     "command": "hubspot.modals.openFeedbackPanel",
                     "when": "false"
                 },
@@ -603,7 +595,6 @@
     "devDependencies": {
         "@types/debounce": "^1.2.1",
         "@types/findup-sync": "^4.0.2",
-        "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
@@ -617,7 +608,6 @@
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
         "typescript": "^4.3.4",
-        "un-eval": "^1.2.0",
         "webpack": "^5.76.0",
         "webpack-cli": "^4.7.2",
         "webpack-node-externals": "^3.0.0"

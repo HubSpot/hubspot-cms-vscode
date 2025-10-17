@@ -1,40 +1,41 @@
 import { ExtensionContext } from 'vscode';
 
+import { registerCommands } from './commands';
+import { registerProviders } from './providers';
+import { registerEvents } from './events';
+import { registerPanels } from './panels';
+import { registerURIHandler } from './lib/uri';
+import { initializeCliLibLogger } from './lib/logger';
+import { initializeStatusBar } from './features/statusBar';
+import { initializeConfig } from './lib/config';
+import { initializeTerminal } from './lib/terminal';
+import { initializeTracking, trackEvent } from './lib/tracking';
+import { maybeShowFeedbackRequest } from './features/feedbackRequest';
+import { initializeHubLAutoDetect } from './features/autoDetectHubl';
+import { initializeProjectConfigValidation } from './features/projectConfigValidation';
 import { getRootPath } from './lib/helpers';
 import { TRACKED_EVENTS } from './lib/constants';
 
-import { registerCommands } from './lib/commands';
-import { registerEvents } from './lib/events';
-import { registerURIHandler } from './lib/uri';
-
-import { initializeCliLibLogger } from './lib/logger';
-import { initializeStatusBar } from './lib/statusBar';
-import { initializeProviders } from './lib/providers';
-import { initializeConfig } from './lib/auth';
-import { initializeTerminal } from './lib/terminal';
-import { initializePanels } from './lib/panels';
-import { initializeTracking, trackEvent } from './lib/tracking';
-import { initializeGlobalState } from './lib/globalState';
-import { initializeHubLAutoDetect } from './lib/autoDetect';
-import { initializeProjectConfigValidation } from './lib/projectConfigValidation';
-
 export const activate = async (context: ExtensionContext) => {
+  // Initialization steps
   initializeCliLibLogger();
   await initializeTracking(context);
   await trackEvent(TRACKED_EVENTS.ACTIVATE);
-  console.log(
-    'Activating Extension Version: ',
-    context.extension.packageJSON.version
-  );
+
+  console.log('Activating Extension v', context.extension.packageJSON.version);
   const rootPath = getRootPath();
 
+  // Contribution registration steps
   registerCommands(context, rootPath);
-  registerEvents(context);
   registerURIHandler(context);
+  registerProviders(context);
+  registerPanels(context);
 
-  initializeGlobalState(context);
-  initializeProviders(context);
-  initializePanels(context);
+  // Registered commands that are not configured in the package.json file
+  registerEvents(context);
+
+  // Additional post-registration steps
+  maybeShowFeedbackRequest(context);
   initializeTerminal();
   initializeStatusBar(context);
   initializeHubLAutoDetect(context);

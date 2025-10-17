@@ -4,12 +4,13 @@ import {
   ExtensionContext,
   ProviderResult,
   Uri,
+  Webview,
 } from 'vscode';
 import { resolve } from 'path';
 import { URLSearchParams } from 'url';
 import { trackEvent } from './tracking';
-import { loadHubspotConfigFile } from './auth';
-import { showAutoDismissedStatusBarMessage } from './messaging';
+import { loadHubspotConfigFile } from './config';
+import { showAutoDismissedStatusBarMessage } from './statusBar';
 import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 const {
@@ -22,6 +23,21 @@ import {
 } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { Environment } from '@hubspot/local-dev-lib/types/Config';
+
+/**
+ * A helper function which will get the webview URI of a given file or resource
+ * @param webview A reference to the extension webview
+ * @param extensionUri The URI of the directory containing the extension
+ * @param pathList An array of strings representing the path to a file/resource
+ * @returns A URI pointing to the file/resource
+ */
+export function getUri(
+  webview: Webview,
+  extensionUri: Uri,
+  pathList: string[]
+) {
+  return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
+}
 
 const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
@@ -68,7 +84,6 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
 
   commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
 
-  commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
   showAutoDismissedStatusBarMessage(
     `Successfully added ${accountIdentifier} to the config.`
   );

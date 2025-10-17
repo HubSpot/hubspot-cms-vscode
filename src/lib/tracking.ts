@@ -1,12 +1,13 @@
 import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
-import { GLOBAL_STATE_KEYS } from './constants';
 import {
   getAccountId,
   isTrackingAllowed,
   getAccountConfig,
 } from '@hubspot/local-dev-lib/config';
 const { trackUsage } = require('@hubspot/local-dev-lib/trackUsage');
+
+import { GLOBAL_STATE_KEYS } from './constants';
 
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';

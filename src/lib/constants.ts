@@ -83,11 +83,6 @@ export const COMMANDS = {
     START_WATCH: 'hubspot.remoteFs.startWatch',
     END_WATCH: 'hubspot.remoteFs.endWatch',
   },
-  VERSION_CHECK: {
-    HS: 'hubspot.versionCheck.hs',
-    HS_LATEST: 'hubspot.versionCheck.hs.latest',
-    NPM: 'hubspot.versionCheck.npm',
-  },
 };
 
 export const EVENTS = {
