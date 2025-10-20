@@ -6,7 +6,7 @@ import { FeedbackPanel } from './feedback';
 export const registerPanels = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(COMMANDS.PANELS.OPEN_FEEDBACK_PANEL, () => {
-      FeedbackPanel.render(context.extensionUri);
+      FeedbackPanel.render(context);
     })
   );
 };

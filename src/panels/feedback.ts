@@ -1,16 +1,17 @@
 import {
-  commands,
   window,
   Disposable,
   Uri,
   ViewColumn,
   Webview,
   WebviewPanel,
+  ExtensionContext,
 } from 'vscode';
 import fetch from 'node-fetch';
 import { getUri } from '../lib/uri';
+import { getDayjsDateFromNow } from '../lib/helpers';
 import { getUserIdentificationInformation, trackEvent } from '../lib/tracking';
-import { EVENTS, GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../lib/constants';
+import { GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../lib/constants';
 
 // This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
@@ -35,7 +36,7 @@ export class FeedbackPanel {
    * @param panel A reference to the webview panel
    * @param extensionUri The URI of the directory containing the extension
    */
-  private constructor(panel: WebviewPanel, extensionUri: Uri) {
+  private constructor(panel: WebviewPanel, context: ExtensionContext) {
     this._panel = panel;
 
     // Set an event listener to listen for when the panel is disposed (i.e. when the user closes
@@ -45,11 +46,11 @@ export class FeedbackPanel {
     // Set the HTML content for the webview panel
     this._panel.webview.html = this._getWebviewContent(
       this._panel.webview,
-      extensionUri
+      context.extensionUri
     );
 
     // Set an event listener to listen for messages passed from the webview context
-    this._setWebviewMessageListener(this._panel.webview);
+    this._setWebviewMessageListener(this._panel.webview, context);
   }
 
   /**
@@ -58,7 +59,7 @@ export class FeedbackPanel {
    *
    * @param extensionUri The URI of the directory containing the extension.
    */
-  public static render(extensionUri: Uri) {
+  public static render(context: ExtensionContext) {
     if (FeedbackPanel.currentPanel) {
       // If the webview panel already exists reveal it
       FeedbackPanel.currentPanel._panel.reveal(ViewColumn.One);
@@ -78,7 +79,7 @@ export class FeedbackPanel {
         }
       );
 
-      FeedbackPanel.currentPanel = new FeedbackPanel(panel, extensionUri);
+      FeedbackPanel.currentPanel = new FeedbackPanel(panel, context);
     }
   }
 
@@ -224,7 +225,10 @@ export class FeedbackPanel {
    * @param webview A reference to the extension webview
    * @param context A reference to the extension context
    */
-  private _setWebviewMessageListener(webview: Webview) {
+  private _setWebviewMessageListener(
+    webview: Webview,
+    context: ExtensionContext
+  ) {
     webview.onDidReceiveMessage(
       async (message: any) => {
         const { command, data, errorMessage } = message;
@@ -248,11 +252,9 @@ export class FeedbackPanel {
               if (postResp.status === 204) {
                 // Delay showing the message again for 90 days when the form has
                 // been filled out
-                commands.executeCommand(
-                  EVENTS.GLOBAL_STATE.UPDATE_DELAY,
+                context.globalState.update(
                   GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
-                  90,
-                  'day'
+                  getDayjsDateFromNow(90)
                 );
 
                 trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_PANEL_SUBMITTED);

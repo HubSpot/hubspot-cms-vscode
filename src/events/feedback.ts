@@ -1,5 +1,6 @@
 import { commands, window, ExtensionContext } from 'vscode';
 
+import { getDayjsDateFromNow } from '../lib/helpers';
 import {
   COMMANDS,
   EVENTS,
@@ -26,11 +27,9 @@ export const registerEvents = (context: ExtensionContext) => {
             trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_REQUEST_ACCEPTED);
           } else {
             // Delay showing the message again for 60 days when dismissed
-            commands.executeCommand(
-              EVENTS.GLOBAL_STATE.UPDATE_DELAY,
+            context.globalState.update(
               GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
-              60,
-              'day'
+              getDayjsDateFromNow(60)
             );
             trackEvent(TRACKED_EVENTS.FEEDBACK.FEEDBACK_REQUEST_DISMISSED);
           }

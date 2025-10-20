@@ -1,7 +1,5 @@
-import { dirname } from 'path';
-import { commands, workspace } from 'vscode';
-
-import { COMMANDS } from './constants';
+import { workspace } from 'vscode';
+import * as dayjs from 'dayjs';
 
 export const getRootPath = () => {
   const workspaceFolders = workspace.workspaceFolders;
@@ -10,4 +8,12 @@ export const getRootPath = () => {
     return;
   }
   return workspaceFolders[0].uri.fsPath;
+};
+
+export const getDayJsHasDatePassed = (date: string): boolean => {
+  return dayjs().isAfter(date);
+};
+
+export const getDayjsDateFromNow = (days: number): string => {
+  return dayjs().add(days, 'day').toISOString();
 };

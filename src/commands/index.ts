@@ -3,7 +3,6 @@ import { ExtensionContext } from 'vscode';
 import { registerCommands as registerAccountCommands } from './account';
 import { registerCommands as registerAuthCommands } from './auth';
 import { registerCommands as registerConfigCommands } from './config';
-import { registerCommands as registerGlobalStateCommands } from './globalState';
 import { registerCommands as registerModuleCommands } from './modules';
 import { registerCommands as registerServerlessCommands } from './serverless';
 import { registerCommands as registerTemplateCommands } from './templates';
@@ -19,7 +18,6 @@ export const registerCommands = (
   }
   registerAccountCommands(context);
   registerConfigCommands(context);
-  registerGlobalStateCommands(context);
   registerModuleCommands(context);
   registerServerlessCommands(context);
   registerTemplateCommands(context);

@@ -72,9 +72,6 @@ export const EVENTS = {
     ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
     ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
   },
-  GLOBAL_STATE: {
-    UPDATE_DELAY: 'hubspot.globalState.updateDelay',
-  },
   NOTIFICATIONS: {
     SHOW_FEEDBACK_REQUEST: 'hubspot.notifications.showFeedbackRequest',
   },

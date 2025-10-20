@@ -1,5 +1,6 @@
 import { commands, ExtensionContext } from 'vscode';
-import * as dayjs from 'dayjs';
+
+import { getDayjsDateFromNow, getDayJsHasDatePassed } from '../lib/helpers';
 import { EVENTS, GLOBAL_STATE_KEYS } from '../lib/constants';
 
 export const maybeShowFeedbackRequest = (context: ExtensionContext) => {
@@ -8,13 +9,12 @@ export const maybeShowFeedbackRequest = (context: ExtensionContext) => {
   );
 
   if (!feedbackDelayDate) {
-    // No delay set - first time, show feedback immediately
+    // First time - set initial 3-day delay, don't show yet
+    context.globalState.update(
+      GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
+      getDayjsDateFromNow(3)
+    );
+  } else if (getDayJsHasDatePassed(feedbackDelayDate)) {
     commands.executeCommand(EVENTS.NOTIFICATIONS.SHOW_FEEDBACK_REQUEST);
-  } else {
-    // Delay exists - check if enough time has passed
-    const delayDateHasPassed = dayjs().isAfter(feedbackDelayDate);
-    if (delayDateHasPassed) {
-      commands.executeCommand(EVENTS.NOTIFICATIONS.SHOW_FEEDBACK_REQUEST);
-    }
   }
 };
