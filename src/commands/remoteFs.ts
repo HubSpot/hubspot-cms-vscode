@@ -16,7 +16,7 @@ const {
 } = require('@hubspot/local-dev-lib/cms/uploadFolder');
 const { walk } = require('@hubspot/local-dev-lib/fs');
 
-import { COMMANDS, TRACKED_EVENTS } from '../lib/constants';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from '../lib/constants';
 import { getRootPath } from '../lib/helpers';
 import { invalidateParentDirectoryCache } from '../lib/remoteDesignManagerFs';
 import { buildStatusBarItem } from '../lib/statusBar';
@@ -113,7 +113,7 @@ export const registerCommands = (context: ExtensionContext) => {
           .then(() => {
             window.showInformationMessage(`Successfully deleted "${filePath}"`);
             invalidateParentDirectoryCache(filePath);
-            commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
+            commands.executeCommand(EVENTS.REMOTE_FS.REFRESH);
           })
           .catch((err: any) => {
             window.showErrorMessage(
@@ -220,7 +220,7 @@ export const registerCommands = (context: ExtensionContext) => {
         }
         const filesToUpload = await getUploadableFileList(srcPath);
         commands.executeCommand(
-          COMMANDS.REMOTE_FS.START_WATCH,
+          EVENTS.REMOTE_FS.START_WATCH,
           srcPath,
           destPath,
           filesToUpload
@@ -303,6 +303,6 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     })
     .finally(() => {
       uploadingStatus.dispose();
-      commands.executeCommand(COMMANDS.REMOTE_FS.REFRESH);
+      commands.executeCommand(EVENTS.REMOTE_FS.REFRESH);
     });
 };

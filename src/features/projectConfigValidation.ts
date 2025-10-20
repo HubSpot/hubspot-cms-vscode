@@ -33,7 +33,7 @@ import { getAccountId } from '@hubspot/local-dev-lib/config';
 import * as jsonc from 'jsonc-parser';
 import { debounce } from 'debounce';
 import { doesFileExist, dirname } from '../lib/fileHelpers';
-import { VALIDATION_DEBOUNCE_TIME } from '../lib/constants';
+import { INTERVALS } from '../lib/constants';
 import {
   PlatformVersionSchemaCache,
   SchemaAndValidator,
@@ -62,7 +62,7 @@ export function initializeProjectConfigValidation(
   workspace.onDidChangeTextDocument(
     debounce(
       (event) => validateDocument(state, event.document),
-      VALIDATION_DEBOUNCE_TIME
+      INTERVALS.DEBOUNCE
     )
   );
   workspace.onDidSaveTextDocument((doc) => validateDocument(state, doc));

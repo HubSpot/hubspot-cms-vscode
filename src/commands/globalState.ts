@@ -1,12 +1,12 @@
 import { commands, ExtensionContext } from 'vscode';
 import * as dayjs from 'dayjs';
 
-import { COMMANDS } from '../lib/constants';
+import { EVENTS } from '../lib/constants';
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
-      COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
+      EVENTS.GLOBAL_STATE.UPDATE_DELAY,
       async (variableToUpdate, delayNumber, delayUnitName) => {
         const newDelayDate = dayjs()
           .add(delayNumber, delayUnitName)

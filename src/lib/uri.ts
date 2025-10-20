@@ -62,12 +62,12 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
 
   if (configPath) {
     setConfigPath(configPath);
-    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
+    trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
     await createEmptyConfigFile({ path: configPath });
-    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
+    trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
   let token;
   try {
@@ -82,7 +82,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     name
   );
 
-  commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
+  commands.executeCommand(EVENTS.CONFIG.ON_CONFIG_FOUND, rootPath, configPath);
 
   showAutoDismissedStatusBarMessage(
     `Successfully added ${accountIdentifier} to the config.`
@@ -95,7 +95,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     )
     .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
-        await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
+        trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultAccount to ${accountIdentifier}.`);
         commands.executeCommand(
           COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,

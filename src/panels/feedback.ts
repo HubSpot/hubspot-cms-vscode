@@ -10,7 +10,7 @@ import {
 import fetch from 'node-fetch';
 import { getUri } from '../lib/uri';
 import { getUserIdentificationInformation, trackEvent } from '../lib/tracking';
-import { COMMANDS, GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../lib/constants';
+import { EVENTS, GLOBAL_STATE_KEYS, TRACKED_EVENTS } from '../lib/constants';
 
 // This comes from the base example https://github.com/microsoft/vscode-webview-ui-toolkit-samples/tree/main/default/hello-world
 
@@ -249,7 +249,7 @@ export class FeedbackPanel {
                 // Delay showing the message again for 90 days when the form has
                 // been filled out
                 commands.executeCommand(
-                  COMMANDS.GLOBAL_STATE.UPDATE_DELAY,
+                  EVENTS.GLOBAL_STATE.UPDATE_DELAY,
                   GLOBAL_STATE_KEYS.DISMISS_FEEDBACK_INFO_MESSAGE_UNTIL,
                   90,
                   'day'

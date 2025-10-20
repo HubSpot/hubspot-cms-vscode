@@ -130,7 +130,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
       `Invalid config could not be loaded: ${resolvedConfigPath}`
     );
   } else {
-    commands.executeCommand(EVENTS.ON_CONFIG_UPDATED);
+    commands.executeCommand(EVENTS.CONFIG.ON_CONFIG_UPDATED);
     return resolvedConfigPath;
   }
 };
@@ -140,7 +140,11 @@ export const initializeConfig = (rootPath: string) => {
 
   if (configPath) {
     console.log(`configPath: ${configPath}`);
-    commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
+    commands.executeCommand(
+      EVENTS.CONFIG.ON_CONFIG_FOUND,
+      rootPath,
+      configPath
+    );
   } else {
     console.log(`No config found. Config path: ${configPath}`);
   }

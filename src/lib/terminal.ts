@@ -2,7 +2,7 @@ import { commands, window } from 'vscode';
 import { gt as isVersionUpToDate } from 'semver';
 const { exec } = require('node:child_process');
 
-import { POLLING_INTERVALS } from './constants';
+import { INTERVALS } from './constants';
 
 export const runTerminalCommand = async (
   terminalCommand: string
@@ -84,7 +84,7 @@ export const installHsCli = async (): Promise<void> => {
         `HubSpot CLI version ${hsVersion} installed.`
       );
     }
-  }, POLLING_INTERVALS.FAST);
+  }, INTERVALS.POLLING.FAST);
 
   const cmd =
     process.platform === 'win32'
@@ -121,7 +121,7 @@ export const updateHsCliToLatestVersion = async (): Promise<void> => {
         `HubSpot CLI updated to version ${latestVersion}.`
       );
     }
-  }, POLLING_INTERVALS.FAST);
+  }, INTERVALS.POLLING.FAST);
 
   const cmd =
     process.platform === 'win32'
@@ -196,6 +196,6 @@ export const initializeTerminal = async () => {
       if (hsCliInstalled) {
         clearInterval(hubspotInstalledPoll);
       }
-    }, POLLING_INTERVALS.SLOW);
+    }, INTERVALS.POLLING.SLOW);
   }
 };

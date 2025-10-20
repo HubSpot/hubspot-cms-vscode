@@ -2,9 +2,16 @@ import { ExtensionContext, commands } from 'vscode';
 import { basename, dirname } from 'path';
 const { createTemplate } = require('@hubspot/local-dev-lib/cms/templates');
 
-import { COMMANDS, TRACKED_EVENTS, TEMPLATE_NAMES } from '../lib/constants';
+import { COMMANDS, TRACKED_EVENTS } from '../lib/constants';
 import { onClickCreateFile } from '../lib/fileHelpers';
 import { trackEvent } from '../lib/tracking';
+
+const TEMPLATE_NAMES = {
+  SECTION: 'section',
+  TEMPLATE: 'page-template',
+  PARTIAL: 'partial',
+  GLOBAL_PARTIAL: 'global-partial',
+} as const;
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(

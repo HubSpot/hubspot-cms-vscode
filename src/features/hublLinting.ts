@@ -33,10 +33,10 @@ export const getUpdateLintingOnConfigChange = () => {
           .get(EXTENSION_CONFIG_KEYS.HUBL_LINTING)
       ) {
         enableLinting();
-        await trackEvent(TRACKED_EVENTS.LINTING_ENABLED);
+        trackEvent(TRACKED_EVENTS.LINTING_ENABLED);
       } else {
         disableLinting();
-        await trackEvent(TRACKED_EVENTS.LINTING_DISABLED);
+        trackEvent(TRACKED_EVENTS.LINTING_DISABLED);
       }
     }
   });

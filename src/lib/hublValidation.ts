@@ -21,11 +21,20 @@ const {
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
 
 import { requireAccountId } from './config';
-import {
-  TEMPLATE_ERRORS_TYPES,
-  VSCODE_SEVERITY,
-  HUBL_TAG_DEFINITION_REGEX,
-} from './constants';
+import { VSCODE_SEVERITY } from './constants';
+
+// Used when VS Code attempts to find the correct range of characters to select
+const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
+
+const TEMPLATE_ERRORS_TYPES = {
+  DISABLED: 'DISABLED',
+  SYNTAX_ERROR: 'SYNTAX_ERROR',
+  UNKNOWN: 'UNKNOWN',
+  BAD_URL: 'BAD_URL',
+  EXCEPTION: 'EXCEPTION',
+  MISSING: 'MISSING',
+  OTHER: 'OTHER',
+};
 
 const getRange = (document: TextDocument, error: HubLValidationError) => {
   const adjustedLineNumber = error.lineno > 0 ? error.lineno - 1 : 0;

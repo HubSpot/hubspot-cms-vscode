@@ -16,7 +16,7 @@ import {
 import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
 
 import { updateStatusBarItems } from '../features/statusBar';
-import { COMMANDS, TRACKED_EVENTS } from '../lib/constants';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from '../lib/constants';
 import { getDisplayedHubspotPortalInfo } from '../lib/config';
 import { portalNameInvalid } from '../lib/config';
 import { trackEvent } from '../lib/tracking';
@@ -45,14 +45,14 @@ const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
             return;
           }
           renameAccount(String(oldName), newName);
-          commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
+          commands.executeCommand(EVENTS.ACCOUNT.REFRESH);
           showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
           );
-          await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT);
+          trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT);
         } else {
           window.showErrorMessage(invalidReason);
-          await trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT_ERROR, {
+          trackEvent(TRACKED_EVENTS.RENAME_ACCOUNT_ERROR, {
             oldName,
             newName,
             invalidReason,
@@ -76,7 +76,7 @@ export const registerCommands = (context: ExtensionContext) => {
             : defaultAccount.name || getAccountIdentifier(defaultAccount);
         console.log('Setting default account to: ', newDefaultAccount);
         updateDefaultAccount(newDefaultAccount);
-        await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
+        trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
         commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
         if (!silenceNotification) {
           showAutoDismissedStatusBarMessage(
@@ -123,7 +123,7 @@ export const registerCommands = (context: ExtensionContext) => {
                   );
                   return;
                 }
-                await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
+                trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
                 updateDefaultAccount(newDefaultAccount);
                 showAutoDismissedStatusBarMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
@@ -172,9 +172,9 @@ export const registerCommands = (context: ExtensionContext) => {
                   `Successfully deleted account ${accountIdentifier}.`
                 );
               }
-              await trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
+              trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
               commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
-              commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
+              commands.executeCommand(EVENTS.ACCOUNT.REFRESH);
               updateStatusBarItems();
             }
           });

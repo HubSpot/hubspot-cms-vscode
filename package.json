@@ -293,20 +293,8 @@
                 "icon": "$(link-external)"
             },
             {
-                "command": "hubspot.remoteFs.refresh",
-                "title": "Cached Refresh"
-            },
-            {
                 "command": "hubspot.remoteFs.hardRefresh",
                 "title": "test: Refresh"
-            },
-            {
-                "command": "hubspot.remoteFs.invalidateCache",
-                "title": "Invalidate Cache"
-            },
-            {
-                "command": "hubspot.remoteFs.startWatch",
-                "title": "Start Watch"
             },
             {
                 "command": "hubspot.remoteFs.endWatch",
@@ -491,18 +479,6 @@
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.refresh",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.invalidateCache",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.startWatch",
                     "when": "false"
                 }
             ]

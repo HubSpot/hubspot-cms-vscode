@@ -20,7 +20,7 @@ export const activate = async (context: ExtensionContext) => {
   // Initialization steps
   initializeCliLibLogger();
   await initializeTracking(context);
-  await trackEvent(TRACKED_EVENTS.ACTIVATE);
+  trackEvent(TRACKED_EVENTS.ACTIVATE);
 
   console.log('Activating Extension v', context.extension.packageJSON.version);
   const rootPath = getRootPath();

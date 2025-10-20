@@ -7,7 +7,7 @@ export const registerCommands = (
   rootPath: string
 ) => {
   context.subscriptions.push(
-    commands.registerCommand(COMMANDS.AUTHORIZE_ACCOUNT, async () => {
+    commands.registerCommand(COMMANDS.ACCOUNT.AUTHORIZE, async () => {
       // Detect the IDE type based on env.appName
       const ideParam =
         env.appName.toLowerCase() === IDE_NAMES.CURSOR

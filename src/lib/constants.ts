@@ -1,13 +1,3 @@
-export const TEMPLATE_ERRORS_TYPES = {
-  DISABLED: 'DISABLED',
-  SYNTAX_ERROR: 'SYNTAX_ERROR',
-  UNKNOWN: 'UNKNOWN',
-  BAD_URL: 'BAD_URL',
-  EXCEPTION: 'EXCEPTION',
-  MISSING: 'MISSING',
-  OTHER: 'OTHER',
-};
-
 export const VSCODE_SEVERITY = {
   DISABLED: 'Information',
   SYNTAX_ERROR: 'Error',
@@ -34,16 +24,13 @@ export const GLOBAL_STATE_KEYS = {
   HAS_SEEN_TELEMETRY_MESSAGE: 'HS_HAS_SEEN_TELEMETRY_MESSAGE',
 };
 
-// Used when VS Code attempts to find the correct range of characters to select
-export const HUBL_TAG_DEFINITION_REGEX = /{%.*(.*).*%}/;
-
+// Constants that are used to register user-facing commands with VS Code (configured in package.json)
 export const COMMANDS = {
   ACCOUNT: {
+    AUTHORIZE: 'hubspot.account.onClickAuthorize',
     OPEN_DESIGN_MANAGER: 'hubspot.account.openDesignManager',
     VIEW_PERSONAL_ACCESS_KEY: 'hubspot.account.viewPersonalAccessKey',
   },
-  ACCOUNTS_REFRESH: 'hubspot.accounts.refresh',
-  AUTHORIZE_ACCOUNT: 'hubspot.auth.onClickAuthorize',
   CONFIG: {
     DELETE_ACCOUNT: 'hubspot.config.deleteAccount',
     RENAME_ACCOUNT: 'hubspot.config.renameAccount',
@@ -59,46 +46,59 @@ export const COMMANDS = {
     SERVERLESS_FUNCTION: 'hubspot.create.serverlessFunction',
     SERVERLESS_FUNCTION_FOLDER: 'hubspot.create.serverlessFunctionFolder',
   },
-  GLOBAL_STATE: {
-    UPDATE_DELAY: 'hubspot.globalState.updateDelay',
-  },
   HUBSPOT_CLI: {
     INSTALL: 'hubspot.hs.install',
     UPDATE: 'hubspot.hs.update',
-  },
-  NOTIFICATIONS: {
-    SHOW_FEEDBACK_REQUEST: 'hubspot.notifications.showFeedbackRequest',
   },
   PANELS: {
     OPEN_FEEDBACK_PANEL: 'hubspot.modals.openFeedbackPanel',
   },
   REMOTE_FS: {
-    REFRESH: 'hubspot.remoteFs.refresh',
     HARD_REFRESH: 'hubspot.remoteFs.hardRefresh',
-    INVALIDATE_CACHE: 'hubspot.remoteFs.invalidateCache',
     FETCH: 'hubspot.remoteFs.fetch',
     DELETE: 'hubspot.remoteFs.delete',
     UPLOAD: 'hubspot.remoteFs.upload',
     WATCH: 'hubspot.remoteFs.watch',
-    START_WATCH: 'hubspot.remoteFs.startWatch',
     END_WATCH: 'hubspot.remoteFs.endWatch',
   },
 };
 
+// Constants that are used to register internal events with VS Code (not configured in package.json)
 export const EVENTS = {
-  ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
-  ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
+  ACCOUNT: {
+    REFRESH: 'hubspot.accounts.refresh',
+  },
+  CONFIG: {
+    ON_CONFIG_FOUND: 'hubspot.auth.onConfigFound',
+    ON_CONFIG_UPDATED: 'hubspot.auth.onConfigUpdated',
+  },
+  GLOBAL_STATE: {
+    UPDATE_DELAY: 'hubspot.globalState.updateDelay',
+  },
+  NOTIFICATIONS: {
+    SHOW_FEEDBACK_REQUEST: 'hubspot.notifications.showFeedbackRequest',
+  },
+  REMOTE_FS: {
+    INVALIDATE_CACHE: 'hubspot.remoteFs.invalidateCache',
+    REFRESH: 'hubspot.remoteFs.refresh',
+    START_WATCH: 'hubspot.remoteFs.startWatch',
+  },
 };
 
-export const TREE_DATA = {
-  ACCOUNTS: 'hubspot.treedata.accounts',
-  HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
-  REMOTE: 'hubspot.treedata.remoteFs',
+export const PROVIDERS = {
+  TREE_DATA: {
+    ACCOUNTS: 'hubspot.treedata.accounts',
+    HELP_AND_FEEDBACK: 'hubspot.treedata.helpAndFeedback',
+    REMOTE: 'hubspot.treedata.remoteFs',
+  },
 };
 
-export const POLLING_INTERVALS = {
-  SLOW: 60000,
-  FAST: 2500,
+export const INTERVALS = {
+  POLLING: {
+    SLOW: 60000,
+    FAST: 2500,
+  },
+  DEBOUNCE: 250,
 };
 
 export const TRACKED_EVENTS = {
@@ -145,15 +145,6 @@ export const TRACKED_EVENTS = {
     NEVER: 'neverUseHubl',
   },
 };
-
-export const TEMPLATE_NAMES = {
-  SECTION: 'section',
-  TEMPLATE: 'page-template',
-  PARTIAL: 'partial',
-  GLOBAL_PARTIAL: 'global-partial',
-} as const;
-
-export const VALIDATION_DEBOUNCE_TIME = 250;
 
 export const IDE_NAMES = {
   CURSOR: 'cursor',
