@@ -2,10 +2,6 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
-## [Unreleased]
-
-- Fixed syntax highlighting issue where HubL code inside comment blocks `{# ... #}` was not being properly grayed out (Issue #82)
-
 ## [1.3.2]
 
 - Fix to telemetry
