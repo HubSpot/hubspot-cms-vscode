@@ -1,12 +1,13 @@
 import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
-import { GLOBAL_STATE_KEYS } from './constants';
 import {
   getAccountId,
   isTrackingAllowed,
   getAccountConfig,
 } from '@hubspot/local-dev-lib/config';
 const { trackUsage } = require('@hubspot/local-dev-lib/trackUsage');
+
+import { GLOBAL_STATE_KEYS } from './constants';
 
 const vscodeTelemetryDocsUrl =
   'https://code.visualstudio.com/docs/getstarted/telemetry';
@@ -35,7 +36,9 @@ const setPrettierPluginVersion = async () => {
   }
 };
 
-export const initializeTracking = async (context: ExtensionContext) => {
+export const initializeTracking = async (
+  context: ExtensionContext
+): Promise<void> => {
   extensionVersion = context.extension.packageJSON.version;
   if (
     context.globalState.get(GLOBAL_STATE_KEYS.HAS_SEEN_TELEMETRY_MESSAGE) ===
@@ -51,7 +54,7 @@ export const initializeTracking = async (context: ExtensionContext) => {
   await setPrettierPluginVersion();
 };
 
-const showTelemetryPrompt = async () => {
+const showTelemetryPrompt = async (): Promise<void> => {
   const selection = await window.showInformationMessage(
     "The HubSpot VSCode Extension collects basic usage data in order to improve the extension's experience. If you'd like to opt out, we respect the global telemetry setting in VSCode.",
     ...['Read More', 'Okay']
@@ -62,14 +65,14 @@ const showTelemetryPrompt = async () => {
   }
 };
 
-const isTrackingAllowedInVSCode = () => {
+const isTrackingAllowedInVSCode = (): boolean => {
   return (
     isTrackingAllowed() &&
     workspace.getConfiguration().telemetry.enableTelemetry
   );
 };
 
-const getAuthType = (accountId?: string) => {
+const getAuthType = (accountId?: string): string => {
   let authType = 'unknown';
 
   if (accountId) {
@@ -101,7 +104,7 @@ export const getUserIdentificationInformation = (accountId?: string) => {
   };
 };
 
-export const trackEvent = async (action: string, options?: object) => {
+export const trackEvent = (action: string, options?: object): void => {
   if (!isTrackingAllowedInVSCode()) {
     return;
   }

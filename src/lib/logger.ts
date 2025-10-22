@@ -1,7 +1,7 @@
 import { window } from 'vscode';
-
 const { setLogger } = require('@hubspot/local-dev-lib/logger');
 
+// Override the default logger from local-dev-lib to use the vscode window messages
 class Logger {
   error(...args: any[]) {
     window.showErrorMessage(`[error]: ${args}`);
@@ -28,6 +28,7 @@ class Logger {
     console.groupEnd();
   }
 }
+
 export const initializeCliLibLogger = () => {
   const vsceLogger = new Logger();
   setLogger(vsceLogger);
