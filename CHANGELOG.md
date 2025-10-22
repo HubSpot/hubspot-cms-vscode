@@ -3,21 +3,26 @@
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
 ## [1.3.2]
+
 - Fix to telemetry
 
 ## [1.3.1]
+
 - Minor bug fixes to module creation and fetch
 
 ## [1.3.0]
+
 - Fix `is not` token in highlighting
 - Minor updates to feedback form
 - Updated HubL snippets
 - Migrates from using HubSpot `cli-lib` to `local-dev-lib`
 
 ## [1.2.2]
+
 - Remote directory contents now properly sort alphabetically
 
 ## [1.2.1]
+
 - Adds HubL auto-detect. Will now prompt to switch project language when HubL is detected.
 
 ## [1.1.1]
