@@ -2,10 +2,26 @@
   "name": "hubl",
   "scopeName": "source.hubl",
   "comment": "hubl Templates",
-  "injectionSelector": "L:text.css.hubl, L:text.html.hubl",
+  "injectionSelector": "L:text.css.hubl - comment, L:text.html.hubl - comment",
   "foldingStartMarker": "({%\\s*(block|filter|for|if|macro|raw))",
   "foldingStopMarker": "({%\\s*(endblock|endfilter|endfor|endif|endmacro|endraw)\\s*%})",
   "patterns": [
+    {
+      "begin": "{#-?",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.begin.hubl"
+        }
+      },
+      "end": "-?#}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.end.hubl"
+        }
+      },
+      "name": "comment.block.hubl",
+      "contentName": "comment.block.hubl"
+    },
     {
       "begin": "({%)\\s*(raw)\\s*(%})",
       "captures": {
@@ -21,16 +37,6 @@
       },
       "end": "({%)\\s*(endraw)\\s*(%})",
       "name": "comment.block.hubl.raw"
-    },
-    {
-      "begin": "{#-?",
-      "captures": [
-        {
-          "name": "entity.other.hubl.delimiter.comment"
-        }
-      ],
-      "end": "-?#}",
-      "name": "comment.block.hubl"
     },
     {
       "begin": "{{-?",
