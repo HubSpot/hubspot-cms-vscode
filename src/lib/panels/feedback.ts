@@ -146,27 +146,27 @@ export class FeedbackPanel {
           </div>
           <form id="feedback-form" enctype="multipart/form-data">
             <div class="form-field hidden">
-                <label>Visual Studio Code Version</label><br />
+                <label>Visual Studio Code Version</label>
                 <input name="vsCodeVersion" type="hidden" value="${userIdentificationInformation.vscodeVersion}" readonly>
             </div>
             <div class="form-field hidden">
-                <label>HubSpot Extension Version</label><br />
+                <label>HubSpot Extension Version</label>
                 <input name="extensionVersion" type="hidden" value="${userIdentificationInformation.version}" readonly>
             </div>
             <div class="form-field hidden">
-                <label>Machine ID</label><br />
+                <label>Machine ID</label>
                 <input name="machineId" type="hidden" value="${userIdentificationInformation.machineId}" readonly>
             </div>
             <div class="form-field hidden">
-                <label>OS</label><br />
+                <label>OS</label>
                 <input name="operatingSystem" type="hidden" value="${userIdentificationInformation.os}" readonly>
             </div>
             <div class="form-field hidden">
-                <label>Shell</label><br />
+                <label>Shell</label>
                 <input name="shell" type="hidden" value="${userIdentificationInformation.shell}" readonly>
             </div>
             <div class="form-field hidden">
-                <label>Language</label><br />
+                <label>Language</label>
                 <input name="language" type="hidden" value="${userIdentificationInformation.language}" readonly>
             </div>
             <div class="form-field">
@@ -195,18 +195,18 @@ export class FeedbackPanel {
                 </div>
             </div>
             <div class="form-field">
-                <label for="reason-for-rating">Why did you choose this rating?</label><br />
+                <label for="reason-for-rating">Why did you choose this rating?</label>
                 <textarea type="textarea" name="reasonForRating" id="reason-for-rating" maxlength="10000"></textarea>
             </div>
 
-            <div>
+            <div class="contact-section">
               <h3>May we contact you for questions? If so, please provide your name and email.</h3>
               <div class="form-field">
-                  <label for="name">Full Name</label><br />
+                  <label for="name">Full Name</label>
                   <input type="text" name="name" id="name" maxlength="250">
               </div>
               <div class="form-field">
-                  <label for="email">Email</label><br />
+                  <label for="email">Email</label>
                   <input type="email" name="email" id="email" maxlength="250">
               </div>
             </div>
