@@ -11,6 +11,7 @@ import {
   getConfigAccounts,
   getConfigDefaultAccount,
 } from '@hubspot/local-dev-lib/config';
+import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
 import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
 import {
@@ -44,8 +45,10 @@ export class AccountsProvider
   implements TreeDataProvider<CLIAccount_DEPRECATED>
 {
   private config: CLIConfig | null;
+  private hasAnyQAAccounts: boolean;
   constructor() {
     this.config = getConfig();
+    this.hasAnyQAAccounts = false;
   }
 
   _onDidChangeTreeData: EventEmitter<undefined> = new EventEmitter<undefined>();
@@ -62,7 +65,10 @@ export class AccountsProvider
     return new AccountTreeItem(
       name,
       p,
-      { isDefault: isDefaultAccount(p, this.config) ?? false },
+      {
+        isDefault: isDefaultAccount(p, this.config) ?? false,
+        hasAnyQAAccounts: this.hasAnyQAAccounts,
+      },
       TreeItemCollapsibleState.None
     );
   }
@@ -73,9 +79,14 @@ export class AccountsProvider
     const accounts = getConfigAccounts();
 
     if (accounts) {
+      this.hasAnyQAAccounts = accounts.some(
+        (account) => account.env === ENVIRONMENTS.QA
+      );
+
       return Promise.resolve(accounts);
     }
 
+    this.hasAnyQAAccounts = false;
     return Promise.resolve([]);
   }
 }
@@ -84,20 +95,17 @@ export class AccountTreeItem extends TreeItem {
   constructor(
     public readonly name: string,
     public readonly portalData: CLIAccount_DEPRECATED,
-    public readonly options: { isDefault: boolean },
-    public readonly collapsibleState: TreeItemCollapsibleState,
-    public iconPath: ThemeIcon = new ThemeIcon('account'),
-    public readonly contextValue: string = 'accountTreeItem'
+    public readonly options: { isDefault: boolean; hasAnyQAAccounts: boolean },
+    public readonly collapsibleState: TreeItemCollapsibleState
   ) {
     super(name, collapsibleState);
 
-    if (options.isDefault) {
-      this.iconPath = new ThemeIcon('star-full');
-    }
+    this.contextValue = 'accountTreeItem';
+    this.iconPath = new ThemeIcon(options.isDefault ? 'star-full' : 'account');
     this.tooltip = `${options.isDefault ? '* Default Account\n' : ''}${
       portalData.name ? `Name: ${portalData.name}\n` : ''
     }ID: ${getAccountIdentifier(portalData)}\n${
-      portalData.env ? `Environment: ${portalData.env}\n` : ''
+      options.hasAnyQAAccounts ? `Environment: ${portalData.env}\n` : ''
     }${
       portalData.sandboxAccountType
         ? `Sandbox Account Type: ${portalData.sandboxAccountType}`
