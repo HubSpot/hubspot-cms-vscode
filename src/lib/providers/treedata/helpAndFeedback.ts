@@ -23,6 +23,10 @@ export class HelpAndFeedbackProvider implements TreeDataProvider<any> {
   getChildren(): Thenable<Array<Link | Command>> {
     return Promise.resolve([
       {
+        label: 'Get started with HubSpot development',
+        url: 'https://developers.hubspot.com/docs/getting-started/quickstart',
+      },
+      {
         label: 'CLI Documentation',
         url: 'https://developers.hubspot.com/docs/cms/developer-reference/local-development-cli#interacting-with-the-developer-file-system',
       },
