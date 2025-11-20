@@ -610,7 +610,7 @@
         "@types/vscode": "1.63.0",
         "chalk": "4.1.2",
         "eslint": "^7.5.0",
-        "js-yaml": "^4.1.0",
+        "js-yaml": "^4.1.1",
         "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
