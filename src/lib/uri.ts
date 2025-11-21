@@ -46,7 +46,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   } else {
     configPath = resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
-    await createEmptyConfigFile({ path: configPath });
+    await createEmptyConfigFile(false);
     await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
   let token;

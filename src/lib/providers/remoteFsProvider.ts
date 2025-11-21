@@ -10,11 +10,7 @@ import {
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
 import * as path from 'path';
-import {
-  buildStatusBarItem,
-  invalidateParentDirectoryCache,
-  requireAccountId,
-} from '../helpers';
+import { buildStatusBarItem, invalidateParentDirectoryCache } from '../helpers';
 import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
 const {
