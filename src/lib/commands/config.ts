@@ -1,19 +1,13 @@
 import { commands, window, ExtensionContext } from 'vscode';
 import {
   getConfig,
-  deleteAccount,
-  deleteConfigFile,
-  renameAccount,
-  updateDefaultAccount,
-  getConfigDefaultAccount,
-  getConfigAccounts,
+  getAllConfigAccounts,
+  getConfigDefaultAccountIfExists,
+  removeAccountFromConfig,
+  renameConfigAccount,
+  setConfigAccountAsDefault,
 } from '@hubspot/local-dev-lib/config';
-import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
-import {
-  CLIAccount,
-  CLIAccount_DEPRECATED,
-} from '@hubspot/local-dev-lib/types/Accounts';
-import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { updateStatusBarItems } from '../statusBar';
 import { COMMANDS, TRACKED_EVENTS } from '../constants';
 import { getDisplayedHubspotPortalInfo } from '../helpers';
@@ -21,16 +15,15 @@ import { portalNameInvalid } from '../validation';
 import { trackEvent } from '../tracking';
 import { showAutoDismissedStatusBarMessage } from '../messaging';
 
-const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
+const showRenameAccountPrompt = (accountToRename: HubSpotConfigAccount) => {
   window
     .showInputBox({
       placeHolder: 'Enter a new name for the account',
     })
     .then(async (newName: string | undefined) => {
       if (newName) {
-        const oldName =
-          accountToRename.name || getAccountIdentifier(accountToRename);
-        const config: CLIConfig | null = getConfig();
+        const oldName = accountToRename.name;
+        const config = getConfig();
         let invalidReason = '';
         if (config) {
           invalidReason = portalNameInvalid(newName, config);
@@ -43,7 +36,7 @@ const showRenameAccountPrompt = (accountToRename: CLIAccount_DEPRECATED) => {
             );
             return;
           }
-          renameAccount(String(oldName), newName);
+          renameConfigAccount(String(oldName), newName);
           commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);
           showAutoDismissedStatusBarMessage(
             `Successfully renamed default account from ${oldName} to ${newName}.`
@@ -72,9 +65,9 @@ export const registerCommands = (context: ExtensionContext) => {
           typeof defaultAccount === 'string' ||
           typeof defaultAccount === 'number'
             ? defaultAccount
-            : defaultAccount.name || getAccountIdentifier(defaultAccount);
+            : defaultAccount.name;
         console.log('Setting default account to: ', newDefaultAccount);
-        updateDefaultAccount(newDefaultAccount);
+        setConfigAccountAsDefault(newDefaultAccount);
         await trackEvent(TRACKED_EVENTS.UPDATE_DEFAULT_ACCOUNT);
         commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
         if (!silenceNotification) {
@@ -90,18 +83,18 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT,
       async () => {
-        const defaultAccount = getConfigDefaultAccount();
-        const accounts: CLIAccount[] = getConfigAccounts() || [];
+        const defaultAccount = getConfigDefaultAccountIfExists();
+        const accounts: HubSpotConfigAccount[] = getAllConfigAccounts() || [];
 
         if (accounts && accounts.length !== 0) {
           window
             .showQuickPick(
-              accounts.map((a: CLIAccount) => {
+              accounts.map((a: HubSpotConfigAccount) => {
                 return {
                   label: getDisplayedHubspotPortalInfo(a),
                   description:
-                    defaultAccount === getAccountIdentifier(a) ||
-                    defaultAccount === a.name
+                    defaultAccount?.accountId === a.accountId ||
+                    defaultAccount?.name === a.name
                       ? '(default)'
                       : '',
                   account: a,
@@ -113,9 +106,7 @@ export const registerCommands = (context: ExtensionContext) => {
             )
             .then(async (selection) => {
               if (selection) {
-                const newDefaultAccount =
-                  selection.account.name ||
-                  getAccountIdentifier(selection.account);
+                const newDefaultAccount = selection.account.name;
                 if (!newDefaultAccount) {
                   window.showErrorMessage(
                     'No account selected; Choose an account to set as default'
@@ -123,7 +114,7 @@ export const registerCommands = (context: ExtensionContext) => {
                   return;
                 }
                 await trackEvent(TRACKED_EVENTS.SELECT_DEFAULT_ACCOUNT);
-                updateDefaultAccount(newDefaultAccount);
+                setConfigAccountAsDefault(newDefaultAccount);
                 showAutoDismissedStatusBarMessage(
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
@@ -148,9 +139,7 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
       async (accountToDelete) => {
-        const accounts: CLIAccount[] = getConfigAccounts() || [];
-        const accountIdentifier =
-          accountToDelete.name || getAccountIdentifier(accountToDelete);
+        const accountIdentifier = accountToDelete.name;
 
         await window
           .showInformationMessage(
@@ -160,17 +149,11 @@ export const registerCommands = (context: ExtensionContext) => {
           )
           .then(async (answer) => {
             if (answer === 'Yes') {
-              if (accounts && accounts.length === 1) {
-                deleteConfigFile();
-                showAutoDismissedStatusBarMessage(
-                  `Successfully deleted account ${accountIdentifier}. The config file has been deleted because there are no more authenticated accounts.`
-                );
-              } else {
-                deleteAccount(accountIdentifier);
-                showAutoDismissedStatusBarMessage(
-                  `Successfully deleted account ${accountIdentifier}.`
-                );
-              }
+              removeAccountFromConfig(accountIdentifier);
+              showAutoDismissedStatusBarMessage(
+                `Successfully deleted account ${accountIdentifier}.`
+              );
+
               await trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
               commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
               commands.executeCommand(COMMANDS.ACCOUNTS_REFRESH);

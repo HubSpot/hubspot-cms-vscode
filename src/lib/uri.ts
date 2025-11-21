@@ -16,10 +16,7 @@ const {
   updateConfigWithAccessToken,
   getAccessToken,
 } = require('@hubspot/local-dev-lib/personalAccessKey');
-import {
-  createEmptyConfigFile,
-  setConfigPath,
-} from '@hubspot/local-dev-lib/config';
+import { createEmptyConfigFile } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { Environment } from '@hubspot/local-dev-lib/types/Config';
 
@@ -45,7 +42,6 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   }
 
   if (configPath) {
-    setConfigPath(configPath);
     await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = resolve(rootPath, 'hubspot.config.yml');

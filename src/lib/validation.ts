@@ -7,11 +7,11 @@ import {
   Diagnostic,
   Range,
 } from 'vscode';
-import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
-import { CLIAccount } from '@hubspot/local-dev-lib/types/Accounts';
+import { HubSpotConfig } from '@hubspot/local-dev-lib/types/Config';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { HubLValidationError } from '@hubspot/local-dev-lib/types/HublValidation';
 import { validateHubl } from '@hubspot/local-dev-lib/api/validateHubl';
-import { getAccountId } from '@hubspot/local-dev-lib/config';
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 const {
   isCodedFile,
   getAnnotationValue,
@@ -19,7 +19,6 @@ const {
   TEMPLATE_TYPES,
 } = require('@hubspot/local-dev-lib/cms/templates');
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
-import { requireAccountId } from './helpers';
 import {
   TEMPLATE_ERRORS_TYPES,
   VSCODE_SEVERITY,
@@ -68,10 +67,13 @@ const clearValidation = (
 
 const getRenderingErrors = async (source: string, context: object) => {
   try {
-    requireAccountId();
+    const account = getConfigDefaultAccountIfExists();
+    if (!account?.accountId) {
+      return;
+    }
     const {
       data: { renderingErrors },
-    } = await validateHubl(getAccountId()!, source, context);
+    } = await validateHubl(account.accountId, source, context);
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');
@@ -175,7 +177,7 @@ export const triggerValidate = (
 
 export const portalNameInvalid = (
   portalName: string,
-  config: CLIConfig | null
+  config: HubSpotConfig | null
 ) => {
   if (typeof portalName !== 'string') {
     return 'Portal name must be a string';
@@ -186,8 +188,8 @@ export const portalNameInvalid = (
   }
   return config &&
     'portals' in config &&
-    (config.portals || [])
-      .map((p: CLIAccount) => p.name)
+    (config.accounts || [])
+      .map((p: HubSpotConfigAccount) => p.name)
       .find((name: string | undefined) => name === portalName)
     ? `${portalName} already exists in config.`
     : '';

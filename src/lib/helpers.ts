@@ -1,8 +1,7 @@
 import { dirname } from 'path';
 import { window, commands, workspace, StatusBarAlignment } from 'vscode';
-import { getAccountId } from '@hubspot/local-dev-lib/config';
-import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
-import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { COMMANDS } from './constants';
 
 const { exec } = require('node:child_process');
@@ -17,9 +16,9 @@ export const getRootPath = () => {
 };
 
 export const getDisplayedHubspotPortalInfo = (
-  portalData: CLIAccount_DEPRECATED
+  portalData: HubSpotConfigAccount
 ) => {
-  const accountIdentifier = getAccountIdentifier(portalData);
+  const accountIdentifier = portalData.accountId;
   return portalData.name
     ? `${portalData.name} - ${accountIdentifier}`
     : `${accountIdentifier}`;
@@ -93,10 +92,3 @@ export const buildStatusBarItem = (text: string) => {
   statusBarItem.text = text;
   return statusBarItem;
 };
-
-export function requireAccountId() {
-  const accountId = getAccountId();
-  if (!accountId) {
-    return;
-  }
-}
