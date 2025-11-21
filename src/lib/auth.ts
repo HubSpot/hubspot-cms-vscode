@@ -1,28 +1,20 @@
 import { commands, window } from 'vscode';
-import { COMMANDS, EVENTS } from './constants';
+import { EVENTS } from './constants';
 import {
-  configFileExists,
-  findConfig,
-  loadConfig,
   validateConfig,
-  setConfig,
-  setConfigPath,
-  getConfigPath,
+  getLocalConfigFilePathIfExists,
+  globalConfigFileExists,
+  getGlobalConfigFilePath,
+  getConfig,
 } from '@hubspot/local-dev-lib/config';
 import {
-  getDeprecatedConfig,
-  getGlobalConfig,
   mergeConfigProperties,
-  mergeExistingConfigs,
+  mergeConfigAccounts,
+  getConfigAtPath,
 } from '@hubspot/local-dev-lib/config/migrate';
 
 const onLoadPath = (configPath: string) => {
   commands.executeCommand('setContext', 'hubspot.configPath', configPath);
-  if (!configPath) {
-    commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, null);
-    setConfig(undefined);
-    setConfigPath(null);
-  }
 };
 
 export const loadHubspotConfigFile = (rootPath: string) => {
@@ -30,13 +22,13 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  const deprecatedConfigPath = findConfig(rootPath);
-  const globalConfigExists = configFileExists(true);
+  const deprecatedConfigPath = getLocalConfigFilePathIfExists();
+  const globalConfigExists = globalConfigFileExists();
 
   let globalConfigPath: string | null = null;
 
   if (globalConfigExists) {
-    globalConfigPath = getConfigPath(undefined, true);
+    globalConfigPath = getGlobalConfigFilePath();
   }
 
   const resolvedConfigPath = globalConfigPath || deprecatedConfigPath;
@@ -44,9 +36,6 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   if (!resolvedConfigPath) {
     return;
   }
-
-  // We need to call loadConfig to ensure the isActive() check returns true for global config
-  loadConfig(resolvedConfigPath);
 
   if (deprecatedConfigPath && globalConfigPath) {
     const mergeConfigCopy = 'Merge accounts';
@@ -61,15 +50,16 @@ export const loadHubspotConfigFile = (rootPath: string) => {
             `Merging accounts from ${deprecatedConfigPath} into ${globalConfigPath}. Your existing configuration file will be archived.`
           );
 
-          const deprecatedConfig = getDeprecatedConfig(deprecatedConfigPath);
-          const globalConfig = getGlobalConfig();
+          const deprecatedConfig = getConfigAtPath(deprecatedConfigPath);
+          const globalConfig = getConfig();
 
           let success = false;
           try {
-            const { initialConfig: GlobalConfigWithPropertiesMerged } =
-              mergeConfigProperties(globalConfig!, deprecatedConfig!, true);
+            const {
+              configWithMergedProperties: GlobalConfigWithPropertiesMerged,
+            } = mergeConfigProperties(globalConfig!, deprecatedConfig!, true);
 
-            mergeExistingConfigs(
+            mergeConfigAccounts(
               GlobalConfigWithPropertiesMerged,
               deprecatedConfig!
             );

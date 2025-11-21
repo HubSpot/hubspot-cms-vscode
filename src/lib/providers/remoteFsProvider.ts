@@ -10,11 +10,7 @@ import {
 } from 'vscode';
 import { FileLink, RemoteFsDirectory } from '../types';
 import * as path from 'path';
-import {
-  buildStatusBarItem,
-  invalidateParentDirectoryCache,
-  requireAccountId,
-} from '../helpers';
+import { buildStatusBarItem, invalidateParentDirectoryCache } from '../helpers';
 import { trackEvent } from '../tracking';
 import { TRACKED_EVENTS } from '../constants';
 const {
@@ -104,7 +100,6 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
-      requireAccountId();
       const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
       window.showInformationMessage(
@@ -188,7 +183,6 @@ export class RemoteFsProvider implements TreeDataProvider<FileLink> {
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
-    requireAccountId();
     const remoteDirectory: string = parent?.path ? parent.path : '/';
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {

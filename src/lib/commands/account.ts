@@ -1,16 +1,15 @@
 import { commands, ExtensionContext, Uri } from 'vscode';
-import { CLIAccount_DEPRECATED } from '@hubspot/local-dev-lib/types/Accounts';
-import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { COMMANDS } from '../constants';
 
 export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.ACCOUNT.VIEW_PERSONAL_ACCESS_KEY,
-      async (hubspotAccount: CLIAccount_DEPRECATED) => {
+      async (hubspotAccount: HubSpotConfigAccount) => {
         const pakUrl = `https://app.hubspot${
           hubspotAccount.env === 'qa' ? 'qa' : ''
-        }.com/personal-access-key/${getAccountIdentifier(hubspotAccount)}`;
+        }.com/personal-access-key/${hubspotAccount.accountId}`;
 
         commands.executeCommand('vscode.open', Uri.parse(pakUrl));
       }
@@ -19,10 +18,10 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.ACCOUNT.OPEN_DESIGN_MANAGER,
-      async (hubspotAccount: CLIAccount_DEPRECATED) => {
+      async (hubspotAccount: HubSpotConfigAccount) => {
         const designManagerUrl = `https://app.hubspot${
           hubspotAccount.env === 'qa' ? 'qa' : ''
-        }.com/design-manager/${getAccountIdentifier(hubspotAccount)}`;
+        }.com/design-manager/${hubspotAccount.accountId}`;
 
         commands.executeCommand('vscode.open', Uri.parse(designManagerUrl));
       }

@@ -8,7 +8,7 @@ import {
 import { COMMANDS } from './constants';
 import {
   getConfig,
-  getConfigDefaultAccount,
+  getConfigDefaultAccountIfExists,
 } from '@hubspot/local-dev-lib/config';
 
 let hsStatusBar: StatusBarItem;
@@ -16,9 +16,12 @@ let hsStatusBar: StatusBarItem;
 export const updateStatusBarItems = () => {
   console.log('updateStatusBarItems');
 
-  const config = getConfig();
+  let config;
+  try {
+    config = getConfig();
+  } catch (error) {}
 
-  const defaultAccount = config && getConfigDefaultAccount();
+  const defaultAccount = config && getConfigDefaultAccountIfExists();
 
   if (defaultAccount) {
     hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
