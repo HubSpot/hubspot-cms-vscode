@@ -2,6 +2,7 @@ import { commands, window } from 'vscode';
 import { COMMANDS, EVENTS } from './constants';
 import {
   getAccountId,
+  configFileExists,
   findConfig,
   loadConfig,
   validateConfig,
@@ -73,7 +74,13 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   }
 
   const deprecatedConfigPath = findConfig(rootPath);
-  const globalConfigPath = getConfigPath(undefined, true);
+  const globalConfigExists = configFileExists(true);
+
+  let globalConfigPath: string | null = null;
+
+  if (globalConfigExists) {
+    globalConfigPath = getConfigPath(undefined, true);
+  }
 
   const resolvedConfigPath = globalConfigPath || deprecatedConfigPath;
 
