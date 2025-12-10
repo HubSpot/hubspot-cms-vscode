@@ -280,10 +280,6 @@
                 "title": "Rename account"
             },
             {
-                "command": "hubspot.notifications.showFeedbackRequest",
-                "title": "Show feedback request"
-            },
-            {
                 "command": "hubspot.modals.openFeedbackPanel",
                 "title": "Open feedback panel"
             },
@@ -297,20 +293,8 @@
                 "icon": "$(link-external)"
             },
             {
-                "command": "hubspot.remoteFs.refresh",
-                "title": "Cached Refresh"
-            },
-            {
                 "command": "hubspot.remoteFs.hardRefresh",
-                "title": "Refresh"
-            },
-            {
-                "command": "hubspot.remoteFs.invalidateCache",
-                "title": "Invalidate Cache"
-            },
-            {
-                "command": "hubspot.remoteFs.startWatch",
-                "title": "Start Watch"
+                "title": "test: Refresh"
             },
             {
                 "command": "hubspot.remoteFs.endWatch",
@@ -486,10 +470,6 @@
                     "when": "false"
                 },
                 {
-                    "command": "hubspot.notifications.showFeedbackRequest",
-                    "when": "false"
-                },
-                {
                     "command": "hubspot.modals.openFeedbackPanel",
                     "when": "false"
                 },
@@ -499,18 +479,6 @@
                 },
                 {
                     "command": "hubspot.account.viewPersonalAccessKey",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.refresh",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.invalidateCache",
-                    "when": "false"
-                },
-                {
-                    "command": "hubspot.remoteFs.startWatch",
                     "when": "false"
                 }
             ]
@@ -559,12 +527,12 @@
         "viewsWelcome": [
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "contents": "No authenticated accounts were found.\nIn order to use HubSpot VSCode features, you need to authenticate your account(s). \n[Authenticate HubSpot Account](command:hubspot.account.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "!hubspot.configPath"
             },
             {
                 "view": "hubspot.viewsWelcome.accountAuth",
-                "contents": "To work with other HubSpot accounts within VSCode, authenticate each additional account by clicking the button below. \n[Authenticate Additional HubSpot Account](command:hubspot.auth.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
+                "contents": "To work with other HubSpot accounts within VSCode, authenticate each additional account by clicking the button below. \n[Authenticate Additional HubSpot Account](command:hubspot.account.onClickAuthorize)\nTo learn more about authentication using personal access keys, [read our docs](https://developers.hubspot.com/docs/cms/personal-access-key).",
                 "when": "hubspot.configPath"
             },
             {
@@ -589,7 +557,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/local-dev-lib": "^3.7.0",
+        "@hubspot/local-dev-lib": "^3.21.0",
         "@hubspot/project-parsing-lib": "0.2.0",
         "dayjs": "^1.11.7",
         "debounce": "1.2.1",
@@ -603,22 +571,20 @@
     "devDependencies": {
         "@types/debounce": "^1.2.1",
         "@types/findup-sync": "^4.0.2",
-        "@types/js-yaml": "^4.0.5",
         "@types/node": "^15.12.4",
         "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.63.0",
         "chalk": "4.1.2",
         "eslint": "^7.5.0",
-        "js-yaml": "^4.1.0",
+        "js-yaml": "^4.1.1",
         "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
         "prettier": "^2.7.1",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
         "typescript": "^4.3.4",
-        "un-eval": "^1.2.0",
-        "webpack": "^5.76.0",
+        "webpack": "^5.102.1",
         "webpack-cli": "^4.7.2",
         "webpack-node-externals": "^3.0.0"
     }
