@@ -34,14 +34,6 @@
   --hs-purple: #33154d;
   --hs-purple-dark: #2d1242;
   --hs-orange-warning: #ff7a59;
-  --hs-text-primary: #2d3e50;
-  --hs-text-secondary: #516f90;
-  --hs-text-light: #7c98b6;
-  --hs-border: #dfe3eb;
-  --hs-border-light: #eaf0f6;
-  --hs-background: #f5f8fa;
-  --hs-white: #ffffff;
-  --hs-black: #000000;
   --hs-focus: #0091ae;
 }
 
@@ -50,9 +42,9 @@
 }
 
 body {
-  font-family: 'Lexend Deca', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: var(--hs-text-primary);
-  background-color: var(--hs-white);
+  font-family: var(--vscode-font-family, 'Lexend Deca', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background);
   margin: 0;
   padding: 32px 40px;
   line-height: 1.5;
@@ -61,7 +53,7 @@ body {
 h1 {
   font-size: 32px;
   font-weight: 600;
-  color: var(--hs-text-primary);
+  color: var(--vscode-foreground);
   margin: 0 0 12px 0;
   letter-spacing: -0.02em;
 }
@@ -69,7 +61,7 @@ h1 {
 h3 {
   font-size: 16px;
   font-weight: 400;
-  color: var(--hs-text-secondary);
+  color: var(--vscode-descriptionForeground);
   margin: 0 0 28px 0;
   line-height: 1.6;
 }
@@ -79,7 +71,7 @@ h3 {
 }
 
 form {
-  background: var(--hs-white);
+  background: var(--vscode-editor-background);
   border-radius: 8px;
   padding: 0;
   max-width: 800px;
@@ -97,7 +89,7 @@ label {
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: var(--hs-text-primary);
+  color: var(--vscode-foreground);
   margin-bottom: 8px;
 }
 
@@ -118,7 +110,7 @@ label {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: var(--hs-purple);
+  accent-color: var(--vscode-focusBorder);
 }
 
 .radio label {
@@ -132,24 +124,24 @@ textarea {
   width: 100%;
   min-height: 120px;
   padding: 12px 14px;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
   font-size: 14px;
-  color: var(--hs-text-primary);
-  border: 1px solid var(--hs-border);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
   border-radius: 5px;
-  background-color: var(--hs-white);
+  background-color: var(--vscode-input-background);
   resize: vertical;
   transition: all 0.15s ease;
 }
 
 textarea:focus {
   outline: none;
-  border-color: var(--hs-purple);
-  box-shadow: 0 0 0 2px rgba(51, 21, 77, 0.1);
+  border-color: var(--vscode-focusBorder);
+  box-shadow: none;
 }
 
 textarea:hover:not(:focus) {
-  border-color: var(--hs-text-secondary);
+  border-color: var(--vscode-input-border, var(--vscode-widget-border));
 }
 
 input[type='text'],
@@ -157,34 +149,34 @@ input[type='email'] {
   width: 100%;
   height: 44px;
   padding: 0 14px;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
   font-size: 14px;
-  color: var(--hs-text-primary);
-  border: 1px solid var(--hs-border);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
   border-radius: 5px;
-  background-color: var(--hs-white);
+  background-color: var(--vscode-input-background);
   transition: all 0.15s ease;
 }
 
 input[type='text']:focus,
 input[type='email']:focus {
   outline: none;
-  border-color: var(--hs-purple);
-  box-shadow: 0 0 0 2px rgba(51, 21, 77, 0.1);
+  border-color: var(--vscode-focusBorder);
+  box-shadow: none;
 }
 
 input[type='text']:hover:not(:focus),
 input[type='email']:hover:not(:focus) {
-  border-color: var(--hs-text-secondary);
+  border-color: var(--vscode-input-border, var(--vscode-widget-border));
 }
 
 button[type='submit'] {
-  background-color: var(--hs-black);
-  color: var(--hs-white);
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
   border: none;
   border-radius: 5px;
   padding: 12px 20px;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -194,25 +186,24 @@ button[type='submit'] {
 }
 
 button[type='submit']:hover {
-  background-color: #2d2d2d;
+  background-color: var(--vscode-button-hoverBackground);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 button[type='submit']:active {
   transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 button[type='submit']:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(51, 21, 77, 0.2);
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
 }
 
 .contact-section {
   margin-top: 36px;
   padding-top: 28px;
-  border-top: 1px solid var(--hs-border-light);
+  border-top: 1px solid var(--vscode-widget-border, var(--vscode-input-border));
 }
 
 .contact-section h3 {
