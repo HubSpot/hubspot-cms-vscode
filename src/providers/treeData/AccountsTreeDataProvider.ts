@@ -25,18 +25,17 @@ const isDefaultAccount = (
   if (!config) {
     return false;
   }
-  const accountIdentifier = account.accountId;
   const defaultAccount = getConfigDefaultAccountIfExists();
   return (
-    accountIdentifier === defaultAccount?.accountId ||
+    account.accountId === defaultAccount?.accountId ||
     account.name === defaultAccount?.name
   );
 };
 
-const getAccountIdentifiers = (portal: HubSpotConfigAccount) => {
+const getAccountIdentifiers = (account: HubSpotConfigAccount) => {
   let accountIdentifiers = '';
 
-  if (portal.env === ENVIRONMENTS.QA) {
+  if (account.env === ENVIRONMENTS.QA) {
     accountIdentifiers = '[QA]';
   }
 
@@ -61,14 +60,14 @@ export class AccountsProviderProvider
     this._onDidChangeTreeData.fire(undefined);
   }
 
-  getTreeItem(p: HubSpotConfigAccount): TreeItem {
-    const identifiers = getAccountIdentifiers(p);
-    const name = `${getDisplayedHubspotPortalInfo(p)} ${identifiers}`;
+  getTreeItem(account: HubSpotConfigAccount): TreeItem {
+    const identifiers = getAccountIdentifiers(account);
+    const name = `${getDisplayedHubspotPortalInfo(account)} ${identifiers}`;
     return new AccountTreeDataItem(
       name,
-      p,
+      account,
       {
-        isDefault: isDefaultAccount(p, this.config) ?? false,
+        isDefault: isDefaultAccount(account, this.config) ?? false,
         hasAnyQAAccounts: this.hasAnyQAAccounts,
       },
       TreeItemCollapsibleState.None

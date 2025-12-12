@@ -9,10 +9,10 @@ import {
   window,
 } from 'vscode';
 import * as path from 'path';
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 const {
   getDirectoryContentsByPath,
 } = require('@hubspot/local-dev-lib/api/fileMapper');
-const { getAccountId } = require('@hubspot/local-dev-lib/config');
 const {
   FOLDER_DOT_EXTENSIONS,
 } = require('@hubspot/local-dev-lib/constants/extensions');
@@ -102,13 +102,17 @@ export class RemoteFsTreeDataProvider implements TreeDataProvider<FileLink> {
   changeWatch(srcPath: string, destPath: string, filesToUpload: any): void {
     trackEvent(TRACKED_EVENTS.REMOTE_FS.WATCH);
     const setWatch = () => {
+      const accountId = getConfigDefaultAccountIfExists()?.accountId;
+      if (!accountId) {
+        return;
+      }
       const uploadingStatus = buildStatusBarItem('Uploading...');
       uploadingStatus.show();
       window.showInformationMessage(
         `Beginning initial upload of ${srcPath} to ${destPath}...`
       );
       let { data: watcher } = watch(
-        getAccountId()!,
+        accountId!,
         srcPath,
         destPath,
         {
@@ -185,11 +189,15 @@ export class RemoteFsTreeDataProvider implements TreeDataProvider<FileLink> {
   }
 
   async getChildren(parent?: FileLink): Promise<FileLink[]> {
+    const accountId = getConfigDefaultAccountIfExists()?.accountId;
+    if (!accountId) {
+      return [];
+    }
     const remoteDirectory: string = parent?.path ? parent.path : '/';
     let directoryContents: any = this.remoteFsCache.get(remoteDirectory);
     if (directoryContents === undefined) {
       ({ data: directoryContents } = await getDirectoryContentsByPath(
-        getAccountId(),
+        getConfigDefaultAccountIfExists()?.accountId!,
         remoteDirectory
       ));
       // Default content wasn't originally in this endpoint and so doesn't show up unless manually queried

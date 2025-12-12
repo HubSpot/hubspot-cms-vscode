@@ -131,8 +131,7 @@ async function validateDocumentDiagnostics(
   if (!metaFile.config) {
     return [newErrorDiagnostic(getMissingConfigError())];
   }
-  const account = getConfigDefaultAccountIfExists();
-  const accountId = account?.accountId;
+  const accountId = getConfigDefaultAccountIfExists()?.accountId;
   if (!accountId) {
     return [
       newErrorDiagnostic(

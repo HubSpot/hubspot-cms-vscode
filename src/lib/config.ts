@@ -15,10 +15,6 @@ import {
   getConfigAtPath,
 } from '@hubspot/local-dev-lib/config/migrate';
 
-const onLoadPath = (configPath: string) => {
-  commands.executeCommand('setContext', 'hubspot.configPath', configPath);
-};
-
 export const getDisplayedHubspotPortalInfo = (
   portalData: HubSpotConfigAccount
 ) => {
@@ -108,7 +104,11 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  onLoadPath(resolvedConfigPath);
+  commands.executeCommand(
+    'setContext',
+    'hubspot.configPath',
+    resolvedConfigPath
+  );
 
   if (!validateConfig()) {
     throw new Error(

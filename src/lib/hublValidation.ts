@@ -72,13 +72,13 @@ const clearValidation = (
 
 const getRenderingErrors = async (source: string, context: object) => {
   try {
-    const account = getConfigDefaultAccountIfExists();
-    if (!account?.accountId) {
+    const accountId = getConfigDefaultAccountIfExists()?.accountId;
+    if (!accountId) {
       return;
     }
     const {
       data: { renderingErrors },
-    } = await validateHubl(account.accountId, source, context);
+    } = await validateHubl(accountId, source, context);
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');

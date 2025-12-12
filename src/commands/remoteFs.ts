@@ -21,11 +21,13 @@ import { COMMANDS, EVENTS, TRACKED_EVENTS } from '../lib/constants';
 import { getRootPath } from '../lib/helpers';
 import { invalidateParentDirectoryCache } from '../lib/remoteDesignManagerFs';
 import { buildStatusBarItem } from '../lib/statusBar';
-import { requireAccountId } from '../lib/config';
 import { trackEvent } from '../lib/tracking';
 
 export const registerCommands = (context: ExtensionContext) => {
   const accountId = getConfigDefaultAccountIfExists()?.accountId;
+  if (!accountId) {
+    return;
+  }
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.REMOTE_FS.FETCH,
