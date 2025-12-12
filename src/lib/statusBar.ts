@@ -1,49 +1,19 @@
-import {
-  window,
-  ExtensionContext,
-  StatusBarAlignment,
-  StatusBarItem,
-  ThemeColor,
-} from 'vscode';
-import { COMMANDS } from './constants';
-import {
-  getConfig,
-  getConfigDefaultAccountIfExists,
-} from '@hubspot/local-dev-lib/config';
+import { window, StatusBarAlignment } from 'vscode';
 
-let hsStatusBar: StatusBarItem;
-
-export const updateStatusBarItems = () => {
-  console.log('updateStatusBarItems');
-
-  let config;
-  try {
-    config = getConfig();
-  } catch (error) {}
-
-  const defaultAccount = config && getConfigDefaultAccountIfExists();
-
-  if (defaultAccount) {
-    hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
-    hsStatusBar.tooltip = `Default HubSpot Account: ${defaultAccount}`;
-    hsStatusBar.backgroundColor = undefined;
-    hsStatusBar.show();
-  } else {
-    hsStatusBar.text = `$(extensions-warning-message) No Default HubSpot Account`;
-    hsStatusBar.tooltip =
-      'There is currently no default HubSpot account set within the config. Click here to select a defaultAccount.';
-    hsStatusBar.backgroundColor = new ThemeColor(
-      'statusBarItem.warningBackground'
-    );
-    hsStatusBar.show();
-  }
+export const buildStatusBarItem = (text: string) => {
+  const statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right);
+  statusBarItem.text = text;
+  return statusBarItem;
 };
 
-export const initializeStatusBar = (context: ExtensionContext) => {
-  console.log('statusBar:activate');
+export const showAutoDismissedStatusBarMessage = (
+  message: string,
+  timeout: number = 5000
+) => {
+  const dispose = window.setStatusBarMessage(message);
+  setTimeout(() => {
+    dispose.dispose();
+  }, timeout);
 
-  hsStatusBar = window.createStatusBarItem(StatusBarAlignment.Right, 100);
-  hsStatusBar.command = COMMANDS.CONFIG.SELECT_DEFAULT_ACCOUNT;
-
-  context.subscriptions.push(hsStatusBar);
+  return dispose;
 };

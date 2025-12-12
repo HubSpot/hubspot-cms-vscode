@@ -4,14 +4,10 @@ import {
   ExtensionContext,
   ProviderResult,
   Uri,
+  Webview,
 } from 'vscode';
 import { resolve } from 'path';
 import { URLSearchParams } from 'url';
-import { trackEvent } from './tracking';
-import { loadHubspotConfigFile } from './auth';
-import { showAutoDismissedStatusBarMessage } from './messaging';
-import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
-
 const {
   updateConfigWithAccessToken,
   getAccessToken,
@@ -19,6 +15,26 @@ const {
 import { createEmptyConfigFile } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { Environment } from '@hubspot/local-dev-lib/types/Config';
+
+import { trackEvent } from './tracking';
+import { loadHubspotConfigFile } from './config';
+import { showAutoDismissedStatusBarMessage } from './statusBar';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
+
+/**
+ * A helper function which will get the webview URI of a given file or resource
+ * @param webview A reference to the extension webview
+ * @param extensionUri The URI of the directory containing the extension
+ * @param pathList An array of strings representing the path to a file/resource
+ * @returns A URI pointing to the file/resource
+ */
+export function getUri(
+  webview: Webview,
+  extensionUri: Uri,
+  pathList: string[]
+) {
+  return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
+}
 
 const getQueryObject = (uri: Uri) => {
   return new URLSearchParams(uri.query);
@@ -42,12 +58,12 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   }
 
   if (configPath) {
-    await trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
+    trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
-    await createEmptyConfigFile(false);
-    await trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
+    createEmptyConfigFile(false);
+    trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
   let token;
   try {
@@ -62,9 +78,8 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     name
   );
 
-  commands.executeCommand(EVENTS.ON_CONFIG_FOUND, rootPath, configPath);
+  commands.executeCommand(EVENTS.CONFIG.ON_CONFIG_FOUND, rootPath, configPath);
 
-  commands.executeCommand('setContext', 'hubspot.auth.isAuthenticating', false);
   showAutoDismissedStatusBarMessage(
     `Successfully added ${accountIdentifier} to the config.`
   );
@@ -76,7 +91,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
     )
     .then(async (answer: string | undefined) => {
       if (answer === 'Yes') {
-        await trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
+        trackEvent(TRACKED_EVENTS.SET_DEFAULT_ACCOUNT);
         console.log(`Updating defaultAccount to ${accountIdentifier}.`);
         commands.executeCommand(
           COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT,

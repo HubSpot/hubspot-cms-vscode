@@ -1,0 +1,212 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 300;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Light.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 400;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Regular.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 500;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-Medium.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Lexend Deca';
+  font-weight: 600;
+  src: url('//cdn2.hubspot.net/hubfs/53/tools/fonts/LexendDeca-SemiBold.woff2')
+    format('woff2');
+}
+
+:root {
+  --hs-purple: #33154d;
+  --hs-purple-dark: #2d1242;
+  --hs-orange-warning: #ff7a59;
+  --hs-focus: #0091ae;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--vscode-font-family, 'Lexend Deca', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background);
+  margin: 0;
+  padding: 32px 40px;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--vscode-descriptionForeground);
+  margin: 0 0 28px 0;
+  line-height: 1.6;
+}
+
+.description h3 {
+  margin-bottom: 32px;
+}
+
+form {
+  background: var(--vscode-editor-background);
+  border-radius: 8px;
+  padding: 0;
+  max-width: 800px;
+}
+
+.form-field {
+  margin-bottom: 24px;
+}
+
+.form-field.hidden {
+  display: none;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  margin-bottom: 8px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.radio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.radio input[type='radio'] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--vscode-focusBorder);
+}
+
+.radio label {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
+  font-size: 14px;
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
+  border-radius: 5px;
+  background-color: var(--vscode-input-background);
+  resize: vertical;
+  transition: all 0.15s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+  box-shadow: none;
+}
+
+textarea:hover:not(:focus) {
+  border-color: var(--vscode-input-border, var(--vscode-widget-border));
+}
+
+input[type='text'],
+input[type='email'] {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
+  font-size: 14px;
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
+  border-radius: 5px;
+  background-color: var(--vscode-input-background);
+  transition: all 0.15s ease;
+}
+
+input[type='text']:focus,
+input[type='email']:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+  box-shadow: none;
+}
+
+input[type='text']:hover:not(:focus),
+input[type='email']:hover:not(:focus) {
+  border-color: var(--vscode-input-border, var(--vscode-widget-border));
+}
+
+button[type='submit'] {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-family: var(--vscode-font-family, 'Lexend Deca', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: 12px;
+  min-height: 44px;
+}
+
+button[type='submit']:hover {
+  background-color: var(--vscode-button-hoverBackground);
+  transform: translateY(-1px);
+}
+
+button[type='submit']:active {
+  transform: translateY(0);
+}
+
+button[type='submit']:focus {
+  outline: none;
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
+.contact-section {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--vscode-widget-border, var(--vscode-input-border));
+}
+
+.contact-section h3 {
+  margin-bottom: 24px;
+  font-size: 15px;
+}
