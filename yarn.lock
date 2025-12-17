@@ -51,10 +51,35 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@hubspot/local-dev-lib@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.1.tgz#f9391c17d3cf00ddab597bfd8345a164f8c876d8"
-  integrity sha512-yDReF+vP02jRpZPHouI+MmOPPKxTarJHy1Hy14lRNzTpQunh5a933xLmQf0eW5gA4VZ4SLjcE3pzx3nQTVyQJw==
+"@hubspot/local-dev-lib@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.0.tgz#5e7c2dd384a930a4983f370b5c01ce789e2b9153"
+  integrity sha512-009oGD+C0uc5y/t20p3Oen4Mi+Pa+7aPkYuxGwtcmH0r3kiwHwd/KMTcStIZYGa+WYI8k5GoGGtE1F3SsHJrYg==
+  dependencies:
+    address "2.0.2"
+    axios "1.12.0"
+    chalk "2.4.2"
+    chokidar "3.6.0"
+    content-disposition "0.5.4"
+    cors "2.8.5"
+    debounce "1.2.1"
+    express "4.21.2"
+    extract-zip "2.0.1"
+    findup-sync "5.0.0"
+    form-data "^4.0.4"
+    fs-extra "11.2.0"
+    ignore "5.3.1"
+    js-yaml "4.1.0"
+    moment "2.30.1"
+    p-queue "6.6.2"
+    prettier "3.3.1"
+    semver "6.3.1"
+    unixify "1.0.0"
+
+"@hubspot/local-dev-lib@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.2.tgz#34836ac69d570caf08f3b97e142e4952dcfd9503"
+  integrity sha512-0jbMfXBxM8TgnWJHv9EZi9Kto51hmzvPpz5VzrFrCjs1sT2uYFQYx5GST5zFaoyvlHJOueop8U+LXUQ3HgAGdg==
   dependencies:
     address "2.0.2"
     axios "1.12.0"
@@ -78,11 +103,12 @@
     semver "6.3.1"
     unixify "1.0.0"
 
-"@hubspot/project-parsing-lib@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.2.0.tgz#9dcbd79b5ee5c080a0887174c589e9637519b3b3"
-  integrity sha512-aNGTUhEgQ7tXXtNqecKeKdB3PpHwexX4TVfrEvrj9O7T7dkNU1+FiSLp9RajwLLH4Y0ZFJ5y8M57vomduEwAAg==
+"@hubspot/project-parsing-lib@0.10.3":
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.10.3.tgz#9ca2533db14b96330910dfd4c031c91ff8b028af"
+  integrity sha512-MJwltit47Wa6Ca4eHUjP7qsPu46AcXXE6eHFKB1kZUVdDtt7/Ux0vw5xvEMaNsd/M/6kpgMWRM7tNLH+llxQRQ==
   dependencies:
+    "@hubspot/local-dev-lib" "4.0.0"
     ajv "8.17.1"
     ajv-formats "3.0.1"
 
