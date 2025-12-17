@@ -28,8 +28,7 @@ import {
   Components,
   hsProjectJsonFilename,
 } from '@hubspot/project-parsing-lib';
-import { getAccountId } from '@hubspot/local-dev-lib/config';
-
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 import * as jsonc from 'jsonc-parser';
 import { debounce } from 'debounce';
 import { doesFileExist, dirname } from '../lib/fileHelpers';
@@ -132,7 +131,7 @@ async function validateDocumentDiagnostics(
   if (!metaFile.config) {
     return [newErrorDiagnostic(getMissingConfigError())];
   }
-  const accountId = getAccountId();
+  const accountId = getConfigDefaultAccountIfExists()?.accountId;
   if (!accountId) {
     return [
       newErrorDiagnostic(

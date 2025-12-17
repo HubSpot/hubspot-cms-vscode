@@ -8,21 +8,18 @@ import {
 } from 'vscode';
 import { resolve } from 'path';
 import { URLSearchParams } from 'url';
-import { trackEvent } from './tracking';
-import { loadHubspotConfigFile } from './config';
-import { showAutoDismissedStatusBarMessage } from './statusBar';
-import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
-
 const {
   updateConfigWithAccessToken,
   getAccessToken,
 } = require('@hubspot/local-dev-lib/personalAccessKey');
-import {
-  createEmptyConfigFile,
-  setConfigPath,
-} from '@hubspot/local-dev-lib/config';
+import { createEmptyConfigFile } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { Environment } from '@hubspot/local-dev-lib/types/Config';
+
+import { trackEvent } from './tracking';
+import { loadHubspotConfigFile } from './config';
+import { showAutoDismissedStatusBarMessage } from './statusBar';
+import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
 /**
  * A helper function which will get the webview URI of a given file or resource
@@ -61,12 +58,11 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   }
 
   if (configPath) {
-    setConfigPath(configPath);
     trackEvent(TRACKED_EVENTS.AUTH_UPDATE_CONFIG, { name });
   } else {
     configPath = resolve(rootPath, 'hubspot.config.yml');
     console.log('Creating empty config: ', configPath);
-    await createEmptyConfigFile({ path: configPath });
+    createEmptyConfigFile(false);
     trackEvent(TRACKED_EVENTS.AUTH_INITIALIZE_CONFIG, { name });
   }
   let token;

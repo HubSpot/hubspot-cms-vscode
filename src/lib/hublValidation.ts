@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 import {
   window,
   DiagnosticSeverity,
@@ -7,11 +9,9 @@ import {
   Diagnostic,
   Range,
 } from 'vscode';
-const fs = require('fs');
-const path = require('path');
 import { HubLValidationError } from '@hubspot/local-dev-lib/types/HublValidation';
 import { validateHubl } from '@hubspot/local-dev-lib/api/validateHubl';
-import { getAccountId } from '@hubspot/local-dev-lib/config';
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 const {
   isCodedFile,
   getAnnotationValue,
@@ -20,7 +20,6 @@ const {
 } = require('@hubspot/local-dev-lib/cms/templates');
 const { isModuleHTMLFile } = require('@hubspot/local-dev-lib/cms/modules');
 
-import { requireAccountId } from './config';
 import { VSCODE_SEVERITY } from './constants';
 
 // Used when VS Code attempts to find the correct range of characters to select
@@ -73,10 +72,13 @@ const clearValidation = (
 
 const getRenderingErrors = async (source: string, context: object) => {
   try {
-    requireAccountId();
+    const accountId = getConfigDefaultAccountIfExists()?.accountId;
+    if (!accountId) {
+      return;
+    }
     const {
       data: { renderingErrors },
-    } = await validateHubl(getAccountId()!, source, context);
+    } = await validateHubl(accountId, source, context);
     return renderingErrors;
   } catch (e) {
     console.error('There was an error validating this file');

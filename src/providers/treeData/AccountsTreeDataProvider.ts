@@ -8,34 +8,34 @@ import {
 } from 'vscode';
 import {
   getConfig,
-  getConfigAccounts,
-  getConfigDefaultAccount,
+  getAllConfigAccounts,
+  getConfigDefaultAccountIfExists,
 } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
-import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
-import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
-import {
-  CLIAccount,
-  CLIAccount_DEPRECATED,
-} from '@hubspot/local-dev-lib/types/Accounts';
+import { HubSpotConfig } from '@hubspot/local-dev-lib/types/Config';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
+import { HUBSPOT_ACCOUNT_TYPES } from '@hubspot/local-dev-lib/constants/config';
 
 import { getDisplayedHubspotPortalInfo } from '../../lib/config';
 
-const isDefaultAccount = (account: CLIAccount, config: CLIConfig | null) => {
+const isDefaultAccount = (
+  account: HubSpotConfigAccount,
+  config: HubSpotConfig | null
+) => {
   if (!config) {
     return false;
   }
-  const accountIdentifier = getAccountIdentifier(account);
-  const defaultAccount = getConfigDefaultAccount();
+  const defaultAccount = getConfigDefaultAccountIfExists();
   return (
-    accountIdentifier === defaultAccount || account.name === defaultAccount
+    account.accountId === defaultAccount?.accountId ||
+    account.name === defaultAccount?.name
   );
 };
 
-const getAccountIdentifiers = (portal: CLIAccount_DEPRECATED) => {
+const getAccountIdentifiers = (account: HubSpotConfigAccount) => {
   let accountIdentifiers = '';
 
-  if (portal.env === 'qa') {
+  if (account.env === ENVIRONMENTS.QA) {
     accountIdentifiers = '[QA]';
   }
 
@@ -43,9 +43,9 @@ const getAccountIdentifiers = (portal: CLIAccount_DEPRECATED) => {
 };
 
 export class AccountsTreeDataProvider
-  implements TreeDataProvider<CLIAccount_DEPRECATED>
+  implements TreeDataProvider<HubSpotConfigAccount>
 {
-  private config: CLIConfig | null;
+  private config: HubSpotConfig | null;
   private hasAnyQAAccounts: boolean;
   constructor() {
     this.config = getConfig();
@@ -60,24 +60,24 @@ export class AccountsTreeDataProvider
     this._onDidChangeTreeData.fire(undefined);
   }
 
-  getTreeItem(p: CLIAccount_DEPRECATED): TreeItem {
-    const identifiers = getAccountIdentifiers(p);
-    const name = `${getDisplayedHubspotPortalInfo(p)} ${identifiers}`;
+  getTreeItem(account: HubSpotConfigAccount): TreeItem {
+    const identifiers = getAccountIdentifiers(account);
+    const name = `${getDisplayedHubspotPortalInfo(account)} ${identifiers}`;
     return new AccountTreeDataItem(
       name,
-      p,
+      account,
       {
-        isDefault: isDefaultAccount(p, this.config) ?? false,
+        isDefault: isDefaultAccount(account, this.config) ?? false,
         hasAnyQAAccounts: this.hasAnyQAAccounts,
       },
       TreeItemCollapsibleState.None
     );
   }
 
-  getChildren(): Thenable<CLIAccount_DEPRECATED[] | undefined> {
+  getChildren(): Thenable<HubSpotConfigAccount[] | undefined> {
     console.log('AccountsProvider:getChildren');
     this.config = getConfig();
-    const accounts = getConfigAccounts();
+    const accounts = getAllConfigAccounts();
 
     if (accounts) {
       this.hasAnyQAAccounts = accounts.some(
@@ -95,7 +95,7 @@ export class AccountsTreeDataProvider
 export class AccountTreeDataItem extends TreeItem {
   constructor(
     public readonly name: string,
-    public readonly portalData: CLIAccount_DEPRECATED,
+    public readonly portalData: HubSpotConfigAccount,
     public readonly options: { isDefault: boolean; hasAnyQAAccounts: boolean },
     public readonly collapsibleState: TreeItemCollapsibleState
   ) {
@@ -105,11 +105,11 @@ export class AccountTreeDataItem extends TreeItem {
     this.iconPath = new ThemeIcon(options.isDefault ? 'star-full' : 'account');
     this.tooltip = `${options.isDefault ? '* Default Account\n' : ''}${
       portalData.name ? `Name: ${portalData.name}\n` : ''
-    }ID: ${getAccountIdentifier(portalData)}\n${
+    }ID: ${portalData.accountId}\n${
       options.hasAnyQAAccounts ? `Environment: ${portalData.env}\n` : ''
     }${
-      portalData.sandboxAccountType
-        ? `Sandbox Account Type: ${portalData.sandboxAccountType}`
+      portalData.accountType !== HUBSPOT_ACCOUNT_TYPES.STANDARD
+        ? `Account Type: ${portalData.accountType}`
         : ''
     }${
       portalData.parentAccountId

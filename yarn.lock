@@ -51,10 +51,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@hubspot/local-dev-lib@^3.21.0":
-  version "3.21.2"
-  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-3.21.2.tgz#638d96badd394175c17d376276ef9f5376f00128"
-  integrity sha512-Kb8D46sAB4kVWy9qOaRKoL8WZagXZhNd7crY+iPgN3wHtUhwa46SWBB+8ESjCqCxegT/8JT3Gy/zkT0opCtFlw==
+"@hubspot/local-dev-lib@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.0.tgz#5e7c2dd384a930a4983f370b5c01ce789e2b9153"
+  integrity sha512-009oGD+C0uc5y/t20p3Oen4Mi+Pa+7aPkYuxGwtcmH0r3kiwHwd/KMTcStIZYGa+WYI8k5GoGGtE1F3SsHJrYg==
   dependencies:
     address "2.0.2"
     axios "1.12.0"
@@ -76,11 +76,39 @@
     semver "6.3.1"
     unixify "1.0.0"
 
-"@hubspot/project-parsing-lib@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.2.0.tgz#9dcbd79b5ee5c080a0887174c589e9637519b3b3"
-  integrity sha512-aNGTUhEgQ7tXXtNqecKeKdB3PpHwexX4TVfrEvrj9O7T7dkNU1+FiSLp9RajwLLH4Y0ZFJ5y8M57vomduEwAAg==
+"@hubspot/local-dev-lib@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.2.tgz#34836ac69d570caf08f3b97e142e4952dcfd9503"
+  integrity sha512-0jbMfXBxM8TgnWJHv9EZi9Kto51hmzvPpz5VzrFrCjs1sT2uYFQYx5GST5zFaoyvlHJOueop8U+LXUQ3HgAGdg==
   dependencies:
+    address "2.0.2"
+    axios "1.12.0"
+    chalk "2.4.2"
+    chokidar "3.6.0"
+    content-disposition "0.5.4"
+    cors "2.8.5"
+    debounce "1.2.1"
+    express "4.21.2"
+    extract-zip "2.0.1"
+    findup-sync "5.0.0"
+    form-data "^4.0.4"
+    fs-extra "11.2.0"
+    http-proxy-agent "7.0.2"
+    https-proxy-agent "7.0.6"
+    ignore "5.3.1"
+    js-yaml "4.1.0"
+    moment "2.30.1"
+    p-queue "6.6.2"
+    prettier "3.3.1"
+    semver "6.3.1"
+    unixify "1.0.0"
+
+"@hubspot/project-parsing-lib@0.10.3":
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.10.3.tgz#9ca2533db14b96330910dfd4c031c91ff8b028af"
+  integrity sha512-MJwltit47Wa6Ca4eHUjP7qsPu46AcXXE6eHFKB1kZUVdDtt7/Ux0vw5xvEMaNsd/M/6kpgMWRM7tNLH+llxQRQ==
+  dependencies:
+    "@hubspot/local-dev-lib" "4.0.0"
     ajv "8.17.1"
     ajv-formats "3.0.1"
 
@@ -434,6 +462,11 @@ address@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/address/-/address-2.0.2.tgz#7c1063d26bfc647a695f3bd7bdb29d688b5fac73"
   integrity sha512-u6nFssvaX9RHQmjMSqgT7b7QJbf/5/U8+ntbTL8vgABfIiEmm02ZSM5MwljKjCrIrm7iIbgYEya2YW6AaRccVA==
+
+agent-base@^7.1.0, agent-base@^7.1.2:
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-7.1.4.tgz#e3cd76d4c548ee895d3c3fd8dc1f6c5b9032e7a8"
+  integrity sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==
 
 ajv-formats@3.0.1:
   version "3.0.1"
@@ -817,7 +850,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1, debug@^4.1.1:
+debug@4, debug@^4.0.1, debug@^4.1.1, debug@^4.3.4:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.3.tgz#c6ae432d9bd9662582fce08709b038c58e9e3d6a"
   integrity sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==
@@ -1463,6 +1496,22 @@ http-errors@2.0.0:
     setprototypeof "1.2.0"
     statuses "2.0.1"
     toidentifier "1.0.1"
+
+http-proxy-agent@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz#9a8b1f246866c028509486585f62b8f2c18c270e"
+  integrity sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==
+  dependencies:
+    agent-base "^7.1.0"
+    debug "^4.3.4"
+
+https-proxy-agent@7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz#da8dfeac7da130b05c2ba4b59c9b6cd66611a6b9"
+  integrity sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==
+  dependencies:
+    agent-base "^7.1.2"
+    debug "4"
 
 husky@^7.0.4:
   version "7.0.4"

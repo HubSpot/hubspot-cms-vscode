@@ -1,9 +1,9 @@
 import { env, version, workspace, ExtensionContext, Uri, window } from 'vscode';
 import { platform, release } from 'os';
 import {
-  getAccountId,
-  isTrackingAllowed,
-  getAccountConfig,
+  getConfig,
+  getConfigAccountIfExists,
+  getConfigDefaultAccountIfExists,
 } from '@hubspot/local-dev-lib/config';
 const { trackUsage } = require('@hubspot/local-dev-lib/trackUsage');
 
@@ -66,17 +66,22 @@ const showTelemetryPrompt = async (): Promise<void> => {
 };
 
 const isTrackingAllowedInVSCode = (): boolean => {
-  return (
-    isTrackingAllowed() &&
-    workspace.getConfiguration().telemetry.enableTelemetry
-  );
+  try {
+    const config = getConfig();
+    return (
+      config.allowUsageTracking &&
+      workspace.getConfiguration().telemetry.enableTelemetry
+    );
+  } catch (error) {
+    return false;
+  }
 };
 
 const getAuthType = (accountId?: string): string => {
   let authType = 'unknown';
 
   if (accountId) {
-    const accountConfig = getAccountConfig(Number(accountId));
+    const accountConfig = getConfigAccountIfExists(Number(accountId));
     authType =
       accountConfig && accountConfig.authType
         ? accountConfig.authType
@@ -108,7 +113,8 @@ export const trackEvent = (action: string, options?: object): void => {
   if (!isTrackingAllowedInVSCode()) {
     return;
   }
-  const accountId = getAccountId();
+  const defaultAccount = getConfigDefaultAccountIfExists();
+  const accountId = defaultAccount?.accountId;
 
   trackUsage(
     'vscode-extension-interaction',

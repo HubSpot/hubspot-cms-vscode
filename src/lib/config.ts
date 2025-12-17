@@ -1,48 +1,24 @@
 import { commands, window } from 'vscode';
-import { COMMANDS, EVENTS } from './constants';
+import { EVENTS } from './constants';
 import {
-  getAccountId,
-  configFileExists,
-  findConfig,
-  loadConfig,
   validateConfig,
-  setConfig,
-  setConfigPath,
-  getConfigPath,
+  getLocalConfigFilePathIfExists,
+  globalConfigFileExists,
+  getGlobalConfigFilePath,
+  getConfig,
 } from '@hubspot/local-dev-lib/config';
-import { CLIConfig } from '@hubspot/local-dev-lib/types/Config';
+import { HubSpotConfig } from '@hubspot/local-dev-lib/types/Config';
+import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import {
-  CLIAccount,
-  CLIAccount_DEPRECATED,
-} from '@hubspot/local-dev-lib/types/Accounts';
-import { getAccountIdentifier } from '@hubspot/local-dev-lib/config/getAccountIdentifier';
-import {
-  getDeprecatedConfig,
-  getGlobalConfig,
   mergeConfigProperties,
-  mergeExistingConfigs,
+  mergeConfigAccounts,
+  getConfigAtPath,
 } from '@hubspot/local-dev-lib/config/migrate';
 
-const onLoadPath = (configPath: string) => {
-  commands.executeCommand('setContext', 'hubspot.configPath', configPath);
-  if (!configPath) {
-    commands.executeCommand(COMMANDS.CONFIG.SET_DEFAULT_ACCOUNT, null);
-    setConfig(undefined);
-    setConfigPath(null);
-  }
-};
-
-export function requireAccountId() {
-  const accountId = getAccountId();
-  if (!accountId) {
-    return;
-  }
-}
-
 export const getDisplayedHubspotPortalInfo = (
-  portalData: CLIAccount_DEPRECATED
+  portalData: HubSpotConfigAccount
 ) => {
-  const accountIdentifier = getAccountIdentifier(portalData);
+  const accountIdentifier = portalData.accountId;
   return portalData.name
     ? `${portalData.name} - ${accountIdentifier}`
     : `${accountIdentifier}`;
@@ -50,7 +26,7 @@ export const getDisplayedHubspotPortalInfo = (
 
 export const portalNameInvalid = (
   portalName: string,
-  config: CLIConfig | null
+  config: HubSpotConfig | null
 ) => {
   if (typeof portalName !== 'string') {
     return 'Portal name must be a string';
@@ -61,8 +37,8 @@ export const portalNameInvalid = (
   }
   return config &&
     'portals' in config &&
-    (config.portals || [])
-      .map((p: CLIAccount) => p.name)
+    (config.accounts || [])
+      .map((p: HubSpotConfigAccount) => p.name)
       .find((name: string | undefined) => name === portalName)
     ? `${portalName} already exists in config.`
     : '';
@@ -73,13 +49,13 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  const deprecatedConfigPath = findConfig(rootPath);
-  const globalConfigExists = configFileExists(true);
+  const deprecatedConfigPath = getLocalConfigFilePathIfExists();
+  const globalConfigExists = globalConfigFileExists();
 
   let globalConfigPath: string | null = null;
 
   if (globalConfigExists) {
-    globalConfigPath = getConfigPath(undefined, true);
+    globalConfigPath = getGlobalConfigFilePath();
   }
 
   const resolvedConfigPath = globalConfigPath || deprecatedConfigPath;
@@ -87,9 +63,6 @@ export const loadHubspotConfigFile = (rootPath: string) => {
   if (!resolvedConfigPath) {
     return;
   }
-
-  // We need to call loadConfig to ensure the isActive() check returns true for global config
-  loadConfig(resolvedConfigPath);
 
   if (deprecatedConfigPath && globalConfigPath) {
     const mergeConfigCopy = 'Merge accounts';
@@ -104,15 +77,16 @@ export const loadHubspotConfigFile = (rootPath: string) => {
             `Merging accounts from ${deprecatedConfigPath} into ${globalConfigPath}. Your existing configuration file will be archived.`
           );
 
-          const deprecatedConfig = getDeprecatedConfig(deprecatedConfigPath);
-          const globalConfig = getGlobalConfig();
+          const deprecatedConfig = getConfigAtPath(deprecatedConfigPath);
+          const globalConfig = getConfig();
 
           let success = false;
           try {
-            const { initialConfig: GlobalConfigWithPropertiesMerged } =
-              mergeConfigProperties(globalConfig!, deprecatedConfig!, true);
+            const {
+              configWithMergedProperties: GlobalConfigWithPropertiesMerged,
+            } = mergeConfigProperties(globalConfig!, deprecatedConfig!, true);
 
-            mergeExistingConfigs(
+            mergeConfigAccounts(
               GlobalConfigWithPropertiesMerged,
               deprecatedConfig!
             );
@@ -130,7 +104,11 @@ export const loadHubspotConfigFile = (rootPath: string) => {
     return;
   }
 
-  onLoadPath(resolvedConfigPath);
+  commands.executeCommand(
+    'setContext',
+    'hubspot.configPath',
+    resolvedConfigPath
+  );
 
   if (!validateConfig()) {
     throw new Error(

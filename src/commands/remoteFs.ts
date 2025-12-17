@@ -1,12 +1,13 @@
 import { ExtensionContext, window, commands, Uri } from 'vscode';
 import { existsSync, statSync } from 'fs';
 import { join } from 'path';
+import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 const { deleteFile, upload } = require('@hubspot/local-dev-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/local-dev-lib/fileMapper');
-const { getAccountId } = require('@hubspot/local-dev-lib/config');
 const {
   validateSrcAndDestPaths,
 } = require('@hubspot/local-dev-lib/cms/modules');
+
 const { shouldIgnoreFile } = require('@hubspot/local-dev-lib/ignoreRules');
 const { isAllowedExtension } = require('@hubspot/local-dev-lib/path');
 const { createIgnoreFilter } = require('@hubspot/local-dev-lib/ignoreRules');
@@ -20,15 +21,17 @@ import { COMMANDS, EVENTS, TRACKED_EVENTS } from '../lib/constants';
 import { getRootPath } from '../lib/helpers';
 import { invalidateParentDirectoryCache } from '../lib/remoteDesignManagerFs';
 import { buildStatusBarItem } from '../lib/statusBar';
-import { requireAccountId } from '../lib/config';
 import { trackEvent } from '../lib/tracking';
 
 export const registerCommands = (context: ExtensionContext) => {
+  const accountId = getConfigDefaultAccountIfExists()?.accountId;
+  if (!accountId) {
+    return;
+  }
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.REMOTE_FS.FETCH,
       async (clickedFileLink) => {
-        requireAccountId();
         const remoteFilePath = clickedFileLink.path;
         // We use showOpenDialog instead of showSaveDialog because the latter has worse support for this use-case
         const destPath = await window.showOpenDialog({
@@ -70,7 +73,7 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.FETCH);
         try {
           await downloadFileOrFolder(
-            getAccountId()!,
+            accountId,
             remoteFilePath,
             localFilePath,
             undefined,
@@ -96,7 +99,6 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.DELETE,
       async (clickedFileLink) => {
-        requireAccountId();
         console.log(COMMANDS.REMOTE_FS.DELETE);
         const filePath = clickedFileLink.path;
         const selection = await window.showWarningMessage(
@@ -109,7 +111,7 @@ export const registerCommands = (context: ExtensionContext) => {
         trackEvent(TRACKED_EVENTS.REMOTE_FS.DELETE);
         const deletingStatus = buildStatusBarItem(`Deleting...`);
         deletingStatus.show();
-        deleteFile(getAccountId()!, filePath)
+        deleteFile(accountId, filePath)
           .then(() => {
             window.showInformationMessage(`Successfully deleted "${filePath}"`);
             invalidateParentDirectoryCache(filePath);
@@ -132,7 +134,6 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.UPLOAD,
       async (clickedFileLink) => {
-        requireAccountId();
         let srcPath: string;
         if (
           clickedFileLink === undefined ||
@@ -240,6 +241,8 @@ const getUploadableFileList = async (src: any) => {
 };
 
 const handleFileUpload = async (srcPath: string, destPath: string) => {
+  const accountId = getConfigDefaultAccountIfExists()?.accountId;
+
   if (!isAllowedExtension(srcPath)) {
     window.showErrorMessage(
       `The file "${srcPath}" does not have a valid extension`
@@ -253,8 +256,7 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
     return;
   }
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FILE);
-  requireAccountId();
-  upload(getAccountId()!, srcPath, destPath)
+  upload(accountId, srcPath, destPath)
     .then(() => {
       window.showInformationMessage(
         `Uploading files to "${destPath}" was successful`
@@ -271,6 +273,8 @@ const handleFileUpload = async (srcPath: string, destPath: string) => {
 };
 
 const handleFolderUpload = async (srcPath: string, destPath: string) => {
+  const accountId = getConfigDefaultAccountIfExists()?.accountId;
+
   const filePaths = await getUploadableFileList(srcPath);
   const uploadingStatus = buildStatusBarItem('Uploading...');
   uploadingStatus.show();
@@ -278,7 +282,7 @@ const handleFolderUpload = async (srcPath: string, destPath: string) => {
     `Beginning upload of "${srcPath}" to "${destPath}"...`
   );
   trackEvent(TRACKED_EVENTS.REMOTE_FS.UPLOAD_FOLDER);
-  uploadFolder(getAccountId()!, srcPath, destPath, {}, {}, filePaths, 'publish')
+  uploadFolder(accountId, srcPath, destPath, {}, {}, filePaths, 'publish')
     .then(async (results: any) => {
       if (!hasUploadErrors(results)) {
         window.showInformationMessage(
