@@ -2,6 +2,33 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.7.0]
+
+### Major Changes
+
+- Major code reorganization: restructured project layout for better maintainability
+- Updated to handle `@hubspot/local-dev-lib` latest changes
+- Migrated from npm to yarn for dependency management
+
+### Features
+
+- Added "Get Started" link for project development in the extension UI
+- Improved feedback form formatting with better styling and theme color support
+- Enabled editor parameter hints by default for better developer experience
+
+### Improvements
+
+- Fixed and improved HubL auto-detection functionality
+- Enhanced HubL syntax highlighting, including fixes for HubL in comments
+- Removed environment information from tooltips for cleaner UI
+- Updated HubL snippets with latest definitions
+
+### Bug Fixes
+
+- Fixed local config validation issues
+- Fixed syntax highlighting for HubL code in comments
+- Fixed typo in codebase
+
 ## [1.3.2]
 
 - Fix to telemetry
