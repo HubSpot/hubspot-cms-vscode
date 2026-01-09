@@ -76,10 +76,10 @@
     semver "6.3.1"
     unixify "1.0.0"
 
-"@hubspot/local-dev-lib@4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.2.tgz#34836ac69d570caf08f3b97e142e4952dcfd9503"
-  integrity sha512-0jbMfXBxM8TgnWJHv9EZi9Kto51hmzvPpz5VzrFrCjs1sT2uYFQYx5GST5zFaoyvlHJOueop8U+LXUQ3HgAGdg==
+"@hubspot/local-dev-lib@4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-4.0.3.tgz#d15ba5221b34197c34c16f4cf433f86c29db2767"
+  integrity sha512-CRkU5lOc1fVnmOyU9l85AC00tfQ0i35iv44lJq2cmSMxk8Weu5gAtHY3waSDypG74NbU5WxszMLuZrvLGHH5Lg==
   dependencies:
     address "2.0.2"
     axios "1.12.0"
