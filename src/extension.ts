@@ -6,7 +6,10 @@ import { registerEvents } from './events';
 import { registerPanels } from './panels';
 import { registerURIHandler } from './lib/uri';
 import { initializeCliLibLogger } from './lib/logger';
-import { initializeStatusBar } from './features/statusBar';
+import {
+  initializeStatusBar,
+  updateStatusBarItems,
+} from './features/statusBar';
 import { initializeConfig } from './lib/config';
 import { initializeTerminal } from './lib/terminal';
 import { initializeTracking, trackEvent } from './lib/tracking';
@@ -44,4 +47,7 @@ export const activate = async (context: ExtensionContext) => {
   if (rootPath) {
     initializeConfig(rootPath);
   }
+
+  // Ensure status bar shows initial state (including warning if no default account)
+  updateStatusBarItems();
 };

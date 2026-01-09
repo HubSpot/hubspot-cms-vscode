@@ -76,6 +76,7 @@ export const registerCommands = (context: ExtensionContext) => {
             `Successfully set default account to ${newDefaultAccount}.`
           );
         }
+        updateStatusBarItems();
       }
     )
   );
@@ -120,6 +121,7 @@ export const registerCommands = (context: ExtensionContext) => {
                   `Successfully set default account to ${newDefaultAccount}.`
                 );
                 commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
+                updateStatusBarItems();
               }
             });
         }
