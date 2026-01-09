@@ -8,19 +8,18 @@ import {
 import { COMMANDS } from '../lib/constants';
 import {
   getConfig,
-  getConfigDefaultAccount,
+  getConfigDefaultAccountIfExists,
 } from '@hubspot/local-dev-lib/config';
 
 let hsStatusBar: StatusBarItem;
 
 export const updateStatusBarItems = () => {
   const config = getConfig();
-
-  const defaultAccount = config && getConfigDefaultAccount();
+  const defaultAccount = config && getConfigDefaultAccountIfExists();
 
   if (defaultAccount) {
-    hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
-    hsStatusBar.tooltip = `Default HubSpot Account: ${defaultAccount}`;
+    hsStatusBar.text = `$(arrow-swap) ${defaultAccount.name}`;
+    hsStatusBar.tooltip = `Default HubSpot Account: ${defaultAccount.name}`;
     hsStatusBar.backgroundColor = undefined;
     hsStatusBar.show();
   } else {
