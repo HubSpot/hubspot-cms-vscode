@@ -19,8 +19,8 @@ export const updateStatusBarItems = () => {
   const defaultAccount = config && getConfigDefaultAccount();
 
   if (defaultAccount) {
-    hsStatusBar.text = `$(arrow-swap) ${defaultAccount}`;
-    hsStatusBar.tooltip = `Default HubSpot Account: ${defaultAccount}`;
+    hsStatusBar.text = `$(arrow-swap) ${defaultAccount.name}`;
+    hsStatusBar.tooltip = `Default HubSpot Account: ${defaultAccount.name}`;
     hsStatusBar.backgroundColor = undefined;
     hsStatusBar.show();
   } else {
