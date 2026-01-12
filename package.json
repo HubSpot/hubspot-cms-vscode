@@ -4,6 +4,7 @@
     "description": "HubSpot CMS Hub support for VS Code",
     "version": "1.7.1",
     "publisher": "HubSpot",
+    "license": "Apache-2.0",
     "engines": {
         "vscode": "^1.63.0"
     },
