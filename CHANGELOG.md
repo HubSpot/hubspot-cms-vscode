@@ -2,6 +2,12 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.7.1]
+
+### Bug Fixes
+
+- Fixes status bar issue where account name was showing as [object, object]
+
 ## [1.7.0]
 
 ### Major Changes
