@@ -7,7 +7,7 @@ import {
   getUpdateLintingOnConfigChange,
   setLintingEnabledState,
 } from '../features/hublLinting';
-import { loadHubspotConfigFile } from '../lib/config';
+import { loadHubSpotConfigFile } from '../lib/config';
 
 let configFoundAndLoaded = false;
 let hubspotConfigWatcher: FSWatcher | null;
@@ -34,11 +34,11 @@ export const registerEvents = (context: ExtensionContext) => {
             async (eventType: 'change' | 'rename') => {
               if (eventType === 'change') {
                 console.log(`${configPath} changed`);
-                loadHubspotConfigFile(rootPath);
+                loadHubSpotConfigFile(rootPath);
               } else if (eventType === 'rename') {
                 // 'rename' event is triggers for renames and deletes
                 console.log(`${configPath} renamed/deleted`);
-                loadHubspotConfigFile(rootPath);
+                loadHubSpotConfigFile(rootPath);
                 hubspotConfigWatcher && hubspotConfigWatcher.close();
                 hubspotConfigWatcher = null;
                 console.log(`stopped watching ${configPath}`);

@@ -10,6 +10,21 @@ export const getRootPath = () => {
   return workspaceFolders[0].uri.fsPath;
 };
 
+export const withProjectAsCwd = <T>(fn: () => T): T => {
+  const rootPath = getRootPath();
+  if (!rootPath) {
+    return fn();
+  }
+
+  const originalCwd = process.cwd();
+  try {
+    process.chdir(rootPath);
+    return fn();
+  } finally {
+    process.chdir(originalCwd);
+  }
+};
+
 export const getDayJsHasDatePassed = (date: string): boolean => {
   return dayjs().isAfter(date);
 };

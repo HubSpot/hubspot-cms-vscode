@@ -28,6 +28,12 @@ export const activate = async (context: ExtensionContext) => {
   console.log('Activating Extension v', context.extension.packageJSON.version);
   const rootPath = getRootPath();
 
+  // Set process.cwd() to the project root so local-dev-lib functions
+  // that read from process.cwd() will use the open project as the working directory
+  if (rootPath) {
+    process.chdir(rootPath);
+  }
+
   // Contribution registration steps
   registerCommands(context, rootPath);
   registerURIHandler(context);
