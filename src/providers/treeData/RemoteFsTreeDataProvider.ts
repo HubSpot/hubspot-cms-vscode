@@ -111,7 +111,7 @@ export class RemoteFsTreeDataProvider implements TreeDataProvider<FileLink> {
       window.showInformationMessage(
         `Beginning initial upload of ${srcPath} to ${destPath}...`
       );
-      let { data: watcher } = watch(
+      const watcher = watch(
         accountId!,
         srcPath,
         destPath,
