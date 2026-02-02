@@ -2,6 +2,11 @@
 
 All notable changes to the HubSpot VS Code extension will be documented in this file.
 
+## [1.7.2]
+### Bug Fixes
+
+- Fix sync icon and "End Watch" option not appearing when watching folder
+
 ## [1.7.1]
 
 ### Bug Fixes
