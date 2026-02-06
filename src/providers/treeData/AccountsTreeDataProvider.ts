@@ -42,9 +42,7 @@ const getAccountIdentifiers = (account: HubSpotConfigAccount) => {
   return accountIdentifiers;
 };
 
-export class AccountsTreeDataProvider
-  implements TreeDataProvider<HubSpotConfigAccount>
-{
+export class AccountsTreeDataProvider implements TreeDataProvider<HubSpotConfigAccount> {
   private config: HubSpotConfig | null;
   private hasAnyQAAccounts: boolean;
   constructor() {

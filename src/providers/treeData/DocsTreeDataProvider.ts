@@ -52,7 +52,10 @@ export class DocsTreeDataProvider implements TreeDataProvider<any> {
 }
 
 export class UrlLinkTreeItem extends TreeItem {
-  constructor(public readonly label: string, public readonly resourceUri: Uri) {
+  constructor(
+    public readonly label: string,
+    public readonly resourceUri: Uri
+  ) {
     super(label, TreeItemCollapsibleState.None);
     this.tooltip = `Open link: ${resourceUri.toString()}`;
     this.iconPath = new ThemeIcon('link-external');
