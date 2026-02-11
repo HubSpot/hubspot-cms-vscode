@@ -18,8 +18,9 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "test-compile": "tsc -p ./",
-        "vsce:package": "vsce package",
-        "vsce:prerelease": "vsce package --pre-release"
+        "release": "yarn tsx ./scripts/release.ts release",
+        "vsce:package": "mkdir -p releases && vsce package -o releases/",
+        "vsce:prerelease": "mkdir -p releases && vsce package --pre-release -o releases/"
     },
     "repository": {
         "type": "git",
@@ -569,6 +570,8 @@
         "set-value": ">=4.0.1"
     },
     "devDependencies": {
+        "@eslint/js": "^9.18.0",
+        "@hubspot/npm-scripts": "0.0.5-experimental.7",
         "@types/debounce": "^1.2.1",
         "@types/findup-sync": "^4.0.2",
         "@types/node": "^20.14.8",
@@ -576,7 +579,6 @@
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.63.0",
         "chalk": "4.1.2",
-        "@eslint/js": "^9.18.0",
         "eslint": "^9.18.0",
         "globals": "^16.0.0",
         "husky": "^7.0.4",
@@ -586,6 +588,7 @@
         "prettier": "^3.4.2",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
+        "tsx": "^4.21.0",
         "typescript": "^5.6.2",
         "webpack": "^5.104.1",
         "webpack-cli": "^4.7.2",
