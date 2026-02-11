@@ -18,9 +18,7 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "test-compile": "tsc -p ./",
-        "release": "yarn tsx ./scripts/release.ts release",
-        "vsce:package": "mkdir -p releases && vsce package -o releases/",
-        "vsce:prerelease": "mkdir -p releases && vsce package --pre-release -o releases/"
+        "release": "yarn tsx ./scripts/release.ts release"
     },
     "repository": {
         "type": "git",
