@@ -182,6 +182,7 @@ function buildHandler({
         logger.log(`  4. Created draft PR against ${mainBranch}`);
         logger.log(`  5. Created draft GH release v${newVersion}`);
         logger.log(`  6. Opened VS Code Marketplace for .vsix upload`);
+        logger.log(`  7. Reminded to publish to Open VSX for Cursor/Windsurf`);
         process.exit(EXIT_CODES.SUCCESS);
       }
 
@@ -213,8 +214,11 @@ function buildHandler({
       logger.log(
         '  1. Upload the .vsix file to the VS Code Marketplace. If you need access, see: https://product.hubteam.com/docs/developer-platform/vscode-extension/publisher-access.html'
       );
-      logger.log(`  2. Merge the PR: ${prUrl.trim()}`);
-      logger.log(`  3. Publish the GH release: ${releaseUrl.trim()}`);
+      logger.log(
+        `  2. Publish to Open VSX (for Cursor/Windsurf). Ensure the ovsx CLI is installed via npm install -g ovsx. Then run ovsx publish releases/hubl-${newVersion}.vsix -p YOUR_ACCESS_TOKEN `
+      );
+      logger.log(`  3. Merge the PR: ${prUrl.trim()}`);
+      logger.log(`  4. Publish the GH release: ${releaseUrl.trim()}`);
 
       await open(
         'https://marketplace.visualstudio.com/manage/publishers/hubspot'
