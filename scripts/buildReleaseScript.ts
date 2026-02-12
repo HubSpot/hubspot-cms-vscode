@@ -27,14 +27,14 @@ function buildHandler({
   return async function handler({
     versionIncrement,
     dryRun,
-    skipBranchValidation,
+    skipBranchCheck,
     skipVersionCheck,
   }: ArgumentsCamelCase<VscodeReleaseArguments>): Promise<void> {
     try {
       const branch = await getCurrentGitBranch();
       const isDryRun = Boolean(dryRun);
 
-      if (!skipBranchValidation && branch !== mainBranch) {
+      if (!skipBranchCheck && branch !== mainBranch) {
         logger.error(
           `Releases can only be published from the ${mainBranch} branch. Current branch: ${branch}`
         );
@@ -245,8 +245,8 @@ async function builder(yargs: Argv): Promise<Argv> {
       default: false,
       type: 'boolean',
     },
-    skipBranchValidation: {
-      describe: 'Bypass the branch validation check',
+    skipBranchCheck: {
+      describe: 'Bypass the branch check check',
       default: false,
       type: 'boolean',
     },
