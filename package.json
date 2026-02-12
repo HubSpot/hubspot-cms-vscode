@@ -562,20 +562,19 @@
         "dayjs": "^1.11.7",
         "debounce": "1.2.1",
         "findup-sync": "^5.0.0",
-        "fs-extra": "^11.0.0",
         "jsonc-parser": "^3.3.1",
-        "semver": "^7.5.2",
-        "set-value": ">=4.0.1"
+        "semver": "^7.5.2"
     },
     "devDependencies": {
         "@eslint/js": "^9.18.0",
-        "@hubspot/npm-scripts": "0.0.5-experimental.7",
+        "@inquirer/prompts": "^7.8.6",
         "@types/debounce": "^1.2.1",
         "@types/findup-sync": "^4.0.2",
         "@types/node": "^20.14.8",
         "@types/node-fetch": "^2.6.3",
         "@types/semver": "^7.3.8",
         "@types/vscode": "1.63.0",
+        "@types/yargs": "^17.0.33",
         "chalk": "4.1.2",
         "eslint": "^9.18.0",
         "globals": "^16.0.0",
@@ -583,6 +582,7 @@
         "js-yaml": "^4.1.1",
         "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
+        "open": "^10.2.0",
         "prettier": "^3.4.2",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
@@ -590,6 +590,7 @@
         "typescript": "^5.6.2",
         "webpack": "^5.104.1",
         "webpack-cli": "^4.7.2",
-        "webpack-node-externals": "^3.0.0"
+        "webpack-node-externals": "^3.0.0",
+        "yargs": "17.7.2"
     }
 }
