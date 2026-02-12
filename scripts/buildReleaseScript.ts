@@ -210,7 +210,9 @@ function buildHandler({
       logger.success(`Draft GitHub release created: ${releaseUrl.trim()}`);
 
       logger.log('\nNext steps:');
-      logger.log('  1. Upload the .vsix file to the VS Code Marketplace');
+      logger.log(
+        '  1. Upload the .vsix file to the VS Code Marketplace. If you need access, see: https://product.hubteam.com/docs/developer-platform/vscode-extension/publisher-access.html'
+      );
       logger.log(`  2. Merge the PR: ${prUrl.trim()}`);
       logger.log(`  3. Publish the GH release: ${releaseUrl.trim()}`);
 
