@@ -13,8 +13,5 @@ buildReleaseScript({
   buildHandlerOptions: {
     repositoryUrl: 'https://github.com/HubSpot/hubspot-cms-vscode',
     mainBranch: 'master',
-    marketplaceUrl:
-      'https://marketplace.visualstudio.com/items?itemName=HubSpot.hubl',
-    extensionName: 'HubL',
   },
 });

@@ -23,6 +23,7 @@ function buildHandler({
   packageName,
   localVersion,
   mainBranch,
+  repositoryUrl,
 }: VscodeReleaseScriptOptions) {
   return async function handler({
     versionIncrement,
@@ -68,19 +69,6 @@ function buildHandler({
           await exec('vsce --version');
         } catch {
           vsceCmd = 'npx @vscode/vsce';
-        }
-      }
-
-      let ghCmd = 'gh';
-      try {
-        await exec('gh --version');
-      } catch {
-        logger.log('Installing gh (GitHub CLI)...');
-        await exec('brew install gh');
-        try {
-          await exec('brew install gh');
-        } catch {
-          ghCmd = 'gh';
         }
       }
 
@@ -146,7 +134,8 @@ function buildHandler({
         });
 
         if (!readyToContinue) {
-          logger.log('Release aborted.');
+          logger.log('Release aborted. Reverting version bump...');
+          await exec('git checkout -- package.json');
           process.exit(EXIT_CODES.SUCCESS);
         }
       }
@@ -163,10 +152,11 @@ function buildHandler({
       });
 
       if (!confirmRegularRelease) {
-        logger.log('Release aborted after regular release packaging.');
         logger.log(
-          'Note: package.json version has been updated locally. Revert if needed.'
+          'Release aborted after regular release packaging. Reverting package.json version bump...'
         );
+        logger.log('NOTE: You may discard the newly created .vsix file');
+        await exec('git checkout -- package.json');
         process.exit(EXIT_CODES.SUCCESS);
       }
 
@@ -179,14 +169,14 @@ function buildHandler({
         logger.log(`  1. Created branch ${tempBranch}`);
         logger.log(`  2. Committed package.json version bump`);
         logger.log(`  3. Pushed ${tempBranch} to origin`);
-        logger.log(`  4. Created draft PR against ${mainBranch}`);
-        logger.log(`  5. Created draft GH release v${newVersion}`);
+        logger.log(`  4. Opened draft PR page`);
+        logger.log(`  5. Opened releases page`);
         logger.log(`  6. Opened VS Code Marketplace for .vsix upload`);
-        logger.log(`  7. Reminded to publish to Open VSX for Cursor/Windsurf`);
+        logger.log(`  7. Reminded to publish to Open VSX`);
         process.exit(EXIT_CODES.SUCCESS);
       }
 
-      if (branch === mainBranch && !isDryRun) {
+      if (branch === mainBranch) {
         logger.log(`\nCreating release branch ${tempBranch}...`);
         await exec(`git checkout -b ${tempBranch}`);
       }
@@ -195,20 +185,20 @@ function buildHandler({
       await exec('git add package.json');
       await exec(`git commit -m "chore: Bump to ${newVersion}"`);
 
-      logger.log(`Pushing ${tempBranch}...`);
-      await exec(`git push origin ${tempBranch}`);
+      logger.log(`Creating git tag: v${newVersion}`);
+      await exec(`git tag v${newVersion}`);
 
-      logger.log('\nCreating draft pull request...');
-      const { stdout: prUrl } = await exec(
-        `${ghCmd} pr create --draft --base ${mainBranch} --title "Release v${newVersion}" --body "## Release v${newVersion}"`
-      );
-      logger.success(`Draft PR created: ${prUrl.trim()}`);
+      logger.log(`\nPushing changes to Github...`);
+      await exec(`git push --atomic origin ${tempBranch} v${newVersion}`);
+      logger.log(`Changes pushed successfully`);
 
-      logger.log('\nCreating draft GitHub release...');
-      const { stdout: releaseUrl } = await exec(
-        `${ghCmd} release create v${newVersion} --title "Version ${newVersion}" --notes "" --draft`
+      logger.log(`\nOpening GitHub compare. Remember to create a new PR.`);
+      await open(`${repositoryUrl}/compare/${mainBranch}...${tempBranch}`);
+
+      logger.log(
+        `\nOpening GitHub new release page. Remember to create a new release on Github.`
       );
-      logger.success(`Draft GitHub release created: ${releaseUrl.trim()}`);
+      await open(`${repositoryUrl}/releases/new`);
 
       logger.log('\nNext steps:');
       logger.log(
@@ -217,8 +207,8 @@ function buildHandler({
       logger.log(
         `  2. Publish to Open VSX (for Cursor/Windsurf). Ensure the ovsx CLI is installed via npm install -g ovsx. Then run ovsx publish releases/hubl-${newVersion}.vsix -p YOUR_ACCESS_TOKEN `
       );
-      logger.log(`  3. Merge the PR: ${prUrl.trim()}`);
-      logger.log(`  4. Publish the GH release: ${releaseUrl.trim()}`);
+      logger.log(`  3. Merge the release PR`);
+      logger.log(`  4. Publish the GH release`);
 
       await open(
         'https://marketplace.visualstudio.com/manage/publishers/hubspot'
@@ -231,6 +221,9 @@ function buildHandler({
       logger.error(e);
       logger.log('Reverting package.json...');
       await exec('git checkout -- package.json');
+      logger.warn(
+        'If changes were already pushed, you may need to manually clean up the remote branch and tag.'
+      );
       process.exit(EXIT_CODES.ERROR);
     }
   };
