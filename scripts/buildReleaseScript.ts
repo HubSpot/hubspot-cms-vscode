@@ -71,6 +71,19 @@ function buildHandler({
         }
       }
 
+      let ghCmd = 'gh';
+      try {
+        await exec('gh --version');
+      } catch {
+        logger.log('Installing gh (GitHub CLI)...');
+        await exec('brew install gh');
+        try {
+          await exec('brew install gh');
+        } catch {
+          ghCmd = 'gh';
+        }
+      }
+
       const newVersion = semver.inc(localVersion, versionIncrement);
 
       if (!newVersion) {
@@ -91,6 +104,12 @@ function buildHandler({
       if (!shouldRelease) {
         process.exit(EXIT_CODES.SUCCESS);
       }
+
+      logger.log(`\nUpdating version to ${newVersion}...`);
+      await exec(
+        `yarn version --no-git-tag-version --new-version ${newVersion}`
+      );
+      logger.success('Version updated in package.json');
 
       const userHasTested = await confirm({
         message: 'Have you tested the pre-release package locally?',
@@ -131,12 +150,6 @@ function buildHandler({
           process.exit(EXIT_CODES.SUCCESS);
         }
       }
-
-      logger.log(`\nUpdating version to ${newVersion}...`);
-      await exec(
-        `yarn version --no-git-tag-version --new-version ${newVersion}`
-      );
-      logger.success('Version updated in package.json');
 
       logger.log(
         '\nPackaging regular release (this will overwrite the pre-release .vsix)...'
@@ -186,13 +199,13 @@ function buildHandler({
 
       logger.log('\nCreating draft pull request...');
       const { stdout: prUrl } = await exec(
-        `gh pr create --draft --base ${mainBranch} --title "Release v${newVersion}" --body "## Release v${newVersion}"`
+        `${ghCmd} pr create --draft --base ${mainBranch} --title "Release v${newVersion}" --body "## Release v${newVersion}"`
       );
       logger.success(`Draft PR created: ${prUrl.trim()}`);
 
       logger.log('\nCreating draft GitHub release...');
       const { stdout: releaseUrl } = await exec(
-        `gh release create v${newVersion} --title "Version ${newVersion}" --notes "" --draft`
+        `${ghCmd} release create v${newVersion} --title "Version ${newVersion}" --notes "" --draft`
       );
       logger.success(`Draft GitHub release created: ${releaseUrl.trim()}`);
 
