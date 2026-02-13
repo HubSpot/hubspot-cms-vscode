@@ -118,3 +118,4 @@ dist
 hubspot.config.yml
 tmp
 *.vsix
+releases/
