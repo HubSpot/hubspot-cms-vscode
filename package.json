@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.7.2",
+    "version": "1.7.3",
     "publisher": "HubSpot",
     "license": "Apache-2.0",
     "engines": {
