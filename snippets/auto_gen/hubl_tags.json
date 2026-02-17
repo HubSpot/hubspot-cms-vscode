@@ -113,9 +113,9 @@
   },
   "dnd_grid_container": {
     "body": [
-      "{% dnd_grid_container label=\"${1:label}\" type=\"${2:type}\" is_hidden=\"${3:is_hidden}\" padding=\"${4:padding}\" margin=\"${5:margin}\" background_layers=\"${6:background_layers}\" justify_content=\"${7:justify_content}\" align_content=\"${8:align_content}\" justify_items=\"${9:justify_items}\" align_items=\"${10:align_items}\" gap=\"${11:gap}\" grid_spanning=\"${12:grid_spanning}\" grid_position=\"${13:grid_position}\" width=\"${14:width}\" flex_grow=\"${15:flex_grow}\" rows=\"${16:rows}\" columns=\"${17:columns}\" %}\n{% end_dnd_grid_container %}"
+      "{% dnd_grid_container label=\"${1:label}\" type=\"${2:type}\" is_hidden=\"${3:is_hidden}\" padding=\"${4:padding}\" margin=\"${5:margin}\" background_layers=\"${6:background_layers}\" justify_content=\"${7:justify_content}\" align_content=\"${8:align_content}\" justify_items=\"${9:justify_items}\" align_items=\"${10:align_items}\" gap=\"${11:gap}\" grid_spanning=\"${12:grid_spanning}\" grid_position=\"${13:grid_position}\" width=\"${14:width}\" flex_grow=\"${15:flex_grow}\" rows=\"${16:rows}\" columns=\"${17:columns}\" auto_flow=\"${18:auto_flow}\" auto_rows=\"${19:auto_rows}\" auto_columns=\"${20:auto_columns}\" %}\n{% end_dnd_grid_container %}"
     ],
-    "description": "Creates a container inside a grids-based drag-and-drop area.\nParameters:\n- label(string) Label used in the editor for the drag-and-drop container.\n- type(dict) The type of the container layout.\n- is_hidden(dict) Denotes if the container is hidden.\n- padding(dict) The padding applied to the container.\n- margin(dict) The margin applied to the container.\n- background_layers(dict) A list of backgrounds in order from top to bottom.\n- justify_content(dict) Justification of child content.\n- align_content(dict) Alignment of child content.\n- justify_items(dict) Justification of content within child items.\n- align_items(dict) Alignment of content within child items.\n- gap(dict) The gap between each item in the container.\n- grid_spanning(dict) Spanning properties for the grid table relative to its parent.\n- grid_position(dict) Position property for the grid table relative to its parent.\n- width(dict) Initial size of the flex item based on the main axis of the container.\n- flex_grow(dict) Sets the flex grow factor of the flex item.\n- rows(dict) Definition for the rows.\n- columns(dict) Definition for the columns.",
+    "description": "Creates a container inside a grids-based drag-and-drop area.\nParameters:\n- label(string) Label used in the editor for the drag-and-drop container.\n- type(dict) The type of the container layout.\n- is_hidden(dict) Denotes if the container is hidden.\n- padding(dict) The padding applied to the container.\n- margin(dict) The margin applied to the container.\n- background_layers(dict) A list of backgrounds in order from top to bottom.\n- justify_content(dict) Justification of child content.\n- align_content(dict) Alignment of child content.\n- justify_items(dict) Justification of content within child items.\n- align_items(dict) Alignment of content within child items.\n- gap(dict) The gap between each item in the container.\n- grid_spanning(dict) Spanning properties for the grid table relative to its parent.\n- grid_position(dict) Position property for the grid table relative to its parent.\n- width(dict) Initial size of the flex item based on the main axis of the container.\n- flex_grow(dict) Sets the flex grow factor of the flex item.\n- rows(dict) Definition for the rows.\n- columns(dict) Definition for the columns.\n- auto_flow(dict) Auto flow type associated with the container.\n- auto_rows(dict) Definition for the auto rows.\n- auto_columns(dict) Definition for the auto columns.",
     "prefix": "~dnd_grid_container"
   },
   "dnd_grid_module": {
@@ -139,20 +139,6 @@
     "description": "Evaluates expression without printing out result.",
     "prefix": "~do"
   },
-  "email_each": {
-    "body": [
-      "{% email_each list=\"${1:list}\" item=\"${2:item}\" %}\n{% endemail_each %}"
-    ],
-    "description": "Allows looping over a list value in an email where a for loop would not work. Use \"item.\" to access the current element of the list.\nParameters:\n- list(String) \n- item(String) ",
-    "prefix": "~email_each"
-  },
-  "email_flex_area": {
-    "body": [
-      "{% email_flex_area name=\"${1:name}\" no_wrapper=\"${2:no_wrapper}\" extra_classes=\"${3:extra_classes}\" %}"
-    ],
-    "description": "An email flexible area tag is a widget container which renders its contained widgets in a box grid, \nwith an email friendly table-based layout.\n\nThe layout schema is defined in a JSON structure at the content level; these tags are always empty\nin their declaring templates.\nParameters:\n- name(String) \n- no_wrapper(boolean) \n- extra_classes(String) ",
-    "prefix": "~email_flex_area"
-  },
   "email_simple_subscription": {
     "body": [
       "{% email_simple_subscription header=\"${1:header}\" subheader=\"${2:subheader}\" header_heading_level=\"${3:header_heading_level}\" subheader_heading_level=\"${4:subheader_heading_level}\" error_info_text=\"${5:error_info_text}\" %}"
@@ -162,9 +148,9 @@
   },
   "email_subscriptions": {
     "body": [
-      "{% email_subscriptions header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" language_select_label_text=\"${5:language_select_label_text}\" unsubscribe_single_text=\"${6:unsubscribe_single_text}\" unsubscribe_all_text=\"${7:unsubscribe_all_text}\" unsubscribe_all_unsubbed_text=\"${8:unsubscribe_all_unsubbed_text}\" unsubscribe_all_option=\"${9:unsubscribe_all_option}\" button_text=\"${10:button_text}\" single_subscription_confirm_text=\"${11:single_subscription_confirm_text}\" single_subscription_button_text=\"${12:single_subscription_button_text}\" %}"
+      "{% email_subscriptions header=\"${1:header}\" subheader_text=\"${2:subheader_text}\" header_heading_level=\"${3:header_heading_level}\" email_heading_level=\"${4:email_heading_level}\" language_select_label_text=\"${5:language_select_label_text}\" unsubscribe_single_text=\"${6:unsubscribe_single_text}\" unsubscribe_all_text=\"${7:unsubscribe_all_text}\" unsubscribe_all_unsubbed_text=\"${8:unsubscribe_all_unsubbed_text}\" unsubscribe_all_option=\"${9:unsubscribe_all_option}\" button_text=\"${10:button_text}\" single_subscription_confirm_text=\"${11:single_subscription_confirm_text}\" single_subscription_button_text=\"${12:single_subscription_button_text}\" subscription_placeholder_text=\"${13:subscription_placeholder_text}\" %}"
     ],
-    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- single_subscription_confirm_text(String) Confirmation text displayed in single subscription mode\n- single_subscription_button_text(String) Button text for single subscription unsubscribe action",
+    "description": "Email subscription preferences form\nParameters:\n- header(String) Renders text in an h1 tag above the subscription preferences form\n- subheader_text(String) Populates text below the heading above the unsubscribe preferences\n- header_heading_level(String) Defines the heading level of the header\n- email_heading_level(String) Defines the heading level of the subheader\n- language_select_label_text(String) Provides the label for the language select label element\n- unsubscribe_single_text(String) Renders text in a <p class=\"header\"> above the subscription options\n- unsubscribe_all_text(String) Renders text in a <p class=\"header\"> above the unsubscribe from all emails checkbox input\n- unsubscribe_all_unsubbed_text(String) Populates text within a <p> that renders, if a contact is currently unsubscribed from all emails\n- unsubscribe_all_option(String) Sets the text next to the unsubscribe from all emails checkbox input\n- button_text(String) Sets the text of the submit button that updates subscription preferences\n- single_subscription_confirm_text(String) Confirmation text displayed in single subscription mode\n- single_subscription_button_text(String) Button text for single subscription unsubscribe action\n- subscription_placeholder_text(String) Placeholder text for the subscription name in single subscription mode",
     "prefix": "~email_subscriptions"
   },
   "email_subscriptions_confirmation": {
@@ -222,6 +208,13 @@
     ],
     "description": "Gallery\nParameters:\n- slides(json list) A JSON list of the default caption, the link url, the alt text, the image src, and whether to open in a new tab\n- loop_slides(boolean) When True, continuously loop through slides\n- num_seconds(number) Time in seconds to pause between slides\n- show_pagination(boolean) Provide buttons below slider to randomly navigate among slides\n- sizing(enum static|resize) Determines whether the slider changes sizes, based on the height of the slides\n- auto_advance(boolean) Automatically advance slides after the time set in num_seconds\n- transition(enum slide|) Sets the type of slide transition\n- caption_position(enum below|superimpose) Affects positioning of caption on or below the slide\n- display_mode(enum standard|thumbnail|lightbox) Determines which mode the slider will display\n- lightboxRows(number) Rows in lightbox mode",
     "prefix": "~gallery"
+  },
+  "global_block": {
+    "body": [
+      "{% global_block name=\"${1:name}\" block_path=\"${2:block_path}\" block_id=\"${3:block_id}\" %}"
+    ],
+    "description": "Defines a slot for a swappable global block section.\nParameters:\n- name(string) The unique name of the global block.\n- block_path(string) The path to the default global block.\n- block_id(long) The id of the default global block.",
+    "prefix": "~global_block"
   },
   "global_module": {
     "body": [
