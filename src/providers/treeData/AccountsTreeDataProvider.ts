@@ -15,8 +15,7 @@ import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
 import { HubSpotConfig } from '@hubspot/local-dev-lib/types/Config';
 import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 import { HUBSPOT_ACCOUNT_TYPES } from '@hubspot/local-dev-lib/constants/config';
-
-import { getDisplayedHubspotPortalInfo } from '../../lib/config';
+import { getDisplayedHubSpotPortalInfo } from '../../lib/config';
 
 const isDefaultAccount = (
   account: HubSpotConfigAccount,
@@ -60,7 +59,7 @@ export class AccountsTreeDataProvider implements TreeDataProvider<HubSpotConfigA
 
   getTreeItem(account: HubSpotConfigAccount): TreeItem {
     const identifiers = getAccountIdentifiers(account);
-    const name = `${getDisplayedHubspotPortalInfo(account)} ${identifiers}`;
+    const name = `${getDisplayedHubSpotPortalInfo(account)} ${identifiers}`;
     return new AccountTreeDataItem(
       name,
       account,
@@ -107,7 +106,7 @@ export class AccountTreeDataItem extends TreeItem {
       options.hasAnyQAAccounts ? `Environment: ${portalData.env}\n` : ''
     }${
       portalData.accountType !== HUBSPOT_ACCOUNT_TYPES.STANDARD
-        ? `Account Type: ${portalData.accountType}`
+        ? `Account Type: ${portalData.accountType}\n`
         : ''
     }${
       portalData.parentAccountId
