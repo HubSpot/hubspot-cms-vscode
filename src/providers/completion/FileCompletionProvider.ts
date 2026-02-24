@@ -42,9 +42,7 @@ const getCompletionItems = (
   });
 };
 
-export class FileCompletionProvider
-  implements vscode.CompletionItemProvider<vscode.CompletionItem>
-{
+export class FileCompletionProvider implements vscode.CompletionItemProvider<vscode.CompletionItem> {
   provideCompletionItems(
     document: vscode.TextDocument,
     position: vscode.Position,

@@ -1,6 +1,11 @@
 # Change Log
 
-All notable changes to the HubSpot VS Code extension will be documented in this file.
+For changelogs after v1.7.2, see the [GitHub Releases](https://github.com/HubSpot/hubspot-cms-vscode/releases) page.
+
+## [1.7.2]
+### Bug Fixes
+
+- Fix sync icon and "End Watch" option not appearing when watching folder
 
 ## [1.7.1]
 
