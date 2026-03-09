@@ -293,6 +293,13 @@
     "description": "includes multiple files in one template or stylesheet\nParameters:\n- path(String) Design Manager path to the file that you would like to include",
     "prefix": "~include"
   },
+  "include_dnd_grid_partial": {
+    "body": [
+      "{% include_dnd_grid_partial 'my_include_dnd_grid_partial' %}"
+    ],
+    "description": "",
+    "prefix": "~include_dnd_grid_partial"
+  },
   "include_dnd_partial": {
     "body": [
       "{% include_dnd_partial 'my_include_dnd_partial' %}"
