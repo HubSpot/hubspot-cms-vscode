@@ -127,9 +127,9 @@
   },
   "dnd_grid_section": {
     "body": [
-      "{% dnd_grid_section content_width=\"${1:content_width}\" padding=\"${2:padding}\" margin=\"${3:margin}\" background_layers=\"${4:background_layers}\" is_hidden=\"${5:is_hidden}\" %}\n{% end_dnd_grid_section %}"
+      "{% dnd_grid_section content_width=\"${1:content_width}\" padding=\"${2:padding}\" margin=\"${3:margin}\" background_layers=\"${4:background_layers}\" is_hidden=\"${5:is_hidden}\" data_variant=\"${6:data_variant}\" %}\n{% end_dnd_grid_section %}"
     ],
-    "description": "A top-level element inside a drag-and-drop area of grid type. Grid sections can only be children of a drag-and-drop area tag in grids flow.\nParameters:\n- content_width(dict) Maximum width of the section.\n- padding(dict) Add top, bottom, left, and right padding.\n- margin(dict) Add top, bottom, left, and right margin.\n- background_layers(dict) Add background layers to the section.\n- is_hidden(dict) Denotes if the section is hidden in the editor.",
+    "description": "A top-level element inside a drag-and-drop area of grid type. Grid sections can only be children of a drag-and-drop area tag in grids flow.\nParameters:\n- content_width(dict) Maximum width of the section.\n- padding(dict) Add top, bottom, left, and right padding.\n- margin(dict) Add top, bottom, left, and right margin.\n- background_layers(dict) Add background layers to the section.\n- is_hidden(dict) Denotes if the section is hidden in the editor.\n- data_variant(string) Sets the data-variant HTML attribute on the rendered section element.",
     "prefix": "~dnd_grid_section"
   },
   "do": {
@@ -292,6 +292,13 @@
     ],
     "description": "includes multiple files in one template or stylesheet\nParameters:\n- path(String) Design Manager path to the file that you would like to include",
     "prefix": "~include"
+  },
+  "include_dnd_grid_partial": {
+    "body": [
+      "{% include_dnd_grid_partial 'my_include_dnd_grid_partial' %}"
+    ],
+    "description": "",
+    "prefix": "~include_dnd_grid_partial"
   },
   "include_dnd_partial": {
     "body": [
