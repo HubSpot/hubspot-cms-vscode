@@ -49,7 +49,7 @@ export const loadHubSpotConfigFile = (rootPath: string) => {
     return;
   }
 
-  const deprecatedConfigPath = getLocalConfigFilePathIfExists();
+  const deprecatedConfigPath = getLocalConfigFilePathIfExists(rootPath);
   const globalConfigExists = globalConfigFileExists();
 
   let globalConfigPath: string | null = null;

@@ -14,7 +14,7 @@ const {
 } = require('@hubspot/local-dev-lib/personalAccessKey');
 import { createEmptyConfigFile } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
-import { Environment } from '@hubspot/local-dev-lib/types/Config';
+import { Environment } from '@hubspot/local-dev-lib/types/Accounts';
 
 import { trackEvent } from './tracking';
 import { loadHubSpotConfigFile } from './config';
