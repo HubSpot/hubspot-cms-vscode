@@ -120,9 +120,9 @@
   },
   "dnd_grid_module": {
     "body": [
-      "{% dnd_grid_module label=\"${1:label}\" is_hidden=\"${2:is_hidden}\" width=\"${3:width}\" flex_grow=\"${4:flex_grow}\" grid_position=\"${5:grid_position}\" grid_spanning=\"${6:grid_spanning}\" style_fields=\"${7:style_fields}\" %}\n{% end_dnd_grid_module %}"
+      "{% dnd_grid_module label=\"${1:label}\" is_hidden=\"${2:is_hidden}\" width=\"${3:width}\" flex_grow=\"${4:flex_grow}\" grid_position=\"${5:grid_position}\" grid_spanning=\"${6:grid_spanning}\" style_fields=\"${7:style_fields}\" horizontal_alignment=\"${8:horizontal_alignment}\" vertical_alignment=\"${9:vertical_alignment}\" %}\n{% end_dnd_grid_module %}"
     ],
-    "description": "Creates a wrapped module inside a grids-based drag-and-drop area.\nParameters:\n- label(string) Label used in the editor for the drag-and-drop module.\n- is_hidden(dict) Denotes if the module is hidden.\n- width(dict) Initial size of the flex item based on the main axis of the container.\n- flex_grow(dict) Sets the flex grow factor of the flex item.\n- grid_position(dict) Position property for the grid table relative to its parent.\n- grid_spanning(dict) Spanning properties for the grid table relative to its parent.\n- style_fields(dict) Custom style field values at breakpoints defined by the developer.",
+    "description": "Creates a wrapped module inside a grids-based drag-and-drop area.\nParameters:\n- label(string) Label used in the editor for the drag-and-drop module.\n- is_hidden(dict) Denotes if the module is hidden.\n- width(dict) Initial size of the flex item based on the main axis of the container.\n- flex_grow(dict) Sets the flex grow factor of the flex item.\n- grid_position(dict) Position property for the grid table relative to its parent.\n- grid_spanning(dict) Spanning properties for the grid table relative to its parent.\n- style_fields(dict) Custom style field values at breakpoints defined by the developer.\n- horizontal_alignment(string) Horizontal alignment of the module within its container cell. One of: start, center, end, stretch.\n- vertical_alignment(string) Vertical alignment of the module within its container cell. One of: start, center, end, stretch.",
     "prefix": "~dnd_grid_module"
   },
   "dnd_grid_section": {
