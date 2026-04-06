@@ -199,13 +199,14 @@
     semver "6.3.1"
     unixify "1.0.0"
 
-"@hubspot/local-dev-lib@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/@hubspot/local-dev-lib/-/local-dev-lib-4.0.3.tgz"
+"@hubspot/local-dev-lib@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@hubspot/local-dev-lib/-/local-dev-lib-5.0.0.tgz#3f06d8391f058e00786b89c8784c40ab0767cdab"
+  integrity sha512-QoqXtvi24qutKanikd7y851SB2aAMqHshKxYVTCMSgY3lGA9pHOM5mxepSysH+XpuT+sUtYdwF2kw8hma2YXvw==
   dependencies:
     address "2.0.2"
     axios "1.12.0"
-    chalk "2.4.2"
+    chalk "5.6.2"
     chokidar "3.6.0"
     content-disposition "0.5.4"
     cors "2.8.5"
@@ -217,11 +218,11 @@
     fs-extra "11.2.0"
     http-proxy-agent "7.0.2"
     https-proxy-agent "7.0.6"
-    ignore "5.3.1"
+    ignore "^7.0.0"
     js-yaml "4.1.0"
     moment "2.30.1"
-    p-queue "6.6.2"
-    prettier "3.3.1"
+    p-queue "^7.0.0"
+    prettier "^3.6.2"
     semver "6.3.1"
     unixify "1.0.0"
 
@@ -867,6 +868,11 @@ chalk@4.1.2, chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@5.6.2:
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.6.2.tgz#b1238b6e23ea337af71c7f8a295db5af0c158aea"
+  integrity sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==
+
 chardet@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/chardet/-/chardet-2.1.1.tgz"
@@ -1271,6 +1277,11 @@ eventemitter3@^4.0.4:
   version "4.0.7"
   resolved "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
 
+eventemitter3@^5.0.1:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-5.0.4.tgz#a86d66170433712dde814707ac52b5271ceb1feb"
+  integrity sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==
+
 events@^3.2.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/events/-/events-3.3.0.tgz"
@@ -1614,6 +1625,11 @@ iconv-lite@^0.7.0:
 ignore@5.3.1, ignore@^5.2.0:
   version "5.3.1"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.3.1.tgz"
+
+ignore@^7.0.0:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.5.tgz#4cb5f6cd7d4c7ab0365738c7aea888baa6d7efd9"
+  integrity sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==
 
 import-fresh@^3.2.1:
   version "3.3.1"
@@ -1994,11 +2010,24 @@ p-queue@6.6.2:
     eventemitter3 "^4.0.4"
     p-timeout "^3.2.0"
 
+p-queue@^7.0.0:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-7.4.1.tgz#7f86f853048beca8272abdbb7cec1ed2afc0f265"
+  integrity sha512-vRpMXmIkYF2/1hLBKisKeVYJZ8S2tZ0zEAmIJgdVKP2nq0nh4qCdf8bgw+ZgKrkh71AOCaqzwbJJk1WtdcF3VA==
+  dependencies:
+    eventemitter3 "^5.0.1"
+    p-timeout "^5.0.2"
+
 p-timeout@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/p-timeout/-/p-timeout-3.2.0.tgz"
   dependencies:
     p-finally "^1.0.0"
+
+p-timeout@^5.0.2:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-5.1.0.tgz#b3c691cf4415138ce2d9cfe071dba11f0fee085b"
+  integrity sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==
 
 p-try@^2.0.0:
   version "2.2.0"
@@ -2060,9 +2089,10 @@ prettier@3.3.1:
   version "3.3.1"
   resolved "https://registry.npmjs.org/prettier/-/prettier-3.3.1.tgz"
 
-prettier@^3.4.2:
+prettier@^3.4.2, prettier@^3.6.2:
   version "3.8.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-3.8.1.tgz"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.8.1.tgz#edf48977cf991558f4fcbd8a3ba6015ba2a3a173"
+  integrity sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==
 
 proxy-addr@~2.0.7:
   version "2.0.7"

@@ -14,10 +14,10 @@ const {
 } = require('@hubspot/local-dev-lib/personalAccessKey');
 import { createEmptyConfigFile } from '@hubspot/local-dev-lib/config';
 import { ENVIRONMENTS } from '@hubspot/local-dev-lib/constants/environments';
-import { Environment } from '@hubspot/local-dev-lib/types/Config';
+import { Environment } from '@hubspot/local-dev-lib/types/Accounts';
 
 import { trackEvent } from './tracking';
-import { loadHubspotConfigFile } from './config';
+import { loadHubSpotConfigFile } from './config';
 import { showAutoDismissedStatusBarMessage } from './statusBar';
 import { COMMANDS, EVENTS, TRACKED_EVENTS } from './constants';
 
@@ -50,7 +50,7 @@ const handleAuthRequest = async (authParams: URLSearchParams) => {
   const { key: personalAccessKey } = JSON.parse(personalAccessKeyResp);
   const accountIdentifier = name || portalId;
   let rootPath = authParams.get('rootPath') || '';
-  let configPath = loadHubspotConfigFile(rootPath);
+  let configPath = loadHubSpotConfigFile(rootPath);
 
   // handle windows paths, which look something like /C:/Some/path
   if (/^\/\w:\/.*$/.test(rootPath)) {

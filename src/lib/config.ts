@@ -15,7 +15,7 @@ import {
   getConfigAtPath,
 } from '@hubspot/local-dev-lib/config/migrate';
 
-export const getDisplayedHubspotPortalInfo = (
+export const getDisplayedHubSpotPortalInfo = (
   portalData: HubSpotConfigAccount
 ) => {
   const accountIdentifier = portalData.accountId;
@@ -44,12 +44,12 @@ export const portalNameInvalid = (
     : '';
 };
 
-export const loadHubspotConfigFile = (rootPath: string) => {
+export const loadHubSpotConfigFile = (rootPath: string) => {
   if (!rootPath) {
     return;
   }
 
-  const deprecatedConfigPath = getLocalConfigFilePathIfExists();
+  const deprecatedConfigPath = getLocalConfigFilePathIfExists(rootPath);
   const globalConfigExists = globalConfigFileExists();
 
   let globalConfigPath: string | null = null;
@@ -121,7 +121,7 @@ export const loadHubspotConfigFile = (rootPath: string) => {
 };
 
 export const initializeConfig = (rootPath: string) => {
-  const configPath = loadHubspotConfigFile(rootPath);
+  const configPath = loadHubSpotConfigFile(rootPath);
 
   if (configPath) {
     console.log(`configPath: ${configPath}`);
