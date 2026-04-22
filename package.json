@@ -231,7 +231,13 @@
                     "type": "boolean",
                     "default": false,
                     "markdownDescription": "Disables HubL language auto-detection globally. If this is enabled, you will never be prompted to add HTML+HubL and CSS+HubL file associations to your workspace settings. For more info see the [HubSpot VSCode documentation](https://github.com/HubSpot/hubspot-cms-vscode/tree/master#language-modes)"
-                }
+                },
+                "hubspot.defaultModuleContentTypes": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "default": ["SITE_PAGE", "LANDING_PAGE"],
+                  "description": "Default content types used when creating a new module from 'New Module...'."
+                },
             }
         },
         "commands": [
