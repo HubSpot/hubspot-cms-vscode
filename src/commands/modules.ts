@@ -10,7 +10,10 @@ const { createModule } = require('@hubspot/local-dev-lib/cms/modules');
 const getDefaultModuleContentTypes = (): string[] => {
   const configured = workspace
     .getConfiguration(EXTENSION_CONFIG_NAME)
-    .get<string[]>('defaultModuleContentTypes', ['SITE_PAGE', 'LANDING_PAGE']);
+    .get<string[]>(
+      EXTENSION_CONFIG_KEYS.DEFAULT_MODULE_CONTENT_TYPES,
+      ['SITE_PAGE', 'LANDING_PAGE']
+    );
 
   return Array.isArray(configured) ? configured : ['SITE_PAGE', 'LANDING_PAGE'];
 };
