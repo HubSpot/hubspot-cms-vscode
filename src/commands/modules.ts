@@ -1,7 +1,11 @@
 import { ExtensionContext, commands, workspace } from 'vscode';
 const path = require('path');
 
-import { COMMANDS, TRACKED_EVENTS, EXTENSION_CONFIG_NAME } from '../lib/constants';
+import {
+  COMMANDS,
+  TRACKED_EVENTS,
+  EXTENSION_CONFIG_NAME,
+} from '../lib/constants';
 import { onClickCreateFolder } from '../lib/fileHelpers';
 import { trackEvent } from '../lib/tracking';
 
@@ -10,10 +14,9 @@ const { createModule } = require('@hubspot/local-dev-lib/cms/modules');
 const getDefaultModuleContentTypes = (): string[] => {
   const configured = workspace
     .getConfiguration(EXTENSION_CONFIG_NAME)
-    .get<string[]>(
-      EXTENSION_CONFIG_KEYS.DEFAULT_MODULE_CONTENT_TYPES,
-      ['SITE_PAGE', 'LANDING_PAGE']
-    );
+    .get<
+      string[]
+    >(EXTENSION_CONFIG_KEYS.DEFAULT_MODULE_CONTENT_TYPES, ['SITE_PAGE', 'LANDING_PAGE']);
 
   return Array.isArray(configured) ? configured : ['SITE_PAGE', 'LANDING_PAGE'];
 };
