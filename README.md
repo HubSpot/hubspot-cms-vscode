@@ -1,7 +1,5 @@
 <h1 align="center">
   <br>
-    <img src="https://github.com/HubSpot/hubspot-cms-vscode/blob/master/images/hubspot-logo.png?raw=true" alt="HubSpot Logo" width="150">
-  <br>
   HubSpot for Visual Studio Code
   <br>
   <br>
@@ -45,14 +43,16 @@ For parameter suggestions, the following should also be added:
 
 `"editor.parameterHints.enabled": true`
 
+### Default module content types
+
+You can configure which `content_types` are used by default when creating a module via **New Module...**:
+
+```json
+"hubspot.defaultModuleContentTypes": ["SITE_PAGE", "LANDING_PAGE"]
+```
+
 ## Telemetry
 
 HubSpot for VS Code collects user data in order to improve the extension’s experience. You can [review HubSpot’s privacy policy here](https://legal.hubspot.com/privacy-policy). Additionally, you may opt out of data collection by changing the setting for global telemetry in VS Code. To read more about VS Code and telemetry, including disabling telemetry reporting, [please read the official VS Code documentation](https://code.visualstudio.com/docs/getstarted/telemetry).
 
 ## Pre-releases
-
-Often times, new versions of our extension will be available to you via a pre-release before official releases are made. You can opt into these pre-releases via the VS Code extension panel. These pre-releases may include beta features that we are currently in development on.
-
-## Contributing
-
-This extension is open source and we welcome contributions as well as issues for [feature requests](https://github.com/HubSpot/hubspot-cms-vscode/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) and [bug reports](https://github.com/HubSpot/hubspot-cms-vscode/issues/new?assignees=&labels=bug&template=bug_report.md&title=). For more information about contributing, see the [contributing docs](https://github.com/HubSpot/hubspot-cms-vscode/blob/master/CONTRIBUTING.md) to get started.
