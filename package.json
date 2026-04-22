@@ -237,7 +237,7 @@
                   "items": { "type": "string" },
                   "default": ["SITE_PAGE", "LANDING_PAGE"],
                   "description": "Default content types used when creating a new module from 'New Module...'."
-                },
+                }
             }
         },
         "commands": [
