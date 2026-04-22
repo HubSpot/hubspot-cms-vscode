@@ -153,7 +153,7 @@ async function validateDocumentDiagnostics(
     return [];
   }
   let diagnostics: Record<string, Diagnostic> = {};
-  (cachedValidator.validator.errors || []).forEach((error) => {
+  (cachedValidator.validator.errors || []).forEach((error: ErrorObject) => {
     const { message, nodePath, onlyKeyNode } = customizeAjvError(error);
     if (!message) {
       return;
@@ -197,7 +197,7 @@ function customizeAjvError(error: ErrorObject): {
     ...error.instancePath
       .split('/')
       .slice(1)
-      .map((p) => (p.match(/\d+/) ? parseInt(p) : p)),
+      .map((p: string) => (p.match(/\d+/) ? parseInt(p) : p)),
   ];
   // For some errors, we only want to highlight the key
   // that corresponds to the error, not the value that caused
