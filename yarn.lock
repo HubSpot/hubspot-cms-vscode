@@ -266,10 +266,10 @@
     semver "6.3.1"
     unixify "1.0.0"
 
-"@hubspot/project-parsing-lib@0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.15.0.tgz#f2e20fb79d97da70031a083dda588c73c30bea48"
-  integrity sha512-fedbDcG0+XWXxkryOrmdn1kMd3TfkO3JHNACsXfxHD9meD1i7x2p6nHBkgzrh7/s8x5MhKPvrqWD8mbw86GSYg==
+"@hubspot/project-parsing-lib@0.15.1-beta.1":
+  version "0.15.1-beta.1"
+  resolved "https://registry.yarnpkg.com/@hubspot/project-parsing-lib/-/project-parsing-lib-0.15.1-beta.1.tgz#fe00186f11dfef3b726416ed93ea561bb58b26c1"
+  integrity sha512-77Kj/3ROYhmq5O+OXbnKsVGD/WPeTZam6HYDUX2sB+TnQEBUYgVXjFHf9JqCg2LUWm1Bd6UJaxKXufU0yjyH+w==
   dependencies:
     "@hubspot/local-dev-lib" "4.0.4"
     ajv "8.18.0"
