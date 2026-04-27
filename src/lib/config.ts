@@ -13,6 +13,7 @@ import {
   mergeConfigProperties,
   mergeConfigAccounts,
   getConfigAtPath,
+  archiveConfigAtPath,
 } from '@hubspot/local-dev-lib/config/migrate';
 
 export const getDisplayedHubSpotPortalInfo = (
@@ -45,10 +46,6 @@ export const portalNameInvalid = (
 };
 
 export const loadHubSpotConfigFile = (rootPath: string) => {
-  if (!rootPath) {
-    return;
-  }
-
   const deprecatedConfigPath = getLocalConfigFilePathIfExists(rootPath);
   const globalConfigExists = globalConfigFileExists();
 
@@ -90,6 +87,7 @@ export const loadHubSpotConfigFile = (rootPath: string) => {
               GlobalConfigWithPropertiesMerged,
               deprecatedConfig!
             );
+            archiveConfigAtPath(deprecatedConfigPath);
             success = true;
           } catch (error) {
             throw new Error('Error merging configuration files: ' + error);
