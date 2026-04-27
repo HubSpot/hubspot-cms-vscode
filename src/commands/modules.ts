@@ -5,6 +5,7 @@ import {
   COMMANDS,
   TRACKED_EVENTS,
   EXTENSION_CONFIG_NAME,
+  EXTENSION_CONFIG_KEYS,
 } from '../lib/constants';
 import { onClickCreateFolder } from '../lib/fileHelpers';
 import { trackEvent } from '../lib/tracking';

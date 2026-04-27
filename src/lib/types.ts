@@ -1,4 +1,5 @@
-import { AnySchema, ValidateFunction } from '@hubspot/project-parsing-lib';
+import type { AnySchema } from '@hubspot/project-parsing-lib/schema';
+import type { ValidateFunction } from 'ajv';
 import { Command } from 'vscode';
 
 export interface Link {
