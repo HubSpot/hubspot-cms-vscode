@@ -1,12 +1,9 @@
 import { ExtensionContext, window, commands, Uri } from 'vscode';
-import { existsSync, statSync } from 'fs';
+import { existsSync, lstatSync } from 'fs';
 import { join } from 'path';
 import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 const { deleteFile, upload } = require('@hubspot/local-dev-lib/api/fileMapper');
 const { downloadFileOrFolder } = require('@hubspot/local-dev-lib/fileMapper');
-const {
-  validateSrcAndDestPaths,
-} = require('@hubspot/local-dev-lib/cms/modules');
 
 const { shouldIgnoreFile } = require('@hubspot/local-dev-lib/ignoreRules');
 const { isAllowedExtension } = require('@hubspot/local-dev-lib/path');
@@ -22,6 +19,10 @@ import { getRootPath } from '../lib/helpers';
 import { invalidateParentDirectoryCache } from '../lib/remoteDesignManagerFs';
 import { buildStatusBarItem } from '../lib/statusBar';
 import { trackEvent } from '../lib/tracking';
+
+const getRemoteBaseName = (remotePath: string) => {
+  return remotePath.split('/').filter(Boolean).slice(-1)[0];
+};
 
 export const registerCommands = (context: ExtensionContext) => {
   const accountId = getConfigDefaultAccountIfExists()?.accountId;
@@ -49,13 +50,22 @@ export const registerCommands = (context: ExtensionContext) => {
           // User didn't select anything
           return;
         }
-        const localFilePath = join(
-          destPath[0].fsPath,
-          remoteFilePath.split('/').slice(-1)[0]
-        );
+
+        const remoteBaseName = getRemoteBaseName(remoteFilePath);
+        if (!remoteBaseName) {
+          window.showErrorMessage(
+            `Unable to determine a local path for "${remoteFilePath}"`
+          );
+          return;
+        }
+        const localFilePath = join(destPath[0].fsPath, remoteBaseName);
+
         if (existsSync(localFilePath)) {
+          const existingTargetType = lstatSync(localFilePath).isDirectory()
+            ? 'folder'
+            : 'file';
           const selection = await window.showWarningMessage(
-            `There already exists a file at "${localFilePath}". Overwrite it?`,
+            `There already exists a ${existingTargetType} at "${localFilePath}". Overwrite it?`,
             ...['Okay', 'Cancel']
           );
           if (!selection || selection === 'Cancel') {
@@ -165,18 +175,7 @@ export const registerCommands = (context: ExtensionContext) => {
         if (destPath === undefined || destPath.length === 0) {
           return;
         }
-        const srcDestIssues = await validateSrcAndDestPaths(
-          { isLocal: true, path: srcPath },
-          { isHubSpot: true, path: destPath }
-        );
-        if (srcDestIssues.length) {
-          srcDestIssues.forEach((issue: any) => {
-            window.showErrorMessage(`Error: ${issue.message}`);
-          });
-          return;
-        }
-        const stats = statSync(srcPath);
-        if (stats.isFile()) {
+        if (existsSync(srcPath) && !lstatSync(srcPath).isDirectory()) {
           handleFileUpload(srcPath, destPath);
         } else {
           handleFolderUpload(srcPath, destPath);
@@ -188,12 +187,8 @@ export const registerCommands = (context: ExtensionContext) => {
     commands.registerCommand(
       COMMANDS.REMOTE_FS.WATCH,
       async (clickedFileLink) => {
-        let srcPath: string;
-        if (
-          clickedFileLink === undefined ||
-          !(clickedFileLink instanceof Uri)
-        ) {
-          // check if Uri, because having a remoteFs tree item selected will show up here too
+        let srcPath = '';
+        if (!clickedFileLink) {
           const srcUri = await window.showOpenDialog({
             canSelectFiles: false,
             canSelectFolders: true,
