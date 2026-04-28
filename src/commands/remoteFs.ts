@@ -20,9 +20,8 @@ import { invalidateParentDirectoryCache } from '../lib/remoteDesignManagerFs';
 import { buildStatusBarItem } from '../lib/statusBar';
 import { trackEvent } from '../lib/tracking';
 
-const isLikelyRemoteFolderPath = (remotePath: string) => {
-  const last = remotePath.split('/').filter(Boolean).pop() || '';
-  return !last.includes('.');
+const getRemoteBaseName = (remotePath: string) => {
+  return remotePath.split('/').filter(Boolean).slice(-1)[0];
 };
 
 export const registerCommands = (context: ExtensionContext) => {
@@ -52,25 +51,21 @@ export const registerCommands = (context: ExtensionContext) => {
           return;
         }
 
-        const remoteBaseName = remoteFilePath.split('/').slice(-1)[0];
-        const selectedDestPath = destPath[0].fsPath;
-        const isRemoteFolder = isLikelyRemoteFolderPath(remoteFilePath);
-
-        const localFilePath = isRemoteFolder
-          ? selectedDestPath
-          : join(selectedDestPath, remoteBaseName);
+        const remoteBaseName = getRemoteBaseName(remoteFilePath);
+        if (!remoteBaseName) {
+          window.showErrorMessage(
+            `Unable to determine a local path for "${remoteFilePath}"`
+          );
+          return;
+        }
+        const localFilePath = join(destPath[0].fsPath, remoteBaseName);
 
         if (existsSync(localFilePath)) {
-          const existingTargetType = (() => {
-            try {
-              return lstatSync(localFilePath).isDirectory() ? 'folder' : 'file';
-            } catch {
-              return 'file';
-            }
-          })();
-
+          const existingTargetType = lstatSync(localFilePath).isDirectory()
+            ? 'folder'
+            : 'file';
           const selection = await window.showWarningMessage(
-            `There already exists a file at "${localFilePath}". Overwrite it?`,
+            `There already exists a ${existingTargetType} at "${localFilePath}". Overwrite it?`,
             ...['Okay', 'Cancel']
           );
           if (!selection || selection === 'Cancel') {
