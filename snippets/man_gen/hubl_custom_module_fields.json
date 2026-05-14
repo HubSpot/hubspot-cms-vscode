@@ -309,6 +309,54 @@
     ],
     "description": "HubSpot File"
   },
+  "Video Field": {
+    "prefix": "field.video",
+    "body": [
+      "{",
+      "\"picker\": \"video\",",
+      "\"name\": \"${1:file_field}\",",
+      "\"label\": \"${2:File field}\",",
+      "\"required\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"locked\": false,",
+      "\"type\": \"file\",",
+      "\"default\": null }"
+    ],
+    "description": "HubSpot File - Picker Video"
+  },
+  "Document Field": {
+    "prefix": "field.document",
+    "body": [
+      "{",
+      "\"picker\": \"document\",",
+      "\"name\": \"${1:file_field}\",",
+      "\"label\": \"${2:File field}\",",
+      "\"required\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"locked\": false,",
+      "\"type\": \"file\",",
+      "\"default\": null }"
+    ],
+    "description": "HubSpot File - Picker Document"
+  },
+  "Audio Field": {
+    "prefix": "field.audio",
+    "body": [
+      "{",
+      "\"picker\": \"audio\",",
+      "\"name\": \"${1:file_field}\",",
+      "\"label\": \"${2:File field}\",",
+      "\"required\": false,",
+      "\"inline_help_text\": \"\",",
+      "\"help_text\": \"\",",
+      "\"locked\": false,",
+      "\"type\": \"file\",",
+      "\"default\": null }"
+    ],
+    "description": "HubSpot File - Picker Audio"
+  },
   "Followup Email Field": {
     "prefix": "field.followup",
     "body": [
