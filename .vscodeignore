@@ -1,21 +1,29 @@
+# Directories
 .vscode/**
 .vscode-test/**
-.gitignore
-.eslintrc.js
-.prettierrc.js
-.prettierignore
-vsc-extension-quickstart.md
-generate.js
-scripts/**
-node_modules/**
-src/**
 .claude/**
 .github/**
 .husky/**
+scripts/**
+node_modules/**
+src/**
+releases/**
+
+# Dotfiles
+.DS_Store
+.env
+.gitignore
+.npmrc
+.prettierignore
+.prettierrc.js
 .yarnrc
+
+# Build and config files
 eslint.config.mjs
+package-lock.json
 tsconfig.json
 webpack.config.js
 yarn.lock
+
+# Generated files
 **/*.map
-releases/**
