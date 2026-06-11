@@ -27,6 +27,7 @@ const config = {
   externals: [
     {
       vscode: 'commonjs vscode',
+      '@aws-sdk/client-s3': 'commonjs @aws-sdk/client-s3',
     },
   ],
   resolve: {
