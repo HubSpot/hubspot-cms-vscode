@@ -568,7 +568,7 @@
         ]
     },
     "dependencies": {
-        "@hubspot/local-dev-lib": "5.8.2-beta.0",
+        "@hubspot/local-dev-lib": "5.8.2",
         "@hubspot/project-parsing-lib": "0.15.1",
         "dayjs": "^1.11.7",
         "debounce": "1.2.1",
