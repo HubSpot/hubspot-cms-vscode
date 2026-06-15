@@ -60,7 +60,8 @@ const config = {
         // Replaces import.meta.url with a runtime expression so webpack does
         // not bake in the build machine's absolute path, which crashes on
         // Windows with "File URL path must be absolute".
-        test: /handleFieldsJS\.js$/,
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'node_modules'),
         loader: path.resolve(__dirname, 'scripts/patchImportMetaUrl.js'),
         enforce: 'pre',
       },
