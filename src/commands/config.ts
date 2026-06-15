@@ -11,7 +11,7 @@ import { HubSpotConfigAccount } from '@hubspot/local-dev-lib/types/Accounts';
 
 import { updateStatusBarItems } from '../features/statusBar';
 import { COMMANDS, EVENTS, TRACKED_EVENTS } from '../lib/constants';
-import { getDisplayedHubspotPortalInfo } from '../lib/config';
+import { getDisplayedHubSpotPortalInfo } from '../lib/config';
 import { portalNameInvalid } from '../lib/config';
 import { trackEvent } from '../lib/tracking';
 import { showAutoDismissedStatusBarMessage } from '../lib/statusBar';
@@ -93,7 +93,7 @@ export const registerCommands = (context: ExtensionContext) => {
             .showQuickPick(
               accounts.map((a: HubSpotConfigAccount) => {
                 return {
-                  label: getDisplayedHubspotPortalInfo(a),
+                  label: getDisplayedHubSpotPortalInfo(a),
                   description:
                     defaultAccount?.accountId === a.accountId ||
                     defaultAccount?.name === a.name

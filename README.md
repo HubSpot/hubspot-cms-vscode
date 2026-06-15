@@ -45,6 +45,14 @@ For parameter suggestions, the following should also be added:
 
 `"editor.parameterHints.enabled": true`
 
+### Default module content types
+
+You can configure which `content_types` are used by default when creating a module via **New Module...**:
+
+```json
+"hubspot.defaultModuleContentTypes": ["SITE_PAGE", "LANDING_PAGE"]
+```
+
 ## Telemetry
 
 HubSpot for VS Code collects user data in order to improve the extension’s experience. You can [review HubSpot’s privacy policy here](https://legal.hubspot.com/privacy-policy). Additionally, you may opt out of data collection by changing the setting for global telemetry in VS Code. To read more about VS Code and telemetry, including disabling telemetry reporting, [please read the official VS Code documentation](https://code.visualstudio.com/docs/getstarted/telemetry).

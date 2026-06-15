@@ -2,7 +2,7 @@
     "name": "hubl",
     "displayName": "HubSpot",
     "description": "HubSpot CMS Hub support for VS Code",
-    "version": "1.7.3",
+    "version": "1.7.4",
     "publisher": "HubSpot",
     "license": "Apache-2.0",
     "engines": {
@@ -231,6 +231,17 @@
                     "type": "boolean",
                     "default": false,
                     "markdownDescription": "Disables HubL language auto-detection globally. If this is enabled, you will never be prompted to add HTML+HubL and CSS+HubL file associations to your workspace settings. For more info see the [HubSpot VSCode documentation](https://github.com/HubSpot/hubspot-cms-vscode/tree/master#language-modes)"
+                },
+                "hubspot.defaultModuleContentTypes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "SITE_PAGE",
+                        "LANDING_PAGE"
+                    ],
+                    "description": "Default content types used when creating a new module from 'New Module...'."
                 }
             }
         },
@@ -265,7 +276,7 @@
             },
             {
                 "command": "hubspot.config.selectDefaultAccount",
-                "title": "Hubspot: Select default account"
+                "title": "HubSpot: Select default account"
             },
             {
                 "command": "hubspot.config.setDefaultAccount",
@@ -557,8 +568,8 @@
         ]
     },
     "dependencies": {
-        "@hubspot/local-dev-lib": "4.0.3",
-        "@hubspot/project-parsing-lib": "0.10.3",
+        "@hubspot/local-dev-lib": "5.0.0",
+        "@hubspot/project-parsing-lib": "0.15.1",
         "dayjs": "^1.11.7",
         "debounce": "1.2.1",
         "findup-sync": "^5.0.0",
@@ -586,7 +597,7 @@
         "prettier": "^3.4.2",
         "ts-loader": "^9.2.3",
         "ts-node": "^10.9.1",
-        "tsx": "^4.21.0",
+        "tsx": "^4.22.4",
         "typescript": "^5.6.2",
         "webpack": "^5.104.1",
         "webpack-cli": "^4.7.2",

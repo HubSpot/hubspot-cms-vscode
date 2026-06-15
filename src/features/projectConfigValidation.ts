@@ -9,11 +9,16 @@ import {
   ExtensionContext,
   TextDocument,
 } from 'vscode';
+import { getIntermediateRepresentationSchema } from '@hubspot/project-parsing-lib/schema';
+import { mapToInternalType } from '@hubspot/project-parsing-lib/transform';
+import { validateUid } from '@hubspot/project-parsing-lib/uid';
 import {
-  getIntermediateRepresentationSchema,
-  mapToInternalType,
   createAjvInstance,
-  validateUid,
+  AjvErrorKeyword,
+  type ValidateFunction,
+  type ErrorObject,
+} from '@hubspot/project-parsing-lib/validation';
+import {
   getInvalidJsonError,
   getMissingTypeError,
   getMissingConfigError,
@@ -21,13 +26,13 @@ import {
   getMissingRequiredFieldError,
   getFailedToFetchSchemasError,
   getUnsupportedTypeError,
-  AjvErrorKeyword,
-  ValidateFunction,
-  ErrorObject,
-  metafileExtension,
-  Components,
-  hsProjectJsonFilename,
-} from '@hubspot/project-parsing-lib';
+} from '@hubspot/project-parsing-lib/lang';
+import { type ComponentMeta } from '@hubspot/project-parsing-lib/translate';
+import {
+  METAFILE_EXTENSION as metafileExtension,
+  HS_PROJECT_JSON_FILENAME as hsProjectJsonFilename,
+} from '@hubspot/project-parsing-lib/constants';
+
 import { getConfigDefaultAccountIfExists } from '@hubspot/local-dev-lib/config';
 import * as jsonc from 'jsonc-parser';
 import { debounce } from 'debounce';
@@ -99,7 +104,7 @@ async function validateDocumentDiagnostics(
     return [];
   }
   // Any file that fails the above checks is one that we don't handle
-  let metaFile: Partial<Components>;
+  let metaFile: Partial<ComponentMeta>;
   try {
     metaFile = JSON.parse(document.getText());
   } catch (error) {
@@ -153,7 +158,7 @@ async function validateDocumentDiagnostics(
     return [];
   }
   let diagnostics: Record<string, Diagnostic> = {};
-  (cachedValidator.validator.errors || []).forEach((error) => {
+  (cachedValidator.validator.errors || []).forEach((error: ErrorObject) => {
     const { message, nodePath, onlyKeyNode } = customizeAjvError(error);
     if (!message) {
       return;
@@ -197,7 +202,7 @@ function customizeAjvError(error: ErrorObject): {
     ...error.instancePath
       .split('/')
       .slice(1)
-      .map((p) => (p.match(/\d+/) ? parseInt(p) : p)),
+      .map((p: string) => (p.match(/\d+/) ? parseInt(p) : p)),
   ];
   // For some errors, we only want to highlight the key
   // that corresponds to the error, not the value that caused

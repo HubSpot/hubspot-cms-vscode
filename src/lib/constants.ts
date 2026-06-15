@@ -16,6 +16,7 @@ export const EXTENSION_CONFIG_KEYS = {
   BETA: 'beta',
   HUBL_LINTING: 'hublLinting',
   NEVER_USE_HUBL: 'neverUseHubl',
+  DEFAULT_MODULE_CONTENT_TYPES: 'defaultModuleContentTypes',
 };
 
 export const GLOBAL_STATE_KEYS = {

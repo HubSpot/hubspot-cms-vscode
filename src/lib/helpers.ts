@@ -1,5 +1,5 @@
 import { workspace } from 'vscode';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 export const getRootPath = () => {
   const workspaceFolders = workspace.workspaceFolders;
