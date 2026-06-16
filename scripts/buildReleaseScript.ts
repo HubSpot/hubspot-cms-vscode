@@ -198,11 +198,11 @@ function buildHandler({
       logger.log(
         `\nOpening GitHub new release page. Remember to create a new release on Github.`
       );
-      await open(`${repositoryUrl}/releases/new`);
+      await open(`${repositoryUrl}/releases/new?tag=v${newVersion}`);
 
       logger.log('\nNext steps:');
       logger.log(
-        '  1. Upload the .vsix file to the VS Code Marketplace. If you need access, see: https://product.hubteam.com/docs/developer-platform/vscode-extension/publisher-access.html'
+        '  1. Upload the .vsix file to the VS Code Marketplace. If you need access, see: https://product.hubteam.com/docs/developer-platform/vscode-extension/release-access.html'
       );
       logger.log(
         `  2. Publish to Open VSX (for Cursor/Windsurf). Ensure the ovsx CLI is installed via npm install -g ovsx. Then run ovsx publish releases/hubl-${newVersion}.vsix -p YOUR_ACCESS_TOKEN `
