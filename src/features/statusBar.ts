@@ -14,7 +14,7 @@ import {
 let hsStatusBar: StatusBarItem;
 
 export const updateStatusBarItems = () => {
-  if(!hsStatusBar) {
+  if (!hsStatusBar) {
     return;
   }
 
