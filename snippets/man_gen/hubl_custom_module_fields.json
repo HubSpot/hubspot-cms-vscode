@@ -417,7 +417,7 @@
       "\"label\": \"${2:HubDB Row field}\",",
       "\"required\": false,",
       "\"locked\": false,",
-      "\"table_id\": ${3:null},",
+      "\"table_name_or_id\": ${3:null},",
       "\"type\": \"hubdbrow\",",
       "\"inline_help_text\": \"\",",
       "\"help_text\": \"\",",
