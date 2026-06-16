@@ -14,6 +14,10 @@ import {
 let hsStatusBar: StatusBarItem;
 
 export const updateStatusBarItems = () => {
+  if (!hsStatusBar) {
+    return;
+  }
+
   const config = getConfig();
   const defaultAccount = config && getConfigDefaultAccountIfExists();
 
