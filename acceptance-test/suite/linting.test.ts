@@ -15,12 +15,15 @@ suite('HubL linting', () => {
   });
 
   function wait(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   test('no HubL diagnostics produced for non-HubL files', async () => {
     const uri = vscode.Uri.joinPath(workspaceFolder.uri, '_lint_test.ts');
-    await vscode.workspace.fs.writeFile(uri, new TextEncoder().encode('const x = 1;'));
+    await vscode.workspace.fs.writeFile(
+      uri,
+      new TextEncoder().encode('const x = 1;')
+    );
     try {
       const doc = await vscode.workspace.openTextDocument(uri);
       await vscode.window.showTextDocument(doc);
@@ -41,8 +44,14 @@ suite('HubL linting', () => {
   });
 
   test('HubL diagnostic collection is cleared when switching from html-hubl to plaintext', async () => {
-    const uri = vscode.Uri.joinPath(workspaceFolder.uri, '_lint_switch_test.html-hubl');
-    await vscode.workspace.fs.writeFile(uri, new TextEncoder().encode('{{ content }}'));
+    const uri = vscode.Uri.joinPath(
+      workspaceFolder.uri,
+      '_lint_switch_test.html-hubl'
+    );
+    await vscode.workspace.fs.writeFile(
+      uri,
+      new TextEncoder().encode('{{ content }}')
+    );
     try {
       const doc = await vscode.workspace.openTextDocument(uri);
       await vscode.languages.setTextDocumentLanguage(doc, 'html-hubl');
@@ -56,7 +65,11 @@ suite('HubL linting', () => {
       await wait(LINTING_DEBOUNCE_MS);
 
       const diagnostics = vscode.languages.getDiagnostics(uri);
-      assert.strictEqual(diagnostics.length, 0, 'Diagnostics must be cleared for non-HubL language');
+      assert.strictEqual(
+        diagnostics.length,
+        0,
+        'Diagnostics must be cleared for non-HubL language'
+      );
     } finally {
       await vscode.commands.executeCommand('workbench.action.closeAllEditors');
       await vscode.workspace.fs.delete(uri);

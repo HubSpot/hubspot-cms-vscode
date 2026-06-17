@@ -15,7 +15,10 @@ suite('AccountsTreeDataProvider', () => {
     const wf = vscode.workspace.workspaceFolders?.[0];
     if (wf) {
       savedConfigPath = process.env.HUBSPOT_CONFIG_PATH;
-      process.env.HUBSPOT_CONFIG_PATH = path.join(wf.uri.fsPath, 'hubspot.config.yml');
+      process.env.HUBSPOT_CONFIG_PATH = path.join(
+        wf.uri.fsPath,
+        'hubspot.config.yml'
+      );
     }
     await vscode.extensions.getExtension('HubSpot.hubl')!.activate();
   });

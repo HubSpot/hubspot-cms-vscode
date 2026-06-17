@@ -25,7 +25,10 @@ suite('DocsTreeDataProvider', () => {
       const item = provider.getTreeItem(raw);
       assert.strictEqual(item.contextValue, 'url-link-tree-item');
       assert.ok(item.iconPath instanceof vscode.ThemeIcon);
-      assert.strictEqual((item.iconPath as vscode.ThemeIcon).id, 'link-external');
+      assert.strictEqual(
+        (item.iconPath as vscode.ThemeIcon).id,
+        'link-external'
+      );
     }
   });
 
@@ -37,6 +40,9 @@ suite('DocsTreeDataProvider', () => {
     };
     const item = provider.getTreeItem(feedbackRaw);
     assert.strictEqual(item.contextValue, 'command-tree-item');
-    assert.strictEqual(item.command?.command, 'hubspot.modals.openFeedbackPanel');
+    assert.strictEqual(
+      item.command?.command,
+      'hubspot.modals.openFeedbackPanel'
+    );
   });
 });
