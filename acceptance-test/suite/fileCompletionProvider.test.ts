@@ -14,7 +14,10 @@ suite('File completion provider (via VS Code pipeline)', () => {
     }
     workspaceFolder = wf;
     await vscode.extensions.getExtension(EXTENSION_ID)!.activate();
-    docUri = vscode.Uri.joinPath(workspaceFolder.uri, '_completion_test.html-hubl');
+    docUri = vscode.Uri.joinPath(
+      workspaceFolder.uri,
+      '_completion_test.html-hubl'
+    );
     // Pre-create the file so openTextDocument always has a valid on-disk URI
     await vscode.workspace.fs.writeFile(docUri, new TextEncoder().encode(''));
   });
@@ -37,7 +40,11 @@ suite('File completion provider (via VS Code pipeline)', () => {
     const doc = await vscode.workspace.openTextDocument(uri);
     await vscode.languages.setTextDocumentLanguage(doc, languageId);
     const edit = new vscode.WorkspaceEdit();
-    edit.replace(uri, doc.validateRange(new vscode.Range(0, 0, Infinity, Infinity)), content);
+    edit.replace(
+      uri,
+      doc.validateRange(new vscode.Range(0, 0, Infinity, Infinity)),
+      content
+    );
     await vscode.workspace.applyEdit(edit);
     await vscode.window.showTextDocument(doc);
   }
@@ -62,11 +69,13 @@ suite('File completion provider (via VS Code pipeline)', () => {
       triggerChar
     )) as vscode.CompletionList;
 
-    return list.items.filter(item => item.kind === vscode.CompletionItemKind.File);
+    return list.items.filter(
+      (item) => item.kind === vscode.CompletionItemKind.File
+    );
   }
 
   suite('trigger character registration', () => {
-    test("single quote triggers file completions", async () => {
+    test('single quote triggers file completions', async () => {
       const items = await getFileCompletions("{% include '", "'");
       assert.ok(
         items.length > 0,
@@ -116,9 +125,15 @@ suite('File completion provider (via VS Code pipeline)', () => {
   // This test would catch a regression where someone accidentally adds css-hubl.
   suite('language scope', () => {
     test('no file completions for css-hubl documents', async () => {
-      const cssUri = vscode.Uri.joinPath(workspaceFolder.uri, '_css_completion_test.css-hubl');
+      const cssUri = vscode.Uri.joinPath(
+        workspaceFolder.uri,
+        '_css_completion_test.css-hubl'
+      );
       try {
-        await vscode.workspace.fs.writeFile(cssUri, new TextEncoder().encode(''));
+        await vscode.workspace.fs.writeFile(
+          cssUri,
+          new TextEncoder().encode('')
+        );
         await setDocContent("{% include '", cssUri, 'css-hubl');
 
         const list = (await vscode.commands.executeCommand(
@@ -129,7 +144,7 @@ suite('File completion provider (via VS Code pipeline)', () => {
         )) as vscode.CompletionList;
 
         const fileItems = list.items.filter(
-          item => item.kind === vscode.CompletionItemKind.File
+          (item) => item.kind === vscode.CompletionItemKind.File
         );
         assert.strictEqual(
           fileItems.length,
@@ -147,15 +162,15 @@ suite('File completion provider (via VS Code pipeline)', () => {
   suite('completion item shape', () => {
     test('items reference actual files in the workspace', async () => {
       const items = await getFileCompletions("{% include '", "'");
-      const labels = items.map(item =>
+      const labels = items.map((item) =>
         typeof item.label === 'string' ? item.label : item.label.label
       );
       assert.ok(
-        labels.some(l => l.includes('module.html')),
+        labels.some((l) => l.includes('module.html')),
         `module.html not found in: ${labels.join(', ')}`
       );
       assert.ok(
-        labels.some(l => l.includes('partial.html')),
+        labels.some((l) => l.includes('partial.html')),
         `partial.html not found in: ${labels.join(', ')}`
       );
     });
@@ -164,8 +179,12 @@ suite('File completion provider (via VS Code pipeline)', () => {
       const items = await getFileCompletions("{% include '", "'");
       assert.ok(items.length > 0);
       for (const item of items) {
-        const label = typeof item.label === 'string' ? item.label : item.label.label;
-        assert.ok(label.startsWith('./'), `Expected relative path, got: "${label}"`);
+        const label =
+          typeof item.label === 'string' ? item.label : item.label.label;
+        assert.ok(
+          label.startsWith('./'),
+          `Expected relative path, got: "${label}"`
+        );
       }
     });
 
@@ -211,7 +230,7 @@ suite('File completion provider (via VS Code pipeline)', () => {
       )) as vscode.CompletionList;
 
       const fileItems = list.items.filter(
-        item => item.kind === vscode.CompletionItemKind.File
+        (item) => item.kind === vscode.CompletionItemKind.File
       );
       assert.ok(fileItems.length > 0);
       for (const item of fileItems) {
