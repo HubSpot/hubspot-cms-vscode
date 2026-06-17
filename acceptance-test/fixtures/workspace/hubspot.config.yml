@@ -1,2 +1,7 @@
-defaultAccount: ~
-accounts: []
+defaultAccount: test-portal
+accounts:
+  - name: test-portal
+    portalId: 99999
+    defaultMode: publish
+    authType: personalaccesskey
+    personalAccessKey: fake-key-for-testing
