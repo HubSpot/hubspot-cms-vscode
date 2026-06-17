@@ -78,11 +78,10 @@ describe('getUniquePathName', () => {
     expect(result).toBe('/some/path/folder.module');
   });
 
-  it('BUG: empty string path produces a bare ".module" path', () => {
-    // folderPath = '' → folderName = '' → hasExtension = false → newFolderPath = '.module'
+  it('returns just the extension for an empty string path', () => {
     vi.mocked(fs.existsSync).mockReturnValue(false);
     const result = getUniquePathName('', 'module');
-    expect(result).toBe('.module');
+    expect(result).toBe('module');
   });
 });
 

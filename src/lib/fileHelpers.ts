@@ -18,9 +18,12 @@ import * as fs from 'fs';
 export const getUniquePathName = (folderPath: string, extension: string) => {
   const folderName = folderPath.split(path.sep).pop() || '';
   const hasExtension = folderName.split('.').pop() === extension;
+  const basePath = folderPath.replace(/\.+$/, '');
   let newFolderPath = hasExtension
     ? folderPath
-    : `${folderPath.replace(/\.+$/, '')}.${extension}`;
+    : basePath
+      ? `${basePath}.${extension}`
+      : extension;
   let uniqueFolderPath = newFolderPath;
   if (!hasExtension) {
     let incrementor = 0;
