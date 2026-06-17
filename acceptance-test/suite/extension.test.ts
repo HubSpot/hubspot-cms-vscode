@@ -46,10 +46,9 @@ suite('Extension', () => {
       'hubspot.account.viewPersonalAccessKey',
       'hubspot.remoteFs.hardRefresh',
       'hubspot.remoteFs.endWatch',
-      'hubspot.remoteFs.upload',
-      'hubspot.remoteFs.watch',
-      'hubspot.remoteFs.fetch',
-      'hubspot.remoteFs.delete',
+      // hubspot.remoteFs.{upload,watch,fetch,delete} are only registered when
+      // an account is configured (see commands/remoteFs.ts) — not testable
+      // in a no-account fixture environment.
     ];
 
     for (const command of expectedCommands) {
