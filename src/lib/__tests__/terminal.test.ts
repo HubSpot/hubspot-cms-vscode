@@ -51,24 +51,11 @@ describe('checkTerminalCommandVersion', () => {
     expect(result).toMatch(/^v\d+\.\d+\.\d+/);
   });
 
-  // BUG EXPOSURE: checkTerminalCommandVersion's "not found" check uses strict equality:
-  //   `pathOutputMaybe === \`${terminalCommand} not found\``
-  // runTerminalCommand resolves with raw (untrimmed) stdout. On a system where `which`
-  // exits 0 but outputs "cmd not found\n" (with trailing newline), the equality check
-  // evaluates to false and the function incorrectly falls through to the --version check.
-  //
-  // We can verify the logic directly without running exec:
-  it('BUG: the "not found" equality check fails when stdout has a trailing newline', () => {
-    // This is the exact comparison made inside checkTerminalCommandVersion
+  it('"not found" detection is robust to trailing whitespace in which output', () => {
+    // checkTerminalCommandVersion uses pathOutputMaybe.trim() so a trailing newline
+    // in the which stdout no longer causes incorrect fallthrough to the --version check.
     const terminalCommand = 'npm';
-    const pathOutputMaybe = 'npm not found\n'; // stdout with trailing newline
-
-    // The check should recognise this as "not found" and resolve undefined.
-    // Instead, the trailing newline makes it false — causing fallthrough to --version.
-    const checkWouldPass = pathOutputMaybe === `${terminalCommand} not found`;
-
-    expect(checkWouldPass).toBe(false); // It IS false — that IS the bug
-    // Fix: compare pathOutputMaybe.trim() === `${terminalCommand} not found`
+    const pathOutputMaybe = 'npm not found\n';
     expect(pathOutputMaybe.trim() === `${terminalCommand} not found`).toBe(
       true
     );

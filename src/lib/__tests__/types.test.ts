@@ -40,13 +40,12 @@ describe('instanceOfLink', () => {
     expect(instanceOfLink({ link: 'https://example.com' })).toBe(false);
   });
 
-  it('BUG: throws TypeError for a primitive number (in operator on primitive)', () => {
-    // instanceOfLink uses `'url' in object` which throws when object is a primitive
-    expect(() => instanceOfLink(42)).toThrow(TypeError);
+  it('returns false for a primitive number', () => {
+    expect(instanceOfLink(42)).toBe(false);
   });
 
-  it('BUG: throws TypeError for a string (in operator on primitive)', () => {
-    expect(() => instanceOfLink('https://example.com')).toThrow(TypeError);
+  it('returns false for a string', () => {
+    expect(instanceOfLink('https://example.com')).toBe(false);
   });
 });
 
@@ -94,7 +93,7 @@ describe('instanceOfCommand', () => {
     expect(instanceOfCommand({ title: '', command: '' })).toBe(true);
   });
 
-  it('BUG: throws TypeError for a primitive string (in operator on primitive)', () => {
-    expect(() => instanceOfCommand('not an object')).toThrow(TypeError);
+  it('returns false for a primitive string', () => {
+    expect(instanceOfCommand('not an object')).toBe(false);
   });
 });

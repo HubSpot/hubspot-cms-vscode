@@ -8,11 +8,16 @@ export interface Link {
 }
 
 export function instanceOfLink(object: any): object is Link {
-  return 'url' in object;
+  return object !== null && typeof object === 'object' && 'url' in object;
 }
 
 export function instanceOfCommand(object: any): object is Command {
-  return 'title' in object && 'command' in object;
+  return (
+    object !== null &&
+    typeof object === 'object' &&
+    'title' in object &&
+    'command' in object
+  );
 }
 
 export interface FileLink {

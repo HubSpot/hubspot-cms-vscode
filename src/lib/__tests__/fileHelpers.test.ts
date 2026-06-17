@@ -72,13 +72,10 @@ describe('getUniquePathName', () => {
     expect(result).toBe('folder.module');
   });
 
-  it('BUG: path ending with a dot produces a double-dot path', () => {
-    // '/some/path/folder.' → folderName.split('.').pop() === '' !== 'module'
-    // → appends extension: '/some/path/folder..module' (double dot)
+  it('strips a trailing dot before appending the extension', () => {
     vi.mocked(fs.existsSync).mockReturnValue(false);
     const result = getUniquePathName('/some/path/folder.', 'module');
-    // The double-dot is unintended – this test documents the bug
-    expect(result).toBe('/some/path/folder..module');
+    expect(result).toBe('/some/path/folder.module');
   });
 
   it('BUG: empty string path produces a bare ".module" path', () => {
