@@ -69,6 +69,8 @@ describe('checkTerminalCommandVersion', () => {
 
     expect(checkWouldPass).toBe(false); // It IS false — that IS the bug
     // Fix: compare pathOutputMaybe.trim() === `${terminalCommand} not found`
-    expect(pathOutputMaybe.trim() === `${terminalCommand} not found`).toBe(true);
+    expect(pathOutputMaybe.trim() === `${terminalCommand} not found`).toBe(
+      true
+    );
   });
 });

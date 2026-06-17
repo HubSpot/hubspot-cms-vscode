@@ -47,7 +47,9 @@ describe('getUserIdentificationInformation', () => {
     });
 
     it('returns {} when config.allowUsageTracking is false', () => {
-      vi.mocked(getConfig).mockReturnValue({ allowUsageTracking: false } as any);
+      vi.mocked(getConfig).mockReturnValue({
+        allowUsageTracking: false,
+      } as any);
       vi.spyOn(workspace, 'getConfiguration').mockReturnValue({
         telemetry: { enableTelemetry: true },
       } as any);

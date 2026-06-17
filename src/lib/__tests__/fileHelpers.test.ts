@@ -101,9 +101,7 @@ describe('doesFileExist', () => {
   });
 
   it('returns false when workspace.fs.stat rejects with an Error', async () => {
-    vi.spyOn(workspace.fs, 'stat').mockRejectedValue(
-      new Error('FileNotFound')
-    );
+    vi.spyOn(workspace.fs, 'stat').mockRejectedValue(new Error('FileNotFound'));
     const uri = Uri.file('/nonexistent/file.html');
     expect(await doesFileExist(uri)).toBe(false);
   });

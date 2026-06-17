@@ -1,7 +1,11 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import dayjs from 'dayjs';
 import { workspace } from 'vscode';
-import { getRootPath, getDayJsHasDatePassed, getDayjsDateFromNow } from '../helpers';
+import {
+  getRootPath,
+  getDayJsHasDatePassed,
+  getDayjsDateFromNow,
+} from '../helpers';
 
 describe('getRootPath', () => {
   afterEach(() => {

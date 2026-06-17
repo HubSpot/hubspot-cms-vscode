@@ -37,7 +37,7 @@ export const portalNameInvalid = (
     return 'Portal name cannot contain spaces';
   }
   return config &&
-    'portals' in config &&
+    ('portals' in config || 'accounts' in config) &&
     (config.accounts || [])
       .map((p: HubSpotConfigAccount) => p.name)
       .find((name: string | undefined) => name === portalName)

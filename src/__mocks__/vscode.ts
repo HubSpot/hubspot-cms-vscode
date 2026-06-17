@@ -23,7 +23,8 @@ export const workspace = {
 
 export const window = {
   activeTextEditor: undefined as any,
-  showInformationMessage: (..._args: any[]) => Promise.resolve(undefined as any),
+  showInformationMessage: (..._args: any[]) =>
+    Promise.resolve(undefined as any),
   showWarningMessage: (..._args: any[]) => Promise.resolve(undefined as any),
   setStatusBarMessage: (_message: string) => ({ dispose: () => {} }),
   createStatusBarItem: (_alignment?: any) => ({

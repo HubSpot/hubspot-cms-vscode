@@ -156,18 +156,14 @@ describe('portalNameInvalid', () => {
       expect(portalNameInvalid('anyPortal', config)).toBe('');
     });
 
-    // BUG EXPOSURE: The code checks `'portals' in config` to enable duplicate detection,
-    // but then reads from `config.accounts`. New-format HubSpot configs have an `accounts`
-    // key but no `portals` key, so the duplicate check is silently skipped.
-    it('BUG: does not detect duplicate when config has accounts but no portals key', () => {
+    it('detects duplicate when config only has accounts key (new-format config)', () => {
       const config = {
         accounts: [{ name: 'existingPortal', accountId: 123 }],
         // No 'portals' key — this is a new-format HubSpot config
       } as any;
-      const result = portalNameInvalid('existingPortal', config);
-      // Should be: 'existingPortal already exists in config.'
-      // Actual:    '' — because `'portals' in config` is false, the check is bypassed
-      expect(result).toBe('existingPortal already exists in config.');
+      expect(portalNameInvalid('existingPortal', config)).toBe(
+        'existingPortal already exists in config.'
+      );
     });
   });
 });

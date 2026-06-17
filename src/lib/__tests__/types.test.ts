@@ -3,7 +3,9 @@ import { instanceOfLink, instanceOfCommand } from '../types';
 
 describe('instanceOfLink', () => {
   it('returns true when object has a url property', () => {
-    expect(instanceOfLink({ url: 'https://example.com', label: 'Example' })).toBe(true);
+    expect(
+      instanceOfLink({ url: 'https://example.com', label: 'Example' })
+    ).toBe(true);
   });
 
   it('returns true when url is the only property', () => {
@@ -50,9 +52,9 @@ describe('instanceOfLink', () => {
 
 describe('instanceOfCommand', () => {
   it('returns true for an object with both title and command properties', () => {
-    expect(
-      instanceOfCommand({ title: 'Run', command: 'runCommand' })
-    ).toBe(true);
+    expect(instanceOfCommand({ title: 'Run', command: 'runCommand' })).toBe(
+      true
+    );
   });
 
   it('returns true when additional properties are present', () => {

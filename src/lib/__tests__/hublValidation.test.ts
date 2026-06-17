@@ -8,9 +8,7 @@ vi.mock('@hubspot/local-dev-lib/config', () => ({
 }));
 
 vi.mock('@hubspot/local-dev-lib/api/validateHubl', () => ({
-  validateHubl: vi
-    .fn()
-    .mockResolvedValue({ data: { renderingErrors: [] } }),
+  validateHubl: vi.fn().mockResolvedValue({ data: { renderingErrors: [] } }),
 }));
 
 vi.mock('@hubspot/local-dev-lib/cms/templates', () => ({
@@ -27,7 +25,10 @@ vi.mock('@hubspot/local-dev-lib/cms/modules', () => ({
   isModuleHTMLFile: vi.fn().mockReturnValue(false),
 }));
 
-const makeDocument = (languageId: string, overrides: Record<string, any> = {}) => ({
+const makeDocument = (
+  languageId: string,
+  overrides: Record<string, any> = {}
+) => ({
   languageId,
   uri: { toString: () => `mock-uri:${languageId}` },
   getText: vi.fn().mockReturnValue(''),
