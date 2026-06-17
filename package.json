@@ -17,6 +17,7 @@
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
+        "test": "vitest run",
         "test-compile": "tsc -p ./",
         "release": "yarn tsx ./scripts/release.ts release",
         "prerelease:package": "mkdir -p releases && npx --yes @vscode/vsce package --pre-release -o releases/"
@@ -600,6 +601,7 @@
         "ts-node": "^10.9.1",
         "tsx": "^4.22.4",
         "typescript": "^5.6.2",
+        "vitest": "^4.1.9",
         "webpack": "^5.104.1",
         "webpack-cli": "^4.7.2",
         "webpack-node-externals": "^3.0.0",
