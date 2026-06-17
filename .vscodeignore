@@ -1,6 +1,8 @@
 # Directories
 .vscode/**
 .vscode-test/**
+out/**
+acceptance-test/**
 .claude/**
 .github/**
 .husky/**

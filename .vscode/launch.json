@@ -13,6 +13,20 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ]
+        },
+        {
+            "name": "Acceptance Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--extensionTestsPath=${workspaceFolder}/out/acceptance-test/suite/index"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/acceptance-test/**/*.js"
+            ],
+            "preLaunchTask": "npm: test"
         }
     ]
 }
