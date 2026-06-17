@@ -38,7 +38,7 @@ export const checkTerminalCommandVersion = async (
           ? `where ${terminalCommand}`
           : `which ${terminalCommand}`;
       const pathOutputMaybe = await runTerminalCommand(cmd);
-      if (pathOutputMaybe === `${terminalCommand} not found`) {
+      if (pathOutputMaybe.trim() === `${terminalCommand} not found`) {
         // Command is not installed/found
         resolve(undefined);
       } else {

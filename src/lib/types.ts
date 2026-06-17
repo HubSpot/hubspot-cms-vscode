@@ -7,12 +7,17 @@ export interface Link {
   url: string;
 }
 
-export function instanceOfLink(object: any): object is Link {
-  return 'url' in object;
+export function instanceOfLink(value: unknown): value is Link {
+  return value !== null && typeof value === 'object' && 'url' in value;
 }
 
-export function instanceOfCommand(object: any): object is Command {
-  return 'title' in object && 'command' in object;
+export function instanceOfCommand(value: unknown): value is Command {
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    'title' in value &&
+    'command' in value
+  );
 }
 
 export interface FileLink {
