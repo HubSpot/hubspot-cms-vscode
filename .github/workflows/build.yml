@@ -19,3 +19,6 @@ jobs:
       - name: Test
         run: |
           npm test
+      - name: Acceptance Tests
+        run: |
+          xvfb-run -a npm run acceptance-test

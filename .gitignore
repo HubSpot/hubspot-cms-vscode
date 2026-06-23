@@ -87,6 +87,9 @@ typings/
 .nuxt
 dist
 
+# VS Code extension TypeScript output (tsc)
+out/
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js

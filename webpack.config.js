@@ -49,6 +49,11 @@ const config = {
         use: [
           {
             loader: 'ts-loader',
+            options: {
+              // Only type-check files webpack actually bundles, not the full
+              // TypeScript project — keeps test files out of the webpack build.
+              onlyCompileBundledFiles: true,
+            },
           },
         ],
       },
