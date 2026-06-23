@@ -6,7 +6,6 @@
     "outDir": "../out/acceptance-test",
     "sourceMap": true,
     "strict": true,
-    "rootDir": ".",
     "skipLibCheck": true,
     "esModuleInterop": true
   },
