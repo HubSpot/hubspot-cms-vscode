@@ -580,7 +580,7 @@
         "semver": "^7.5.2"
     },
     "devDependencies": {
-        "@eslint/js": "^9.18.0",
+        "@eslint/js": "^10.0.1",
         "@inquirer/prompts": "^7.8.6",
         "@types/debounce": "^1.2.1",
         "@types/findup-sync": "^4.0.2",
@@ -593,7 +593,7 @@
         "@vscode/test-cli": "^0.0.15",
         "@vscode/test-electron": "^2.5.2",
         "chalk": "4.1.2",
-        "eslint": "^9.18.0",
+        "eslint": "^10.8.0",
         "globals": "^16.0.0",
         "husky": "^7.0.4",
         "js-yaml": "^4.3.0",
