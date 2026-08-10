@@ -596,7 +596,7 @@
         "eslint": "^10.8.0",
         "globals": "^16.0.0",
         "husky": "^7.0.4",
-        "js-yaml": "^4.3.0",
+        "js-yaml": "^4.3.1",
         "node-fetch": "^2.6.9",
         "node-loader": "^2.0.0",
         "open": "^10.2.0",
