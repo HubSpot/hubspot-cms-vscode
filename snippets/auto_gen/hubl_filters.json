@@ -461,6 +461,13 @@
     "description": "",
     "prefix": "|random"
   },
+  "regex_match": {
+    "body": [
+      "|regex_match('${1:regex}')"
+    ],
+    "description": "Returns true if the value matches the given regular expression (Java RE2 syntax), false otherwise. Uses partial matching (the pattern can match anywhere in the string). Anchor with ^...$ for full-string matching.\nParameters:\n- regex(String) The regular expression to match against the string",
+    "prefix": "|regex_match"
+  },
   "regex_replace": {
     "body": [
       "|regex_replace('${1:regex}', '${2:new}')"
