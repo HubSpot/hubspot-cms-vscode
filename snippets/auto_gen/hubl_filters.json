@@ -62,6 +62,13 @@
     "description": "Convert value into a boolean.",
     "prefix": "|bool"
   },
+  "cap_combining": {
+    "body": [
+      "|cap_combining(${1:max_marks})"
+    ],
+    "description": "Limits the number of stacked Unicode combining marks in a string to prevent \"Zalgo\" text from overflowing the layout. The input is first NFC-normalized so that decomposed characters (e.g. Vietnamese ệ written as e + U+0323 + U+0302) become precomposed where possible. Then, for each base character, at most N combining marks (Unicode categories Mn, Mc and Me) are kept and any excess marks are dropped. Zero-width format characters such as ZWJ do not start a new base character, so they cannot be used to bypass the limit. Non-string values are returned unchanged.\nParameters:\n- max_marks(number) Maximum number of combining marks to keep per base character. Negative values are treated as 0, which removes every combining mark that could not be composed into its base character.",
+    "prefix": "|cap_combining"
+  },
   "capitalize": {
     "body": [
       "|capitalize"
@@ -460,6 +467,13 @@
     ],
     "description": "",
     "prefix": "|random"
+  },
+  "regex_match": {
+    "body": [
+      "|regex_match('${1:regex}')"
+    ],
+    "description": "Returns true if the value matches the given regular expression (Java RE2 syntax), false otherwise. Uses partial matching (the pattern can match anywhere in the string). Anchor with ^...$ for full-string matching.\nParameters:\n- regex(String) The regular expression to match against the string",
+    "prefix": "|regex_match"
   },
   "regex_replace": {
     "body": [
