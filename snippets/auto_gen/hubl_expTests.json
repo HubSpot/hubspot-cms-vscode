@@ -223,6 +223,13 @@
     "description": "Return true if variable is pointing at same object as other variable\nParameters:\n- other(object) A second object to check the variables value against",
     "prefix": "sameas"
   },
+  "search": {
+    "body": [
+      "search"
+    ],
+    "description": "Return true if object is a string which matches a specified regular expression (Java RE2 syntax). Uses partial matching (the pattern can match anywhere in the string). Anchor with ^...$ for full-string matching.\nParameters:\n- regex(string) The regular expression to match against the string",
+    "prefix": "search"
+  },
   "sequence": {
     "body": [
       "sequence"
