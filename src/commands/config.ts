@@ -141,27 +141,24 @@ export const registerCommands = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand(
       COMMANDS.CONFIG.DELETE_ACCOUNT,
-      async (accountToDelete) => {
-        const accountIdentifier = accountToDelete.name;
+      async ({ accountId, name }: HubSpotConfigAccount) => {
+        const accountLabel = name || accountId;
+        const answer = await window.showInformationMessage(
+          `Are you sure that you want to delete ${accountLabel} from the config?`,
+          'Yes',
+          'No'
+        );
 
-        await window
-          .showInformationMessage(
-            `Are you sure that you want to delete ${accountIdentifier} from the config?`,
-            'Yes',
-            'No'
-          )
-          .then(async (answer) => {
-            if (answer === 'Yes') {
-              removeAccountFromConfig(accountIdentifier);
-              showAutoDismissedStatusBarMessage(
-                `Successfully deleted account ${accountIdentifier}.`
-              );
-              trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
-              commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
-              commands.executeCommand(EVENTS.ACCOUNT.REFRESH);
-              updateStatusBarItems();
-            }
-          });
+        if (answer !== 'Yes') return;
+
+        removeAccountFromConfig(accountId);
+        showAutoDismissedStatusBarMessage(
+          `Successfully deleted account ${accountLabel}.`
+        );
+        trackEvent(TRACKED_EVENTS.DELETE_ACCOUNT);
+        commands.executeCommand(COMMANDS.REMOTE_FS.HARD_REFRESH);
+        commands.executeCommand(EVENTS.ACCOUNT.REFRESH);
+        updateStatusBarItems();
       }
     )
   );
